@@ -99,6 +99,15 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .btn{min-height:46px;padding:0 20px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-weight:550;transition:all var(--t)}
 .btn.pri{background:var(--acc);border-color:var(--acc);color:var(--on)}.btn.danger{color:var(--danger)}.btn.sm{min-height:44px;padding:0 14px}
 .row{display:flex;gap:10px;margin-top:20px}.row .btn{flex:1}
+.shh{position:sticky;top:0;z-index:5;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin:0 -20px 6px;padding:4px 12px;background:var(--bg);box-shadow:0 -10px 0 var(--bg)}
+.shh h3{margin:0;font-size:17px;text-align:center;padding:0 6px}
+.shh .tb{min-height:44px;padding:0 8px;color:var(--mut);font-size:16px;background:none;border:0;justify-self:start}
+.shh .tb.ok{justify-self:end;color:var(--acc-d);font-weight:650}
+.qty{display:flex;gap:8px;align-items:center}.qty .qb{flex:none;width:46px;height:46px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:22px;line-height:1}
+.qty input{text-align:center;flex:1;min-width:0}
+.dups{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:8px 0 4px}
+.dcol{display:flex;flex-direction:column;gap:8px;margin-top:16px}.dcol .btn{width:100%}
+.dr{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.dr .t{flex:1;min-width:0}.dr small{display:block;color:var(--mut)}
 .item{display:flex;align-items:center;gap:8px;min-height:52px;border-bottom:1px solid var(--line)}
 .item:last-child{border:0}.item .n{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.item input[type=color]{width:36px;height:36px;border:0;padding:0;background:none;border-radius:50%}
 .item .in2{flex:1;min-width:0;height:40px;border:0;background:none;outline:0}
@@ -212,7 +221,7 @@ function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${esc(msg)}</spa
 /* ---------- Hinzufügen ---------- */
 function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],react:[],skipped:0};const created=[],react=[];let skipped=0;
  for(const p of list){const name=p.name.trim();if(!name)continue;const key=name.toLowerCase();const lk=lookup(key);
-  const same=S.items.find(i=>i.list_id===lid&&i.name.toLowerCase()===key);
+  const same=S.items.find(i=>i.list_id===lid&&i.name.toLowerCase()===key&&(!p.force||i.done));
   const stores=p.exact?[...(storeIds||[])]:[...new Set([...(storeIds||[]),...(S.filter&&!(storeIds||[]).length?[S.filter]:[]),...(lk?.store_ids||[]).filter(id=>S.stores.some(s=>s.id===id))])];
   if(same&&!same.done){skipped++;continue}
   const category=p.category||same?.category||lk?.category||'Sonstiges',canon=lk?.name||name;
@@ -222,10 +231,40 @@ function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],rea
   putCatalog(canon,category,stores,true)}
  scheduleRender();return{created,react,skipped}}
 function addFromText(text){const u=parseUtterance(text);if(!u.items.length)return;addItems(u.items,u.stores)}
-function addItems(items,stores){const r=addMany(items,stores),n=r.created.length+r.react.length;
+function commit(list,stores){const r=addMany(list,stores),n=r.created.length+r.react.length;
  if(!n){toast(r.skipped?'Schon auf der Liste':'Nichts hinzugefügt');return}
- toast(`${n} hinzugefügt`+(stores?.length?` · ${stores.map(id=>S.stores.find(s=>s.id===id)?.name).join(', ')}`:''),()=>{
+ toast((n===1&&list.length===1?`«${list[0].name.trim()}» hinzugefügt`:`${n} hinzugefügt`)+(stores?.length?` · ${stores.map(id=>S.stores.find(s=>s.id===id)?.name).join(', ')}`:''),()=>{
   r.created.forEach(id=>delItem(id));r.react.forEach(id=>upItem(id,{done:true,done_at:now()}))})}
+async function addItems(items,stores){const clean=[],dups=[];
+ for(const p of items){const nm=(p.name||'').trim();if(!nm)continue;const m=findSimilar(nm);(m.length?dups:clean).push(m.length?{p,m}:p)}
+ if(clean.length)commit(clean,stores);
+ if(!dups.length)return;
+ const r=await askDups(dups,items.length===1);
+ if(r.edit)openDetail(r.edit,dups[0].p.spec||undefined);
+ else if(r.add.length)commit(r.add.map(p=>({...p,force:true})),stores)}
+/* ---------- Ähnlichkeit ---------- */
+const dn=s=>s.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]/g,'');
+const stem=a=>{const m=a.match(/(er|en|e|n|s)$/);if(!m)return a;const r=a.length-m[1].length;return r>=3||(r===2&&m[1]==='er')?a.slice(0,r):a};
+function dlDist(a,b){const n=a.length,m=b.length,d=[];for(let i=0;i<=n;i++){d[i]=[i];for(let j=1;j<=m;j++)d[i][j]=i?0:j}
+ for(let i=1;i<=n;i++)for(let j=1;j<=m;j++){const c=a[i-1]===b[j-1]?0:1;d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}return d[n][m]}
+function similarName(x,y){const kx=dn(x),ky=dn(y);if(!kx||!ky)return false;
+ for(const a of[kx,kx.replace(/h/g,'')])for(const b of[ky,ky.replace(/h/g,'')]){if(!a||!b)continue;if(a===b)return true;
+  const sa=stem(a),sb=stem(b);if(sa===sb)return true;
+  {const L=Math.max(a.length,b.length);if(L>=5&&dlDist(a,b)<=(L<=6?1:2))return true;}
+  for(const[u,v]of[[a,b],[sa,sb]]){const sh=u.length<=v.length?u:v,lo=sh===u?v:u;if(sh.length>=4&&lo.includes(sh))return true}}
+ return false}
+const findSimilar=name=>S.items.filter(i=>i.list_id===S.listId&&!i.done&&similarName(name,i.name));
+const dupTile=i=>`<div class="tile" data-id="${i.id}" role="button" tabindex="0">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(i.spec)}</span>`:''}${badges(i)}</div>`;
+function askDups(entries,single){return new Promise(res=>{let done=false;const out={add:[],edit:null};const fin=()=>{if(done)return;done=true;res(out)};
+ if(single){const{p,m}=entries[0];
+  const b=sheet(`<div class="shh"><span></span><h3>Ähnlich schon auf der Liste</h3><span></span></div><div class="lbl">Neu: ${esc(p.name)}${p.spec?' · '+esc(p.spec):''}</div><div class="dups">${m.map(dupTile).join('')}</div><div class="dcol"><button type="button" class="btn pri" id="dy">Trotzdem hinzufügen</button><button type="button" class="btn" id="de">Bestehenden anpassen</button><button type="button" class="btn" id="dx">Abbrechen</button></div>`,{top:true,onClose:fin});
+  const pick=f=>{f();fin();closeSheet()};
+  $('#dy',b).onclick=()=>pick(()=>out.add=[p]);$('#de',b).onclick=()=>pick(()=>out.edit=m[0].id);$('#dx',b).onclick=()=>pick(()=>{});
+  b.addEventListener('click',e=>{const t=e.target.closest('.tile[data-id]');if(t)pick(()=>out.edit=t.dataset.id)});return}
+ const on=new Set();
+ const b=sheet(`<div class="shh"><button type="button" class="tb" id="ax">Abbrechen</button><h3>Ähnlich schon auf der Liste</h3><button type="button" class="tb ok" id="ao">Fertig</button></div>${entries.map((e,i)=>`<div class="dr"><div class="t"><b>${esc(e.p.name)}</b>${e.p.spec?' · '+esc(e.p.spec):''}<small>Bereits: ${e.m.map(x=>esc(x.name)+(x.spec?' ('+esc(x.spec)+')':'')).join(', ')}</small></div><button type="button" class="chip" data-t="${i}" aria-pressed="false">hinzufügen</button></div>`).join('')}`,{top:true,onClose:fin});
+ b.addEventListener('click',e=>{const c=e.target.closest('[data-t]');if(!c)return;const i=+c.dataset.t;on.has(i)?on.delete(i):on.add(i);c.classList.toggle('on',on.has(i));c.setAttribute('aria-pressed',on.has(i))});
+ $('#ax',b).onclick=()=>closeSheet();$('#ao',b).onclick=()=>{out.add=entries.filter((e,i)=>on.has(i)).map(e=>e.p);fin();closeSheet()}})}
 function delItem(id){const i=S.items.findIndex(x=>x.id===id);if(i<0)return;S.items.splice(i,1);enqueue({t:'items',o:'delete',id});scheduleRender()}
 
 /* ---------- Laden / Realtime ---------- */
@@ -356,6 +395,20 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&S.sheets.length)closeSheet()
 function askText(title,val='',ok='OK'){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><input id="aq" value="${esc(val)}" maxlength="60"><div class="row"><button class="btn" id="ax">Abbrechen</button><button class="btn pri" id="ao">${ok}</button></div>`,{top:true,onClose:()=>{if(!done)res(null)}});
  const i=$('#aq',b);setTimeout(()=>{i.focus();i.select()},250);const go=()=>{done=true;res(i.value.trim()||null);closeSheet()};$('#ao',b).onclick=go;$('#ax',b).onclick=()=>closeSheet();i.onkeydown=e=>{if(e.key==='Enter')go()}})}
 function askConfirm(title,ok='Löschen'){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><div class="row"><button class="btn" id="ax">Abbrechen</button><button class="btn pri" id="ao">${ok}</button></div>`,{top:true,onClose:()=>{if(!done)res(false)}});$('#ao',b).onclick=()=>{done=true;res(true);closeSheet()};$('#ax',b).onclick=()=>closeSheet()})}
+const shHead=(title,ok)=>`<div class="shh"><button type="button" class="tb" id="ax">Abbrechen</button><h3>${esc(title)}</h3><button type="button" class="tb ok" id="ao">${esc(ok)}</button></div>`;
+const QU=['Stk','g','kg','ml','l','Pack'],QSTEP={Stk:1,Pack:1,g:100,ml:100,kg:.5,l:.5},QMAP={stk:'Stk','stück':'Stk',x:'Stk','×':'Stk',pkg:'Pack',pack:'Pack',packung:'Pack',packungen:'Pack',g:'g',gramm:'g',kg:'kg',kilo:'kg',ml:'ml',l:'l',liter:'l'};
+function parseQty(spec){spec=(spec||'').trim();if(!spec)return{n:'',u:'Stk',d:''};
+ const m=spec.match(new RegExp('^(\\d+(?:[.,]\\d+)?)\\s*(?:('+UN+')(?=\\s|$))?\\s*(.*)$','i'));
+ if(m&&(m[2]||!m[3]||/^\s/.test(spec.slice(m[1].length)))){const u=QMAP[(m[2]||'stk').toLowerCase().replace(/\.$/,'')];if(u)return{n:m[1].replace('.',','),u,d:m[3].trim()}}
+ return{n:'',u:'Stk',d:spec}}
+function qtyHTML(p,spec){const q=parseQty(spec);
+ return`<label for="${p}n">Menge</label><div class="qty" id="${p}q" data-u="${q.u}"><button type="button" class="qb" data-d="-1" aria-label="Weniger">−</button><input id="${p}n" inputmode="decimal" autocomplete="off" placeholder="–" value="${esc(q.n)}" maxlength="8" enterkeyhint="done"><button type="button" class="qb" data-d="1" aria-label="Mehr">+</button></div><div class="chips qc" id="${p}u">${QU.map(u=>`<button type="button" class="chip${u===q.u?' on':''}" data-u="${u}">${u}</button>`).join('')}</div><label for="${p}d">Details</label><input id="${p}d" value="${esc(q.d)}" placeholder="z. B. Bio, ungesalzen" maxlength="40" enterkeyhint="done">`}
+function qtyInit(b,p){const q=$('#'+p+'q',b),n=$('#'+p+'n',b),us=$('#'+p+'u',b);
+ n.addEventListener('input',()=>{const v=n.value.replace(/[^\d.,]/g,'');if(v!==n.value)n.value=v});
+ q.addEventListener('click',e=>{const bt=e.target.closest('[data-d]');if(!bt)return;const v=parseFloat(n.value.replace(',','.')),nv=Math.max(0,(isNaN(v)?0:v)+(+bt.dataset.d)*QSTEP[q.dataset.u]);n.value=nv?String(Math.round(nv*100)/100).replace('.',','):''});
+ us.addEventListener('click',e=>{const c=e.target.closest('[data-u]');if(!c)return;q.dataset.u=c.dataset.u;$$('.chip',us).forEach(x=>x.classList.toggle('on',x===c))})}
+function qtySpec(b,p){const nv=$('#'+p+'n',b).value.trim().replace('.',','),d=$('#'+p+'d',b).value.trim(),q=nv&&!isNaN(parseFloat(nv.replace(',','.')))?nv+' '+$('#'+p+'q',b).dataset.u:'';return[q,d].filter(Boolean).join(' ')||null}
+const submitKey=(b,go)=>b.addEventListener('keydown',e=>{const t=e.target;if(e.key==='Enter'&&t.tagName==='INPUT'&&!t.classList.contains('sq')){e.preventDefault();go()}});
 const storeChip=(s,on)=>`<button class="chip${on?' on':''}" data-st="${s.id}"><span class="d" style="background:${on?'currentColor':esc(s.color)}"></span>${esc(s.name)}</button>`;
 function storePicker(host,sel,{top=0}={}){const u={};if(top){for(const i of S.items)for(const id of i.store_ids||[])u[id]=(u[id]||0)+1;for(const r of Object.values(S.cat))for(const id of r.store_ids||[])u[id]=(u[id]||0)+1}
  const hot=[...S.stores].filter(s=>u[s.id]).sort((a,b)=>u[b.id]-u[a.id]).slice(0,top).map(s=>s.id);
@@ -367,31 +420,30 @@ function storePicker(host,sel,{top=0}={}){const u={};if(top){for(const i of S.it
   box.innerHTML=a.map(s=>storeChip(s,sel.has(s.id))).join('')||'<span class="hint">Kein Geschäft gefunden</span>'};
  box.onclick=e=>{const c=e.target.closest('[data-st]');if(!c)return;sel.has(c.dataset.st)?sel.delete(c.dataset.st):sel.add(c.dataset.st);draw()};
  if(q){q.oninput=draw;q.onkeydown=e=>{if(e.key==='Enter')e.preventDefault()}}draw()}
-function openDetail(id){const it=S.items.find(i=>i.id===id);if(!it)return;const sel=new Set(it.store_ids||[]);
+function openDetail(id,newSpec){const it=S.items.find(i=>i.id===id);if(!it)return;const sel=new Set(it.store_ids||[]);
  const cats=[...new Set([...CATS,it.category])];
- const b=sheet(`<h3>Artikel bearbeiten</h3><label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80"><label for="ds">Menge / Details</label><input id="ds" value="${esc(it.spec||'')}" placeholder="z. B. 2 l" maxlength="40"><label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===it.category?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="dst"></div><div class="row"><button class="btn danger" id="dd">Löschen</button><button class="btn pri" id="dok">Fertig</button></div>`); 
- storePicker($('#dst',b),sel);
+ const b=sheet(`${shHead('Artikel bearbeiten','Speichern')}<label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80">${qtyHTML('dq',newSpec!==undefined?newSpec:it.spec)}<label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===it.category?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="dst"></div><button type="button" class="btn danger" id="dd" style="width:100%;margin-top:20px">Löschen</button>`);
+ storePicker($('#dst',b),sel);qtyInit(b,'dq');
  $('#dd',b).onclick=()=>{delItem(id);closeSheet();toast('Gelöscht')};
- $('#dok',b).onclick=()=>{const name=$('#dn',b).value.trim()||it.name,spec=$('#ds',b).value.trim()||null,category=$('#dc',b).value,store_ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id);
-  upItem(id,{name,spec,category,store_ids});putCatalog(name,category,store_ids,false);closeSheet()}}
+ $('#ax',b).onclick=()=>closeSheet();
+ const go=()=>{const name=$('#dn',b).value.trim()||it.name,spec=qtySpec(b,'dq'),category=$('#dc',b).value,store_ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id);
+  upItem(id,{name,spec,category,store_ids});putCatalog(name,category,store_ids,false);closeSheet()};
+ $('#ao',b).onclick=go;submitKey(b,go)}
 function openAdd(p){const key=p.name.toLowerCase().trim(),lk=lookup(key),valid=id=>S.stores.some(s=>s.id===id);
  const sel=new Set((p.stores||[]).filter(valid));if(!sel.size)(lk?.store_ids||[]).filter(valid).forEach(id=>sel.add(id));if(!sel.size&&S.filter)sel.add(S.filter);
  const cat0=lk?.category||'Sonstiges',cats=[...new Set([...CATS,cat0])];let touched=false,spec0=p.spec||'';
- const b=sheet(`<h3>Artikel hinzufügen</h3><div class="ap"><div class="ape" id="ape"></div></div><label for="an">Artikel</label><input id="an" value="${esc(p.name)}" maxlength="80" autocapitalize="sentences"><label for="as">Menge / Details</label><input id="as" value="${esc(spec0)}" placeholder="z. B. 2 l" maxlength="40" enterkeyhint="done"><div class="chips qc" id="aq">${['1','2','3','500 g','1 kg','1 l','6er'].map(q=>`<button type="button" class="chip${q===spec0?' on':''}" data-q="${q}">${q}</button>`).join('')}</div><label for="ac">Kategorie</label><select id="ac">${cats.map(c=>`<option${c===cat0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="ast"></div><div class="row"><button class="btn" id="ax" type="button">Abbrechen</button><button class="btn pri" id="ao" type="button">Hinzufügen</button></div>`);
- const an=$('#an',b),as=$('#as',b),ac=$('#ac',b);
+ const b=sheet(`${shHead('Artikel hinzufügen','Hinzufügen')}<div class="ap"><div class="ape" id="ape"></div></div><label for="an">Artikel</label><input id="an" value="${esc(p.name)}" maxlength="80" autocapitalize="sentences">${qtyHTML('aq',spec0)}<label for="ac">Kategorie</label><select id="ac">${cats.map(c=>`<option${c===cat0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="ast"></div>`);
+ const an=$('#an',b),as=$('#aqn',b),ac=$('#ac',b);qtyInit(b,'aq');
  const prev=()=>{const n=an.value.trim(),e=n&&emojiFor(n),h=e||(CAT_EM[ac.value]||'🛒');$('#ape',b).innerHTML=e||!n?h:`<b class="ltr">${esc(n.charAt(0).toUpperCase())}</b>`;if(!e&&n&&CAT_EM[ac.value])$('#ape',b).textContent=CAT_EM[ac.value]};
- const mark=()=>$$('#aq .chip',b).forEach(c=>c.classList.toggle('on',c.dataset.q===as.value.trim()));
- prev();storePicker($('#ast',b),sel,{top:6});
+  prev();storePicker($('#ast',b),sel,{top:6});
  an.oninput=()=>{const l=lookup(an.value.toLowerCase().trim());if(l&&!touched&&cats.includes(l.category))ac.value=l.category;prev()};
- ac.onchange=()=>{touched=true;prev()};as.oninput=mark;
- $('#aq',b).onclick=e=>{const c=e.target.closest('[data-q]');if(!c)return;as.value=as.value.trim()===c.dataset.q?'':c.dataset.q;mark();as.focus({preventScroll:true})};
+ ac.onchange=()=>{touched=true;prev()};
  let fired=false;const go=()=>{if(fired)return;const name=an.value.trim();if(!name){an.focus();return}fired=true;
-  const spec=as.value.trim()||null,ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id);closeSheet();
-  const r=addMany([{name,spec,category:ac.value,exact:true}],ids);
-  if(!r.created.length&&!r.react.length){toast(r.skipped?'Schon auf der Liste':'Nichts hinzugefügt');return}
-  toast(`«${name}» hinzugefügt`,()=>{r.created.forEach(id=>delItem(id));r.react.forEach(id=>upItem(id,{done:true,done_at:now()}))})};
+  const spec=qtySpec(b,'aq'),ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id),pp={name,spec,category:ac.value,exact:true},m=findSimilar(name);
+  if(m.length){askDups([{p:pp,m}],true).then(r=>{if(r.edit){closeSheet();openDetail(r.edit,spec||undefined)}else if(r.add.length){closeSheet();commit([{...pp,force:true}],ids)}else fired=false});return}
+  closeSheet();commit([pp],ids)};
  $('#ao',b).onclick=go;$('#ax',b).onclick=()=>closeSheet();
- b.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.target===an||e.target===as)){e.preventDefault();go()}});
+ submitKey(b,go);
  (p.name?as:an).focus({preventScroll:true})}
 function openLists(){const b=sheet('');const draw=()=>{b.innerHTML=`<h3>Listen</h3>${S.lists.map(l=>`<div class="item${l.id===S.listId?' sel':''}"><button class="n" data-sel="${l.id}" style="min-height:44px;text-align:left">${esc(l.name)}${l.id===S.listId?' ✓':''}</button><button class="ib" data-ren="${l.id}" aria-label="Umbenennen">✎</button><button class="ib" data-del="${l.id}" aria-label="Löschen">✕</button></div>`).join('')}<div class="row"><button class="btn pri" id="ln">Neue Liste</button></div>`};draw();
  b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;
