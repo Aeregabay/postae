@@ -60,8 +60,10 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .tile .ltr{width:38px;height:38px;border-radius:12px;background:var(--acc-s);color:var(--acc-d);display:grid;place-items:center;font-size:18px}
 .tile .nm{font-size:14px;font-weight:550;line-height:1.2;word-break:break-word;hyphens:auto}
 .tile .sp{font-size:12px;color:var(--mut);flex:none}
-.tile .dots{position:absolute;left:0;right:0;bottom:6px;display:flex;justify-content:center;gap:3px}
-.tile .dots i{width:6px;height:6px;border-radius:50%}
+.tile .bd{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:auto;padding-top:6px;max-width:100%}
+.bg{display:inline-flex;align-items:center;gap:4px;max-width:100%;height:18px;padding:0 7px 0 5px;border-radius:999px;font-size:10.5px;font-weight:600;line-height:1;white-space:nowrap;color:var(--fg)}
+.bg::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--c)}
+.bg.more{padding:0 6px;color:var(--mut);background:var(--line)}.bg.more::before{display:none}
 .tile .ed{position:absolute;top:0;right:0;width:36px;height:36px;display:grid;place-items:center;color:var(--mut);opacity:.55;font-size:14px}
 .tile.done{opacity:.5;box-shadow:none;border:1px dashed var(--line);background:transparent}
 .tile.out{transform:scale(.7);opacity:0}.tile.pop{animation:pop .24s ease-out}
@@ -72,14 +74,20 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .list .grid{grid-template-columns:1fr;gap:8px}
 .list .tile{flex-direction:row;justify-content:flex-start;min-height:58px;padding:8px 44px 8px 14px;gap:14px;text-align:left}
 .list .tile .em,.list .tile .ltr{height:auto;width:36px;font-size:26px}.list .tile .ltr{font-size:16px;height:36px}
-.list .tile .nm{flex:1}.list .tile .dots{position:static;order:5}
+.list .tile .nm{flex:1}.list .tile .bd{order:5;margin:0;padding:0;flex:none;max-width:48%;justify-content:flex-end}
 .empty{text-align:center;color:var(--mut);padding:44px 12px}.empty .big{font-size:44px}
 .ov{position:fixed;inset:0;z-index:100;background:rgba(10,15,12,0);display:flex;align-items:flex-end;justify-content:center;transition:background var(--t)}
 .ov.open{background:rgba(10,15,12,.38)}.ov.top{z-index:110}
 .sh{width:100%;max-width:560px;max-height:90dvh;overflow:auto;background:var(--bg);border-radius:24px 24px 0 0;padding:8px 20px calc(20px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .22s cubic-bezier(.2,.8,.2,1)}
 .ov.open .sh{transform:none}
 @media(min-width:620px){.ov{align-items:center}.sh{border-radius:24px;padding-bottom:20px}}
-.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:4px auto 12px}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:4px auto 12px;background-clip:content-box;padding:10px 24px;box-sizing:content-box;touch-action:none;margin:-6px auto 2px;height:4px}
+.sh h3{touch-action:none}
+.ov.kb{padding-bottom:var(--kb,0px);align-items:flex-end}.ov.kb .sh{max-height:calc(var(--vh,100dvh) - 12px);padding-bottom:16px}
+.sq{margin:2px 0 6px}.sc{max-height:152px;overflow-y:auto!important;align-content:flex-start}.sc .chip,.qc .chip{min-height:38px;padding:0 13px;font-size:14px}
+.qc{margin-top:6px}.qc .chip.on{background:var(--acc-s);color:var(--acc-d);border-color:var(--acc)}
+.ap{display:grid;place-items:center;height:84px;margin:2px 0 6px}.ap .ape{font-size:60px;line-height:1;transition:transform .18s}.ap .ape.b{transform:scale(1.12)}
+.ap .ltr{width:68px;height:68px;border-radius:22px;background:var(--acc-s);color:var(--acc-d);display:grid;place-items:center;font-size:30px}
 .sh h3{margin:4px 0 14px;font-size:20px;letter-spacing:-.01em}.sh h4{margin:22px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}
 .sh label,.lbl{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
 .in,.sh input:not([type=color]),.sh select{width:100%;height:46px;border-radius:12px;border:1px solid var(--line);background:var(--card);padding:0 12px;outline:0;color:var(--fg)}
@@ -202,15 +210,16 @@ function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${esc(msg)}</spa
 function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],react:[],skipped:0};const created=[],react=[];let skipped=0;
  for(const p of list){const name=p.name.trim();if(!name)continue;const key=name.toLowerCase();const lk=lookup(key);
   const same=S.items.find(i=>i.list_id===lid&&i.name.toLowerCase()===key);
-  const stores=[...new Set([...(storeIds||[]),...(S.filter&&!(storeIds||[]).length?[S.filter]:[]),...(lk?.store_ids||[]).filter(id=>S.stores.some(s=>s.id===id))])];
+  const stores=p.exact?[...(storeIds||[])]:[...new Set([...(storeIds||[]),...(S.filter&&!(storeIds||[]).length?[S.filter]:[]),...(lk?.store_ids||[]).filter(id=>S.stores.some(s=>s.id===id))])];
   if(same&&!same.done){skipped++;continue}
-  const category=same?.category||lk?.category||'Sonstiges',canon=lk?.name||name;
-  if(same){upItem(same.id,{done:false,done_at:null,sort:nextSort(lid),spec:p.spec||same.spec,store_ids:storeIds?.length?stores:same.store_ids});react.push(same.id);S.pop.add(same.id)}
+  const category=p.category||same?.category||lk?.category||'Sonstiges',canon=lk?.name||name;
+  if(same){upItem(same.id,{done:false,done_at:null,sort:nextSort(lid),spec:p.spec||same.spec,store_ids:storeIds?.length||p.exact?stores:same.store_ids});react.push(same.id);S.pop.add(same.id)}
   else{const it={id:uid(),list_id:lid,name:canon,spec:p.spec||null,category,store_ids:stores,done:false,done_at:null,sort:nextSort(lid)+created.length*0,created_by:S.user?.email,created_at:now(),updated_at:now()};
    S.items.push(it);const{created_by,...ins}=it;enqueue({t:'items',o:'insert',d:ins});created.push(it.id);S.pop.add(it.id)}
   putCatalog(canon,category,stores,true)}
  scheduleRender();return{created,react,skipped}}
-function addFromText(text,{voice}={}){const u=parseUtterance(text);if(!u.items.length)return;
+function addFromText(text,{voice,popup}={}){const u=parseUtterance(text);if(!u.items.length)return;
+ if(popup&&u.items.length===1){openAdd({...u.items[0],stores:u.stores});return}
  const r=addMany(u.items,u.stores),n=r.created.length+r.react.length;
  if(!n){toast(r.skipped?'Schon auf der Liste':'Nichts hinzugefügt');return}
  toast(`${n} hinzugefügt`+(u.stores.length?` · ${u.stores.map(id=>S.stores.find(s=>s.id===id)?.name).join(', ')}`:''),()=>{
@@ -242,8 +251,11 @@ function buildShell(){$('#app').innerHTML=`<div class="wrap" id="wrap"><div clas
 <div class="addwrap"><form class="add" id="addForm" autocomplete="off"><input id="addIn" placeholder="Artikel hinzufügen…" enterkeyhint="done" autocapitalize="sentences" aria-label="Artikel hinzufügen"><button type="button" class="ib mic" id="micBtn" aria-label="Spracheingabe">${ic('mic')}</button><button class="ib plus" aria-label="Hinzufügen">${ic('plus')}</button></form><div class="sugg" id="sugg" hidden></div></div>
 <div class="chips" id="chips"></div><main id="main"></main></div>`;bind();setSync()}
 function emo(i){const e=emojiFor(i.name);return e?`<span class="em">${e}</span>`:`<span class="em"><b class="ltr">${esc(i.name.charAt(0).toUpperCase())}</b></span>`}
-function tile(i,done){const dots=(i.store_ids||[]).map(id=>S.stores.find(s=>s.id===id)).filter(Boolean).map(s=>`<i style="background:${esc(s.color)}"></i>`).join('');
- return`<div class="tile${done?' done':''}${S.pop.has(i.id)?' pop':''}" data-id="${i.id}" role="button" tabindex="0" aria-label="${esc(i.name)}${done?' wieder hinzufügen':' erledigt'}">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(i.spec)}</span>`:''}${dots?`<span class="dots">${dots}</span>`:''}${done?'':'<button class="ed" data-edit aria-label="Bearbeiten">✎</button>'}</div>`}
+function badges(i){const a=(i.store_ids||[]).map(id=>S.stores.find(s=>s.id===id)).filter(Boolean);if(!a.length)return'';
+ const b=a.slice(0,2).map(s=>{const c=/^#[0-9a-f]{6}$/i.test(s.color||'')?s.color:'#999999';return`<span class="bg" style="--c:${c};background:${c}26" title="${esc(s.name)}">${esc(s.name.length>10?s.name.slice(0,9).trimEnd()+'…':s.name)}</span>`}).join('');
+ return`<span class="bd">${b}${a.length>2?`<span class="bg more" title="${esc(a.slice(2).map(s=>s.name).join(', '))}">+${a.length-2}</span>`:''}</span>`}
+function tile(i,done){const dots=badges(i);
+ return`<div class="tile${done?' done':''}${S.pop.has(i.id)?' pop':''}" data-id="${i.id}" role="button" tabindex="0" aria-label="${esc(i.name)}${done?' wieder hinzufügen':' erledigt'}">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(i.spec)}</span>`:''}${dots}${done?'':'<button class="ed" data-edit aria-label="Bearbeiten">✎</button>'}</div>`}
 function openItems(){let a=S.items.filter(i=>i.list_id===S.listId&&!i.done);if(S.filter)a=a.filter(i=>i.store_ids?.includes(S.filter)||(S.every&&!i.store_ids?.length));return a.sort((x,y)=>x.sort-y.sort)}
 function catList(items){const have=new Set(items.map(i=>i.category||'Sonstiges'));const order=[...S.catOrder,...CATS];const all=[...new Set([...order,...have])];return all.filter(c=>have.has(c))}
 function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
@@ -268,7 +280,7 @@ function suggest(){const v=$('#addIn').value.trim(),box=$('#sugg');if(!v){box.hi
  sugs=[...seen.values()].sort((a,b)=>a.rank-b.rank).slice(0,6).map(s=>({...s,spec:p.spec}));hl=-1;
  box.hidden=!sugs.length;box.innerHTML=sugs.map((s,i)=>`<button type="button" data-s="${i}"><span>${emojiFor(s.name)||'🛒'}</span><span>${esc(s.name)}${s.spec?` <small>${esc(s.spec)}</small>`:''}</span><small>${esc(s.cat)}</small></button>`).join('')}
 function submitAdd(){const inp=$('#addIn'),v=inp.value.trim();if(!v)return;
- if(hl>=0&&sugs[hl]){addMany([{name:sugs[hl].name,spec:sugs[hl].spec}]);}else addFromText(v);
+ if(hl>=0&&sugs[hl])openAdd({name:sugs[hl].name,spec:sugs[hl].spec});else addFromText(v,{popup:true});
  inp.value='';$('#sugg').hidden=true;hl=-1}
 
 /* ---------- Events, Gesten, Drag ---------- */
@@ -277,7 +289,7 @@ function bind(){const m=$('#main'),inp=$('#addIn');
  $('#addForm').addEventListener('submit',e=>{e.preventDefault();submitAdd()});
  inp.addEventListener('input',suggest);
  inp.addEventListener('keydown',e=>{if(!sugs.length||$('#sugg').hidden)return;if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();hl=(hl+(e.key==='ArrowDown'?1:-1)+sugs.length+1)%(sugs.length+1)-0;if(hl>=sugs.length)hl=-1;$$('#sugg button').forEach((b,i)=>b.classList.toggle('hl',i===hl))}});
- $('#sugg').addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;const s=sugs[+b.dataset.s];addMany([{name:s.name,spec:s.spec}]);inp.value='';$('#sugg').hidden=true;inp.focus()});
+ $('#sugg').addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;const s=sugs[+b.dataset.s];inp.value='';$('#sugg').hidden=true;openAdd({name:s.name,spec:s.spec})});
  $('#micBtn').onclick=startVoice;$('#listBtn').onclick=openLists;$('#setBtn').onclick=openSettings;
  $('#viewBtn').onclick=()=>{S.view=S.view==='grid'?'list':'grid';LS.set('pq.view',S.view);render()};
  $('#grpBtn').onclick=()=>{S.group=!S.group;LS.set('pq.group',S.group);render();toast(S.group?'Nach Kategorie gruppiert':'Eigene Reihenfolge')};
@@ -327,20 +339,57 @@ function endDrag(commit){const{el,g,kind}=D;cancelAnimationFrame(D.raf);g.remove
 
 /* ---------- Sheets ---------- */
 function sheet(html,{top,onClose}={}){const o=document.createElement('div');o.className='ov'+(top?' top':'');o.innerHTML=`<div class="sh" role="dialog" aria-modal="true"><div class="grab"></div><div class="body">${html}</div></div>`;
- o.addEventListener('pointerdown',e=>{if(e.target===o)closeSheet()});document.body.append(o);requestAnimationFrame(()=>o.classList.add('open'));S.sheets.push({o,onClose});return $('.body',o)}
-function closeSheet(){const s=S.sheets.pop();if(!s)return;s.o.classList.remove('open');setTimeout(()=>s.o.remove(),220);s.onClose?.()}
+ o.addEventListener('pointerdown',e=>{if(e.target===o)closeSheet()});document.body.append(o);requestAnimationFrame(()=>o.classList.add('open'));S.sheets.push({o,onClose,off:sheetFx(o)});return $('.body',o)}
+function sheetFx(o){const vv=window.visualViewport,sh=$('.sh',o);let off=()=>{};
+ if(vv){const fit=()=>{const kb=Math.max(0,Math.round(innerHeight-vv.height-vv.offsetTop));o.classList.toggle('kb',kb>60);o.style.setProperty('--kb',kb+'px');o.style.setProperty('--vh',vv.height+'px')};
+  vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit);off=()=>{vv.removeEventListener('resize',fit);vv.removeEventListener('scroll',fit)}}
+ let y0=null,dy=0;const hd=e=>e.target.closest('.grab,h3');
+ sh.addEventListener('pointerdown',e=>{if(!hd(e))return;y0=e.clientY;dy=0;sh.setPointerCapture(e.pointerId);sh.style.transition='none'});
+ sh.addEventListener('pointermove',e=>{if(y0==null)return;dy=Math.max(0,e.clientY-y0);sh.style.transform=`translateY(${dy}px)`});
+ const end=()=>{if(y0==null)return;y0=null;sh.style.transition='';if(dy>80){sh.style.transform='translateY(100%)';closeSheet()}else sh.style.transform=''};
+ sh.addEventListener('pointerup',end);sh.addEventListener('pointercancel',end);return off}
+function closeSheet(){const s=S.sheets.pop();if(!s)return;s.off?.();s.o.classList.remove('open');setTimeout(()=>s.o.remove(),220);s.onClose?.()}
 addEventListener('keydown',e=>{if(e.key==='Escape'&&S.sheets.length)closeSheet()});
 function askText(title,val='',ok='OK'){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><input id="aq" value="${esc(val)}" maxlength="60"><div class="row"><button class="btn" id="ax">Abbrechen</button><button class="btn pri" id="ao">${ok}</button></div>`,{top:true,onClose:()=>{if(!done)res(null)}});
  const i=$('#aq',b);setTimeout(()=>{i.focus();i.select()},250);const go=()=>{done=true;res(i.value.trim()||null);closeSheet()};$('#ao',b).onclick=go;$('#ax',b).onclick=()=>closeSheet();i.onkeydown=e=>{if(e.key==='Enter')go()}})}
 function askConfirm(title,ok='Löschen'){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><div class="row"><button class="btn" id="ax">Abbrechen</button><button class="btn pri" id="ao">${ok}</button></div>`,{top:true,onClose:()=>{if(!done)res(false)}});$('#ao',b).onclick=()=>{done=true;res(true);closeSheet()};$('#ax',b).onclick=()=>closeSheet()})}
 const storeChip=(s,on)=>`<button class="chip${on?' on':''}" data-st="${s.id}"><span class="d" style="background:${on?'currentColor':esc(s.color)}"></span>${esc(s.name)}</button>`;
+function storePicker(host,sel,{top=0}={}){const u={};if(top){for(const i of S.items)for(const id of i.store_ids||[])u[id]=(u[id]||0)+1;for(const r of Object.values(S.cat))for(const id of r.store_ids||[])u[id]=(u[id]||0)+1}
+ const hot=[...S.stores].filter(s=>u[s.id]).sort((a,b)=>u[b.id]-u[a.id]).slice(0,top).map(s=>s.id);
+ if(!S.stores.length){host.innerHTML='<span class="hint">Noch keine Geschäfte – in den Einstellungen hinzufügen.</span>';return}
+ host.innerHTML=`${S.stores.length>6?'<input class="sq" type="search" placeholder="Geschäft suchen…" aria-label="Geschäft suchen" autocomplete="off" enterkeyhint="search">':''}<div class="chips sc"></div>`;
+ const q=$('.sq',host),box=$('.sc',host);
+ const draw=()=>{const t=q?norm(q.value):'';const k=s=>sel.has(s.id)?0:!t&&hot.includes(s.id)?1+hot.indexOf(s.id)/100:2;
+  const a=S.stores.filter(s=>sel.has(s.id)||!t||norm(s.name).includes(t)).sort((x,y)=>k(x)-k(y));
+  box.innerHTML=a.map(s=>storeChip(s,sel.has(s.id))).join('')||'<span class="hint">Kein Geschäft gefunden</span>'};
+ box.onclick=e=>{const c=e.target.closest('[data-st]');if(!c)return;sel.has(c.dataset.st)?sel.delete(c.dataset.st):sel.add(c.dataset.st);draw()};
+ if(q){q.oninput=draw;q.onkeydown=e=>{if(e.key==='Enter')e.preventDefault()}}draw()}
 function openDetail(id){const it=S.items.find(i=>i.id===id);if(!it)return;const sel=new Set(it.store_ids||[]);
  const cats=[...new Set([...CATS,it.category])];
- const b=sheet(`<h3>Artikel bearbeiten</h3><label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80"><label for="ds">Menge / Details</label><input id="ds" value="${esc(it.spec||'')}" placeholder="z. B. 2 l" maxlength="40"><label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===it.category?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div class="chips" id="dst">${S.stores.map(s=>storeChip(s,sel.has(s.id))).join('')||'<span class="hint">Noch keine Geschäfte – in den Einstellungen hinzufügen.</span>'}</div><div class="row"><button class="btn danger" id="dd">Löschen</button><button class="btn pri" id="dok">Fertig</button></div>`);
- $('#dst',b).onclick=e=>{const c=e.target.closest('[data-st]');if(!c)return;const s=S.stores.find(x=>x.id===c.dataset.st);sel.has(s.id)?sel.delete(s.id):sel.add(s.id);c.outerHTML=storeChip(s,sel.has(s.id))};
+ const b=sheet(`<h3>Artikel bearbeiten</h3><label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80"><label for="ds">Menge / Details</label><input id="ds" value="${esc(it.spec||'')}" placeholder="z. B. 2 l" maxlength="40"><label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===it.category?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="dst"></div><div class="row"><button class="btn danger" id="dd">Löschen</button><button class="btn pri" id="dok">Fertig</button></div>`); 
+ storePicker($('#dst',b),sel);
  $('#dd',b).onclick=()=>{delItem(id);closeSheet();toast('Gelöscht')};
  $('#dok',b).onclick=()=>{const name=$('#dn',b).value.trim()||it.name,spec=$('#ds',b).value.trim()||null,category=$('#dc',b).value,store_ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id);
   upItem(id,{name,spec,category,store_ids});putCatalog(name,category,store_ids,false);closeSheet()}}
+function openAdd(p){const key=p.name.toLowerCase().trim(),lk=lookup(key),valid=id=>S.stores.some(s=>s.id===id);
+ const sel=new Set((p.stores||[]).filter(valid));if(!sel.size)(lk?.store_ids||[]).filter(valid).forEach(id=>sel.add(id));if(!sel.size&&S.filter)sel.add(S.filter);
+ const cat0=lk?.category||'Sonstiges',cats=[...new Set([...CATS,cat0])];let touched=false,spec0=p.spec||'';
+ const b=sheet(`<h3>Artikel hinzufügen</h3><div class="ap"><div class="ape" id="ape"></div></div><label for="an">Artikel</label><input id="an" value="${esc(p.name)}" maxlength="80" autocapitalize="sentences"><label for="as">Menge / Details</label><input id="as" value="${esc(spec0)}" placeholder="z. B. 2 l" maxlength="40" enterkeyhint="done"><div class="chips qc" id="aq">${['1','2','3','500 g','1 kg','1 l','6er'].map(q=>`<button type="button" class="chip${q===spec0?' on':''}" data-q="${q}">${q}</button>`).join('')}</div><label for="ac">Kategorie</label><select id="ac">${cats.map(c=>`<option${c===cat0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="ast"></div><div class="row"><button class="btn" id="ax" type="button">Abbrechen</button><button class="btn pri" id="ao" type="button">Hinzufügen</button></div>`);
+ const an=$('#an',b),as=$('#as',b),ac=$('#ac',b);
+ const prev=()=>{const n=an.value.trim(),e=n&&emojiFor(n),h=e||(CAT_EM[ac.value]||'🛒');$('#ape',b).innerHTML=e||!n?h:`<b class="ltr">${esc(n.charAt(0).toUpperCase())}</b>`;if(!e&&n&&CAT_EM[ac.value])$('#ape',b).textContent=CAT_EM[ac.value]};
+ const mark=()=>$$('#aq .chip',b).forEach(c=>c.classList.toggle('on',c.dataset.q===as.value.trim()));
+ prev();storePicker($('#ast',b),sel,{top:6});
+ an.oninput=()=>{const l=lookup(an.value.toLowerCase().trim());if(l&&!touched&&cats.includes(l.category))ac.value=l.category;prev()};
+ ac.onchange=()=>{touched=true;prev()};as.oninput=mark;
+ $('#aq',b).onclick=e=>{const c=e.target.closest('[data-q]');if(!c)return;as.value=as.value.trim()===c.dataset.q?'':c.dataset.q;mark();as.focus({preventScroll:true})};
+ let fired=false;const go=()=>{if(fired)return;const name=an.value.trim();if(!name){an.focus();return}fired=true;
+  const spec=as.value.trim()||null,ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id);closeSheet();
+  const r=addMany([{name,spec,category:ac.value,exact:true}],ids);
+  if(!r.created.length&&!r.react.length){toast(r.skipped?'Schon auf der Liste':'Nichts hinzugefügt');return}
+  toast(`«${name}» hinzugefügt`,()=>{r.created.forEach(id=>delItem(id));r.react.forEach(id=>upItem(id,{done:true,done_at:now()}))})};
+ $('#ao',b).onclick=go;$('#ax',b).onclick=()=>closeSheet();
+ b.addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.target===an||e.target===as)){e.preventDefault();go()}});
+ as.focus({preventScroll:true})}
 function openLists(){const b=sheet('');const draw=()=>{b.innerHTML=`<h3>Listen</h3>${S.lists.map(l=>`<div class="item${l.id===S.listId?' sel':''}"><button class="n" data-sel="${l.id}" style="min-height:44px;text-align:left">${esc(l.name)}${l.id===S.listId?' ✓':''}</button><button class="ib" data-ren="${l.id}" aria-label="Umbenennen">✎</button><button class="ib" data-del="${l.id}" aria-label="Löschen">✕</button></div>`).join('')}<div class="row"><button class="btn pri" id="ln">Neue Liste</button></div>`};draw();
  b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;
   if(t.dataset.sel){S.listId=t.dataset.sel;S.filter=null;LS.set('pq.list',S.listId);render();closeSheet()}
@@ -372,7 +421,7 @@ function startVoice(){const inp=$('#addIn'),mic=$('#micBtn');if(!SR){toast('Spra
  r.onstart=()=>{mic.classList.add('on');inp.placeholder='Ich höre zu…'};
  r.onresult=e=>{let t='';for(const x of e.results)t+=x[0].transcript+' ';inp.value=t.trim()};
  r.onerror=e=>{if((e.error==='language-not-supported'||e.error==='service-not-allowed')&&lang==='de-CH'){lang='de-DE';retry=true}else if(e.error==='not-allowed')toast('Mikrofon nicht erlaubt');else if(e.error==='no-speech')toast('Nichts gehört')};
- r.onend=()=>{rec=null;mic.classList.remove('on');inp.placeholder='Artikel hinzufügen…';if(retry){startVoice();return}const t=inp.value.trim();if(t){inp.value='';$('#sugg').hidden=true;addFromText(t,{voice:true})}};
+ r.onend=()=>{rec=null;mic.classList.remove('on');inp.placeholder='Artikel hinzufügen…';if(retry){startVoice();return}const t=inp.value.trim();if(t){inp.value='';$('#sugg').hidden=true;addFromText(t,{voice:true,popup:true})}};
  try{r.start()}catch{rec=null}}
 function voiceOverlay(){const o=document.createElement('div');o.className='vo';o.innerHTML=`<button class="mb" aria-label="Tippen zum Sprechen">${ic('mic')}</button><div><b style="font-size:20px">Tippen zum Sprechen</b><p class="hint">z. B. «Milch, 2 Bananen und Brot bei Migros»</p></div><button class="btn" id="vx">Schliessen</button>`;
  $('.mb',o).onclick=()=>{o.remove();startVoice()};$('#vx',o).onclick=()=>o.remove();document.body.append(o)}
