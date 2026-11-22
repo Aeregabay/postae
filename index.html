@@ -131,6 +131,7 @@ code,.code{display:block;font:13px ui-monospace,Menlo,monospace;background:var(-
 <div id="app"></div><div id="toast" role="status" aria-live="polite"></div>
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { parseUtterance } from './parser.js';
 const SB_URL='https://dzuhqugacawaqfcvayoa.supabase.co',SB_KEY='sb_publishable_1xtQRorof2bprnu3zU93pw_D-Z7qojE';
 const sb=createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,storage:window.localStorage}});
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -183,13 +184,6 @@ function parseItem(txt){let t=txt.trim().replace(/\s+/g,' ');if(!t)return null;
 function lev(a,b){const m=a.length,n=b.length;if(!m)return n;let p=Array.from({length:n+1},(_,i)=>i);for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[n]}
 function matchStore(w){const x=norm(w);if(x.length<3)return null;let best=null,bd=9;
  for(const s of S.stores){const n=norm(s.name);let d=n===x?0:(n.startsWith(x)&&x.length>=4)||(x.startsWith(n)&&n.length>=4)?1:lev(n,x);const lim=n.length>6?2:1;if(d<=lim&&d<bd){best=s;bd=d}}return best}
-function parseUtterance(raw){let t=raw.trim();const ids=[];
- t=t.replace(/(?<![\p{L}])(?:bei|beim|im|vom|von der|von|in der|in|für)\s+(?:der\s+|dem\s+|die\s+|den\s+)?([\p{L}0-9&\-]+(?:\s+[\p{L}0-9&\-]+)?)/giu,(all,ph)=>{
-  const ws=ph.split(/\s+/);let s=ws.length>1&&matchStore(ws.join(' '));if(s){ids.push(s.id);return' '}
-  s=matchStore(ws[0]);if(s){ids.push(s.id);return ws.length>1?' '+ws.slice(1).join(' '):' '}return all});
- t=t.replace(/(?<![\p{L}])(?:bitte|auf die (?:einkaufs)?liste|zur (?:einkaufs)?liste|hinzu|noch)(?![\p{L}])/giu,' ').replace(/^\s*(?:ich\s+(?:brauche|will|möchte|muss\s+\S+\s+kaufen)|(?:setz|füg|schreib|kauf)e?)\s+/i,'');
- const items=t.split(/\s*(?:,|;|\s+und\s+|\s+sowie\s+)\s*/i).map(parseItem).filter(Boolean);
- return{items,stores:[...new Set(ids)]}}
 
 /* ---------- State ---------- */
 const P=new URLSearchParams(location.search);
@@ -230,7 +224,7 @@ function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],rea
    S.items.push(it);const{created_by,...ins}=it;enqueue({t:'items',o:'insert',d:ins});created.push(it.id);S.pop.add(it.id)}
   putCatalog(canon,category,stores,true)}
  scheduleRender();return{created,react,skipped}}
-function addFromText(text){const u=parseUtterance(text);if(!u.items.length)return;addItems(u.items,u.stores)}
+function addFromText(text){const u=parseUtterance(text,S.stores);if(!u.items.length){toast('Nichts erkannt');return}addItems(u.items,u.store?[u.store.id]:[])}
 function commit(list,stores){const r=addMany(list,stores),n=r.created.length+r.react.length;
  if(!n){toast(r.skipped?'Schon auf der Liste':'Nichts hinzugefügt');return}
  toast((n===1&&list.length===1?`«${list[0].name.trim()}» hinzugefügt`:`${n} hinzugefügt`)+(stores?.length?` · ${stores.map(id=>S.stores.find(s=>s.id===id)?.name).join(', ')}`:''),()=>{
