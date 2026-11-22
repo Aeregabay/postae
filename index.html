@@ -56,8 +56,10 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px;min-height:8px}
 .tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:108px;padding:12px 6px 14px;background:var(--card);border-radius:var(--r);box-shadow:var(--sh);text-align:center;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;cursor:pointer;transition:transform var(--t),opacity var(--t),box-shadow var(--t)}
 .tile:active{transform:scale(.96)}
-.tile .em{font-size:34px;line-height:1.1;height:40px;display:grid;place-items:center}
-.tile .ltr{width:38px;height:38px;border-radius:12px;background:var(--acc-s);color:var(--acc-d);display:grid;place-items:center;font-size:18px}
+.tile .em{font-size:30px;line-height:1;width:52px;height:52px;margin:0 auto;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--cc,#7FA08F) 14%,transparent)}
+@media(prefers-color-scheme:dark){.tile .em,.ap .ape{background:color-mix(in srgb,var(--cc,#7FA08F) 22%,transparent)!important}}
+.gd{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;flex:none}
+.ltr{font-size:20px;font-weight:700;color:var(--fg);opacity:.7;display:grid;place-items:center}
 .tile .nm{font-size:14px;font-weight:550;line-height:1.2;word-break:break-word;hyphens:auto}
 .tile .sp{font-size:12px;color:var(--mut);flex:none}
 .tile .bd{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:auto;padding-top:6px;max-width:100%}
@@ -75,7 +77,7 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .grp.dragging{opacity:.3}.grp.ghost{background:var(--card);border-radius:var(--r);overflow:hidden;max-height:90px}
 .list .grid{grid-template-columns:1fr;gap:8px}
 .list .tile{flex-direction:row;justify-content:flex-start;min-height:58px;padding:8px 44px 8px 14px;gap:14px;text-align:left}
-.list .tile .em,.list .tile .ltr{height:auto;width:36px;font-size:26px}.list .tile .ltr{font-size:16px;height:36px}
+.list .tile .em{width:42px;height:42px;font-size:24px;margin:0;border-radius:13px}.list .tile .ltr{font-size:16px}
 .list .tile .nm{flex:1}.list .tile .bd{order:5;margin:0;padding:0;flex:none;max-width:48%;justify-content:flex-end}
 .empty{text-align:center;color:var(--mut);padding:44px 12px}.empty .big{font-size:44px}
 .ov{position:fixed;inset:0;z-index:100;background:rgba(10,15,12,0);display:flex;align-items:flex-end;justify-content:center;transition:background var(--t)}
@@ -89,8 +91,8 @@ svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stro
 .ov.kb{padding-bottom:var(--kb,0px);align-items:flex-end}.ov.kb .sh{max-height:calc(var(--vh,100dvh) - 12px);padding-bottom:16px}
 .sq{margin:2px 0 6px}.sc{max-height:152px;overflow-y:auto!important;overscroll-behavior:contain;align-content:flex-start}.sc .chip,.qc .chip{min-height:38px;padding:0 13px;font-size:14px}
 .qc{margin-top:6px}.qc .chip.on{background:var(--acc-s);color:var(--acc-d);border-color:var(--acc)}
-.ap{display:grid;place-items:center;height:84px;margin:2px 0 6px}.ap .ape{font-size:60px;line-height:1;transition:transform .18s}.ap .ape.b{transform:scale(1.12)}
-.ap .ltr{width:68px;height:68px;border-radius:22px;background:var(--acc-s);color:var(--acc-d);display:grid;place-items:center;font-size:30px}
+.ap{display:grid;place-items:center;height:92px;margin:2px 0 6px}.ap .ape{font-size:44px;line-height:1;width:76px;height:76px;border-radius:24px;display:grid;place-items:center;background:color-mix(in srgb,var(--cc,#7FA08F) 14%,transparent);transition:transform .18s}.ap .ape.b{transform:scale(1.12)}
+.ap .ltr{font-size:32px}
 .sh h3{margin:4px 0 14px;font-size:20px;letter-spacing:-.01em}.sh h4{margin:22px 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}
 .sh label,.lbl{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px}
 .in,.sh input:not([type=color]),.sh select{width:100%;height:46px;border-radius:12px;border:1px solid var(--line);background:var(--card);padding:0 12px;outline:0;color:var(--fg)}
@@ -188,6 +190,7 @@ code,.code{display:block;font:13px ui-monospace,Menlo,monospace;background:var(-
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { parseUtterance } from './parser.js';
+import { CATEGORIES, resolveIcon, guessCategory, categoryColor, suggestionKeywords } from './icons.js';
 const SB_URL='https://dzuhqugacawaqfcvayoa.supabase.co',SB_KEY='sb_publishable_1xtQRorof2bprnu3zU93pw_D-Z7qojE';
 const sb=createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,storage:window.localStorage}});
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -198,8 +201,9 @@ const ICONS={chev:'<path d="M6 9l6 6 6-6"/>',mic:'<rect x="9" y="3" width="6" he
 const ic=n=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]}</svg>`;
 
 /* ---------- Katalog ---------- */
-const CATS=['Früchte & Gemüse','Brot & Gebäck','Milch & Käse','Fleisch & Fisch','Vorräte','Tiefkühl','Getränke','Snacks & Süsses','Haushalt','Körperpflege','Apotheke','Sonstiges'];
-const CAT_EM={'Früchte & Gemüse':'🥬','Brot & Gebäck':'🥖','Milch & Käse':'🧀','Fleisch & Fisch':'🥩','Vorräte':'🥫','Tiefkühl':'🧊','Getränke':'🥤','Snacks & Süsses':'🍫','Haushalt':'🧽','Körperpflege':'🧴','Apotheke':'💊','Sonstiges':'🛒'};
+const CATS=CATEGORIES.map(c=>c.name);
+const CAT_EM=Object.fromEntries(CATEGORIES.map(c=>[c.name,c.emoji]));
+const ecat=i=>{const c=i.category||'Sonstiges';return c!=='Sonstiges'?c:guessCategory(i.name)};
 const RAW={
 'Früchte & Gemüse':'🍎Äpfel,🍌Bananen,🍊Orangen,🍊Mandarinen,🍋Zitronen,🍇Trauben,🍓Erdbeeren,🫐Heidelbeeren,🍐Birnen,🍑Pfirsiche,🥭Mango,🍍Ananas,🍉Wassermelone,🥑Avocado,🍅Tomaten,🍅Cherrytomaten,🥒Gurke,🥕Rüebli,🥔Kartoffeln,🍠Süsskartoffeln,🧅Zwiebeln,🧄Knoblauch,🥬Salat,🥬Nüsslisalat,🥬Spinat,🥦Broccoli,🥦Blumenkohl,🫑Peperoni,🥒Zucchetti,🍆Aubergine,🍄Champignons,🌽Mais,🫚Ingwer,🌿Basilikum,🌿Petersilie,🌿Schnittlauch,🥬Lauch,🥬Fenchel,🫛Erbsen,🍒Kirschen',
 'Brot & Gebäck':'🍞Brot,🍞Toastbrot,🥖Baguette,🥐Gipfeli,🥨Brezel,🍞Zopf,🥖Bürli,🥯Bagel,🥞Wraps,🍰Kuchen,🥐Gebäck',
@@ -216,10 +220,8 @@ const RAW={
 const B={};const BL=[];
 for(const[c,s]of Object.entries(RAW))for(const t of s.split(',')){const m=t.match(/^(\p{Extended_Pictographic}️?(?:‍\p{Extended_Pictographic}️?)*)(.+)$/u);if(!m)continue;const name=m[2].trim(),o={name,e:m[1],category:c,key:name.toLowerCase()};B[o.key]=o;BL.push(o)}
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ß/g,'ss').trim();
-const emCache={};
-function emojiFor(name){const k=name.toLowerCase().trim();if(k in emCache)return emCache[k];let e=B[k]?.e;
- if(!e){const n=norm(k);const hit=BL.find(b=>norm(b.name)===n)||(n.length>=4&&BL.find(b=>{const bn=norm(b.name);return bn.startsWith(n)||n.startsWith(bn.slice(0,-1))&&bn.length>=4||n.endsWith(bn)&&bn.length>=4}));e=hit?.e||null}
- return emCache[k]=e}
+{const kws=new Set(suggestionKeywords().map(x=>x.key));for(const x of suggestionKeywords()){if(/^[a-z]+$/.test(x.key)&&/[aou]e/.test(x.key)&&kws.has(x.key.replace(/ae/g,'ä').replace(/oe/g,'ö').replace(/ue/g,'ü')))continue;if(B[x.key])continue;BL.push({name:x.name,e:x.emoji,category:x.category,key:x.key})}}
+const emojiFor=name=>{const r=resolveIcon(name);return r.matched?r.emoji:null};
 const lookup=k=>S.cat[k]||B[k]||null;
 
 /* ---------- Parser ---------- */
@@ -274,7 +276,7 @@ function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],rea
   const same=S.items.find(i=>i.list_id===lid&&i.name.toLowerCase()===key&&(!p.force||i.done));
   const stores=p.exact?[...(storeIds||[])]:[...new Set([...(storeIds||[]),...(S.filter&&!(storeIds||[]).length?[S.filter]:[]),...(lk?.store_ids||[]).filter(id=>S.stores.some(s=>s.id===id))])];
   if(same&&!same.done){skipped++;continue}
-  const category=p.category||same?.category||lk?.category||'Sonstiges',canon=lk?.name||name;
+  const category=[p.category,same?.category,lk?.category].find(c=>c&&c!=='Sonstiges')||guessCategory(name),canon=lk?.name||name;
   if(same){upItem(same.id,{done:false,done_at:null,sort:nextSort(lid),spec:p.spec||same.spec,store_ids:storeIds?.length||p.exact?stores:same.store_ids});react.push(same.id);S.pop.add(same.id)}
   else{const it={id:uid(),list_id:lid,name:canon,spec:p.spec||null,category,store_ids:stores,done:false,done_at:null,sort:nextSort(lid)+created.length*0,created_by:S.user?.email,created_at:now(),updated_at:now()};
    S.items.push(it);const{created_by,...ins}=it;enqueue({t:'items',o:'insert',d:ins});created.push(it.id);S.pop.add(it.id)}
@@ -341,14 +343,14 @@ function scheduleRender(){if(S.drag){S.dirty=true;return}if(renderQ)return;rende
 function buildShell(){$('#app').innerHTML=`<div class="wrap" id="wrap"><div class="top"><button class="lb" id="listBtn" aria-label="Liste wechseln"><span id="listName"></span>${ic('chev')}</button><div class="sp"></div><button class="ib" id="viewBtn" aria-label="Ansicht wechseln"></button><button class="ib" id="grpBtn" aria-label="Nach Kategorie gruppieren">${ic('layers')}</button><button class="ib" id="setBtn" aria-label="Einstellungen">${ic('gear')}</button></div>
 <div class="addwrap"><form class="add" id="addForm" autocomplete="off"><input id="addIn" placeholder="Artikel hinzufügen…" enterkeyhint="done" autocapitalize="sentences" aria-label="Artikel hinzufügen"><button type="button" class="ib mic" id="micBtn" aria-label="Spracheingabe">${ic('mic')}</button><button class="ib plus" aria-label="Hinzufügen">${ic('plus')}</button></form><div class="sugg" id="sugg" hidden></div></div>
 <div class="chips" id="chips"></div><main id="main"></main></div>`;bind();setSync()}
-function emo(i){const e=emojiFor(i.name);return e?`<span class="em">${e}</span>`:`<span class="em"><b class="ltr">${esc(i.name.charAt(0).toUpperCase())}</b></span>`}
+function emo(i){const r=resolveIcon(i.name,i.category),c=ecat(i),sty=` style="--cc:${categoryColor(c)}"`;return r.matched||c!=='Sonstiges'?`<span class="em"${sty}>${r.emoji}</span>`:`<span class="em"${sty}><b class="ltr">${esc(i.name.charAt(0).toUpperCase())}</b></span>`}
 function badges(i){const a=(i.store_ids||[]).map(id=>S.stores.find(s=>s.id===id)).filter(Boolean);if(!a.length)return'';
  const b=a.slice(0,2).map(bgOne).join('');
  return`<span class="bd">${b}${a.length>2?`<span class="bg more" title="${esc(a.slice(2).map(s=>s.name).join(', '))}">+${a.length-2}</span>`:''}</span>`}
 function tile(i,done){const dots=badges(i);
  return`<div class="tile${done?' done':''}${S.pop.has(i.id)?' pop':''}" data-id="${i.id}" role="button" tabindex="0" aria-label="${esc(i.name)}${done?' wieder hinzufügen':' erledigt'}">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(i.spec)}</span>`:''}${dots}${done?'':'<button class="ed" data-edit aria-label="Bearbeiten">✎</button>'}</div>`}
 function openItems(){let a=S.items.filter(i=>i.list_id===S.listId&&!i.done);if(S.filter)a=a.filter(i=>i.store_ids?.includes(S.filter)||(S.every&&!i.store_ids?.length));return a.sort((x,y)=>x.sort-y.sort)}
-function catList(items){const have=new Set(items.map(i=>i.category||'Sonstiges'));const order=[...S.catOrder,...CATS];const all=[...new Set([...order,...have])];return all.filter(c=>have.has(c))}
+function catList(items){const have=new Set(items.map(ecat));const order=[...S.catOrder,...CATS];const all=[...new Set([...order,...have])];return all.filter(c=>have.has(c))}
 function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
  const l=S.lists.find(x=>x.id===S.listId);$('#listName').textContent=l?.name||'Postä';
  $('#viewBtn').innerHTML=ic(S.view==='grid'?'list':'grid');$('#viewBtn').setAttribute('aria-label',S.view==='grid'?'Listenansicht':'Kachelansicht');
@@ -357,7 +359,7 @@ function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
  const open=openItems(),done=S.items.filter(i=>i.list_id===S.listId&&i.done).sort((a,b)=>(b.done_at||'').localeCompare(a.done_at||'')).slice(0,30);
  let h=`<div class="zt">Einkaufen <b>${open.length||''}</b></div>`;
  if(!open.length)h+=`<div class="empty"><div class="big">🧺</div><p>Alles erledigt.<br>Tippe oben, um etwas hinzuzufügen.</p></div>`;
- else if(S.group)for(const c of catList(open)){const its=open.filter(i=>(i.category||'Sonstiges')===c);h+=`<section class="grp${S.collapsed[c]?' c':''}" data-cat="${esc(c)}"><div class="gh"><button class="grip" data-grip aria-label="Kategorie verschieben">${ic('grip')}</button><button class="gt" data-tog>${CAT_EM[c]||'🛒'} ${esc(c)} <span class="cnt">${its.length}</span>${ic('chev')}</button></div><div class="grid" data-cat="${esc(c)}">${its.map(i=>tile(i)).join('')}</div></section>`}
+ else if(S.group)for(const c of catList(open)){const its=open.filter(i=>ecat(i)===c);h+=`<section class="grp${S.collapsed[c]?' c':''}" data-cat="${esc(c)}"><div class="gh"><button class="grip" data-grip aria-label="Kategorie verschieben">${ic('grip')}</button><button class="gt" data-tog><i class="gd" style="background:${categoryColor(c)}"></i>${CAT_EM[c]||'🛒'} ${esc(c)} <span class="cnt">${its.length}</span>${ic('chev')}</button></div><div class="grid" data-cat="${esc(c)}">${its.map(i=>tile(i)).join('')}</div></section>`}
  else h+=`<div class="grid" data-cat="">${open.map(i=>tile(i)).join('')}</div>`;
  if(done.length)h+=`<div class="zt">Zuletzt verwendet</div><div class="grid" id="doneGrid">${done.map(i=>tile(i,true)).join('')}</div>`;
  const m=$('#main');m.className=S.view==='list'?'list':'';m.innerHTML=h;S.pop.clear();persist()}
@@ -369,7 +371,7 @@ function suggest(){const v=$('#addIn').value.trim(),box=$('#sugg');if(!v){box.hi
  for(const r of Object.values(S.cat)){const n=norm(r.name);if(n.includes(q))seen.set(r.name_key,{name:r.name,cat:r.category,rank:(n.startsWith(q)?0:1000)-r.uses})}
  for(const b of BL){const n=norm(b.name);if(n.includes(q)&&!seen.has(b.key))seen.set(b.key,{name:b.name,cat:b.category,rank:(n.startsWith(q)?500:1500)})}
  sugs=[...seen.values()].sort((a,b)=>a.rank-b.rank).slice(0,6).map(s=>({...s,spec:p.spec}));hl=-1;
- box.hidden=!sugs.length;box.innerHTML=sugs.map((s,i)=>`<button type="button" data-s="${i}"><span>${emojiFor(s.name)||'🛒'}</span><span>${esc(s.name)}${s.spec?` <small>${esc(s.spec)}</small>`:''}</span><small>${esc(s.cat)}</small></button>`).join('')}
+ box.hidden=!sugs.length;box.innerHTML=sugs.map((s,i)=>`<button type="button" data-s="${i}"><span>${resolveIcon(s.name,s.cat).emoji}</span><span>${esc(s.name)}${s.spec?` <small>${esc(s.spec)}</small>`:''}</span><small>${esc(s.cat)}</small></button>`).join('')}
 function submitAdd(){const inp=$('#addIn'),v=inp.value.trim();if(!v){openAdd({name:''});return}
  if(hl>=0&&sugs[hl])addItems([{name:sugs[hl].name,spec:sugs[hl].spec}],[]);else addFromText(v);
  inp.value='';$('#sugg').hidden=true;hl=-1}
@@ -471,8 +473,8 @@ function storePicker(host,sel,{top=0}={}){const u={};if(top){for(const i of S.it
  box.onclick=e=>{const c=e.target.closest('[data-st]');if(!c)return;sel.has(c.dataset.st)?sel.delete(c.dataset.st):sel.add(c.dataset.st);draw()};
  if(q){q.oninput=draw;q.onkeydown=e=>{if(e.key==='Enter')e.preventDefault()}}draw()}
 function openDetail(id,newSpec){const it=S.items.find(i=>i.id===id);if(!it)return;const sel=new Set(it.store_ids||[]);
- const cats=[...new Set([...CATS,it.category])];
- const b=sheet(`${shHead('Artikel bearbeiten','Speichern')}<label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80">${qtyHTML('dq',newSpec!==undefined?newSpec:it.spec)}<label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===it.category?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="dst"></div><button type="button" class="btn danger" id="dd" style="width:100%;margin-top:20px">Löschen</button>`);
+ const cats=[...new Set([...CATS,ecat(it)])],ec0=ecat(it),ri=resolveIcon(it.name,ec0);
+ const b=sheet(`${shHead('Artikel bearbeiten','Speichern')}<div class="ap"><div class="ape" style="--cc:${categoryColor(ec0)}">${ri.matched||ec0!=='Sonstiges'?ri.emoji:`<b class="ltr">${esc(it.name.charAt(0).toUpperCase())}</b>`}</div></div><label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80">${qtyHTML('dq',newSpec!==undefined?newSpec:it.spec)}<label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===ec0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="dst"></div><button type="button" class="btn danger" id="dd" style="width:100%;margin-top:20px">Löschen</button>`);
  storePicker($('#dst',b),sel);qtyInit(b,'dq');
  $('#dd',b).onclick=()=>{delItem(id);closeSheet();toast('Gelöscht')};
  $('#ax',b).onclick=()=>closeSheet();
@@ -481,12 +483,12 @@ function openDetail(id,newSpec){const it=S.items.find(i=>i.id===id);if(!it)retur
  $('#ao',b).onclick=go;submitKey(b,go)}
 function openAdd(p){const key=p.name.toLowerCase().trim(),lk=lookup(key),valid=id=>S.stores.some(s=>s.id===id);
  const sel=new Set((p.stores||[]).filter(valid));if(!sel.size)(lk?.store_ids||[]).filter(valid).forEach(id=>sel.add(id));if(!sel.size&&S.filter)sel.add(S.filter);
- const cat0=lk?.category||'Sonstiges',cats=[...new Set([...CATS,cat0])];let touched=false,spec0=p.spec||'';
+ const cat0=[lk?.category,p.category].find(c=>c&&c!=='Sonstiges')||guessCategory(p.name),cats=[...new Set([...CATS,cat0])];let touched=false,spec0=p.spec||'';
  const b=sheet(`${shHead('Artikel hinzufügen','Hinzufügen')}<div class="ap"><div class="ape" id="ape"></div></div><label for="an">Artikel</label><input id="an" value="${esc(p.name)}" maxlength="80" autocapitalize="sentences">${qtyHTML('aq',spec0)}<label for="ac">Kategorie</label><select id="ac">${cats.map(c=>`<option${c===cat0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="ast"></div>`);
  const an=$('#an',b),as=$('#aqn',b),ac=$('#ac',b);qtyInit(b,'aq');
- const prev=()=>{const n=an.value.trim(),e=n&&emojiFor(n),h=e||(CAT_EM[ac.value]||'🛒');$('#ape',b).innerHTML=e||!n?h:`<b class="ltr">${esc(n.charAt(0).toUpperCase())}</b>`;if(!e&&n&&CAT_EM[ac.value])$('#ape',b).textContent=CAT_EM[ac.value]};
+ const prev=()=>{const n=an.value.trim(),cv=ac.value,r=n?resolveIcon(n,cv):{emoji:CAT_EM[cv]||'🛒',matched:false},el=$('#ape',b);el.style.setProperty('--cc',categoryColor(cv!=='Sonstiges'?cv:r.category));el.innerHTML=r.matched||cv!=='Sonstiges'||!n?r.emoji:`<b class="ltr">${esc(n.charAt(0).toUpperCase())}</b>`};
   prev();storePicker($('#ast',b),sel,{top:6});
- an.oninput=()=>{const l=lookup(an.value.toLowerCase().trim());if(l&&!touched&&cats.includes(l.category))ac.value=l.category;prev()};
+ an.oninput=()=>{const l=lookup(an.value.toLowerCase().trim());if(!touched&&an.value.trim()){const c=l&&l.category!=='Sonstiges'?l.category:guessCategory(an.value);if(cats.includes(c))ac.value=c}prev()};
  ac.onchange=()=>{touched=true;prev()};
  let fired=false;const go=()=>{if(fired)return;const name=an.value.trim();if(!name){an.focus();return}fired=true;
   const spec=qtySpec(b,'aq'),ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id),pp={name,spec,category:ac.value,exact:true},m=findSimilar(name);

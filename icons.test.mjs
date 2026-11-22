@@ -1,0 +1,8 @@
+import {resolveIcon,guessCategory,KEYWORDS,CATEGORIES} from './icons.js';
+const cases={'Pfannendeckel':'Küche & Haushaltswaren','Kabelbinder':'Werkzeug & Baumarkt','Gummiseile für Sofa Überzug':'Werkzeug & Baumarkt','Befestigungsstangen':'Werkzeug & Baumarkt','Katzennetz':'Tierbedarf','Spritzschutz':'Küche & Haushaltswaren','Kabelkanal':'Elektro & Technik',
+'Äpfel':'Früchte & Gemüse','Rüebli':'Früchte & Gemüse','Milch':'Milch & Käse','Hafermilch':'Milch & Käse','Schneidebrett':'Küche & Haushaltswaren','Alufolie':'Küche & Haushaltswaren','Dübel':'Werkzeug & Baumarkt','Schrauben':'Werkzeug & Baumarkt','Klebeband':'Werkzeug & Baumarkt','Steckdosen':'Elektro & Technik','Batterien':'Elektro & Technik','Katzenstreu':'Tierbedarf','Kissen':'Wohnen & Deko','Kerzen':'Wohnen & Deko','Kugelschreiber':'Papeterie & Büro','Socken':'Kleidung & Textil','Windeln':'Baby & Kind','Veloschlauch':'Auto & Velo','Zahnpasta':'Körperpflege','Pflaster':'Apotheke','Duschgel':'Körperpflege','Pelati':'Vorräte','Bratpfanne':'Küche & Haushaltswaren','Mehrfachstecker':'Elektro & Technik','Filzgleiter':'Werkzeug & Baumarkt','Glühbirne':'Elektro & Technik','LED Leuchtmittel':'Elektro & Technik'};
+let bad=0;for(const[n,c]of Object.entries(cases)){const r=resolveIcon(n);if(!r.matched||r.category!==c){bad++;console.log('FAIL',n,JSON.stringify(r),'want',c)}}
+const un=resolveIcon('Xyzqwv');if(un.matched||un.emoji!=='🛒')bad++,console.log('FAIL fallback');
+if(guessCategory('Xyzqwv','Baumarkt')!=='Werkzeug & Baumarkt'||guessCategory('Xyzqwv','Drogerie')!=='Körperpflege')bad++,console.log('FAIL store');
+console.log('keywords',KEYWORDS.length,'cats',CATEGORIES.length);if(KEYWORDS.length<600)bad++,console.log('FAIL <600 keywords');
+process.exit(bad?1:0);
