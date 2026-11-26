@@ -208,6 +208,25 @@ code,.code{display:block;font:13px ui-monospace,Menlo,monospace;background:var(-
 .smok{text-align:center;padding:36px 12px 12px}.smok .big{width:72px;height:72px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;background:var(--acc-s);color:var(--acc-d)}.smok .big svg.i{width:36px;height:36px}.smok h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}.smok p{margin:0 0 18px;color:var(--mut)}
 .btn.pri{background:var(--acc);color:var(--on)}.smok .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;border-radius:999px;font-weight:600}
 .sso{display:flex;align-items:center;gap:6px;min-height:56px;background:var(--card);border-radius:14px;box-shadow:var(--sh);margin-bottom:8px;padding-left:4px;transition:box-shadow .15s}.sso .dh{width:44px;height:56px;display:grid;place-items:center;color:var(--mut);touch-action:none;cursor:grab}.sso .tx{display:flex;align-items:center;gap:10px}.sso.drag{z-index:2;box-shadow:0 8px 24px rgba(0,0,0,.18);position:relative}
+
+.ov.hi{z-index:150}
+.th{flex:none;width:26px;height:26px;border-radius:8px;background:var(--acc-s) center/cover no-repeat;box-shadow:0 0 0 1px var(--line)}
+.tile .th{position:absolute;top:6px;right:6px;pointer-events:none}.list .tile .th{position:static;order:4}
+.th.lg{width:44px;height:44px;border-radius:12px;cursor:zoom-in}.th.xl{width:56px;height:56px;border-radius:14px}.th.emp{display:grid;place-items:center;color:var(--mut)}
+.smr .th{margin-left:auto}.smr .th+.ck{margin-left:0}
+.sr.pf{flex-wrap:wrap;gap:8px;padding:10px 14px}.pvw{flex:none;border-radius:14px}.pvw:disabled{cursor:default}.sr.pf .btn{display:inline-flex;align-items:center;gap:6px;padding:0 14px}.sr.pf .btn svg.i{width:18px;height:18px}.sr.pf .tl{margin:0 0 0 auto}.sr.pf .tl[hidden]{display:none}
+.vw{position:fixed;inset:0;z-index:160;background:#000}.vw .vz{position:absolute;inset:0;overflow:auto;display:flex;touch-action:pan-x pan-y pinch-zoom;overscroll-behavior:contain}.vw img{margin:auto;max-width:100%;max-height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none}.vw.z img{max-width:none;max-height:none}
+.vw .vx{position:absolute;z-index:2;top:calc(8px + env(safe-area-inset-top));right:10px;color:#fff;background:rgba(0,0,0,.45)}
+.cv{position:fixed;inset:0;z-index:160;background:#fff;color:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));text-align:center}
+.cvh{display:flex;align-items:center;gap:12px;max-width:100%}.cvh .smt{text-align:left}.cvh .smt small{color:#666}
+.cvc{width:min(100%,520px)}.cvc svg{display:block;width:100%;height:auto;max-height:52dvh;background:#fff}
+.cvn{font:600 22px ui-monospace,Menlo,monospace;letter-spacing:.06em;word-break:break-all}.cvt{margin:0;font-size:13px;color:#777}
+.cvp .th{box-shadow:0 0 0 1px #ddd}
+.scn{position:fixed;inset:0;z-index:170;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;padding:20px}.scn video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scn .scf{position:relative;width:min(78vw,340px);height:min(46vw,200px);border:3px solid #fff;border-radius:18px;box-shadow:0 0 0 100vmax rgba(0,0,0,.5)}.scn p,.scn .btn{position:relative}.scn p{margin:0}.scn .btn{margin-top:30px;background:rgba(255,255,255,.15);color:#fff;border-color:transparent}
+.smcard{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin:6px 0 4px;min-height:52px;background:var(--acc);border-color:var(--acc);color:var(--on)}
+.rb.ar{gap:10px;padding-right:16px}.av.ar0{background:var(--acc);color:var(--on);width:28px;height:28px}.av.er{background:#e07a5f;color:#fff;width:28px;height:28px}
+.at{white-space:normal;font-size:15px;line-height:1.3}.at b{font-weight:600}.ico-w{flex:none;display:grid;place-items:center}.rb.ar time{flex:none;font-size:13px}
 </style>
 </head>
 <body>
@@ -306,6 +325,7 @@ function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],rea
   const category=[p.category,same?.category,lk?.category].find(c=>c&&c!=='Sonstiges')||guessCategory(name),canon=lk?.name||name;
   if(same){upItem(same.id,{done:false,done_at:null,sort:nextSort(lid),spec:p.spec||same.spec,store_ids:storeIds?.length||p.exact?stores:same.store_ids});react.push(same.id);S.pop.add(same.id)}
   else{const it={id:uid(),list_id:lid,name:canon,spec:p.spec||null,category,store_ids:stores,done:false,done_at:null,sort:nextSort(lid)+created.length*0,created_by:S.user?.email,created_at:now(),updated_at:now()};
+   if(p.photo){it.photo_path=`items/${it.id}.jpg`;uploadPhoto(it.photo_path,p.photo).catch(()=>{toast('Foto konnte nicht hochgeladen werden');upItem(it.id,{photo_path:null})})}
    S.items.push(it);const{created_by,...ins}=it;enqueue({t:'items',o:'insert',d:ins});created.push(it.id);S.pop.add(it.id)}
   putCatalog(canon,category,stores,true)}
  scheduleRender();return{created,react,skipped}}
@@ -344,7 +364,7 @@ function askDups(entries,single){return new Promise(res=>{let done=false;const o
  const b=sheet(`<div class="shh"><button type="button" class="tb" id="ax">Abbrechen</button><h3>Ähnlich schon auf der Liste</h3><button type="button" class="tb ok" id="ao">Fertig</button></div>${entries.map((e,i)=>`<div class="dr"><div class="t"><b>${esc(e.p.name)}</b>${e.p.spec?' · '+esc(e.p.spec):''}<small>Bereits: ${e.m.map(x=>esc(x.name)+(x.spec?' ('+esc(x.spec)+')':'')).join(', ')}</small></div><button type="button" class="chip" data-t="${i}" aria-pressed="false">hinzufügen</button></div>`).join('')}`,{top:true,onClose:fin});
  b.addEventListener('click',e=>{const c=e.target.closest('[data-t]');if(!c)return;const i=+c.dataset.t;on.has(i)?on.delete(i):on.add(i);c.classList.toggle('on',on.has(i));c.setAttribute('aria-pressed',on.has(i))});
  $('#ax',b).onclick=()=>closeSheet();$('#ao',b).onclick=()=>{out.add=entries.filter((e,i)=>on.has(i)).map(e=>e.p);fin();closeSheet()}})}
-function delItem(id){const i=S.items.findIndex(x=>x.id===id);if(i<0)return;S.items.splice(i,1);enqueue({t:'items',o:'delete',id});scheduleRender()}
+function delItem(id){const i=S.items.findIndex(x=>x.id===id);if(i<0)return;const ph=S.items[i].photo_path;S.items.splice(i,1);if(ph)removePhoto(ph);enqueue({t:'items',o:'delete',id});scheduleRender()}
 
 /* ---------- Laden / Realtime ---------- */
 let chan;
@@ -352,12 +372,12 @@ async function load(){await flush();
  const[l,s,i,c,v]=await Promise.all([sb.from('lists').select('*').order('sort'),sb.from('stores').select('*').order('sort'),sb.from('items').select('*').order('sort'),sb.from('catalog').select('*').order('uses',{ascending:false}).limit(1500),sb.from('voice_tokens').select('*').limit(1).maybeSingle()]);
  const bad=[l,s,i].find(r=>r.error);if(bad){if(/permission|policy|42501|JWT/i.test(bad.error.code+bad.error.message)){const e=new Error('denied');e.denied=true;throw e}throw bad.error}
  if(queue.length)return;
- S.lists=l.data;S.stores=s.data;S.items=i.data;S.cat={};(c.data||[]).forEach(r=>S.cat[r.name_key]=r);S.token=v.data?.token||null;S.tokenRow=v.data||null;persist()}
+ S.lists=l.data;S.stores=s.data;S.items=i.data;S.cat={};(c.data||[]).forEach(r=>S.cat[r.name_key]=r);S.token=v.data?.token||null;S.tokenRow=v.data||null;persist();loadCards()}
 async function refetch(){if(!S.user)return;try{await load();await ensureList();scheduleRender()}catch(e){if(e.denied)denied()}}
 async function ensureList(){if(!S.lists.length&&navigator.onLine){const l={id:uid(),name:'Einkauf',sort:1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l})}
  if(!S.lists.some(l=>l.id===S.listId))S.listId=S.lists[0]?.id||null;LS.set('pq.list',S.listId)}
 function subscribe(){if(chan)sb.removeChannel(chan);chan=sb.channel('postae');
- for(const t of['items','lists','stores'])chan.on('postgres_changes',{event:'*',schema:'public',table:t},p=>applyChange(t,p));chan.subscribe()}
+ for(const t of['items','lists','stores'])chan.on('postgres_changes',{event:'*',schema:'public',table:t},p=>applyChange(t,p));chan.on('postgres_changes',{event:'*',schema:'public',table:'loyalty_cards'},applyCard);chan.on('postgres_changes',{event:'INSERT',schema:'public',table:'activity'},applyAct);chan.subscribe()}
 function applyChange(t,p){const arr=t==='items'?S.items:t==='lists'?S.lists:S.stores;
  if(p.eventType==='DELETE'){const i=arr.findIndex(x=>x.id===p.old.id);if(i>=0)arr.splice(i,1)}
  else{const i=arr.findIndex(x=>x.id===p.new.id);if(i>=0)arr[i]=p.new;else arr.push(p.new)}
@@ -375,7 +395,7 @@ function badges(i){const a=(i.store_ids||[]).map(id=>S.stores.find(s=>s.id===id)
  const b=a.slice(0,2).map(bgOne).join('');
  return`<span class="bd">${b}${a.length>2?`<span class="bg more" title="${esc(a.slice(2).map(s=>s.name).join(', '))}">+${a.length-2}</span>`:''}</span>`}
 function tile(i,done){const dots=badges(i);
- return`<div class="tile${done?' done':''}${S.pop.has(i.id)?' pop':''}" data-id="${i.id}" role="button" tabindex="0" aria-label="${esc(i.name)}${done?' wieder hinzufügen':' erledigt'}" aria-keyshortcuts="E">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(i.spec)}</span>`:''}${dots}</div>`}
+ return`<div class="tile${done?' done':''}${S.pop.has(i.id)?' pop':''}" data-id="${i.id}" role="button" tabindex="0" aria-label="${esc(i.name)}${done?' wieder hinzufügen':' erledigt'}" aria-keyshortcuts="E">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(i.spec)}</span>`:''}${i.photo_path?thHTML(i.photo_path):''}${dots}</div>`}
 function openItems(){let a=S.items.filter(i=>i.list_id===S.listId&&!i.done);if(S.filter)a=a.filter(i=>i.store_ids?.includes(S.filter)||(S.every&&!i.store_ids?.length));return a.sort((x,y)=>x.sort-y.sort)}
 function catList(items){const have=new Set(items.map(ecat));const order=[...S.catOrder,...CATS];const all=[...new Set([...order,...have])];return all.filter(c=>have.has(c))}
 function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
@@ -524,24 +544,26 @@ function storePicker(host,sel,{top=0}={}){const u={};if(top){for(const i of S.it
  if(q){q.oninput=draw;q.onkeydown=e=>{if(e.key==='Enter')e.preventDefault()}}draw()}
 function openDetail(id,newSpec){const it=S.items.find(i=>i.id===id);if(!it)return;const sel=new Set(it.store_ids||[]);
  const cats=[...new Set([...CATS,ecat(it)])],ec0=ecat(it),ri=resolveIcon(it.name,ec0);
- const b=sheet(`${shHead('Artikel bearbeiten','Speichern')}<div class="ap"><div class="ape" style="--cc:${categoryColor(ec0)}">${ri.matched||ec0!=='Sonstiges'?ICO(ri.icon):`<b class="ltr">${esc(it.name.charAt(0).toUpperCase())}</b>`}</div></div><label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80">${qtyHTML('dq',newSpec!==undefined?newSpec:it.spec)}<label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===ec0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="dst"></div><button type="button" class="btn danger" id="dd" style="width:100%;margin-top:20px">Löschen</button>`);
- storePicker($('#dst',b),sel);qtyInit(b,'dq');
+ const b=sheet(`${shHead('Artikel bearbeiten','Speichern')}<div class="ap"><div class="ape" style="--cc:${categoryColor(ec0)}">${ri.matched||ec0!=='Sonstiges'?ICO(ri.icon):`<b class="ltr">${esc(it.name.charAt(0).toUpperCase())}</b>`}</div></div><label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80">${qtyHTML('dq',newSpec!==undefined?newSpec:it.spec)}<label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===ec0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Foto</div><div id="dph"></div><div class="lbl">Geschäfte</div><div id="dst"></div><button type="button" class="btn danger" id="dd" style="width:100%;margin-top:20px">Löschen</button>`);
+ storePicker($('#dst',b),sel);qtyInit(b,'dq');const ph=photoField($('#dph',b),{path:it.photo_path});
  $('#dd',b).onclick=()=>{delItem(id);closeSheet();toast('Gelöscht')};
  $('#ax',b).onclick=()=>closeSheet();
  const go=()=>{const name=$('#dn',b).value.trim()||it.name,spec=qtySpec(b,'dq'),category=$('#dc',b).value,store_ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id);
-  upItem(id,{name,spec,category,store_ids});putCatalog(name,category,store_ids,false);closeSheet()};
+  const patch={name,spec,category,store_ids};
+  if(ph.blob){const path=`items/${id}.jpg`;uploadPhoto(path,ph.blob).catch(()=>toast('Foto konnte nicht hochgeladen werden'));patch.photo_path=path}else if(ph.removed&&it.photo_path){removePhoto(it.photo_path);patch.photo_path=null}
+  upItem(id,patch);putCatalog(name,category,store_ids,false);closeSheet()};
  $('#ao',b).onclick=go;submitKey(b,go)}
 function openAdd(p){const key=p.name.toLowerCase().trim(),lk=lookup(key),valid=id=>S.stores.some(s=>s.id===id);
  const sel=new Set((p.stores||[]).filter(valid));if(!sel.size)(lk?.store_ids||[]).filter(valid).forEach(id=>sel.add(id));if(!sel.size&&S.filter)sel.add(S.filter);
  const cat0=[lk?.category,p.category].find(c=>c&&c!=='Sonstiges')||guessCategory(p.name),cats=[...new Set([...CATS,cat0])];let touched=false,spec0=p.spec||'';
- const b=sheet(`${shHead('Artikel hinzufügen','Hinzufügen')}<div class="ap"><div class="ape" id="ape"></div></div><label for="an">Artikel</label><input id="an" value="${esc(p.name)}" maxlength="80" autocapitalize="sentences">${qtyHTML('aq',spec0)}<label for="ac">Kategorie</label><select id="ac">${cats.map(c=>`<option${c===cat0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Geschäfte</div><div id="ast"></div>`);
+ const b=sheet(`${shHead('Artikel hinzufügen','Hinzufügen')}<div class="ap"><div class="ape" id="ape"></div></div><label for="an">Artikel</label><input id="an" value="${esc(p.name)}" maxlength="80" autocapitalize="sentences">${qtyHTML('aq',spec0)}<label for="ac">Kategorie</label><select id="ac">${cats.map(c=>`<option${c===cat0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Foto</div><div id="aph"></div><div class="lbl">Geschäfte</div><div id="ast"></div>`);const ph=photoField($('#aph',b),{});
  const an=$('#an',b),as=$('#aqn',b),ac=$('#ac',b);qtyInit(b,'aq');
  const prev=()=>{const n=an.value.trim(),cv=ac.value,r=n?resolveIcon(n,cv):{icon:categoryIcon(cv),matched:false},el=$('#ape',b);el.style.setProperty('--cc',categoryColor(cv!=='Sonstiges'?cv:r.category));el.innerHTML=r.matched||cv!=='Sonstiges'||!n?ICO(r.icon):`<b class="ltr">${esc(n.charAt(0).toUpperCase())}</b>`};
   prev();storePicker($('#ast',b),sel,{top:6});
  an.oninput=()=>{const l=lookup(an.value.toLowerCase().trim());if(!touched&&an.value.trim()){const c=l&&l.category!=='Sonstiges'?l.category:guessCategory(an.value);if(cats.includes(c))ac.value=c}prev()};
  ac.onchange=()=>{touched=true;prev()};
  let fired=false;const go=()=>{if(fired)return;const name=an.value.trim();if(!name){an.focus();return}fired=true;
-  const spec=qtySpec(b,'aq'),ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id),pp={name,spec,category:ac.value,exact:true},m=findSimilar(name);
+  const spec=qtySpec(b,'aq'),ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id),pp={name,spec,category:ac.value,exact:true,photo:ph.blob||undefined},m=findSimilar(name);
   if(m.length){askDups([{p:pp,m}],true).then(r=>{if(r.edit){closeSheet();openDetail(r.edit,spec||undefined)}else if(r.add.length){closeSheet();commit([{...pp,force:true}],ids)}else fired=false});return}
   closeSheet();commit([pp],ids)};
  $('#ao',b).onclick=go;$('#ax',b).onclick=()=>closeSheet();
@@ -574,9 +596,127 @@ function placeStore(id,prevId,nextId){const s=S.stores.find(x=>x.id===id),p=S.st
  s.sort=p&&n?(p.sort+n.sort)/2:p?p.sort+1:n?n.sort-1:s.sort;S.stores.sort((x,y)=>x.sort-y.sort);enqueue({t:'stores',o:'update',id,d:{sort:s.sort}});render()}
 const STAR='<span class="fv" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></svg></span>';
 
+/* ---------- Fotos, Kundenkarten, Verlauf ---------- */
+Object.assign(ICONS,{card:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 15h4"/>',camera:'<path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',history:'<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5M3.5 4v4.5H8M12 7.5V12l3 2"/>',scan:'<path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M4 12h16"/>',pencil:'<path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/>',image:'<rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5-5 4 4 3-3 4 4"/>'});
+const NAMES={'a.gabay94@gmail.com':'Arik','erika.ogol@gmail.com':'Erika'};
+const who=e=>NAMES[e]||String(e||'?').split('@')[0];
+const loadScript=(()=>{const m={};return src=>m[src]||(m[src]=new Promise((ok,no)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=()=>{delete m[src];no(new Error(src))};document.head.append(s)}))})();
+/* Fotos */
+const PU=new Map(),LOCALPH=new Map(),UPL=new Map();
+const cachedUrl=p=>{const l=LOCALPH.get(p);if(l&&l.exp>Date.now())return l.u;const c=PU.get(p);return c&&c.exp>Date.now()?c.u:null};
+async function photoUrl(path){const k=cachedUrl(path);if(k)return k;try{await UPL.get(path)}catch{}
+ try{const{data,error}=await sb.storage.from('photos').createSignedUrl(path,3600);if(error||!data?.signedUrl)return null;PU.set(path,{u:data.signedUrl,exp:Date.now()+600e3});return data.signedUrl}catch{return null}}
+function uploadPhoto(path,blob){PU.delete(path);LOCALPH.set(path,{u:URL.createObjectURL(blob),exp:Date.now()+60e3});
+ const p=sb.storage.from('photos').upload(path,blob,{contentType:'image/jpeg',upsert:true}).then(({error})=>{if(error)throw error});
+ UPL.set(path,p);p.then(()=>{},()=>{}).then(()=>{if(UPL.get(path)===p)UPL.delete(path)});return p}
+async function removePhoto(path){if(!path)return;PU.delete(path);LOCALPH.delete(path);try{await UPL.get(path)}catch{}try{await sb.storage.from('photos').remove([path])}catch{}}
+async function prepPhoto(file){let bm;try{bm=await createImageBitmap(file,{imageOrientation:'from-image'})}catch{bm=await new Promise((ok,no)=>{const im=new Image();im.onload=()=>ok(im);im.onerror=no;im.src=URL.createObjectURL(file)})}
+ const w0=bm.width||bm.naturalWidth,h0=bm.height||bm.naturalHeight,k=Math.min(1,1280/Math.max(w0,h0)),c=document.createElement('canvas');c.width=Math.round(w0*k);c.height=Math.round(h0*k);
+ const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(bm,0,0,c.width,c.height);bm.close?.();
+ const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.8));if(!b)throw new Error('blob');return b}
+const thHTML=(p,cls='')=>`<span class="th${cls?' '+cls:''}" data-p="${esc(p)}" role="img" aria-label="Foto"></span>`;
+const renderThumb=item=>item.photo_path?`<span class="th lg" data-p="${esc(item.photo_path)}" role="button" aria-label="Foto anzeigen"></span>`:'';
+const thIO=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){thIO.unobserve(e.target);const el=e.target;photoUrl(el.dataset.p).then(u=>{if(u&&el.isConnected){el.style.backgroundImage=`url("${u}")`;el.dataset.h='k'}else el.dataset.h='f'})}},{rootMargin:'240px'});
+function scanTh(){$$('.th[data-p]:not([data-h])').forEach(el=>{const u=cachedUrl(el.dataset.p);if(u){el.style.backgroundImage=`url("${u}")`;el.dataset.h='k';return}el.dataset.h='o';thIO.observe(el)})}
+{let q=0;new MutationObserver(()=>{if(q)return;q=1;requestAnimationFrame(()=>{q=0;scanTh()})}).observe(document.body,{childList:true,subtree:true})}
+addEventListener('online',()=>{$$('.th[data-h=f]').forEach(e=>delete e.dataset.h);scanTh()});
+function photoField(host,{path}){const st={blob:null,removed:false,path:path||null};let url=null;
+ host.innerHTML=`<div class="rows"><div class="sr pf"><button type="button" class="pvw" data-pf="view" aria-label="Foto ansehen"></button><button type="button" class="btn sm" data-pf="cam">${ic('camera')}Kamera</button><button type="button" class="btn sm" data-pf="gal">${ic('image')}Galerie</button><button type="button" class="tl" data-pf="rm">Entfernen</button></div></div><input type="file" accept="image/*" capture="environment" style="display:none" data-f="cam"><input type="file" accept="image/*" style="display:none" data-f="gal">`;
+ const draw=()=>{const pv=$('.pvw',host),has=st.blob||(st.path&&!st.removed);if(url){URL.revokeObjectURL(url);url=null}
+  pv.disabled=!has;if(st.blob){url=URL.createObjectURL(st.blob);pv.innerHTML='<span class="th xl" style="background-image:url(\''+url+'\')"></span>'}
+  else if(has)pv.innerHTML=thHTML(st.path,'xl');else pv.innerHTML=`<span class="th xl emp">${ic('image')}</span>`;$('[data-pf=rm]',host).hidden=!has};
+ host.addEventListener('click',e=>{const t=e.target.closest('[data-pf]');if(!t)return;const a=t.dataset.pf;
+  if(a==='cam'||a==='gal')$(`[data-f=${a}]`,host).click();
+  else if(a==='rm'){st.blob=null;st.removed=true;draw()}
+  else if(a==='view'){if(st.blob)openViewer(null,url);else if(st.path)openViewer(st.path)}});
+ host.addEventListener('change',async e=>{const inp=e.target.closest('input[type=file]');const f=inp?.files?.[0];if(!f)return;inp.value='';
+  try{st.blob=await prepPhoto(f);st.removed=false;draw()}catch{toast('Foto konnte nicht gelesen werden')}});
+ draw();return st}
+function openViewer(path,direct){const o=document.createElement('div');o.className='vw';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label','Foto');
+ o.innerHTML=`<button type="button" class="ib vx" aria-label="Schliessen">${ic('x')}</button><div class="vz"><img alt="Foto"></div>`;document.body.append(o);
+ const vz=$('.vz',o),im=$('img',o);let zoomed=false,t0=0,x0=0,y0=0;const esc2=e=>{if(e.key==='Escape'){e.stopPropagation();cl()}};
+ const cl=()=>{removeEventListener('keydown',esc2,true);o.remove()};addEventListener('keydown',esc2,true);$('.vx',o).onclick=cl;
+ (direct?Promise.resolve(direct):photoUrl(path)).then(u=>{if(!u){toast('Foto nicht verfügbar');cl();return}im.src=u});
+ vz.addEventListener('pointerup',e=>{if(e.pointerType==='touch'&&!e.isPrimary)return;const n=Date.now();
+  if(n-t0<320&&Math.hypot(e.clientX-x0,e.clientY-y0)<30){t0=0;const r=im.getBoundingClientRect();
+   if(!zoomed){const rx=(e.clientX-r.left)/r.width,ry=(e.clientY-r.top)/r.height,W=r.width*2.5;o.classList.add('z');im.style.width=W+'px';im.style.height='auto';vz.scrollLeft=rx*W-e.clientX;vz.scrollTop=ry*im.offsetHeight-e.clientY;zoomed=true}
+   else{o.classList.remove('z');im.style.width=im.style.height='';zoomed=false}}
+  else{t0=n;x0=e.clientX;y0=e.clientY}})}
+/* Kundenkarten */
+let CARDS=LS.get('pq.cards',[]);const saveCards=()=>LS.set('pq.cards',CARDS);
+const FMTS=[['CODE128','Strichcode'],['EAN13','EAN-13'],['EAN8','EAN-8'],['QR','QR'],['CODE39','Code 39'],['UPC','UPC']];
+const detectFmt=n=>/^\d{13}$/.test(n)?'EAN13':/^\d{8}$/.test(n)?'EAN8':'CODE128';
+const CAN_SCAN=typeof BarcodeDetector!=='undefined'&&!!navigator.mediaDevices?.getUserMedia;
+async function loadCards(){try{const r=await sb.from('loyalty_cards').select('*').order('sort');if(!r.error&&!queue.length){CARDS=r.data||[];saveCards();S.cardRedraw?.();if(SM.o)smRender()}}catch{}}
+function applyCard(p){if(p.eventType==='DELETE')CARDS=CARDS.filter(c=>c.id!==p.old.id);else{const i=CARDS.findIndex(c=>c.id===p.new.id);if(i>=0)CARDS[i]=p.new;else CARDS.push(p.new);CARDS.sort((a,b)=>(a.sort||0)-(b.sort||0))}saveCards();S.cardRedraw?.();if(SM.o)smRender()}
+const cardsOf=sid=>CARDS.filter(c=>c.store_id===sid);
+const cardIcon=c=>{const s=S.stores.find(x=>x.id===c.store_id);return s?avHTML(s):`<span class="lic">${ic('card')}</span>`};
+const hiSheet=html=>{const b=sheet(html);b.closest('.ov').classList.add('hi');return b};
+async function codeSVG(c){const NS='http://www.w3.org/2000/svg';
+ if(c.format==='QR'){await loadScript('vendor/qrcode.min.js');const q=qrcode(0,'M');q.addData(String(c.number));q.make();const n=q.getModuleCount(),m=4;let d='';
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(q.isDark(y,x))d+=`M${x+m} ${y+m}h1v1h-1z`;
+  return`<svg xmlns="${NS}" viewBox="0 0 ${n+2*m} ${n+2*m}" shape-rendering="crispEdges" role="img" aria-label="QR-Code"><path d="${d}" fill="#000"/></svg>`}
+ await loadScript('vendor/jsbarcode.min.js');const mk=f=>{const s=document.createElementNS(NS,'svg');JsBarcode(s,String(c.number),{format:f,width:3,height:120,margin:14,background:'#fff',lineColor:'#000',displayValue:false});
+  if(!s.getAttribute('viewBox'))s.setAttribute('viewBox',`0 0 ${parseFloat(s.getAttribute('width'))} ${parseFloat(s.getAttribute('height'))}`);s.removeAttribute('width');s.removeAttribute('height');s.setAttribute('role','img');s.setAttribute('aria-label','Strichcode');return s.outerHTML};
+ try{return mk(c.format||'CODE128')}catch{try{return mk('CODE128')}catch{return''}}}
+async function viewCard(c){const st=S.stores.find(s=>s.id===c.store_id),o=document.createElement('div');o.className='cv';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label',c.label);let wl=null;
+ o.innerHTML=`<div class="cvh">${st?avHTML(st):`<span class="lic">${ic('card')}</span>`}<div class="smt"><b>${esc(c.label)}</b><small>${esc([st?.name,c.owner?who(c.owner):''].filter(Boolean).join(' · '))}</small></div></div><div class="cvc" id="cvc"></div><div class="cvn">${esc(c.number)}</div>${c.photo_path?`<div class="cvp">${thHTML(c.photo_path,'lg')}</div>`:''}<p class="cvt">Helligkeit hochdrehen · Tippen zum Schliessen</p>`;
+ const esc2=e=>{if(e.key==='Escape'){e.stopPropagation();cl()}},cl=()=>{removeEventListener('keydown',esc2,true);wl?.release?.().catch?.(()=>{});o.remove()};
+ addEventListener('keydown',esc2,true);o.onclick=e=>{const t=e.target.closest('.th[data-p]');if(t){openViewer(t.dataset.p);return}cl()};document.body.append(o);
+ try{wl=await navigator.wakeLock?.request('screen')}catch{}
+ const svg=await codeSVG(c);$('#cvc',o).innerHTML=svg||'<p class="cvt">Code nicht darstellbar</p>'}
+function showCards(sid){const a=cardsOf(sid);if(!a.length){toast('Keine Karte für diesen Laden');return}if(a.length===1){viewCard(a[0]);return}pickCards(a)}
+function pickCards(a){const b=hiSheet(`<h3>Karte zeigen</h3><div class="rows">${a.map(c=>`<div class="sr"><button type="button" class="rb" data-cid="${c.id}">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span>${ic('chevR')}</button></div>`).join('')}</div>`);
+ b.onclick=e=>{const t=e.target.closest('[data-cid]');if(!t)return;const c=CARDS.find(x=>x.id===t.dataset.cid);if(c){closeSheet();viewCard(c)}}}
+function scanOverlay(){return new Promise(res=>{const o=document.createElement('div');o.className='scn';o.innerHTML=`<video playsinline muted></video><div class="scf"></div><p>Strichcode oder QR-Code in den Rahmen halten</p><button type="button" class="btn" id="scx">Abbrechen</button>`;document.body.append(o);
+ const v=$('video',o);let stream=null,alive=true;const MAP={code_128:'CODE128',ean_13:'EAN13',ean_8:'EAN8',qr_code:'QR',code_39:'CODE39',upc_a:'UPC',upc_e:'UPC'};
+ const fin=r=>{if(!alive)return;alive=false;stream?.getTracks().forEach(t=>t.stop());o.remove();res(r)};$('#scx',o).onclick=()=>fin(null);
+ (async()=>{try{const det=new BarcodeDetector({formats:Object.keys(MAP)});stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});v.srcObject=stream;await v.play();
+  const tick=async()=>{if(!alive)return;try{const r=await det.detect(v);if(r[0]?.rawValue){navigator.vibrate?.(30);fin({number:r[0].rawValue,format:MAP[r[0].format]||'CODE128'});return}}catch{}setTimeout(tick,200)};tick()}
+ catch{toast('Kamera nicht verfügbar');fin(null)}})()})}
+function openCard(id){const ex=id&&CARDS.find(c=>c.id===id),cid=ex?.id||uid();let fmt=ex?.format||'CODE128',touched=!!ex;
+ const b=sheet(`${shHead(ex?'Karte bearbeiten':'Neue Karte','Speichern')}<label for="cst">Laden</label><select id="cst"><option value="">Kein Laden</option>${S.stores.map(s=>`<option value="${s.id}"${s.id===ex?.store_id?' selected':''}>${esc(s.name)}</option>`).join('')}</select>
+<label for="clb">Bezeichnung</label><input id="clb" maxlength="40" autocomplete="off" placeholder="z. B. Cumulus Arik" value="${esc(ex?.label||'')}">
+<label for="cnum">Nummer</label><input id="cnum" autocomplete="off" spellcheck="false" autocapitalize="off" value="${esc(ex?.number||'')}">${CAN_SCAN?`<button type="button" class="btn" id="csc" style="width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px">${ic('scan')}Karte scannen</button>`:''}
+<label id="cfl">Format</label><div class="chips" role="radiogroup" aria-labelledby="cfl" id="cfm"></div><div class="er" id="cer" role="alert"></div>
+<div class="lbl">Foto der Karte (Vorderseite)</div><div id="cph"></div>${ex?'<button type="button" class="btn danger" id="cdel" style="width:100%;margin-top:20px">Karte löschen</button>':''}`);
+ const ph=photoField($('#cph',b),{path:ex?.photo_path}),num=$('#cnum',b);
+ const drawF=()=>{$('#cfm',b).innerHTML=FMTS.map(([k,l])=>`<button type="button" class="chip${k===fmt?' on':''}" role="radio" aria-checked="${k===fmt}" data-k="${k}">${l}</button>`).join('')};drawF();
+ $('#cfm',b).onclick=e=>{const t=e.target.closest('[data-k]');if(!t)return;fmt=t.dataset.k;touched=true;drawF()};
+ num.oninput=()=>{$('#cer',b).textContent='';if(!touched){fmt=detectFmt(num.value.trim());drawF()}};
+ $('#csc',b)?.addEventListener('click',async()=>{const r=await scanOverlay();if(r){num.value=r.number;fmt=r.format;touched=true;drawF()}});
+ $('#ax',b).onclick=()=>closeSheet();
+ let busy=false;$('#ao',b).onclick=async()=>{if(busy)return;const number=num.value.trim(),sid=$('#cst',b).value||null,label=$('#clb',b).value.trim()||S.stores.find(s=>s.id===sid)?.name||'';
+  if(!number){$('#cer',b).textContent='Bitte eine Nummer eingeben oder scannen.';num.focus();return}if(!label){$('#cer',b).textContent='Bitte eine Bezeichnung eingeben.';$('#clb',b).focus();return}
+  busy=true;let photo_path=ex?.photo_path||null;
+  if(ph.blob){try{await uploadPhoto(`cards/${cid}.jpg`,ph.blob);photo_path=`cards/${cid}.jpg`}catch{toast('Foto konnte nicht hochgeladen werden')}}else if(ph.removed&&photo_path){removePhoto(photo_path);photo_path=null}
+  const row={store_id:sid,label,number,format:fmt,photo_path,sort:ex?.sort??(CARDS.reduce((m,c)=>Math.max(m,c.sort||0),0)+1)};
+  if(ex){Object.assign(ex,row);enqueue({t:'loyalty_cards',o:'update',id:cid,d:row})}else{CARDS.push({id:cid,...row,owner:S.user?.email,created_at:now()});enqueue({t:'loyalty_cards',o:'insert',d:{id:cid,...row}})}
+  saveCards();S.cardRedraw?.();if(SM.o)smRender();closeSheet()};
+ $('#cdel',b)?.addEventListener('click',async()=>{if(!await askConfirm(`«${ex.label}» löschen?`))return;removePhoto(ex.photo_path);CARDS=CARDS.filter(c=>c.id!==cid);enqueue({t:'loyalty_cards',o:'delete',id:cid});saveCards();S.cardRedraw?.();if(SM.o)smRender();closeSheet()})}
+/* Verlauf */
+let ACT=null;const ACT_F=[['all','Alle'],['added','Hinzugefügt'],['done','Abgehakt'],['deleted','Gelöscht']];
+const ACT_V={added:'hinzugefügt',done:'abgehakt',reopened:'wieder geöffnet',edited:'bearbeitet',deleted:'gelöscht'};
+function applyAct(p){if(p.eventType!=='INSERT'||!ACT)return;if(!ACT.some(a=>a.id===p.new.id)){ACT.unshift(p.new);ACT=ACT.slice(0,200)}S.actRedraw?.()}
+const dayKey=d=>d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
+function dayLabel(d){const n=new Date(),y=new Date(n);y.setDate(n.getDate()-1);return dayKey(d)===dayKey(n)?'Heute':dayKey(d)===dayKey(y)?'Gestern':d.toLocaleDateString('de-CH',{weekday:'long',day:'numeric',month:'long'})}
+function openHistory(){let flt='all';const b=sheet('',{onClose:()=>{S.actRedraw=null}});
+ const draw=()=>{const list=(ACT||[]).filter(a=>flt==='all'||a.action===flt);let h=`<div class="shh"><span></span><h3>Verlauf</h3><button type="button" class="tb ok" id="ao">Fertig</button></div><div class="chips" role="radiogroup" aria-label="Filter">${ACT_F.map(([k,l])=>`<button type="button" class="chip${k===flt?' on':''}" role="radio" aria-checked="${k===flt}" data-fl="${k}">${l}</button>`).join('')}</div>`;
+  if(ACT===null)h+='<div class="sf" role="status">Lädt…</div>';else if(!list.length)h+='<div class="rows"><div class="sr emp" role="status">Noch keine Einträge</div></div>';
+  else{let last='';for(const a of list){const d=new Date(a.at),k=dayKey(d);if(k!==last){if(last)h+='</div>';h+=`<div class="gl">${dayLabel(d)}</div><div class="rows">`;last=k}
+    const nm=who(a.actor),it=S.items.find(i=>i.id===a.item_id),spec=a.details?.spec,r=resolveIcon(a.item_name||'',it?.category),c=it?ecat(it):guessCategory(a.item_name||''),er=nm==='Erika';
+    h+=`<div class="sr"><button type="button" class="rb ar" data-a="${a.id}"><span class="av ${er?'er':'ar0'}" aria-hidden="true">${esc(nm.charAt(0).toUpperCase())}</span><span class="tx at"><b>${esc(nm)}</b> hat <b>${esc(a.item_name||'')}</b> ${ACT_V[a.action]||esc(a.action)}${spec&&a.action==='added'?` (${esc(spec)})`:''}</span><span class="ico-w" style="--cc:${categoryColor(c)}">${ICO(r.icon,' sm')}</span><time class="ct">${d.toLocaleTimeString('de-CH',{hour:'2-digit',minute:'2-digit'})}</time></button></div>`}
+   h+='</div>'}
+  const sc=b.closest('.sh').scrollTop;b.innerHTML=h;b.closest('.sh').scrollTop=sc};
+ S.actRedraw=draw;draw();
+ sb.from('activity').select('*').order('at',{ascending:false}).limit(200).then(r=>{if(!r.error){ACT=r.data;draw()}else{ACT=ACT||[];draw();toast('Verlauf nicht ladbar')}},()=>{ACT=ACT||[];draw()});
+ b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;if(t.id==='ao'){closeSheet();return}if(t.dataset.fl){flt=t.dataset.fl;draw();return}
+  const a=ACT?.find(x=>String(x.id)===t.dataset.a);if(!a)return;
+  if(a.item_id&&S.items.some(i=>i.id===a.item_id))openDetail(a.item_id);
+  else if(a.item_name&&await askConfirm(`«${a.item_name}» wieder hinzufügen?`,'Hinzufügen'))commit([{name:a.item_name,spec:a.details?.spec||null}],[])}}
+
 /* ---------- Einkaufsmodus ---------- */
 const SM={o:null,store:null,only:LS.get('pq.smonly',false),sort:false,cartOpen:false,t0:'',cart:new Set(),seen:null,drag:false,wl:null};
-const renderThumb=item=>''; /* Hook: Foto-Thumbnail (item.photo_path), folgt in Runde 2 */
 async function smWake(){try{if(navigator.wakeLock&&document.visibilityState==='visible'&&SM.o&&!SM.wl){SM.wl=await navigator.wakeLock.request('screen');SM.wl.addEventListener('release',()=>{SM.wl=null})}}catch{}}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')smWake()});
 function smOrder(st){return[...new Set([...(st?.category_order||[]),...(st?[]:S.catOrder),...CATS])]}
@@ -608,9 +748,11 @@ function smRender(){const o=SM.o;if(!o||SM.drag)return;
   const ord=smOrder(st),cats=[...byCat.keys()].sort((a,b)=>{const x=ord.indexOf(a),y=ord.indexOf(b);return(x<0?999:x)-(y<0?999:y)});
   for(const c of cats){const its=byCat.get(c);h+=`<div class="smg"><i class="gd" style="background:${categoryColor(c)}"></i>${esc(c)}<span class="cnt">${its.length}</span></div>`+its.map(i=>smRow(i)).join('')}
   if(cart.length)h+=`<button type="button" class="smd" data-sm="cart" aria-expanded="${SM.cartOpen}">Im Wagen<span class="cnt">${cart.length}</span>${ic('chev')}</button>`+(SM.cartOpen?cart.map(i=>smRow(i,' done')).join(''):'')}
+ {const cs=st?cardsOf(st.id):[];$('#sm-card-slot',o).innerHTML=cs.length?`<button type="button" class="btn smcard" data-sm="card">${ic('card')}<span>Karte zeigen${cs.length>1?` (${cs.length})`:''}</span></button>`:''}
  const sc=$('#smb',o).scrollTop;$('#smc',o).innerHTML=h;$('#smb',o).scrollTop=sc;
  if(!SM.seen)SM.seen=new Set();all.forEach(i=>SM.seen.add(i.id))}
-function smClick(e){const t=e.target.closest('button');if(!t)return;const a=t.dataset.sm;
+function smClick(e){const th=e.target.closest('.th[data-p]');if(th){openViewer(th.dataset.p);return}const t=e.target.closest('button');if(!t)return;const a=t.dataset.sm;
+ if(a==='card'){showCards(SM.store);return}
  if(a==='close'){closeShop();return}
  if(a==='only'){SM.only=!SM.only;LS.set('pq.smonly',SM.only);smRender();return}
  if(a==='sort'){SM.sort=true;smRender();return}if(a==='sortend'){SM.sort=false;smRender();return}
@@ -660,7 +802,7 @@ async function npClick(t){const k=t.dataset.np;
  NP.busy=false}
 
 /* ---------- Einstellungen ---------- */
-function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false;const b=sheet('',{onClose:()=>{S.stRedraw=null}});
+function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false;const b=sheet('',{onClose:()=>{S.stRedraw=null;S.cardRedraw=null}});
  const sRow=s=>{const fav=!!s.favorite,k=kindOf(s);return edit
   ?`<div class="sr" data-id="${s.id}"><button type="button" class="mn" data-a="rm" aria-label="${esc(s.name)} löschen"><span></span></button><button type="button" class="rb" data-a="ed" aria-label="${esc(s.name)}${fav?', Favorit':''}, bearbeiten">${avHTML(s)}<span class="tx">${esc(s.name)}<small>${k}</small></span>${fav?STAR:''}</button><button type="button" class="dh" data-a="mv" aria-label="${esc(s.name)} verschieben, mit Pfeiltasten hoch oder runter">${ic('grip')}</button></div>`
   :`<div class="sr" data-id="${s.id}"><button type="button" class="rb" data-a="ed" aria-label="${esc(s.name)}${fav?', Favorit':''}, bearbeiten">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${fav?STAR:''}${ic('chevR')}</button></div>`};
@@ -674,28 +816,39 @@ function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false;
  S.stRedraw=()=>{if(!S.dragging)drawStores()};
  const draw=()=>{const lr=S.lists.map(l=>{const n=S.items.filter(i=>i.list_id===l.id&&!i.done).length;return`<div class="sr"><button type="button" class="rb" data-a="lists" aria-label="${esc(l.name)}, ${n} offen, Listen verwalten"><span class="lic">${ic('list')}</span><span class="tx">${esc(l.name)}</span><span class="ct">${n}</span>${ic('chevR')}</button></div>`}).join('');
   b.innerHTML=`<div class="shh"><span></span><h3>Einstellungen</h3><button type="button" class="tb ok" id="ao">Fertig</button></div>
+<div class="rows"><div class="sr"><button type="button" class="rb" data-a="hist"><span class="lic">${ic('history')}</span><span class="tx">Verlauf<small>Wer hat was hinzugefügt oder abgehakt</small></span>${ic('chevR')}</button></div></div>
 <div class="sth"><h4>Listen</h4></div><div class="rows">${lr}<div class="sr"><button type="button" class="rb acc" data-a="nl"><span class="lic pl">${ic('plus')}</span><span class="tx">Neue Liste</span></button></div></div><div class="sf">Tippe auf eine Liste, um Listen umzubenennen oder zu löschen.</div>
 <div class="sth"><h4>Läden</h4><button type="button" class="tl" id="eb" aria-pressed="false">Bearbeiten</button></div>
 <div class="srch" id="sbar">${ic('search')}<input id="sq2" type="search" placeholder="Laden suchen" aria-label="Laden suchen" autocomplete="off" enterkeyhint="search" value="${esc(q)}"></div><div id="sg"></div>
+<div class="sth"><h4>Kundenkarten</h4></div><div id="kc"></div>
 <div class="sth"><h4>Sprachassistent</h4></div><div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">Dein Token<small class="mo">${esc(S.token||'– nicht verfügbar –')}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="Token kopieren">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">Endpunkt<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="Endpunkt-URL kopieren">${ic('copy')}</button></div></div>
 <div class="sf"><p><b>iPhone:</b> Kurzbefehl «Postä» anlegen: «Diktat» → «Inhalte von URL abrufen» (Methode POST, JSON mit <i>text</i> = Diktierter Text, Header <i>x-postae-token</i> = dein Token). Danach «Hey Siri, Postä».</p><p><b>Android:</b> «Hey Google, öffne Postä» oder App-Verknüpfung «Sprechen» – öffnet Postä mit <i>?voice=1</i> und startet die Spracheingabe.</p></div>
 <div id="np"></div>
-<div class="sth"><h4>Konto</h4></div><div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">Abmelden</button></div></div>`;drawStores();drawPush()};
+<div class="sth"><h4>Konto</h4></div><div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">Abmelden</button></div></div>`;drawStores();drawCards();drawPush()};
+ const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${esc(c.label)} anzeigen">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${esc(c.label)} bearbeiten">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">Karte hinzufügen</span></button></div></div><div class="sf">Tippe auf eine Karte, um sie an der Kasse zu zeigen. Lang drücken auf einen Laden zeigt dessen Karten.</div>`};
+ S.cardRedraw=()=>drawCards();
  const drawPush=()=>{const h=$('#np',b);if(h)h.innerHTML=npHTML()};
  draw();npLoad().then(drawPush);
  b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;
   if(t.id==='ao'){closeSheet();return}
+  if(t.dataset.cv){const c=CARDS.find(x=>x.id===t.dataset.cv);if(c)viewCard(c);return}
+  if(t.dataset.ce!==undefined){openCard(t.dataset.ce||null);return}
   if(t.id==='eb'){edit=!edit;drawStores();return}
   if(t.dataset.cp!==undefined){try{await navigator.clipboard.writeText(t.dataset.cp);toast('Kopiert')}catch{toast('Kopieren nicht möglich')}return}
   if(t.dataset.np){await npClick(t);drawPush();return}
   const a=t.dataset.a,row=t.closest('[data-id]'),s=row&&S.stores.find(x=>x.id===row.dataset.id);
-  if(a==='lists')openLists();
+  if(a==='hist')openHistory();
+  else if(a==='lists')openLists();
   else if(a==='nl'){const n=await askText('Neue Liste','','Erstellen');if(n){const l={id:uid(),name:n,sort:(S.lists.at(-1)?.sort||0)+1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l});render();draw()}}
   else if(a==='ed'&&s)openStore(s.id);
   else if(a==='add')openStore();
   else if(a==='rm'&&s)askDelStore(s);
   else if(a==='lo'){closeSheet();await flush();await sb.auth.signOut()}};
  b.oninput=e=>{if(e.target.id==='sq2'){q=e.target.value;drawStores()}};
+ {let lt=null,fired=false;const clr=()=>{clearTimeout(lt);lt=null};
+  b.addEventListener('pointerdown',e=>{const t=e.target.closest('#sg .rb[data-a=ed]');if(!t||edit||e.button>0)return;fired=false;const id=t.closest('[data-id]')?.dataset.id,x=e.clientX,y=e.clientY;lt=setTimeout(()=>{fired=true;navigator.vibrate?.(10);showCards(id)},550);const mv=ev=>{if(Math.hypot(ev.clientX-x,ev.clientY-y)>10)clr()};addEventListener('pointermove',mv,{once:false});const up=()=>{clr();removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up)};addEventListener('pointerup',up);addEventListener('pointercancel',up)});
+  b.addEventListener('click',e=>{if(fired){fired=false;e.stopPropagation();e.preventDefault()}},true);
+  b.addEventListener('contextmenu',e=>{if(e.target.closest('#sg .rb'))e.preventDefault()})}
  b.onkeydown=e=>{const h=e.target.closest?.('.dh');if(!h||(e.key!=='ArrowUp'&&e.key!=='ArrowDown'))return;e.preventDefault();
   const id=h.closest('[data-id]').dataset.id,i=S.stores.findIndex(x=>x.id===id),L=S.stores;
   if(e.key==='ArrowUp'&&i>0)placeStore(id,L[i-2]?.id,L[i-1].id);else if(e.key==='ArrowDown'&&i<L.length-1)placeStore(id,L[i+1].id,L[i+2]?.id);else return;
