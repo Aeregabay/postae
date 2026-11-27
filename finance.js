@@ -316,12 +316,12 @@ ${grp&&!cur.shop?`<div class="fcc"><button type="button" class="fch${C.group?' o
 <div class="gl">Namen &amp; Farben</div><div class="rows">${MEM().map(m=>`<div class="sr"><div class="fm" data-em="${esc(m.email)}"><input type="color" value="${esc(/^#[0-9a-f]{6}$/i.test(m.color)?m.color:'#999999')}" aria-label="Farbe ${esc(m.name)}"><input class="fmn" value="${esc(m.name)}" maxlength="24" aria-label="Name"></div></div>`).join('')}</div>
 <div class="sf">Gilt für euch beide. Namen und Farben erscheinen bei Zahlern und Anteilen.</div>`;
    const s=$('#ds-fin');if(s)s.textContent=F.settings.enabled?'An':'Aus'};
-  host.onclick=e=>{const t=e.target.closest('[data-fs]');if(!t||t.disabled)return;setSettings({[t.dataset.fs]:t.getAttribute('aria-checked')!=='true'})};
+  host.onclick=e=>{const t=e.target.closest('[data-fs]');if(!t||t.disabled)return;{const v=t.getAttribute('aria-checked')!=='true';t.setAttribute('aria-checked',v);setSettings({[t.dataset.fs]:v});draw()}};
   host.onchange=async e=>{const row=e.target.closest('[data-em]');if(!row)return;const email=row.dataset.em,name=$('.fmn',row).value.trim()||mem(email).name,color=$('[type=color]',row).value,m=F.members.find(x=>x.email===email)||MEM().find(x=>x.email===email);
    if(!m)return;const upd={name,color};
    if(!F.members.length)F.members=DEFAULT_MEMBERS.map(x=>({...x}));Object.assign(F.members.find(x=>x.email===email),upd);
    const{error}=await sb.from('members').update(upd).eq('email',email);if(error)toast('Speichern fehlgeschlagen');changed()};
-  F.redraw=()=>{if(host.isConnected&&!host.contains(document.activeElement))draw();else if(!host.isConnected)F.redraw=null};draw()}
+  F.redraw=()=>{if(host.isConnected&&!(host.contains(document.activeElement)&&document.activeElement.matches('input')))draw();else if(!host.isConnected)F.redraw=null};draw()}
  const sum=()=>F.settings.enabled?'An':'Aus';
 
  /* --- Artikel-Detail --- */

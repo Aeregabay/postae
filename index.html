@@ -249,6 +249,7 @@ code,.code{display:block;font:13px ui-monospace,Menlo,monospace;background:var(-
 .smcard{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin:6px 0 4px;min-height:52px;background:var(--acc);border-color:var(--acc);color:var(--on)}
 .rb.ar{gap:10px;padding-right:16px}.av.ar0{background:var(--acc);color:var(--on);width:28px;height:28px}.av.er{background:#e07a5f;color:#fff;width:28px;height:28px}
 .at{white-space:normal;font-size:15px;line-height:1.3}.at b{font-weight:600}.ico-w{flex:none;display:grid;place-items:center}.rb.ar time{flex:none;font-size:13px}
+html.lk,html.lk body{overflow:hidden;overscroll-behavior:none}.ov{overscroll-behavior:contain}
 </style>
 </head>
 <body>
@@ -525,7 +526,7 @@ function endDrag(commit){const{el,g,kind}=D;cancelAnimationFrame(D.raf);g.remove
 
 /* ---------- Sheets ---------- */
 function sheet(html,{top,onClose}={}){const o=document.createElement('div'),par=[...S.sheets].reverse().find(x=>!x.cs);o.className='ov'+(top?' top cs':'')+(!top&&par?' l2':'');if(!top&&par)par.o.classList.add('bk');o.innerHTML=`<div class="sh" role="dialog" aria-modal="true"><div class="grab"></div><div class="body">${html}</div></div>`;
- o.addEventListener('pointerdown',e=>{if(e.target===o)closeSheet()});document.body.append(o);requestAnimationFrame(()=>o.classList.add('open'));S.sheets.push({o,onClose,cs:!!top,off:sheetFx(o)});return $('.body',o)}
+ o.addEventListener('pointerdown',e=>{if(e.target===o)closeSheet()});document.body.append(o);document.documentElement.classList.add('lk');requestAnimationFrame(()=>o.classList.add('open'));S.sheets.push({o,onClose,cs:!!top,off:sheetFx(o)});return $('.body',o)}
 function sheetFx(o){const vv=window.visualViewport,sh=$('.sh',o);let off=()=>{};
  if(vv){const fit=()=>{const kb=Math.max(0,Math.round(innerHeight-vv.height-vv.offsetTop));o.classList.toggle('kb',kb>60);o.style.setProperty('--kb',kb+'px');o.style.setProperty('--vh',vv.height+'px')};
   vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit);off=()=>{vv.removeEventListener('resize',fit);vv.removeEventListener('scroll',fit)}}
@@ -535,7 +536,7 @@ function sheetFx(o){const vv=window.visualViewport,sh=$('.sh',o);let off=()=>{};
  const end=()=>{if(y0==null)return;y0=null;sh.style.transition='';if(dy>80){sh.style.transform='translateY(100%)';closeSheet()}else sh.style.transform=''};
  sh.addEventListener('pointerup',end);sh.addEventListener('pointercancel',end);
  sh.addEventListener('touchmove',e=>{if(y0!=null)e.preventDefault()},{passive:false});return off}
-function closeSheet(){const s=S.sheets.pop();if(!s)return;s.off?.();s.o.classList.remove('open');if(!s.cs){const p=[...S.sheets].reverse().find(x=>!x.cs);p?.o.classList.remove('bk')}setTimeout(()=>s.o.remove(),220);s.onClose?.()}
+function closeSheet(){const s=S.sheets.pop();if(!s)return;s.off?.();s.o.classList.remove('open');if(!s.cs){const p=[...S.sheets].reverse().find(x=>!x.cs);p?.o.classList.remove('bk')}setTimeout(()=>s.o.remove(),220);if(!S.sheets.length)document.documentElement.classList.remove('lk');s.onClose?.()}
 addEventListener('keydown',e=>{if(e.key==='Escape'&&S.sheets.length)closeSheet()});
 function askText(title,val='',ok='OK'){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><input id="aq" value="${esc(val)}" maxlength="60"><div class="row"><button class="btn" id="ax">Abbrechen</button><button class="btn pri" id="ao">${ok}</button></div>`,{top:true,onClose:()=>{if(!done)res(null)}});
  const i=$('#aq',b);setTimeout(()=>{i.focus();i.select()},250);const go=()=>{done=true;res(i.value.trim()||null);closeSheet()};$('#ao',b).onclick=go;$('#ax',b).onclick=()=>closeSheet();i.onkeydown=e=>{if(e.key==='Enter')go()}})}
@@ -662,7 +663,7 @@ addEventListener('online',()=>{$$('.th[data-h=f]').forEach(e=>delete e.dataset.h
 let fileIn=null;
 function pickFile(kind,cb){fileIn?.remove();const i=fileIn=document.createElement('input');i.type='file';i.accept='image/*';if(kind==='cam')i.setAttribute('capture','environment');i.hidden=true;i.tabIndex=-1;i.setAttribute('aria-hidden','true');i.style.cssText='display:none!important;position:fixed;width:0;height:0;pointer-events:none';i.addEventListener('click',e=>e.stopPropagation());i.addEventListener('change',()=>{const f=i.files?.[0];i.remove();if(fileIn===i)fileIn=null;if(f)cb(f)});document.body.append(i);i.click()}
 function photoField(host,{path}){const st={blob:null,removed:false,path:path||null};let url=null;
- host.innerHTML=`<div class="rows"><div class="sr pf"><button type="button" class="pvw" data-pf="view" aria-label="Foto ansehen"></button><button type="button" class="btn sm" data-pf="cam">${ic('camera')}Kamera</button><button type="button" class="btn sm" data-pf="gal">${ic('image')}Galerie</button><button type="button" class="tl" data-pf="rm">Entfernen</button></div></div>`;
+ host.innerHTML=`<div class="rows"><div class="sr pf"><button type="button" class="pvw" data-pf="view" aria-label="Foto ansehen"></button><button type="button" class="btn pfb" data-pf="cam">${ic('camera')}Kamera</button><button type="button" class="btn pfb" data-pf="gal">${ic('image')}Galerie</button><button type="button" class="tl" data-pf="rm">Entfernen</button></div></div>`;
  const draw=()=>{const pv=$('.pvw',host),has=st.blob||(st.path&&!st.removed);if(url){URL.revokeObjectURL(url);url=null}
   pv.disabled=!has;if(st.blob){url=URL.createObjectURL(st.blob);pv.innerHTML='<span class="th xl" style="background-image:url(\''+url+'\')"></span>'}
   else if(has)pv.innerHTML=thHTML(st.path,'xl');else pv.innerHTML=`<span class="th xl emp">${ic('image')}</span>`;$('[data-pf=rm]',host).hidden=!has};
@@ -837,7 +838,7 @@ function npHTML(){const sup=npSupport(),hint={ios:'Auf iPhone zuerst zum Home-Bi
  return h+'</div>'}
 const npSum=()=>npSupport()!=='ok'?'Nicht verfügbar':NP.on?'An':'Aus';
 async function npClick(t){const k=t.dataset.np;
- try{if(k==='main'){NP.busy=true;await npToggle(t.getAttribute('aria-checked')!=='true')}
+ try{if(k==='main'){NP.busy=true;await npToggle(!NP.on)}
   else if(k==='test'){const{error}=await sb.functions.invoke('notify',{body:{type:'test'}});toast(error?'Test fehlgeschlagen':'Test-Mitteilung gesendet')}
   else{NP.prefs[k]=!NP.prefs[k];if(NP.endpoint){const{error}=await sb.from('push_subscriptions').update({prefs:NP.prefs}).eq('endpoint',NP.endpoint);if(error)throw error}}}
  catch(e){if(k==='main')toast('Mitteilungen konnten nicht geändert werden');else if(k!=='test'){NP.prefs[k]=!NP.prefs[k];toast('Speichern fehlgeschlagen')}}
@@ -883,7 +884,7 @@ ${sec('konto','Konto',`<div class="rows"><div class="sr"><span class="lic">${ic(
   if(t.dataset.ce!==undefined){openCard(t.dataset.ce||null);return}
   if(t.id==='eb'){edit=!edit;drawStores();return}
   if(t.dataset.cp!==undefined){try{await navigator.clipboard.writeText(t.dataset.cp);toast('Kopiert')}catch{toast('Kopieren nicht möglich')}return}
-  if(t.dataset.np){await npClick(t);drawPush();return}
+  if(t.dataset.np){if(t.getAttribute('role')==='switch')t.setAttribute('aria-checked',t.getAttribute('aria-checked')!=='true');await npClick(t);drawPush();return}
   const a=t.dataset.a,row=t.closest('[data-id]'),s=row&&S.stores.find(x=>x.id===row.dataset.id);
   if(a==='hist')openHistory();
   else if(a==='lists')openLists();
