@@ -132,6 +132,29 @@ code,.code{display:block;font:13px ui-monospace,Menlo,monospace;background:var(-
 .vo svg.i{width:56px;height:56px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 [hidden]{display:none!important}
+/* Filterleiste, Segment, Abschnitte */
+.fb{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:6px 0 10px}
+.fb .chip{min-height:38px;padding:0 13px;font-size:14px;gap:6px;max-width:100%}
+.fb .chip .nm2{min-width:0;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.chip .n{min-width:20px;height:20px;padding:0 6px;border-radius:10px;display:inline-grid;place-items:center;font-size:12px;font-weight:600;background:color-mix(in srgb,var(--fg) 10%,transparent);color:var(--mut)}
+.chip.on .n{background:rgba(255,255,255,.25);color:inherit}
+.fb .chip svg.i{width:14px;height:14px}
+.fb .chip.x{min-width:38px;padding:0;justify-content:center;font-size:20px;line-height:1;color:var(--mut)}
+.segw{position:sticky;top:51px;z-index:4;margin:0 -20px 8px;padding:4px 20px 8px;background:var(--bg)}
+.seg{position:relative;display:grid;grid-template-columns:repeat(4,1fr);height:38px;padding:2px;border-radius:11px;background:color-mix(in srgb,var(--fg) 8%,var(--bg))}
+.seg button{position:relative;z-index:1;min-width:0;padding:0 4px;border-radius:9px;font-size:14px;font-weight:550;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color var(--t)}
+.seg button[aria-checked=true]{color:var(--fg)}
+.segp{position:absolute;top:2px;bottom:2px;left:2px;width:calc((100% - 4px)/4);border-radius:9px;background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.18),0 0 0 1px var(--line);transform:translateX(calc(var(--i,0)*100%));transition:transform .24s cubic-bezier(.3,.8,.3,1)}
+.dsb{flex:1;min-width:0;display:flex;align-items:center;gap:8px;min-height:44px;margin:-10px 0;color:var(--mut);text-align:left}
+.dst{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.dss{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;transition:opacity .2s}
+.ds.open .dss{opacity:0}
+.dsb svg.i{flex:none;width:18px;height:18px;transition:transform .28s cubic-bezier(.3,.8,.3,1)}
+.ds.open .dsb svg.i{transform:rotate(90deg)}
+.dp{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .28s cubic-bezier(.3,.8,.3,1),visibility 0s .28s}
+.ds.open .dp{grid-template-rows:1fr;visibility:visible;transition:grid-template-rows .28s cubic-bezier(.3,.8,.3,1),visibility 0s}
+.dpi{min-height:0;overflow:hidden;padding:4px;margin:-4px}
+.sr.dim .rb{opacity:.5}
 .cdv{flex:none;width:1px;height:24px;margin:0 2px;background:var(--line)}
 .sth{display:flex;align-items:center;justify-content:space-between;min-height:24px;margin:26px 0 6px;padding:0 16px}.sh .sth h4{margin:0}
 .tl{min-height:44px;margin:-12px -10px -12px 0;padding:0 10px;border-radius:10px;color:var(--acc-d);font-size:15px;font-weight:600}
@@ -389,7 +412,7 @@ function denied(){sb.auth.signOut();S.user=null;showAuth('Kein Zugriff')}
 function scheduleRender(){if(S.drag){S.dirty=true;return}if(renderQ)return;renderQ=true;requestAnimationFrame(()=>{renderQ=false;render()})}
 function buildShell(){$('#app').innerHTML=`<div class="wrap" id="wrap"><div class="top"><button class="lb" id="listBtn" aria-label="Liste wechseln"><span id="listName"></span>${ic('chev')}</button><div class="sp"></div><button class="ib" id="viewBtn" aria-label="Ansicht wechseln"></button><button class="ib" id="grpBtn" aria-label="Nach Kategorie gruppieren">${ic('layers')}</button><button class="ib" id="cartBtn" aria-label="Einkaufsmodus">${ic('cart')}</button><button class="ib" id="setBtn" aria-label="Einstellungen">${ic('gear')}</button></div>
 <div class="addwrap"><form class="add" id="addForm" autocomplete="off"><input id="addIn" placeholder="Artikel hinzufügen…" enterkeyhint="done" autocapitalize="sentences" aria-label="Artikel hinzufügen"><button type="button" class="ib mic" id="micBtn" aria-label="Spracheingabe">${ic('mic')}</button><button class="ib plus" aria-label="Hinzufügen">${ic('plus')}</button></form><div class="sugg" id="sugg" hidden></div></div>
-<div class="hint" id="hint" hidden><span>Tippen = erledigt · Lang drücken = bearbeiten · Lang drücken &amp; ziehen = sortieren</span><button type="button" id="hintX">Verstanden</button></div><div class="chips" id="chips"></div><div id="shopPill"></div><main id="main"></main></div>`;bind();setSync()}
+<div class="hint" id="hint" hidden><span>Tippen = erledigt · Lang drücken = bearbeiten · Lang drücken &amp; ziehen = sortieren</span><button type="button" id="hintX">Verstanden</button></div><div class="fb" id="chips"></div><div id="shopPill"></div><main id="main"></main></div>`;bind();setSync()}
 function emo(i){const r=resolveIcon(i.name,i.category),c=ecat(i),sty=` style="--cc:${categoryColor(c)}"`;return r.matched||c!=='Sonstiges'?`<span class="em"${sty}>${ICO(r.icon)}</span>`:`<span class="em"${sty}><b class="ltr">${esc(i.name.charAt(0).toUpperCase())}</b></span>`}
 function badges(i){const a=(i.store_ids||[]).map(id=>S.stores.find(s=>s.id===id)).filter(Boolean);if(!a.length)return'';
  const b=a.slice(0,2).map(bgOne).join('');
@@ -402,7 +425,7 @@ function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
  const l=S.lists.find(x=>x.id===S.listId);$('#listName').textContent=l?.name||'Postä';
  $('#viewBtn').innerHTML=ic(S.view==='grid'?'list':'grid');$('#viewBtn').setAttribute('aria-label',S.view==='grid'?'Listenansicht':'Kachelansicht');
  $('#grpBtn').classList.toggle('on',S.group);
- $('#chips').innerHTML=S.stores.length?`<button class="chip${!S.filter?' on':''}" data-f="">Alle</button>`+fbar()+(S.filter?`<button class="chip tg${S.every?' on':''}" data-ev aria-pressed="${S.every}">Überall${S.every?' ✓':''}</button>`:''):'';
+ $('#chips').innerHTML=fbar();S.pickRedraw?.();
  const open=openItems(),done=S.items.filter(i=>i.list_id===S.listId&&i.done).sort((a,b)=>(b.done_at||'').localeCompare(a.done_at||'')).slice(0,30);
  let h=`<div class="zt">Einkaufen <b>${open.length||''}</b></div>`;
  if(!open.length)h+=`<div class="empty"><div class="big">${ICO('cart',' xl')}</div><p>Alles erledigt.<br>Tippe oben, um etwas hinzuzufügen.</p></div>`;
@@ -434,7 +457,7 @@ function bind(){const m=$('#main'),inp=$('#addIn');
  $('#micBtn').onclick=startVoice;$('#listBtn').onclick=openLists;$('#setBtn').onclick=openSettings;$('#cartBtn').onclick=()=>openShop(S.filter);$('#shopPill').onclick=e=>{if(e.target.closest('.pill'))openShop(S.filter)};
  $('#viewBtn').onclick=()=>{S.view=S.view==='grid'?'list':'grid';LS.set('pq.view',S.view);render()};
  $('#grpBtn').onclick=()=>{S.group=!S.group;LS.set('pq.group',S.group);render();toast(S.group?'Nach Kategorie gruppiert':'Eigene Reihenfolge')};
- $('#chips').onclick=e=>{const f=e.target.closest('[data-f]'),v=e.target.closest('[data-ev]');if(f){S.filter=f.dataset.f||null;render()}if(v){S.every=!S.every;LS.set('pq.every',S.every);render()}};
+ $('#chips').onclick=e=>{const f=e.target.closest('[data-f]'),v=e.target.closest('[data-ev]');if(e.target.closest('[data-pick]')){openStorePicker();return}if(f){S.filter=f.dataset.f||null;render()}if(v){S.every=!S.every;LS.set('pq.every',S.every);render()}};
  m.addEventListener('click',e=>{const tg=e.target.closest('[data-tog]');if(tg){const c=tg.closest('.grp').dataset.cat;S.collapsed[c]=!S.collapsed[c];LS.set('pq.col',S.collapsed);tg.closest('.grp').classList.toggle('c',!!S.collapsed[c])}});
  m.addEventListener('keydown',e=>{const t=e.target.closest?.('.tile');if(t&&e.target===t){if(e.key==='Enter'||e.key===' '){e.preventDefault();tapTile(t)}else if(e.key==='e'||e.key==='E'||e.key==='F2'){e.preventDefault();openDetail(t.dataset.id)}}});
  m.addEventListener('contextmenu',e=>{if(e.target.closest('.tile'))e.preventDefault()});
@@ -588,8 +611,25 @@ function bgOne(s){const c=hexOf(s.color);return`<span class="bg" style="--c:${c}
 const hex2rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
 function rgb2hsv(r,g,b){r/=255;g/=255;b/=255;const m=Math.max(r,g,b),d=m-Math.min(r,g,b);let h=0;if(d){h=m===r?((g-b)/d+6)%6:m===g?(b-r)/d+2:(r-g)/d+4;h*=60}return[h,m?d/m:0,m]}
 function hsv2hex(h,s,v){const f=n=>{const k=(n+h/60)%6;return v-v*s*Math.max(0,Math.min(k,4-k,1))};return'#'+[f(5),f(3),f(1)].map(x=>Math.round(x*255).toString(16).padStart(2,'0')).join('').toUpperCase()}
-function fbar(){const c=s=>`<button class="chip${S.filter===s.id?' on':''}" data-f="${s.id}"><span class="d" style="background:${esc(s.color)}"></span>${esc(s.name)}</button>`,f=S.stores.filter(s=>s.favorite),o=S.stores.filter(s=>!s.favorite);
- return f.map(c).join('')+(f.length&&o.length?'<span class="cdv" aria-hidden="true"></span>':'')+o.map(c).join('')}
+function openCounts(){const m=new Map();for(const i of S.items)if(i.list_id===S.listId&&!i.done)for(const id of i.store_ids||[])m.set(id,(m.get(id)||0)+1);return m}
+function fbar(){if(!S.stores.length)return'';const cnt=openCounts(),fv=s=>s.favorite?0:1,sel=S.stores.find(s=>s.id===S.filter);
+ const av=S.stores.filter(s=>cnt.get(s.id)).sort((a,b)=>fv(a)-fv(b)||a.sort-b.sort);
+ let shown=av.length>6?av.slice(0,5):av;
+ if(sel&&!shown.includes(sel))shown=[sel,...shown.slice(0,av.length>6?4:shown.length)];
+ const more=av.filter(s=>!shown.includes(s)).length,
+  c=s=>{const n=cnt.get(s.id)||0;return`<button type="button" class="chip${S.filter===s.id?' on':''}" data-f="${s.id}" aria-pressed="${S.filter===s.id}"><span class="d" style="background:${esc(s.color)}"></span><span class="nm2">${esc(s.name)}</span>${n?`<span class="n">${n}</span>`:''}</button>`};
+ return`<button type="button" class="chip${!S.filter?' on':''}" data-f="" aria-pressed="${!S.filter}">Alle</button>`+shown.map(c).join('')
+  +(S.filter?'<button type="button" class="chip x" data-f="" aria-label="Filter entfernen">×</button>':'')
+  +(S.filter?`<button type="button" class="chip tg${S.every?' on':''}" data-ev aria-pressed="${S.every}">Überall${S.every?' ✓':''}</button>`:'')
+  +`<button type="button" class="chip tg" data-pick aria-haspopup="dialog">${more?'+'+more:'Läden'+ic('chev')}</button>`}
+function openStorePicker(){let q='';const b=sheet('',{onClose:()=>{S.pickRedraw=null}});
+ b.innerHTML=`<div class="shh"><span></span><h3>Laden wählen</h3><button type="button" class="tb ok" id="ao">Fertig</button></div><div class="srch">${ic('search')}<input id="pq" type="search" placeholder="Laden suchen" aria-label="Laden suchen" autocomplete="off" enterkeyhint="search"></div><div id="pl"></div>`;
+ const draw=()=>{const cnt=openCounts(),t=norm(q),m=S.stores.filter(s=>!t||norm(s.name).includes(t)||norm(kindOf(s)).includes(t));let h='';
+  for(const k of KINDS){const g=m.filter(s=>kindOf(s)===k).sort((a,b)=>(a.favorite?0:1)-(b.favorite?0:1)||a.sort-b.sort);if(g.length)h+=`<div class="gl">${k}</div><div class="rows">${g.map(s=>{const n=cnt.get(s.id)||0;return`<div class="sr${n?'':' dim'}"><button type="button" class="rb" data-pk="${s.id}" aria-label="${esc(s.name)}, ${n} offen${s.favorite?', Favorit':''}">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${s.favorite?STAR:''}<span class="ct">${n}</span></button></div>`}).join('')}</div>`}
+  if(!m.length)h=`<div class="rows"><div class="sr emp" role="status">Kein Laden gefunden</div></div>`;$('#pl',b).innerHTML=h};
+ S.pickRedraw=draw;draw();
+ b.oninput=e=>{if(e.target.id==='pq'){q=e.target.value;draw()}};
+ b.onclick=e=>{const t=e.target.closest('button');if(!t)return;if(t.id==='ao'){closeSheet();return}if(t.dataset.pk){S.filter=t.dataset.pk;closeSheet();render()}}}
 function delStore(s){S.items.filter(i=>i.store_ids?.includes(s.id)).forEach(i=>upItem(i.id,{store_ids:i.store_ids.filter(x=>x!==s.id)}));S.stores=S.stores.filter(x=>x!==s);if(S.filter===s.id)S.filter=null;enqueue({t:'stores',o:'delete',id:s.id});render();S.stRedraw?.()}
 async function askDelStore(s){if(!await askConfirm(`«${s.name}» löschen?`))return false;delStore(s);return true}
 function placeStore(id,prevId,nextId){const s=S.stores.find(x=>x.id===id),p=S.stores.find(x=>x.id===prevId),n=S.stores.find(x=>x.id===nextId);if(!s)return;
@@ -695,22 +735,23 @@ function openCard(id){const ex=id&&CARDS.find(c=>c.id===id),cid=ex?.id||uid();le
   saveCards();S.cardRedraw?.();if(SM.o)smRender();closeSheet()};
  $('#cdel',b)?.addEventListener('click',async()=>{if(!await askConfirm(`«${ex.label}» löschen?`))return;removePhoto(ex.photo_path);CARDS=CARDS.filter(c=>c.id!==cid);enqueue({t:'loyalty_cards',o:'delete',id:cid});saveCards();S.cardRedraw?.();if(SM.o)smRender();closeSheet()})}
 /* Verlauf */
-let ACT=null;const ACT_F=[['all','Alle'],['added','Hinzugefügt'],['done','Abgehakt'],['deleted','Gelöscht']];
+let ACT=null;const ACT_F=[['all','Alle'],['added','Neu'],['done','Erledigt'],['deleted','Gelöscht']];
 const ACT_V={added:'hinzugefügt',done:'abgehakt',reopened:'wieder geöffnet',edited:'bearbeitet',deleted:'gelöscht'};
 function applyAct(p){if(p.eventType!=='INSERT'||!ACT)return;if(!ACT.some(a=>a.id===p.new.id)){ACT.unshift(p.new);ACT=ACT.slice(0,200)}S.actRedraw?.()}
 const dayKey=d=>d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
 function dayLabel(d){const n=new Date(),y=new Date(n);y.setDate(n.getDate()-1);return dayKey(d)===dayKey(n)?'Heute':dayKey(d)===dayKey(y)?'Gestern':d.toLocaleDateString('de-CH',{weekday:'long',day:'numeric',month:'long'})}
 function openHistory(){let flt='all';const b=sheet('',{onClose:()=>{S.actRedraw=null}});
- const draw=()=>{const list=(ACT||[]).filter(a=>flt==='all'||a.action===flt);let h=`<div class="shh"><span></span><h3>Verlauf</h3><button type="button" class="tb ok" id="ao">Fertig</button></div><div class="chips" role="radiogroup" aria-label="Filter">${ACT_F.map(([k,l])=>`<button type="button" class="chip${k===flt?' on':''}" role="radio" aria-checked="${k===flt}" data-fl="${k}">${l}</button>`).join('')}</div>`;
+ const draw=()=>{const list=(ACT||[]).filter(a=>flt==='all'||a.action===flt);let h='';
   if(ACT===null)h+='<div class="sf" role="status">Lädt…</div>';else if(!list.length)h+='<div class="rows"><div class="sr emp" role="status">Noch keine Einträge</div></div>';
   else{let last='';for(const a of list){const d=new Date(a.at),k=dayKey(d);if(k!==last){if(last)h+='</div>';h+=`<div class="gl">${dayLabel(d)}</div><div class="rows">`;last=k}
     const nm=who(a.actor),it=S.items.find(i=>i.id===a.item_id),spec=a.details?.spec,r=resolveIcon(a.item_name||'',it?.category),c=it?ecat(it):guessCategory(a.item_name||''),er=nm==='Erika';
     h+=`<div class="sr"><button type="button" class="rb ar" data-a="${a.id}"><span class="av ${er?'er':'ar0'}" aria-hidden="true">${esc(nm.charAt(0).toUpperCase())}</span><span class="tx at"><b>${esc(nm)}</b> hat <b>${esc(a.item_name||'')}</b> ${ACT_V[a.action]||esc(a.action)}${spec&&a.action==='added'?` (${esc(spec)})`:''}</span><span class="ico-w" style="--cc:${categoryColor(c)}">${ICO(r.icon,' sm')}</span><time class="ct">${d.toLocaleTimeString('de-CH',{hour:'2-digit',minute:'2-digit'})}</time></button></div>`}
    h+='</div>'}
-  const sc=b.closest('.sh').scrollTop;b.innerHTML=h;b.closest('.sh').scrollTop=sc};
+  const sc=b.closest('.sh').scrollTop;$('#al',b).innerHTML=h;b.closest('.sh').scrollTop=sc};
+ b.innerHTML=`<div class="shh" style="margin-bottom:0"><span></span><h3>Verlauf</h3><button type="button" class="tb ok" id="ao">Fertig</button></div><div class="segw"><div class="seg" role="radiogroup" aria-label="Filter" style="--i:0"><i class="segp" aria-hidden="true"></i>${ACT_F.map(([k,l])=>`<button type="button" role="radio" aria-checked="${k===flt}" data-fl="${k}">${l}</button>`).join('')}</div></div><div id="al"></div>`;
  S.actRedraw=draw;draw();
  sb.from('activity').select('*').order('at',{ascending:false}).limit(200).then(r=>{if(!r.error){ACT=r.data;draw()}else{ACT=ACT||[];draw();toast('Verlauf nicht ladbar')}},()=>{ACT=ACT||[];draw()});
- b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;if(t.id==='ao'){closeSheet();return}if(t.dataset.fl){flt=t.dataset.fl;draw();return}
+ b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;if(t.id==='ao'){closeSheet();return}if(t.dataset.fl){flt=t.dataset.fl;const sg=t.closest('.seg');sg.style.setProperty('--i',ACT_F.findIndex(x=>x[0]===flt));$$('[data-fl]',sg).forEach(x=>x.setAttribute('aria-checked',x===t));draw();return}
   const a=ACT?.find(x=>String(x.id)===t.dataset.a);if(!a)return;
   if(a.item_id&&S.items.some(i=>i.id===a.item_id))openDetail(a.item_id);
   else if(a.item_name&&await askConfirm(`«${a.item_name}» wieder hinzufügen?`,'Hinzufügen'))commit([{name:a.item_name,spec:a.details?.spec||null}],[])}}
@@ -789,11 +830,12 @@ async function npToggle(on){
  else{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(sub){await sb.from('push_subscriptions').delete().eq('endpoint',sub.endpoint);await sub.unsubscribe()}NP.on=false;NP.endpoint=null}}
 function npHTML(){const sup=npSupport(),hint={ios:'Auf iPhone zuerst zum Home-Bildschirm hinzufügen (Teilen → «Zum Home-Bildschirm»), dann hier Mitteilungen aktivieren.',unsupported:'Dieser Browser unterstützt keine Mitteilungen.',denied:'Mitteilungen sind blockiert. Erlaube sie in den Browser- oder Systemeinstellungen für Postä.'}[sup];
  const tg=(k,on,l,sm,lic)=>`<div class="sr"${lic?'':' style="--ins:16px"'}>${lic?`<span class="lic">${ic('bell')}</span>`:''}<span class="tx"${lic?'':' style="margin-left:16px"'}><span id="np-${k}">${l}</span><small>${sm}</small></span><button type="button" class="tgl" role="switch" data-np="${k}" aria-checked="${on}" aria-labelledby="np-${k}"${NP.busy?' disabled':''}><i></i></button></div>`;
- let h='<div class="sth"><h4>Mitteilungen</h4></div>';
+ let h='';
  if(sup!=='ok')return h+`<div class="rows"><div class="sr emp" role="status" style="padding:12px 16px">${hint}</div></div>`;
  h+=`<div class="rows">${tg('main',NP.on,'Mitteilungen auf diesem Gerät','Push-Nachrichten von Postä',true)}`;
  if(NP.on)h+=NPREFS.map(([k,l,sm])=>tg(k,!!NP.prefs[k],l,sm)).join('')+`<div class="sr"><button type="button" class="rb acc" data-np="test"><span class="tx" style="margin-left:0">Test-Mitteilung senden</span></button></div>`;
  return h+'</div>'}
+const npSum=()=>npSupport()!=='ok'?'Nicht verfügbar':NP.on?'An':'Aus';
 async function npClick(t){const k=t.dataset.np;
  try{if(k==='main'){NP.busy=true;await npToggle(t.getAttribute('aria-checked')!=='true')}
   else if(k==='test'){const{error}=await sb.functions.invoke('notify',{body:{type:'test'}});toast(error?'Test fehlgeschlagen':'Test-Mitteilung gesendet')}
@@ -803,6 +845,10 @@ async function npClick(t){const k=t.dataset.np;
 
 /* ---------- Einstellungen ---------- */
 function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false;const b=sheet('',{onClose:()=>{S.stRedraw=null;S.cardRedraw=null}});
+ const SEC={listen:true,...LS.get('pq.sec',{})},isO=k=>!!SEC[k];
+ const sec=(k,t,body,act='')=>{const o=isO(k);return`<section class="ds${o?' open':''}"><div class="sth"><button type="button" class="dsb" id="dh-${k}" data-sec="${k}" aria-expanded="${o}" aria-controls="dp-${k}">${ic('chevR')}<span class="dst">${t}</span><span class="dss" id="ds-${k}"></span></button>${act}</div><div class="dp" id="dp-${k}" role="region" aria-labelledby="dh-${k}"><div class="dpi">${body}</div></div></section>`};
+ const sums=()=>{const set=(k,v)=>{const e=$('#ds-'+k,b);if(e)e.textContent=v},n=S.lists.length,ns=S.stores.length,f=S.stores.filter(x=>x.favorite).length,c=CARDS.length;
+  set('listen',`${n} ${n===1?'Liste':'Listen'}`);set('laden',`${ns} ${ns===1?'Laden':'Läden'} · ${f} ${f===1?'Favorit':'Favoriten'}`);set('karten',`${c} ${c===1?'Karte':'Karten'}`);set('mitt',npSum());set('voice',S.token?'Bereit':'–');set('konto',S.user?.email||'')};
  const sRow=s=>{const fav=!!s.favorite,k=kindOf(s);return edit
   ?`<div class="sr" data-id="${s.id}"><button type="button" class="mn" data-a="rm" aria-label="${esc(s.name)} löschen"><span></span></button><button type="button" class="rb" data-a="ed" aria-label="${esc(s.name)}${fav?', Favorit':''}, bearbeiten">${avHTML(s)}<span class="tx">${esc(s.name)}<small>${k}</small></span>${fav?STAR:''}</button><button type="button" class="dh" data-a="mv" aria-label="${esc(s.name)} verschieben, mit Pfeiltasten hoch oder runter">${ic('grip')}</button></div>`
   :`<div class="sr" data-id="${s.id}"><button type="button" class="rb" data-a="ed" aria-label="${esc(s.name)}${fav?', Favorit':''}, bearbeiten">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${fav?STAR:''}${ic('chevR')}</button></div>`};
@@ -812,25 +858,25 @@ function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false;
    for(const k of KINDS){const g=m.filter(s=>kindOf(s)===k);if(g.length)h+=`<div class="gl">${k}</div><div class="rows">${g.map(sRow).join('')}</div>`}
    if(!m.length&&S.stores.length)h=`<div class="rows"><div class="sr emp" role="status">Kein Laden gefunden</div></div>`}
   h+=`<div class="rows"><div class="sr"><button type="button" class="rb acc" data-a="add"><span class="lic pl">${ic('plus')}</span><span class="tx">Laden hinzufügen</span></button></div></div><div class="sf">${edit?'Am Griff ziehen oder mit den Pfeiltasten verschieben. Die Reihenfolge gilt auch in der Filterleiste.':'Tippe auf einen Laden, um Name, Farbe und Kategorie zu ändern.'}</div>`;
-  host.innerHTML=h;const eb=$('#eb',b);eb.textContent=edit?'Fertig':'Bearbeiten';eb.setAttribute('aria-pressed',edit);$('#sbar',b).hidden=edit};
+  host.innerHTML=h;const eb=$('#eb',b);eb.textContent=edit?'Fertig':'Bearbeiten';eb.setAttribute('aria-pressed',edit);$('#sbar',b).hidden=edit;sums()};
  S.stRedraw=()=>{if(!S.dragging)drawStores()};
  const draw=()=>{const lr=S.lists.map(l=>{const n=S.items.filter(i=>i.list_id===l.id&&!i.done).length;return`<div class="sr"><button type="button" class="rb" data-a="lists" aria-label="${esc(l.name)}, ${n} offen, Listen verwalten"><span class="lic">${ic('list')}</span><span class="tx">${esc(l.name)}</span><span class="ct">${n}</span>${ic('chevR')}</button></div>`}).join('');
   b.innerHTML=`<div class="shh"><span></span><h3>Einstellungen</h3><button type="button" class="tb ok" id="ao">Fertig</button></div>
 <div class="rows"><div class="sr"><button type="button" class="rb" data-a="hist"><span class="lic">${ic('history')}</span><span class="tx">Verlauf<small>Wer hat was hinzugefügt oder abgehakt</small></span>${ic('chevR')}</button></div></div>
-<div class="sth"><h4>Listen</h4></div><div class="rows">${lr}<div class="sr"><button type="button" class="rb acc" data-a="nl"><span class="lic pl">${ic('plus')}</span><span class="tx">Neue Liste</span></button></div></div><div class="sf">Tippe auf eine Liste, um Listen umzubenennen oder zu löschen.</div>
-<div class="sth"><h4>Läden</h4><button type="button" class="tl" id="eb" aria-pressed="false">Bearbeiten</button></div>
-<div class="srch" id="sbar">${ic('search')}<input id="sq2" type="search" placeholder="Laden suchen" aria-label="Laden suchen" autocomplete="off" enterkeyhint="search" value="${esc(q)}"></div><div id="sg"></div>
-<div class="sth"><h4>Kundenkarten</h4></div><div id="kc"></div>
-<div class="sth"><h4>Sprachassistent</h4></div><div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">Dein Token<small class="mo">${esc(S.token||'– nicht verfügbar –')}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="Token kopieren">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">Endpunkt<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="Endpunkt-URL kopieren">${ic('copy')}</button></div></div>
-<div class="sf"><p><b>iPhone:</b> Kurzbefehl «Postä» anlegen: «Diktat» → «Inhalte von URL abrufen» (Methode POST, JSON mit <i>text</i> = Diktierter Text, Header <i>x-postae-token</i> = dein Token). Danach «Hey Siri, Postä».</p><p><b>Android:</b> «Hey Google, öffne Postä» oder App-Verknüpfung «Sprechen» – öffnet Postä mit <i>?voice=1</i> und startet die Spracheingabe.</p></div>
-<div id="np"></div>
-<div class="sth"><h4>Konto</h4></div><div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">Abmelden</button></div></div>`;drawStores();drawCards();drawPush()};
- const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${esc(c.label)} anzeigen">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${esc(c.label)} bearbeiten">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">Karte hinzufügen</span></button></div></div><div class="sf">Tippe auf eine Karte, um sie an der Kasse zu zeigen. Lang drücken auf einen Laden zeigt dessen Karten.</div>`};
+${sec('listen','Listen',`<div class="rows">${lr}<div class="sr"><button type="button" class="rb acc" data-a="nl"><span class="lic pl">${ic('plus')}</span><span class="tx">Neue Liste</span></button></div></div><div class="sf">Tippe auf eine Liste, um Listen umzubenennen oder zu löschen.</div>`)}
+${sec('laden','Läden',`<div class="srch" id="sbar">${ic('search')}<input id="sq2" type="search" placeholder="Laden suchen" aria-label="Laden suchen" autocomplete="off" enterkeyhint="search" value="${esc(q)}"></div><div id="sg"></div>`,`<button type="button" class="tl" id="eb" aria-pressed="false"${isO('laden')?'':' hidden'}>Bearbeiten</button>`)}
+${sec('karten','Kundenkarten','<div id="kc"></div>')}
+${sec('mitt','Mitteilungen','<div id="np"></div>')}
+${sec('voice','Sprachassistent',`<div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">Dein Token<small class="mo">${esc(S.token||'– nicht verfügbar –')}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="Token kopieren">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">Endpunkt<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="Endpunkt-URL kopieren">${ic('copy')}</button></div></div>
+<div class="sf"><p><b>iPhone:</b> Kurzbefehl «Postä» anlegen: «Diktat» → «Inhalte von URL abrufen» (Methode POST, JSON mit <i>text</i> = Diktierter Text, Header <i>x-postae-token</i> = dein Token). Danach «Hey Siri, Postä».</p><p><b>Android:</b> «Hey Google, öffne Postä» oder App-Verknüpfung «Sprechen» – öffnet Postä mit <i>?voice=1</i> und startet die Spracheingabe.</p></div>`)}
+${sec('konto','Konto',`<div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">Abmelden</button></div></div>`)}`;drawStores();drawCards();drawPush();sums()};
+ const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${esc(c.label)} anzeigen">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${esc(c.label)} bearbeiten">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">Karte hinzufügen</span></button></div></div><div class="sf">Tippe auf eine Karte, um sie an der Kasse zu zeigen. Lang drücken auf einen Laden zeigt dessen Karten.</div>`;sums()};
  S.cardRedraw=()=>drawCards();
- const drawPush=()=>{const h=$('#np',b);if(h)h.innerHTML=npHTML()};
+ const drawPush=()=>{const h=$('#np',b);if(h)h.innerHTML=npHTML();sums()};
  draw();npLoad().then(drawPush);
  b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;
   if(t.id==='ao'){closeSheet();return}
+  if(t.dataset.sec){const k=t.dataset.sec,o=!SEC[k];SEC[k]=o;LS.set('pq.sec',SEC);t.closest('.ds').classList.toggle('open',o);t.setAttribute('aria-expanded',o);if(k==='laden'){$('#eb',b).hidden=!o;if(!o&&edit){edit=false;drawStores()}}return}
   if(t.dataset.cv){const c=CARDS.find(x=>x.id===t.dataset.cv);if(c)viewCard(c);return}
   if(t.dataset.ce!==undefined){openCard(t.dataset.ce||null);return}
   if(t.id==='eb'){edit=!edit;drawStores();return}
