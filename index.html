@@ -250,6 +250,12 @@ code,.code{display:block;font:13px ui-monospace,Menlo,monospace;background:var(-
 .rb.ar{gap:10px;padding-right:16px}.av.ar0{background:var(--acc);color:var(--on);width:28px;height:28px}.av.er{background:#e07a5f;color:#fff;width:28px;height:28px}
 .at{white-space:normal;font-size:15px;line-height:1.3}.at b{font-weight:600}.ico-w{flex:none;display:grid;place-items:center}.rb.ar time{flex:none;font-size:13px}
 html.lk,html.lk body{overflow:hidden;overscroll-behavior:none}.ov{overscroll-behavior:contain}
+.sfab{position:fixed;z-index:40;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);display:inline-flex;align-items:center;gap:10px;height:54px;max-width:calc(100vw - 48px);padding:0 24px 0 20px;border-radius:999px;background:var(--acc);color:#fff;font-weight:650;font-size:16px;white-space:nowrap;box-shadow:0 8px 24px rgba(31,42,39,.22),0 2px 6px rgba(31,42,39,.12);animation:fabIn .25s cubic-bezier(.2,.8,.2,1)}
+.sfab svg.i{width:20px;height:20px;flex:none}.sfab span{min-width:0;overflow:hidden;text-overflow:ellipsis}.sfab:active{transform:translateX(-50%) scale(.97)}
+body.fin-on .sfab{bottom:calc(84px + env(safe-area-inset-bottom))}body.fin-tab .sfab{display:none}
+.wrap:has(.sfab){padding-bottom:calc(110px + env(safe-area-inset-bottom))}body.fin-on .wrap:has(.sfab){padding-bottom:calc(170px + env(safe-area-inset-bottom))}
+@keyframes fabIn{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
+@media (prefers-reduced-motion:reduce){.sfab{animation:none}}
 </style>
 </head>
 <body>
@@ -428,7 +434,7 @@ function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
  $('#grpBtn').classList.toggle('on',S.group);
  $('#chips').innerHTML=fbar();fitChips();S.pickRedraw?.();
  const open=openItems(),done=S.items.filter(i=>i.list_id===S.listId&&i.done).sort((a,b)=>(b.done_at||'').localeCompare(a.done_at||'')).slice(0,30);
- const fst=S.stores.find(x=>x.id===S.filter);let h=`<div class="zt">Einkaufen <b>${open.length||''}</b>${fst?`<button class="pill" type="button" aria-label="Einkaufen bei ${esc(fst.name)}">${ic('cart')}<span>Einkaufen bei ${esc(fst.name)}</span></button>`:''}</div>`;
+ const fst=S.stores.find(x=>x.id===S.filter);let h=`<div class="zt">Einkaufen <b>${open.length||''}</b></div>`;if(fst&&open.length)h+=`<button class="sfab" type="button" aria-label="Einkaufen bei ${esc(fst.name)}">${ic('cart')}<span>Einkaufen bei ${esc(fst.name)}</span></button>`;
  if(!open.length)h+=`<div class="empty"><div class="big">${ICO('cart',' xl')}</div><p>Alles erledigt.<br>Tippe oben, um etwas hinzuzufügen.</p></div>`;
  else if(S.group)for(const c of catList(open)){const its=open.filter(i=>ecat(i)===c);h+=`<section class="grp${S.collapsed[c]?' c':''}" data-cat="${esc(c)}"><div class="gh"><button class="grip" data-grip aria-label="Kategorie verschieben">${ic('grip')}</button><button class="gt" data-tog><i class="gd" style="background:${categoryColor(c)}"></i>${ICO(categoryIcon(c),' sm')} ${esc(c)} <span class="cnt">${its.length}</span>${ic('chev')}</button></div><div class="grid" data-cat="${esc(c)}">${its.map(i=>tile(i)).join('')}</div></section>`}
  else h+=`<div class="grid" data-cat="">${open.map(i=>tile(i)).join('')}</div>`;
@@ -459,7 +465,7 @@ function bind(){const m=$('#main'),inp=$('#addIn');
  $('#viewBtn').onclick=()=>{S.view=S.view==='grid'?'list':'grid';LS.set('pq.view',S.view);render()};
  $('#grpBtn').onclick=()=>{S.group=!S.group;LS.set('pq.group',S.group);render();toast(S.group?'Nach Kategorie gruppiert':'Eigene Reihenfolge')};
  $('#chips').onclick=e=>{const f=e.target.closest('[data-f]');if(e.target.closest('[data-pick]')){openStorePicker();return}if(f){S.filter=f.dataset.f&&f.dataset.f!==S.filter?f.dataset.f:null;render()}};
- m.addEventListener('click',e=>{if(e.target.closest('.zt .pill')){openShop(S.filter);return}const tg=e.target.closest('[data-tog]');if(tg){const c=tg.closest('.grp').dataset.cat;S.collapsed[c]=!S.collapsed[c];LS.set('pq.col',S.collapsed);tg.closest('.grp').classList.toggle('c',!!S.collapsed[c])}});
+ m.addEventListener('click',e=>{if(e.target.closest('.sfab')){openShop(S.filter);return}const tg=e.target.closest('[data-tog]');if(tg){const c=tg.closest('.grp').dataset.cat;S.collapsed[c]=!S.collapsed[c];LS.set('pq.col',S.collapsed);tg.closest('.grp').classList.toggle('c',!!S.collapsed[c])}});
  m.addEventListener('keydown',e=>{const t=e.target.closest?.('.tile');if(t&&e.target===t){if(e.key==='Enter'||e.key===' '){e.preventDefault();tapTile(t)}else if(e.key==='e'||e.key==='E'||e.key==='F2'){e.preventDefault();openDetail(t.dataset.id)}}});
  m.addEventListener('contextmenu',e=>{if(e.target.closest('.tile'))e.preventDefault()});
  m.addEventListener('pointerdown',e=>{if(e.button>0||G||D)return;const gr=e.target.closest('[data-grip]');
