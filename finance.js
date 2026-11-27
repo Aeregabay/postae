@@ -1,4 +1,4 @@
-/* Finanzen (optional) – Abrechnung für Purchase. Reine Logik oben (ohne DOM, testbar), UI unten (createFinance). */
+/* Finanzen (optional) – Abrechnung für Fetchy. Reine Logik oben (ohne DOM, testbar), UI unten (createFinance). */
 
 /* ---------- Reine Logik ---------- */
 export const DEFAULT_MEMBERS=[

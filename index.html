@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Purchase</title>
+<title>Fetchy</title>
 <meta name="theme-color" content="#f7f7f4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121513" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Purchase">
+<meta name="apple-mobile-web-app-title" content="Fetchy">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -422,7 +422,7 @@ function tile(i,done){const dots=badges(i);
 function openItems(){let a=S.items.filter(i=>i.list_id===S.listId&&!i.done);if(S.filter)a=a.filter(i=>i.store_ids?.includes(S.filter)||(S.every&&!i.store_ids?.length));return a.sort((x,y)=>x.sort-y.sort)}
 function catList(items){const have=new Set(items.map(ecat));const order=[...S.catOrder,...CATS];const all=[...new Set([...order,...have])];return all.filter(c=>have.has(c))}
 function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
- const l=S.lists.find(x=>x.id===S.listId);$('#listName').textContent=l?.name||'Purchase';
+ const l=S.lists.find(x=>x.id===S.listId);$('#listName').textContent=l?.name||'Fetchy';
  $('#viewBtn').innerHTML=ic(S.view==='grid'?'list':'grid');$('#viewBtn').setAttribute('aria-label',S.view==='grid'?'Listenansicht':'Kachelansicht');
  $('#grpBtn').classList.toggle('on',S.group);
  $('#chips').innerHTML=fbar();fitChips();S.pickRedraw?.();
@@ -828,11 +828,11 @@ async function npToggle(on){
  if(on){const perm=await Notification.requestPermission();if(perm!=='granted'){toast('Mitteilungen wurden nicht erlaubt');return}
   const reg=await navigator.serviceWorker.ready;const sub=(await reg.pushManager.getSubscription())||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID)});await npSave(sub);NP.on=true}
  else{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(sub){await sb.from('push_subscriptions').delete().eq('endpoint',sub.endpoint);await sub.unsubscribe()}NP.on=false;NP.endpoint=null}}
-function npHTML(){const sup=npSupport(),hint={ios:'Auf iPhone zuerst zum Home-Bildschirm hinzufügen (Teilen → «Zum Home-Bildschirm»), dann hier Mitteilungen aktivieren.',unsupported:'Dieser Browser unterstützt keine Mitteilungen.',denied:'Mitteilungen sind blockiert. Erlaube sie in den Browser- oder Systemeinstellungen für Purchase.'}[sup];
+function npHTML(){const sup=npSupport(),hint={ios:'Auf iPhone zuerst zum Home-Bildschirm hinzufügen (Teilen → «Zum Home-Bildschirm»), dann hier Mitteilungen aktivieren.',unsupported:'Dieser Browser unterstützt keine Mitteilungen.',denied:'Mitteilungen sind blockiert. Erlaube sie in den Browser- oder Systemeinstellungen für Fetchy.'}[sup];
  const tg=(k,on,l,sm,lic)=>`<div class="sr"${lic?'':' style="--ins:16px"'}>${lic?`<span class="lic">${ic('bell')}</span>`:''}<span class="tx"${lic?'':' style="margin-left:16px"'}><span id="np-${k}">${l}</span><small>${sm}</small></span><button type="button" class="tgl" role="switch" data-np="${k}" aria-checked="${on}" aria-labelledby="np-${k}"${NP.busy?' disabled':''}><i></i></button></div>`;
  let h='';
  if(sup!=='ok')return h+`<div class="rows"><div class="sr emp" role="status" style="padding:12px 16px">${hint}</div></div>`;
- h+=`<div class="rows">${tg('main',NP.on,'Mitteilungen auf diesem Gerät','Push-Nachrichten von Purchase',true)}`;
+ h+=`<div class="rows">${tg('main',NP.on,'Mitteilungen auf diesem Gerät','Push-Nachrichten von Fetchy',true)}`;
  if(NP.on)h+=NPREFS.map(([k,l,sm])=>tg(k,!!NP.prefs[k],l,sm)).join('')+`<div class="sr"><button type="button" class="rb acc" data-np="test"><span class="tx" style="margin-left:0">Test-Mitteilung senden</span></button></div>`;
  return h+'</div>'}
 const npSum=()=>npSupport()!=='ok'?'Nicht verfügbar':NP.on?'An':'Aus';
@@ -868,7 +868,7 @@ ${sec('laden','Läden',`<div class="srch" id="sbar">${ic('search')}<input id="sq
 ${sec('karten','Kundenkarten','<div id="kc"></div>')}
 ${sec('mitt','Mitteilungen','<div id="np"></div>')}
 ${sec('voice','Sprachassistent',`<div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">Dein Token<small class="mo">${esc(S.token||'– nicht verfügbar –')}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="Token kopieren">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">Endpunkt<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="Endpunkt-URL kopieren">${ic('copy')}</button></div></div>
-<div class="sf"><p><b>iPhone:</b> Kurzbefehl «Purchase» anlegen: «Diktat» → «Inhalte von URL abrufen» (Methode POST, JSON mit <i>text</i> = Diktierter Text, Header <i>x-postae-token</i> = dein Token). Danach «Hey Siri, Purchase».</p><p><b>Android:</b> «Hey Google, öffne Purchase» oder App-Verknüpfung «Sprechen» – öffnet Purchase mit <i>?voice=1</i> und startet die Spracheingabe.</p></div>`)}
+<div class="sf"><p><b>iPhone:</b> Kurzbefehl «Fetchy» anlegen: «Diktat» → «Inhalte von URL abrufen» (Methode POST, JSON mit <i>text</i> = Diktierter Text, Header <i>x-postae-token</i> = dein Token). Danach «Hey Siri, Fetchy».</p><p><b>Android:</b> «Hey Google, öffne Fetchy» oder App-Verknüpfung «Sprechen» – öffnet Fetchy mit <i>?voice=1</i> und startet die Spracheingabe.</p></div>`)}
 ${sec('fin','Finanzen','<div id="fn"></div>')}
 ${sec('konto','Konto',`<div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">Abmelden</button></div></div>`)}`;drawStores();drawCards();drawPush();drawFin();sums()};
  const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${esc(c.label)} anzeigen">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${esc(c.label)} bearbeiten">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">Karte hinzufügen</span></button></div></div><div class="sf">Tippe auf eine Karte, um sie an der Kasse zu zeigen. Lang drücken auf einen Laden zeigt dessen Karten.</div>`;sums()};
@@ -972,7 +972,7 @@ function voiceOverlay(){const o=document.createElement('div');o.className='vo';o
  $('.mb',o).onclick=()=>{o.remove();startVoice()};$('#vx',o).onclick=()=>o.remove();document.body.append(o)}
 
 /* ---------- Auth ---------- */
-function showAuth(msg=''){document.body.classList.remove('in');FIN.apply();$('#app').innerHTML=`<div class="auth"><img src="icon.svg" alt=""><h1>Purchase</h1><p>Gemeinsame Einkaufsliste</p><form id="af"><input type="email" id="em" placeholder="E-Mail" autocomplete="email" required><input type="password" id="pw" placeholder="Passwort" autocomplete="current-password" minlength="6" required><div class="msg" id="am" role="alert">${esc(msg)}</div><button class="btn pri" id="si">Anmelden</button><button type="button" class="btn" id="su">Konto erstellen</button></form></div>`;
+function showAuth(msg=''){document.body.classList.remove('in');FIN.apply();$('#app').innerHTML=`<div class="auth"><img src="icon.svg" alt=""><h1>Fetch<span style="color:#E3B341">y</span></h1><p>Gemeinsame Einkaufsliste</p><form id="af"><input type="email" id="em" placeholder="E-Mail" autocomplete="email" required><input type="password" id="pw" placeholder="Passwort" autocomplete="current-password" minlength="6" required><div class="msg" id="am" role="alert">${esc(msg)}</div><button class="btn pri" id="si">Anmelden</button><button type="button" class="btn" id="su">Konto erstellen</button></form></div>`;
  const m=(t,ok)=>{const e=$('#am');e.textContent=t;e.className='msg'+(ok?' ok':'')};
  $('#af').onsubmit=async e=>{e.preventDefault();m('');const{data,error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});
   if(error){m(/confirm/i.test(error.message)?'Bitte zuerst die Bestätigungsmail öffnen.':'E-Mail oder Passwort falsch.');return}S.user=data.user;start()};
