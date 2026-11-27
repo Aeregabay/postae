@@ -1,14 +1,14 @@
 /* Finanzen (optional) – Abrechnung für Fetchy. Reine Logik oben (ohne DOM, testbar), UI unten (createFinance). */
 
+import { t as T, tp as TP, fmtMoney, fmtDate, catName } from './i18n.js';
+
 /* ---------- Reine Logik ---------- */
 export const DEFAULT_MEMBERS=[
  {email:'a.gabay94@gmail.com',name:'Arik',color:'#3E6B9E',sort:1},
  {email:'erika.ogol@gmail.com',name:'Erika',color:'#C0567A',sort:2}];
 
-/* Rappen → «CHF 1'234.50»; negativ mit Minus, optional «+» bei positiv */
-export function fmtCHF(c,{sign=false}={}){
- c=Math.round(Number(c)||0);const a=Math.abs(c),f=String(Math.floor(a/100)).replace(/\B(?=(\d{3})+(?!\d))/g,"'"),r=String(a%100).padStart(2,'0');
- return(c<0?'−':sign&&c>0?'+':'')+'CHF '+f+'.'+r}
+/* Rappen → «CHF 1'234.50» (de-CH); negativ mit Minus, optional «+» bei positiv. Formatierung via i18n.fmtMoney (aktive Locale) */
+export function fmtCHF(c,{sign=false}={}){return fmtMoney(c,'CHF',{sign})}
 export const fmtPlain=c=>{c=Math.round(Number(c)||0);const a=Math.abs(c);return(c<0?'-':'')+Math.floor(a/100)+'.'+String(a%100).padStart(2,'0')};
 
 /* Eingabe («12,5», «1'234.50», «CHF 9») → Rappen oder null */
@@ -50,10 +50,9 @@ export function simplify(bals){
 
 /* Klartext für WhatsApp / Zwischenablage */
 export function summaryText(transfers,people,nameOf,date=new Date()){
- const ds=`${String(date.getDate()).padStart(2,'0')}.${String(date.getMonth()+1).padStart(2,'0')}.${date.getFullYear()}`;
- const L=[`Abrechnung ${ds}`,''];
- if(!transfers.length)L.push('Alles ausgeglichen.');else transfers.forEach(t=>L.push(`${nameOf(t.from)} → ${nameOf(t.to)} ${fmtCHF(t.cents)}`));
- L.push('');for(const[e,p]of Object.entries(people))L.push(`${nameOf(e)}: bezahlt ${fmtCHF(p.paid)}, Anteil ${fmtCHF(p.share)}, Saldo ${fmtCHF(p.bal,{sign:true})}`);
+ const L=[T('fin.sum_title',{date:fmtDate(date)}),''];
+ if(!transfers.length)L.push(T('fin.sum_even'));else transfers.forEach(t=>L.push(T('fin.sum_line',{from:nameOf(t.from),to:nameOf(t.to),amt:fmtCHF(t.cents)})));
+ L.push('');for(const[e,p]of Object.entries(people))L.push(T('fin.sum_person',{name:nameOf(e),paid:fmtCHF(p.paid),share:fmtCHF(p.share),bal:fmtCHF(p.bal,{sign:true})}));
  return L.join('\n')}
 
 /* Zeitraum: Monat/Jahr/Alles. Rückgabe {from,to} (to exklusiv) als YYYY-MM-DD oder null für alles. */
@@ -116,6 +115,7 @@ export function createFinance(ctx){
  const F={settings:{enabled:false,prompt_on_check:true,currency:'CHF'},members:[],expenses:[],tab:'list',mode:'month',ref:new Date(),dom:null,card:null,recent:[]};
  {const c=LS.get('pq.fin',null);if(c){F.settings={...F.settings,...(c.settings||{})};F.members=c.members||[];F.expenses=c.expenses||[]}}
  const save=()=>LS.set('pq.fin',{settings:F.settings,members:F.members,expenses:F.expenses});
+ const money=(c,o)=>fmtMoney(c,F.settings.currency||'CHF',o),cur=()=>F.settings.currency||'CHF';
  const me=()=>S.user?.email||'';
  const MEM=()=>F.members.length?F.members:DEFAULT_MEMBERS;
  const mem=e=>MEM().find(m=>m.email===e)||{email:e,name:who(e),color:'#8a928d'};
@@ -154,15 +154,18 @@ export function createFinance(ctx){
  /* --- Grundgerüst --- */
  function ensureDOM(){if(F.dom)return;
   const st=document.createElement('style');st.textContent=CSS;document.head.append(st);
-  const nav=document.createElement('nav');nav.id='tabbar';nav.setAttribute('aria-label','Hauptnavigation');
-  nav.innerHTML=`<button type="button" data-tab="list">${svg('list')}<span>Liste</span></button><button type="button" data-tab="fin">${svg('fin')}<span>Finanzen</span></button>`;
-  const view=document.createElement('div');view.id='finview';view.className='fin';view.setAttribute('role','region');view.setAttribute('aria-label','Finanzen');
-  const fab=document.createElement('button');fab.id='ffab';fab.type='button';fab.className='fin';fab.innerHTML=`${svg('plus')}<span>Ausgabe</span>`;
-  const card=document.createElement('div');card.id='fcard';card.setAttribute('role','group');card.setAttribute('aria-label','Preis erfassen');
-  document.body.append(view,fab,nav,card);F.dom={nav,view,fab};F.card=card;
+  const nav=document.createElement('nav');nav.id='tabbar';
+  const view=document.createElement('div');view.id='finview';view.className='fin';view.setAttribute('role','region');
+  const fab=document.createElement('button');fab.id='ffab';fab.type='button';fab.className='fin';
+  const card=document.createElement('div');card.id='fcard';card.setAttribute('role','group');
+  document.body.append(view,fab,nav,card);F.dom={nav,view,fab};F.card=card;relabel();
   nav.onclick=e=>{const b=e.target.closest('[data-tab]');if(b)setTab(b.dataset.tab)};
   fab.onclick=()=>openEntry();
   view.onclick=viewClick;initCard()}
+ function relabel(){if(!F.dom)return;const{nav,view,fab}=F.dom;
+  nav.setAttribute('aria-label',T('fin.nav_aria'));nav.innerHTML=`<button type="button" data-tab="list">${svg('list')}<span>${esc(T('fin.tab_list'))}</span></button><button type="button" data-tab="fin">${svg('fin')}<span>${esc(T('fin.tab_fin'))}</span></button>`;renderNav();
+  view.setAttribute('aria-label',T('fin.title'));fab.innerHTML=`${svg('plus')}<span>${esc(T('fin.fab'))}</span>`;F.card.setAttribute('aria-label',T('fin.card_aria'));
+  if(F.tab==='fin'&&F.settings.enabled)renderView();if(C.cur)drawCard()}
  function setTab(t){F.tab=t;if(t==='fin')closeCard();document.body.classList.toggle('fin-tab',t==='fin'&&F.settings.enabled);renderNav();if(t==='fin')renderView()}
  function renderNav(){$$('#tabbar button').forEach(b=>{if(b.dataset.tab===F.tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')})}
  function apply(){const on=!!S.user&&!!F.settings.enabled;
@@ -172,39 +175,39 @@ export function createFinance(ctx){
   F.redraw?.()}
 
  /* --- Finanzen-Tab --- */
- const MON=new Intl.DateTimeFormat('de-CH',{month:'long',year:'numeric'}),DAY=new Intl.DateTimeFormat('de-CH',{weekday:'long',day:'numeric',month:'long'});
+ const MON={format:d=>fmtDate(d,{month:'long',year:'numeric'})},DAY={format:d=>fmtDate(d,{weekday:'long',day:'numeric',month:'long'})};
  const parseYmd=s=>{const[y,m,d]=String(s).split('-').map(Number);return new Date(y,(m||1)-1,d||1)};
- const dayLabel=s=>{if(s===today())return'Heute';const y=new Date();y.setDate(y.getDate()-1);if(s===ymd(y))return'Gestern';return DAY.format(parseYmd(s))};
- const bar=(label,cents,max,color)=>`<div class="fb2"><span>${esc(label)}</span><em><i style="width:${max?Math.max(3,cents/max*100):0}%;--c:${color}"></i></em><b>${fmtCHF(cents)}</b></div>`;
+ const dayLabel=s=>{if(s===today())return T('day.today');const y=new Date();y.setDate(y.getDate()-1);if(s===ymd(y))return T('day.yesterday');return DAY.format(parseYmd(s))};
+ const bar=(label,cents,max,color)=>`<div class="fb2"><span>${esc(label)}</span><em><i style="width:${max?Math.max(3,cents/max*100):0}%;--c:${color}"></i></em><b>${money(cents)}</b></div>`;
  function entryRow(x){
   const cat=x.category||'Sonstiges',st=storeOf(x.store_id);let ico,sub,amt,cls='';
-  if(x.kind==='settlement'){const to=Object.keys(x.shares||{})[0];ico=svg('swap');sub=`Ausgleich · ${esc(nm(x.payer))} → ${esc(nm(to))}`;amt=fmtCHF(x.amount_cents);cls=' st'}
-  else if(x.kind==='income'){ico=svg('inc');sub=`Einnahme${st?' · '+esc(st.name):''}`;amt=fmtCHF(x.amount_cents,{sign:true});cls=' in'}
+  if(x.kind==='settlement'){const to=Object.keys(x.shares||{})[0];ico=svg('swap');sub=esc(T('fin.row_settlement',{from:nm(x.payer),to:nm(to)}));amt=money(x.amount_cents);cls=' st'}
+  else if(x.kind==='income'){ico=svg('inc');sub=`${esc(T('fin.row_income'))}${st?' · '+esc(st.name):''}`;amt=money(x.amount_cents,{sign:true});cls=' in'}
   else{ico=ICO(categoryIcon(cat));const ks=Object.keys(x.shares||{}),all=emails().every(e=>ks.includes(e));
-   sub=[st?esc(st.name):'',all?'Geteilt':ks.length===1?'Nur '+esc(nm(ks[0])):'Aufgeteilt'].filter(Boolean).join(' · ');amt=fmtCHF(x.amount_cents)}
+   sub=[st?esc(st.name):'',esc(all?T('fin.row_shared'):ks.length===1?T('fin.row_only',{name:nm(ks[0])}):T('fin.row_split'))].filter(Boolean).join(' · ');amt=money(x.amount_cents)}
   const c=x.kind==='expense'?categoryColor(cat):'var(--acc)';
-  return`<button type="button" class="fe" data-e="${x.id}" aria-label="${esc(x.description)}, ${amt}, bearbeiten"><span class="fei" style="--cc:${c}">${ico}</span><span class="fet"><b>${esc(x.description)}</b><small>${sub}</small></span>${av(x.payer)}<span class="fea${cls}">${amt}</span></button>`}
+  return`<button type="button" class="fe" data-e="${x.id}" aria-label="${esc(T('fin.row_aria',{desc:x.description,amt}))}"><span class="fei" style="--cc:${c}">${ico}</span><span class="fet"><b>${esc(x.description)}</b><small>${sub}</small></span>${av(x.payer)}<span class="fea${cls}">${amt}</span></button>`}
  function renderView(){const v=F.dom?.view;if(!v||!F.settings.enabled)return;
   const sc=v.scrollTop,all=sorted(),R=periodRange(F.mode,F.ref),per=all.filter(x=>inPeriod(x.date,R)&&x.kind!=='settlement');
   const exp=per.filter(x=>x.kind==='expense'),inc=per.filter(x=>x.kind==='income'),sE=exp.reduce((a,x)=>a+x.amount_cents,0),sI=inc.reduce((a,x)=>a+x.amount_cents,0);
   const people=settle(all,emails()),tr=simplify(people);
-  const label=F.mode==='month'?MON.format(F.ref):F.mode==='year'?String(F.ref.getFullYear()):'Gesamter Zeitraum';
-  const paid=emails().map(e=>`<div>${av(e)}<span>${esc(nm(e))} <b>${fmtCHF(exp.filter(x=>x.payer===e).reduce((a,x)=>a+x.amount_cents,0))}</b></span></div>`).join('');
+  const label=F.mode==='month'?MON.format(F.ref):F.mode==='year'?String(F.ref.getFullYear()):T('fin.period_all');
+  const paid=emails().map(e=>`<div>${av(e)}<span>${esc(nm(e))} <b>${money(exp.filter(x=>x.payer===e).reduce((a,x)=>a+x.amount_cents,0))}</b></span></div>`).join('');
   const text=summaryText(tr,people,nm);
-  let h=`<div><h2>Finanzen</h2><div class="fseg" role="group" aria-label="Zeitraum">${[['month','Monat'],['year','Jahr'],['all','Alles']].map(([k,l])=>`<button type="button" data-m="${k}" aria-pressed="${F.mode===k}" class="${F.mode===k?'on':''}">${l}</button>`).join('')}</div>
-<div class="fnav"><button type="button" data-n="-1" aria-label="Zurück"${F.mode==='all'?' hidden':''}>${svg('prev')}</button><b>${esc(label)}</b><button type="button" data-n="1" aria-label="Weiter"${F.mode==='all'?' hidden':''}>${svg('next')}</button></div>
-<section class="fc"><h4>Total Ausgaben</h4><div class="fbig">${fmtCHF(sE-sI)}</div><div class="fsub">${exp.length} ${exp.length===1?'Ausgabe':'Ausgaben'}${sI?` · abzüglich Einnahmen ${fmtCHF(sI)}`:''}</div><div class="fpp">${paid}</div></section>
-<section class="fc"><h4>Ausgleich</h4>`;
-  if(tr.length)h+=tr.map((t,i)=>`<div class="ftr"><span class="tx">${esc(nm(t.from))} → ${esc(nm(t.to))} ${fmtCHF(t.cents)}</span><button type="button" class="btn" data-pay="${i}">Als bezahlt markieren</button></div>`).join('');
-  else h+=`<div class="fok">${svg('check')}Alles ausgeglichen</div>`;
-  h+=`<table class="ft" style="margin-top:12px"><thead><tr><th></th><th>Bezahlt</th><th>Anteil</th><th>Saldo</th></tr></thead><tbody>${emails().map(e=>{const p=people[e];return`<tr><td>${av(e)}${esc(nm(e))}</td><td>${fmtCHF(p.paid)}</td><td>${fmtCHF(p.share)}</td><td class="${p.bal>0?'fpos':p.bal<0?'fneg':''}">${fmtCHF(p.bal,{sign:true})}</td></tr>`}).join('')}</tbody></table>
-<div class="fsub" style="margin-top:8px">Über alle Einträge. + bekommt, − schuldet.</div>
-<div class="fact"><a class="btn" href="https://wa.me/?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">Per WhatsApp senden</a><button type="button" class="btn" data-copy>Text kopieren</button></div></section>`;
+  let h=`<div><h2>${esc(T('fin.title'))}</h2><div class="fseg" role="group" aria-label="${esc(T('fin.period_aria'))}">${['month','year','all'].map(k=>`<button type="button" data-m="${k}" aria-pressed="${F.mode===k}" class="${F.mode===k?'on':''}">${esc(T('fin.mode_'+k))}</button>`).join('')}</div>
+<div class="fnav"><button type="button" data-n="-1" aria-label="${esc(T('fin.prev'))}"${F.mode==='all'?' hidden':''}>${svg('prev')}</button><b>${esc(label)}</b><button type="button" data-n="1" aria-label="${esc(T('fin.next'))}"${F.mode==='all'?' hidden':''}>${svg('next')}</button></div>
+<section class="fc"><h4>${esc(T('fin.total'))}</h4><div class="fbig">${money(sE-sI)}</div><div class="fsub">${esc(TP('fin.count',exp.length))}${sI?esc(T('fin.minus_income',{amt:money(sI)})):''}</div><div class="fpp">${paid}</div></section>
+<section class="fc"><h4>${esc(T('fin.settle'))}</h4>`;
+  if(tr.length)h+=tr.map((t,i)=>`<div class="ftr"><span class="tx">${esc(nm(t.from))} → ${esc(nm(t.to))} ${money(t.cents)}</span><button type="button" class="btn" data-pay="${i}">${esc(T('fin.mark_paid'))}</button></div>`).join('');
+  else h+=`<div class="fok">${svg('check')}${esc(T('fin.all_even'))}</div>`;
+  h+=`<table class="ft" style="margin-top:12px"><thead><tr><th></th><th>${esc(T('fin.col_paid'))}</th><th>${esc(T('fin.col_share'))}</th><th>${esc(T('fin.col_balance'))}</th></tr></thead><tbody>${emails().map(e=>{const p=people[e];return`<tr><td>${av(e)}${esc(nm(e))}</td><td>${money(p.paid)}</td><td>${money(p.share)}</td><td class="${p.bal>0?'fpos':p.bal<0?'fneg':''}">${money(p.bal,{sign:true})}</td></tr>`}).join('')}</tbody></table>
+<div class="fsub" style="margin-top:8px">${esc(T('fin.balance_hint'))}</div>
+<div class="fact"><a class="btn" href="https://wa.me/?text=${encodeURIComponent(text)}" target="_blank" rel="noopener">${esc(T('fin.whatsapp'))}</a><button type="button" class="btn" data-copy>${esc(T('fin.copy_text'))}</button></div></section>`;
   const bs=breakdown(per,x=>x.store_id||''),bc=breakdown(per,x=>x.category||'Sonstiges');
-  if(bs.length)h+=`<section class="fc"><h4>Nach Laden</h4>${bs.map(r=>{const s=storeOf(r.key);return bar(s?s.name:'Ohne Laden',r.cents,bs[0].cents,s?.color&&/^#[0-9a-f]{6}$/i.test(s.color)?s.color:'var(--mut)')}).join('')}</section>`;
-  if(bc.length)h+=`<section class="fc"><h4>Nach Kategorie</h4>${bc.map(r=>bar(r.key,r.cents,bc[0].cents,categoryColor(r.key))).join('')}</section>`;
+  if(bs.length)h+=`<section class="fc"><h4>${esc(T('fin.by_store'))}</h4>${bs.map(r=>{const s=storeOf(r.key);return bar(s?s.name:T('fin.no_store'),r.cents,bs[0].cents,s?.color&&/^#[0-9a-f]{6}$/i.test(s.color)?s.color:'var(--mut)')}).join('')}</section>`;
+  if(bc.length)h+=`<section class="fc"><h4>${esc(T('fin.by_cat'))}</h4>${bc.map(r=>bar(catName(r.key),r.cents,bc[0].cents,categoryColor(r.key))).join('')}</section>`;
   const list=all.filter(x=>inPeriod(x.date,R));
-  if(!list.length)h+=`<div class="fempty">Keine Einträge in diesem Zeitraum.</div>`;
+  if(!list.length)h+=`<div class="fempty">${esc(T('fin.empty'))}</div>`;
   else{const g=new Map();for(const x of list)(g.get(x.date)||g.set(x.date,[]).get(x.date)).push(x);
    for(const[d,a]of g)h+=`<div class="fdh">${esc(dayLabel(d))}</div><div class="fgrp">${a.map(entryRow).join('')}</div>`}
   v.innerHTML=h+'</div>';v.scrollTop=sc;F.tr=tr;F.text=text}
@@ -212,35 +215,35 @@ export function createFinance(ctx){
   if(b.dataset.m){F.mode=b.dataset.m;renderView()}
   else if(b.dataset.n){F.ref=shiftRef(F.mode,F.ref,+b.dataset.n);renderView()}
   else if(b.dataset.e)openEntry(b.dataset.e);
-  else if(b.dataset.copy!==undefined){try{await navigator.clipboard.writeText(F.text);toast('Text kopiert')}catch{toast('Kopieren nicht möglich')}}
+  else if(b.dataset.copy!==undefined){try{await navigator.clipboard.writeText(F.text);toast(T('fin.copied'))}catch{toast(T('common.copy_failed'))}}
   else if(b.dataset.pay!==undefined){const t=F.tr?.[+b.dataset.pay];if(!t)return;
-   if(await askConfirm(`${nm(t.from)} hat ${fmtCHF(t.cents)} an ${nm(t.to)} bezahlt?`,'Bestätigen')){addEntry({kind:'settlement',description:'Ausgleich',amount_cents:t.cents,payer:t.from,shares:{[t.to]:1},date:today()});toast('Ausgleich verbucht')}}}
+   if(await askConfirm(T('fin.confirm_paid',{from:nm(t.from),amt:money(t.cents),to:nm(t.to)}),T('common.confirm'))){addEntry({kind:'settlement',description:T('fin.settle'),amount_cents:t.cents,payer:t.from,shares:{[t.to]:1},date:today()});toast(T('fin.settled'))}}}
 
  /* --- Eintrag bearbeiten / neu --- */
  function openEntry(id){
   const ex=id?F.expenses.find(x=>x.id===id):null,isS=ex?.kind==='settlement',M=MEM();
   const st={kind:ex?.kind||'expense',payer:ex?.payer||me(),on:{},w:{}};
   for(const m of M){const has=ex?ex.shares?.[m.email]>0:true;st.on[m.email]=!!has;st.w[m.email]=ex&&has?String(ex.shares[m.email]):'1'}
-  const b=sheet(`${shHead(ex?'Eintrag':'Neue Ausgabe','Speichern')}
-${isS?'':`<div class="fseg" id="ek" role="group" aria-label="Art" style="margin-top:8px"><button type="button" data-k="expense">Ausgabe</button><button type="button" data-k="income">Einnahme</button></div>`}
-<label for="ed">Bezeichnung</label><input id="ed" value="${esc(ex?.description||'')}" maxlength="100" autocomplete="off">
-<label for="ea">Betrag (CHF)</label><input id="ea" inputmode="decimal" value="${ex?fmtPlain(ex.amount_cents):''}" placeholder="0.00" autocomplete="off">
-<label for="ec">Datum</label><input id="ec" type="date" value="${esc(ex?.date||today())}">
+  const b=sheet(`${shHead(T(ex?'fin.entry_edit':'fin.entry_new_expense'),T('common.save'))}
+${isS?'':`<div class="fseg" id="ek" role="group" aria-label="${esc(T('fin.kind_aria'))}" style="margin-top:8px"><button type="button" data-k="expense">${esc(T('fin.kind_expense'))}</button><button type="button" data-k="income">${esc(T('fin.kind_income'))}</button></div>`}
+<label for="ed">${esc(T('fin.entry_desc'))}</label><input id="ed" value="${esc(ex?.description||'')}" maxlength="100" autocomplete="off">
+<label for="ea">${esc(T('fin.entry_amount',{cur:cur()}))}</label><input id="ea" inputmode="decimal" value="${ex?fmtPlain(ex.amount_cents):''}" placeholder="0.00" autocomplete="off">
+<label for="ec">${esc(T('fin.entry_date'))}</label><input id="ec" type="date" value="${esc(ex?.date||today())}">
 <div class="lbl" id="epl"></div><div class="fcc" id="ep">${M.map(m=>`<button type="button" class="fch" data-p="${esc(m.email)}" style="--c:${esc(m.color)}"><i></i>${esc(m.name)}</button>`).join('')}</div>
-${isS?`<div class="lbl">Empfänger</div><div class="sf" style="margin:0">${esc(nm(Object.keys(ex.shares||{})[0]))}</div>`
- :`<div class="lbl" id="esl">Aufteilung</div><div id="es">${M.map(m=>`<div class="fsr" data-e="${esc(m.email)}"><button type="button" class="fch" aria-pressed="true" style="--c:${esc(m.color)}"><i></i>${esc(m.name)}</button><span class="fw">Gewicht<input class="fwi" inputmode="decimal" value="1" aria-label="Gewicht ${esc(m.name)}"></span></div>`).join('')}</div><div class="sf" id="eprev" style="margin:6px 0 0"></div>
-<label for="est">Laden</label><select id="est"><option value="">–</option>${S.stores.map(s=>`<option value="${esc(s.id)}"${ex?.store_id===s.id?' selected':''}>${esc(s.name)}</option>`).join('')}</select>`}
-<label for="en">Notiz</label><input id="en" value="${esc(ex?.note||'')}" maxlength="200" autocomplete="off">
-${ex?`<button type="button" class="btn danger" id="edel" style="width:100%;margin-top:20px">Löschen</button>`:''}`);
+${isS?`<div class="lbl">${esc(T('fin.entry_recipient'))}</div><div class="sf" style="margin:0">${esc(nm(Object.keys(ex.shares||{})[0]))}</div>`
+ :`<div class="lbl" id="esl">${esc(T('fin.entry_split'))}</div><div id="es">${M.map(m=>`<div class="fsr" data-e="${esc(m.email)}"><button type="button" class="fch" aria-pressed="true" style="--c:${esc(m.color)}"><i></i>${esc(m.name)}</button><span class="fw">${esc(T('fin.entry_weight'))}<input class="fwi" inputmode="decimal" value="1" aria-label="${esc(T('fin.entry_weight_aria',{name:m.name}))}"></span></div>`).join('')}</div><div class="sf" id="eprev" style="margin:6px 0 0"></div>
+<label for="est">${esc(T('fin.entry_store'))}</label><select id="est"><option value="">–</option>${S.stores.map(s=>`<option value="${esc(s.id)}"${ex?.store_id===s.id?' selected':''}>${esc(s.name)}</option>`).join('')}</select>`}
+<label for="en">${esc(T('fin.entry_note'))}</label><input id="en" value="${esc(ex?.note||'')}" maxlength="200" autocomplete="off">
+${ex?`<button type="button" class="btn danger" id="edel" style="width:100%;margin-top:20px">${esc(T('common.delete'))}</button>`:''}`);
   const prev=()=>{const pv=$('#eprev',b);if(!pv)return;const a=parseAmount($('#ea',b).value),wts={};
    for(const m of M)if(st.on[m.email]){const w=parseAmount($(`[data-e="${m.email}"] .fwi`,b).value.replace(',','.'));wts[m.email]=w==null?0:w}
    // Gewichte als Dezimalzahl lesen (parseAmount liefert Hundertstel)
    const ww={};for(const k in wts)ww[k]=wts[k]/100;
    const al=a?allocate(st.kind==='income'?-a:a,ww):{};
-   pv.textContent=a&&Object.keys(al).length?'Anteile: '+Object.keys(al).map(k=>`${nm(k)} ${fmtCHF(Math.abs(al[k]))}`).join(' · '):''};
+   pv.textContent=a&&Object.keys(al).length?T('fin.entry_shares',{list:Object.keys(al).map(k=>`${nm(k)} ${money(Math.abs(al[k]))}`).join(' · ')}):''};
   const sync=()=>{const inc=st.kind==='income';
-   $('#epl',b).textContent=inc?'Erhalten von':'Bezahlt von';const sl=$('#esl',b);if(sl)sl.textContent=inc?'Zugunsten von':'Aufteilung';
-   if(!ex)$('h3',b).textContent=inc?'Neue Einnahme':'Neue Ausgabe';
+   $('#epl',b).textContent=T(inc?'fin.entry_received_from':'fin.entry_paid_by');const sl=$('#esl',b);if(sl)sl.textContent=T(inc?'fin.entry_in_favor':'fin.entry_split');
+   if(!ex)$('h3',b).textContent=T(inc?'fin.entry_new_income':'fin.entry_new_expense');
    $$('#ek button',b).forEach(x=>{const on=x.dataset.k===st.kind;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});
    $$('#ep .fch',b).forEach(x=>{const on=x.dataset.p===st.payer;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on)});
    for(const m of M){const r=$(`[data-e="${m.email}"]`,b);if(!r)continue;const on=st.on[m.email];const c=$('.fch',r);c.classList.toggle('on',on);c.setAttribute('aria-pressed',on);$('.fwi',r).disabled=!on}
@@ -251,14 +254,14 @@ ${ex?`<button type="button" class="btn danger" id="edel" style="width:100%;margi
    else if(t.closest('.fsr')){const em=t.closest('.fsr').dataset.e;st.on[em]=!st.on[em];sync()}});
   b.addEventListener('input',prev);sync();
   $('#ax',b).onclick=()=>closeSheet();
-  if($('#edel',b))$('#edel',b).onclick=async()=>{if(await askConfirm('Eintrag löschen?')){delEntry(ex.id);closeSheet();toast('Gelöscht')}};
+  if($('#edel',b))$('#edel',b).onclick=async()=>{if(await askConfirm(T('fin.entry_confirm_delete'))){delEntry(ex.id);closeSheet();toast(T('common.deleted'))}};
   $('#ao',b).onclick=()=>{
    const amt=parseAmount($('#ea',b).value),date=$('#ec',b).value||today(),note=$('#en',b).value.trim()||null;
    if(!amt){$('#ea',b).setAttribute('aria-invalid','true');$('#ea',b).focus();return}
    if(isS){editEntry(ex.id,{amount_cents:amt,date,note,payer:st.payer});closeSheet();return}
-   const desc=$('#ed',b).value.trim()||(st.kind==='income'?'Einnahme':'Ausgabe'),shares={};
+   const desc=$('#ed',b).value.trim()||T(st.kind==='income'?'fin.kind_income':'fin.kind_expense'),shares={};
    for(const m of M)if(st.on[m.email]){const w=parseAmount($(`[data-e="${m.email}"] .fwi`,b).value);if(w>0)shares[m.email]=w/100}
-   if(!Object.keys(shares).length){toast('Bitte mindestens eine Person wählen');return}
+   if(!Object.keys(shares).length){toast(T('fin.entry_pick_one'));return}
    const store_id=$('#est',b).value||null,patch={kind:st.kind,description:desc,amount_cents:amt,payer:st.payer,shares,date,note,store_id,category:ex?.category||guessCategory(desc)};
    if(ex)editEntry(ex.id,patch);else addEntry(patch);closeSheet()};
   if(!ex)setTimeout(()=>$('#ed',b)?.focus(),260)}
@@ -282,20 +285,20 @@ ${ex?`<button type="button" class="btn danger" id="edel" style="width:100%;margi
   F.card.classList.add('show');document.body.classList.add('fcard-on');requestAnimationFrame(()=>document.body.style.setProperty('--fch',F.card.offsetHeight+'px'));arm()}
  function drawCard(amount){const cur=C.cur,F2=F.card;if(!cur)return;const p=partner(),M=MEM(),v=amount!==undefined?amount:$('#fca',F2)?.value||'';
   const grp=cur.group&&cur.group.length>1;if(!grp)C.group=false;
-  const names=C.group&&grp?cur.group.map(i=>i.name):[cur.name],title=cur.shop?`Einkauf ${esc(cur.shop)}: Total laut Kassenbon?`:`Was ${names.length>1?'haben':'hat'} ${esc(names.join(', '))} gekostet?`;
+  const names=C.group&&grp?cur.group.map(i=>i.name):[cur.name],title=cur.shop?esc(T('fin.card_title_shop',{shop:cur.shop})):esc(TP('fin.card_title_q',names.length,{names:names.join(', ')}));
   const chip=(a,k,l,on,c)=>`<button type="button" class="fch${on?' on':''}" data-${a}="${esc(k)}" aria-pressed="${on}"${c?` style="--c:${esc(c)}"`:''}>${c?'<i></i>':''}${esc(l)}</button>`;
-  F2.innerHTML=`<b class="t">${title}</b><div class="fci"><input id="fca" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0.00" value="${esc(v)}" aria-label="Betrag in CHF"><span>CHF</span></div>
-<div class="fcc" role="group" aria-label="Bezahlt von">${chip('pp',me(),'Ich',cur.payer===me(),mem(me()).color)}${p?chip('pp',p.email,p.name,cur.payer===p.email,p.color):''}</div>
-<div class="fcc" role="group" aria-label="Aufteilung">${p?chip('sp','both','Geteilt 50/50',cur.split==='both'):''}${chip('sp','me','Nur ich',cur.split==='me'||(!p&&true))}${p?chip('sp','other','Nur '+p.name,cur.split==='other'):''}</div>
-${grp&&!cur.shop?`<div class="fcc"><button type="button" class="fch${C.group?' on':''}" data-grp aria-pressed="${C.group}">Zusammen als ein Beleg (${cur.group.length})</button></div>`:''}
-<div class="row"><button type="button" class="btn" id="fcx">Überspringen</button><button type="button" class="btn pri" id="fcs">Speichern</button></div>`;
+  F2.innerHTML=`<b class="t">${title}</b><div class="fci"><input id="fca" inputmode="decimal" enterkeyhint="done" autocomplete="off" placeholder="0.00" value="${esc(v)}" aria-label="${esc(T('fin.card_amount_aria',{cur:cur()}))}"><span>${esc(cur())}</span></div>
+<div class="fcc" role="group" aria-label="${esc(T('fin.entry_paid_by'))}">${chip('pp',me(),T('fin.card_me'),cur.payer===me(),mem(me()).color)}${p?chip('pp',p.email,p.name,cur.payer===p.email,p.color):''}</div>
+<div class="fcc" role="group" aria-label="${esc(T('fin.entry_split'))}">${p?chip('sp','both',T('fin.card_both'),cur.split==='both'):''}${chip('sp','me',T('fin.card_only_me'),cur.split==='me'||(!p&&true))}${p?chip('sp','other',T('fin.row_only',{name:p.name}),cur.split==='other'):''}</div>
+${grp&&!cur.shop?`<div class="fcc"><button type="button" class="fch${C.group?' on':''}" data-grp aria-pressed="${C.group}">${esc(TP('fin.card_group',cur.group.length))}</button></div>`:''}
+<div class="row"><button type="button" class="btn" id="fcx">${esc(T('fin.card_skip'))}</button><button type="button" class="btn pri" id="fcs">${esc(T('common.save'))}</button></div>`;
   document.body.style.setProperty('--fch',F2.offsetHeight+'px')}
  function cardSave(){const cur=C.cur;if(!cur)return;const i=$('#fca',F.card),a=parseAmount(i.value);
   if(!a){i.setAttribute('aria-invalid','true');i.focus();return}
   const p=partner(),M=MEM(),shares=cur.split==='me'||!p?{[me()]:1}:cur.split==='other'?{[p.email]:1}:Object.fromEntries(M.map(m=>[m.email,1]));
   const grp=C.group&&cur.group?.length>1&&!cur.shop,items=grp?cur.group:[cur];
-  addEntry({kind:'expense',description:cur.shop?`Einkauf ${cur.shop}`:items.map(x=>x.name).join(', ').slice(0,100),amount_cents:a,payer:cur.payer,shares,date:today(),item_ids:cur.shop?cur.ids:items.map(x=>x.id),store_id:cur.store_id||null,category:cur.category||null});
-  const ids=new Set(items.map(x=>x.id));F.recent=F.recent.filter(r=>!ids.has(r.id));closeCard();toast(`${fmtCHF(a)} gespeichert`)}
+  addEntry({kind:'expense',description:cur.shop?T('fin.shop_desc',{shop:cur.shop}):items.map(x=>x.name).join(', ').slice(0,100),amount_cents:a,payer:cur.payer,shares,date:today(),item_ids:cur.shop?cur.ids:items.map(x=>x.id),store_id:cur.store_id||null,category:cur.category||null});
+  const ids=new Set(items.map(x=>x.id));F.recent=F.recent.filter(r=>!ids.has(r.id));closeCard();toast(T('fin.card_saved',{amt:money(a)}))}
  const cheap=()=>F.settings.enabled&&F.settings.prompt_on_check&&!!S.user;
  function storeFor(it){const ids=it.store_ids||[];return ids.length===1?ids[0]:(S.filter||null)}
  function checked(it){if(!cheap()||inShop())return;const t=Date.now();
@@ -306,27 +309,27 @@ ${grp&&!cur.shop?`<div class="fcc"><button type="button" class="fch${C.group?' o
  function shopEnd(storeId,ids){if(!cheap()||!ids?.length)return;const items=ids.map(id=>S.items.find(i=>i.id===id)).filter(i=>i&&i.done);if(!items.length)return;
   const st=storeOf(storeId),cats={};items.forEach(i=>{const c=ecat(i);cats[c]=(cats[c]||0)+1});
   const cat=Object.entries(cats).sort((a,b)=>b[1]-a[1])[0]?.[0]||null;F.recent=[];
-  openCard({payer:me(),split:'both',name:'Einkauf',shop:st?.name||'',ids:items.map(i=>i.id),store_id:storeId||null,category:cat,group:null})}
+  openCard({payer:me(),split:'both',name:T('fin.shop_name'),shop:st?.name||'',ids:items.map(i=>i.id),store_id:storeId||null,category:cat,group:null})}
 
  /* --- Einstellungen --- */
  function settingsMount(host){
   if(!host){F.redraw=null;return}
   const tg=(k,l,sm,on,dis)=>`<div class="sr"><span class="tx" style="margin-left:16px"><span id="fs-${k}">${l}</span><small>${sm}</small></span><button type="button" class="tgl" role="switch" data-fs="${k}" aria-checked="${on}" aria-labelledby="fs-${k}"${dis?' disabled':''}><i></i></button></div>`;
-  const draw=()=>{host.innerHTML=`<div class="rows">${tg('enabled','Finanzen aktivieren','Ausgaben erfassen und zwischen euch ausgleichen',!!F.settings.enabled)}${tg('prompt_on_check','Beim Abhaken nach Preis fragen','Kleine Karte nach dem Abhaken',!!F.settings.prompt_on_check,!F.settings.enabled)}</div>
-<div class="gl">Namen &amp; Farben</div><div class="rows">${MEM().map(m=>`<div class="sr"><div class="fm" data-em="${esc(m.email)}"><input type="color" value="${esc(/^#[0-9a-f]{6}$/i.test(m.color)?m.color:'#999999')}" aria-label="Farbe ${esc(m.name)}"><input class="fmn" value="${esc(m.name)}" maxlength="24" aria-label="Name"></div></div>`).join('')}</div>
-<div class="sf">Gilt für euch beide. Namen und Farben erscheinen bei Zahlern und Anteilen.</div>`;
-   const s=$('#ds-fin');if(s)s.textContent=F.settings.enabled?'An':'Aus'};
+  const draw=()=>{host.innerHTML=`<div class="rows">${tg('enabled',esc(T('fin.set_enable')),esc(T('fin.set_enable_sub')),!!F.settings.enabled)}${tg('prompt_on_check',esc(T('fin.set_prompt')),esc(T('fin.set_prompt_sub')),!!F.settings.prompt_on_check,!F.settings.enabled)}</div>
+<div class="gl">${esc(T('fin.set_names'))}</div><div class="rows">${MEM().map(m=>`<div class="sr"><div class="fm" data-em="${esc(m.email)}"><input type="color" value="${esc(/^#[0-9a-f]{6}$/i.test(m.color)?m.color:'#999999')}" aria-label="${esc(T('fin.set_color_aria',{name:m.name}))}"><input class="fmn" value="${esc(m.name)}" maxlength="24" aria-label="${esc(T('fin.set_name_aria'))}"></div></div>`).join('')}</div>
+<div class="sf">${esc(T('fin.set_hint'))}</div>`;
+   const s=$('#ds-fin');if(s)s.textContent=sum()};
   host.onclick=e=>{const t=e.target.closest('[data-fs]');if(!t||t.disabled)return;{const v=t.getAttribute('aria-checked')!=='true';t.setAttribute('aria-checked',v);setSettings({[t.dataset.fs]:v});draw()}};
   host.onchange=async e=>{const row=e.target.closest('[data-em]');if(!row)return;const email=row.dataset.em,name=$('.fmn',row).value.trim()||mem(email).name,color=$('[type=color]',row).value,m=F.members.find(x=>x.email===email)||MEM().find(x=>x.email===email);
    if(!m)return;const upd={name,color};
    if(!F.members.length)F.members=DEFAULT_MEMBERS.map(x=>({...x}));Object.assign(F.members.find(x=>x.email===email),upd);
-   const{error}=await sb.from('members').update(upd).eq('email',email);if(error)toast('Speichern fehlgeschlagen');changed()};
+   const{error}=await sb.from('members').update(upd).eq('email',email);if(error)toast(T('common.save_failed'));changed()};
   F.redraw=()=>{if(host.isConnected&&!(host.contains(document.activeElement)&&document.activeElement.matches('input')))draw();else if(!host.isConnected)F.redraw=null};draw()}
- const sum=()=>F.settings.enabled?'An':'Aus';
+ const sum=()=>T(F.settings.enabled?'common.on':'common.off');
 
  /* --- Artikel-Detail --- */
  function detail(b,id){const ex=F.expenses.filter(x=>x.kind==='expense'&&x.item_ids?.includes(id));if(!ex.length||!F.settings.enabled)return;
-  const el=document.createElement('div');el.className='fdet';el.textContent='Bezahlt: '+ex.map(x=>`${fmtCHF(x.amount_cents)} (${nm(x.payer)})`).join(' · ');
+  const el=document.createElement('div');el.className='fdet';el.textContent=T('fin.detail_paid',{list:ex.map(x=>`${money(x.amount_cents)} (${nm(x.payer)})`).join(' · ')});
   const dd=$('#dd',b);if(dd)dd.before(el);else b.append(el)}
 
- return{load,subscribe,apply,reset,checked,shopEnd,settingsMount,sum,detail,F}}
+ return{load,subscribe,apply,reset,checked,shopEnd,settingsMount,sum,detail,relabel,F}}

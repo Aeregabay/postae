@@ -266,10 +266,13 @@ import { parseUtterance } from './parser.js';
 import { CATEGORIES, resolveIcon, guessCategory, categoryColor, categoryIcon, suggestionKeywords } from './icons.js';
 import { ICON_SVGS } from './icon-svgs.js';
 import { createFinance } from './finance.js';
+import { t as T, tp as TP, th as TH, init as i18nInit, setLang, onLangChange, lang as getLang, locale, LANGS, fmtDate, catName, kindName, unitName } from './i18n.js';
+await i18nInit();
 const SB_URL='https://dzuhqugacawaqfcvayoa.supabase.co',SB_KEY='sb_publishable_1xtQRorof2bprnu3zU93pw_D-Z7qojE';
 const sb=createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,storage:window.localStorage}});
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const E=(k,v)=>esc(T(k,v));
 const LS={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 const uid=()=>crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c=='x'?r:r&3|8).toString(16)});
 const ICONS={chev:'<path d="M6 9l6 6 6-6"/>',mic:'<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',plus:'<path d="M12 5v14M5 12h14"/>',gear:'<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.2 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5a7 7 0 0 0 0 2.4l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z"/>',grid:'<rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/>',list:'<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',layers:'<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',grip:'<path d="M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01"/>'};
@@ -280,6 +283,7 @@ const ICO=(k,c='')=>`<svg class="ico${c}" viewBox="0 0 24 24" aria-hidden="true"
 /* ---------- Katalog ---------- */
 const CATS=CATEGORIES.map(c=>c.name);
 const ecat=i=>{const c=i.category||'Sonstiges';return c!=='Sonstiges'?c:guessCategory(i.name)};
+/*i18n-ignore-start*/ /* Katalog-/Parser-Daten (deutsch, nicht UI) */
 const RAW={
 'Früchte & Gemüse':'🍎Äpfel,🍌Bananen,🍊Orangen,🍊Mandarinen,🍋Zitronen,🍇Trauben,🍓Erdbeeren,🫐Heidelbeeren,🍐Birnen,🍑Pfirsiche,🥭Mango,🍍Ananas,🍉Wassermelone,🥑Avocado,🍅Tomaten,🍅Cherrytomaten,🥒Gurke,🥕Rüebli,🥔Kartoffeln,🍠Süsskartoffeln,🧅Zwiebeln,🧄Knoblauch,🥬Salat,🥬Nüsslisalat,🥬Spinat,🥦Broccoli,🥦Blumenkohl,🫑Peperoni,🥒Zucchetti,🍆Aubergine,🍄Champignons,🌽Mais,🫚Ingwer,🌿Basilikum,🌿Petersilie,🌿Schnittlauch,🥬Lauch,🥬Fenchel,🫛Erbsen,🍒Kirschen',
 'Brot & Gebäck':'🍞Brot,🍞Toastbrot,🥖Baguette,🥐Gipfeli,🥨Brezel,🍞Zopf,🥖Bürli,🥯Bagel,🥞Wraps,🍰Kuchen,🥐Gebäck',
@@ -293,6 +297,7 @@ const RAW={
 'Körperpflege':'🪥Zahnpasta,🪥Zahnbürste,🧴Shampoo,🧴Duschgel,🧼Seife,🧴Deo,🪒Rasierer,🧴Handcreme,🧴Sonnencreme,🤧Taschentücher,🧴Haargel,🧻Wattestäbchen,🧻Tampons,🧴Körperlotion',
 'Apotheke':'💊Schmerztabletten,🩹Pflaster,💊Vitamine,💊Halstabletten,🧴Nasenspray,🌡️Fieberthermometer,🧴Desinfektionsmittel,🍯Hustensirup',
 'Sonstiges':'🐱Katzenfutter,🐱Katzenstreu,💐Blumen,💌Glückwunschkarte,📮Briefmarken,🎁Geschenk'};
+/*i18n-ignore-end*/
 const B={};const BL=[];
 for(const[c,s]of Object.entries(RAW))for(const t of s.split(',')){const m=t.match(/^(\p{Extended_Pictographic}️?(?:‍\p{Extended_Pictographic}️?)*)(.+)$/u);if(!m)continue;const name=m[2].trim(),o={name,e:m[1],category:c,key:name.toLowerCase()};B[o.key]=o;BL.push(o)}
 const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ß/g,'ss').trim();
@@ -301,6 +306,7 @@ const emojiFor=name=>{const r=resolveIcon(name);return r.matched?r.emoji:null};
 const lookup=k=>S.cat[k]||B[k]||null;
 
 /* ---------- Parser ---------- */
+/*i18n-ignore-start*/ /* Parser-Tabellen (deutsch, später pro Sprache) */
 const UN='kg|g|l|dl|cl|ml|x|×|stk\\.?|stück|pkg\\.?|packung(?:en)?|pack|bund|dose(?:n)?|fl\\.?|flasche(?:n)?|liter|kilo|gramm|becher|beutel|sack|schachtel(?:n)?';
 const UMAP={liter:'l',kilo:'kg',gramm:'g',x:'×','stück':'Stk.',stk:'Stk.',pkg:'Pkg.',packung:'Pkg.',packungen:'Pkg.',pack:'Pkg.',fl:'Fl.',flasche:'Flaschen',flaschen:'Flaschen',dose:'Dose',dosen:'Dosen'};
 const NW={eins:1,ein:1,eine:1,einen:1,zwei:2,drei:3,vier:4,fünf:5,sechs:6,sieben:7,acht:8,neun:9,zehn:10,zwölf:12};
@@ -315,6 +321,7 @@ function parseItem(txt){let t=txt.trim().replace(/\s+/g,' ');if(!t)return null;
  m=t.match(new RegExp('^(.+?)\\s+(\\d+(?:[.,]\\d+)?)\\s*('+UN+')?$','i'));
  if(m)return{name:cap(m[1].trim()),spec:fmtSpec(m[2],m[3])};
  return{name:cap(t),spec:null}}
+/*i18n-ignore-end*/
 function lev(a,b){const m=a.length,n=b.length;if(!m)return n;let p=Array.from({length:n+1},(_,i)=>i);for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[n]}
 function matchStore(w){const x=norm(w);if(x.length<3)return null;let best=null,bd=9;
  for(const s of S.stores){const n=norm(s.name);let d=n===x?0:(n.startsWith(x)&&x.length>=4)||(x.startsWith(n)&&n.length>=4)?1:lev(n,x);const lim=n.length>6?2:1;if(d<=lim&&d<bd){best=s;bd=d}}return best}
@@ -337,14 +344,14 @@ async function flush(){if(flushing||!queue.length||!S.user)return;flushing=true;
  flushing=false;setSync()}
 function setSync(){let el=$('#sync');const off=!navigator.onLine,n=queue.length;if(!off&&!n){el?.remove();return}
  if(!el){el=document.createElement('div');el.id='sync';document.body.append(el)}
- el.textContent=off?`Offline${n?` · ${n} Änderung${n>1?'en':''} warten`:''}`:`${n} Änderung${n>1?'en':''} werden gesendet…`}
+ el.textContent=off?(n?TP('sync.offline_pending',n):T('sync.offline')):TP('sync.sending',n)}
 addEventListener('online',()=>{flush();refetch()});addEventListener('offline',setSync);
 const now=()=>new Date().toISOString();
 function upItem(id,patch){const it=S.items.find(i=>i.id===id);if(!it)return;Object.assign(it,patch,{updated_at:now()});enqueue({t:'items',o:'update',id,d:{...patch,updated_at:it.updated_at}});scheduleRender()}
 function nextSort(lid){return S.items.filter(i=>i.list_id===lid).reduce((m,i)=>Math.max(m,i.sort||0),0)+1}
 function putCatalog(name,category,store_ids,inc){const key=name.toLowerCase().trim();const old=S.cat[key];
  const row={name_key:key,name:old?.name||name,category,store_ids,uses:(old?.uses||0)+(inc?1:0),last_used:now()};S.cat[key]=row;enqueue({t:'catalog',o:'upsert',k:'name_key',d:row})}
-function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${esc(msg)}</span>${undo?'<button>Rückgängig</button>':''}`;t.classList.add('show');if(undo)t.querySelector('button').onclick=()=>{undo();t.classList.remove('show')};clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),undo?5000:2600)}
+function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${esc(msg)}</span>${undo?`<button>${E('common.undo')}</button>`:''}`;t.classList.add('show');if(undo)t.querySelector('button').onclick=()=>{undo();t.classList.remove('show')};clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),undo?5000:2600)}
 
 /* ---------- Hinzufügen ---------- */
 function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],react:[],skipped:0};const created=[],react=[];let skipped=0;
@@ -355,14 +362,14 @@ function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],rea
   const category=[p.category,same?.category,lk?.category].find(c=>c&&c!=='Sonstiges')||guessCategory(name),canon=lk?.name||name;
   if(same){upItem(same.id,{done:false,done_at:null,sort:nextSort(lid),spec:p.spec||same.spec,store_ids:storeIds?.length||p.exact?stores:same.store_ids});react.push(same.id);S.pop.add(same.id)}
   else{const it={id:uid(),list_id:lid,name:canon,spec:p.spec||null,category,store_ids:stores,done:false,done_at:null,sort:nextSort(lid)+created.length*0,created_by:S.user?.email,created_at:now(),updated_at:now()};
-   if(p.photo){it.photo_path=`items/${it.id}.jpg`;uploadPhoto(it.photo_path,p.photo).catch(()=>{toast('Foto konnte nicht hochgeladen werden');upItem(it.id,{photo_path:null})})}
+   if(p.photo){it.photo_path=`items/${it.id}.jpg`;uploadPhoto(it.photo_path,p.photo).catch(()=>{toast(T('toast.photo_upload_failed'));upItem(it.id,{photo_path:null})})}
    S.items.push(it);const{created_by,...ins}=it;enqueue({t:'items',o:'insert',d:ins});created.push(it.id);S.pop.add(it.id)}
   putCatalog(canon,category,stores,true)}
  scheduleRender();return{created,react,skipped}}
-function addFromText(text){const u=parseUtterance(text,S.stores);if(!u.items.length){toast('Nichts erkannt');return}addItems(u.items,u.store?[u.store.id]:[])}
+function addFromText(text){const u=parseUtterance(text,S.stores,getLang());if(!u.items.length){toast(T('toast.nothing_recognized'));return}addItems(u.items,u.store?[u.store.id]:[])}
 function commit(list,stores){const r=addMany(list,stores),n=r.created.length+r.react.length;
- if(!n){toast(r.skipped?'Schon auf der Liste':'Nichts hinzugefügt');return}
- toast((n===1&&list.length===1?`«${list[0].name.trim()}» hinzugefügt`:`${n} hinzugefügt`)+(stores?.length?` · ${stores.map(id=>S.stores.find(s=>s.id===id)?.name).join(', ')}`:''),()=>{
+ if(!n){toast(r.skipped?T('toast.already_on_list'):T('toast.nothing_added'));return}
+ toast((n===1&&list.length===1?T('toast.added_one',{name:list[0].name.trim()}):TP('toast.added_n',n))+(stores?.length?` · ${stores.map(id=>S.stores.find(s=>s.id===id)?.name).join(', ')}`:''),()=>{
   r.created.forEach(id=>delItem(id));r.react.forEach(id=>upItem(id,{done:true,done_at:now()}))})}
 async function addItems(items,stores){const clean=[],dups=[];
  for(const p of items){const nm=(p.name||'').trim();if(!nm)continue;const m=findSimilar(nm);(m.length?dups:clean).push(m.length?{p,m}:p)}
@@ -383,15 +390,15 @@ function similarName(x,y){const kx=dn(x),ky=dn(y);if(!kx||!ky)return false;
   for(const[u,v]of[[a,b],[sa,sb]]){const sh=u.length<=v.length?u:v,lo=sh===u?v:u;if(sh.length>=4&&lo.includes(sh))return true}}
  return false}
 const findSimilar=name=>S.items.filter(i=>i.list_id===S.listId&&!i.done&&similarName(name,i.name));
-const dupTile=i=>`<div class="tile" data-id="${i.id}" role="button" tabindex="0">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(i.spec)}</span>`:''}${badges(i)}</div>`;
+const dupTile=i=>`<div class="tile" data-id="${i.id}" role="button" tabindex="0">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(dspec(i.spec))}</span>`:''}${badges(i)}</div>`;
 function askDups(entries,single){return new Promise(res=>{let done=false;const out={add:[],edit:null};const fin=()=>{if(done)return;done=true;res(out)};
  if(single){const{p,m}=entries[0];
-  const b=sheet(`<div class="shh"><span></span><h3>Ähnlich schon auf der Liste</h3><span></span></div><div class="lbl">Neu: ${esc(p.name)}${p.spec?' · '+esc(p.spec):''}</div><div class="dups">${m.map(dupTile).join('')}</div><div class="dcol"><button type="button" class="btn pri" id="dy">Trotzdem hinzufügen</button><button type="button" class="btn" id="de">Bestehenden anpassen</button><button type="button" class="btn" id="dx">Abbrechen</button></div>`,{top:true,onClose:fin});
+  const b=sheet(`<div class="shh"><span></span><h3>${E('dup.title')}</h3><span></span></div><div class="lbl">${E('dup.new',{name:p.name})}${p.spec?' · '+esc(p.spec):''}</div><div class="dups">${m.map(dupTile).join('')}</div><div class="dcol"><button type="button" class="btn pri" id="dy">${E('dup.add_anyway')}</button><button type="button" class="btn" id="de">${E('dup.edit_existing')}</button><button type="button" class="btn" id="dx">${E('common.cancel')}</button></div>`,{top:true,onClose:fin});
   const pick=f=>{f();fin();closeSheet()};
   $('#dy',b).onclick=()=>pick(()=>out.add=[p]);$('#de',b).onclick=()=>pick(()=>out.edit=m[0].id);$('#dx',b).onclick=()=>pick(()=>{});
   b.addEventListener('click',e=>{const t=e.target.closest('.tile[data-id]');if(t)pick(()=>out.edit=t.dataset.id)});return}
  const on=new Set();
- const b=sheet(`<div class="shh"><button type="button" class="tb" id="ax">Abbrechen</button><h3>Ähnlich schon auf der Liste</h3><button type="button" class="tb ok" id="ao">Fertig</button></div>${entries.map((e,i)=>`<div class="dr"><div class="t"><b>${esc(e.p.name)}</b>${e.p.spec?' · '+esc(e.p.spec):''}<small>Bereits: ${e.m.map(x=>esc(x.name)+(x.spec?' ('+esc(x.spec)+')':'')).join(', ')}</small></div><button type="button" class="chip" data-t="${i}" aria-pressed="false">hinzufügen</button></div>`).join('')}`,{top:true,onClose:fin});
+ const b=sheet(`<div class="shh"><button type="button" class="tb" id="ax">${E('common.cancel')}</button><h3>${E('dup.title')}</h3><button type="button" class="tb ok" id="ao">${E('common.done')}</button></div>${entries.map((e,i)=>`<div class="dr"><div class="t"><b>${esc(e.p.name)}</b>${e.p.spec?' · '+esc(e.p.spec):''}<small>${E('dup.already',{list:e.m.map(x=>x.name+(x.spec?' ('+x.spec+')':'')).join(', ')})}</small></div><button type="button" class="chip" data-t="${i}" aria-pressed="false">${E('dup.add_chip')}</button></div>`).join('')}`,{top:true,onClose:fin});
  b.addEventListener('click',e=>{const c=e.target.closest('[data-t]');if(!c)return;const i=+c.dataset.t;on.has(i)?on.delete(i):on.add(i);c.classList.toggle('on',on.has(i));c.setAttribute('aria-pressed',on.has(i))});
  $('#ax',b).onclick=()=>closeSheet();$('#ao',b).onclick=()=>{out.add=entries.filter((e,i)=>on.has(i)).map(e=>e.p);fin();closeSheet()}})}
 function delItem(id){const i=S.items.findIndex(x=>x.id===id);if(i<0)return;const ph=S.items[i].photo_path;S.items.splice(i,1);if(ph)removePhoto(ph);enqueue({t:'items',o:'delete',id});scheduleRender()}
@@ -404,7 +411,7 @@ async function load(){await flush();
  if(queue.length)return;
  S.lists=l.data;S.stores=s.data;S.items=i.data;S.cat={};(c.data||[]).forEach(r=>S.cat[r.name_key]=r);S.token=v.data?.token||null;S.tokenRow=v.data||null;persist();loadCards()}
 async function refetch(){if(!S.user)return;FIN.load();try{await load();await ensureList();scheduleRender()}catch(e){if(e.denied)denied()}}
-async function ensureList(){if(!S.lists.length&&navigator.onLine){const l={id:uid(),name:'Einkauf',sort:1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l})}
+async function ensureList(){if(!S.lists.length&&navigator.onLine){const l={id:uid(),name:T('list.default_name'),sort:1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l})}
  if(!S.lists.some(l=>l.id===S.listId))S.listId=S.lists[0]?.id||null;LS.set('pq.list',S.listId)}
 function subscribe(){if(chan)sb.removeChannel(chan);chan=sb.channel('postae');
  for(const t of['items','lists','stores'])chan.on('postgres_changes',{event:'*',schema:'public',table:t},p=>applyChange(t,p));chan.on('postgres_changes',{event:'*',schema:'public',table:'loyalty_cards'},applyCard);chan.on('postgres_changes',{event:'INSERT',schema:'public',table:'activity'},applyAct);FIN.subscribe(chan);chan.subscribe()}
@@ -413,32 +420,32 @@ function applyChange(t,p){const arr=t==='items'?S.items:t==='lists'?S.lists:S.st
  else{const i=arr.findIndex(x=>x.id===p.new.id);if(i>=0)arr[i]=p.new;else arr.push(p.new)}
  if(t!=='items')arr.sort((a,b)=>a.sort-b.sort);if(t==='lists'&&!S.lists.some(l=>l.id===S.listId))S.listId=S.lists[0]?.id;if(t==='stores')S.stRedraw?.();scheduleRender();persist()}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refetch()});
-function denied(){sb.auth.signOut();S.user=null;showAuth('Kein Zugriff')}
+function denied(){sb.auth.signOut();S.user=null;showAuth(T('auth.no_access'))}
 
 /* ---------- Render ---------- */
 function scheduleRender(){if(S.drag){S.dirty=true;return}if(renderQ)return;renderQ=true;requestAnimationFrame(()=>{renderQ=false;render()})}
-function buildShell(){$('#app').innerHTML=`<div class="wrap" id="wrap"><div class="top"><button class="lb" id="listBtn" aria-label="Liste wechseln"><span id="listName"></span>${ic('chev')}</button><div class="sp"></div><button class="ib" id="viewBtn" aria-label="Ansicht wechseln"></button><button class="ib" id="grpBtn" aria-label="Nach Kategorie gruppieren">${ic('layers')}</button><button class="ib" id="cartBtn" aria-label="Einkaufsmodus">${ic('cart')}</button><button class="ib" id="setBtn" aria-label="Einstellungen">${ic('gear')}</button></div>
-<div class="addwrap"><form class="add" id="addForm" autocomplete="off"><input id="addIn" placeholder="Artikel hinzufügen…" enterkeyhint="done" autocapitalize="sentences" aria-label="Artikel hinzufügen"><button type="button" class="ib mic" id="micBtn" aria-label="Spracheingabe">${ic('mic')}</button><button class="ib plus" aria-label="Hinzufügen">${ic('plus')}</button></form><div class="sugg" id="sugg" hidden></div></div>
-<div class="hint" id="hint" hidden><span>Tippen = erledigt · Lang drücken = bearbeiten · Lang drücken &amp; ziehen = sortieren</span><button type="button" id="hintX">Verstanden</button></div><div class="fb" id="chips"></div><main id="main"></main></div>`;bind();setSync()}
+function buildShell(){$('#app').innerHTML=`<div class="wrap" id="wrap"><div class="top"><button class="lb" id="listBtn" aria-label="${E('shell.list_switch')}"><span id="listName"></span>${ic('chev')}</button><div class="sp"></div><button class="ib" id="viewBtn" aria-label="${E('shell.view_switch')}"></button><button class="ib" id="grpBtn" aria-label="${E('shell.group')}">${ic('layers')}</button><button class="ib" id="cartBtn" aria-label="${E('shell.shop_mode')}">${ic('cart')}</button><button class="ib" id="setBtn" aria-label="${E('shell.settings')}">${ic('gear')}</button></div>
+<div class="addwrap"><form class="add" id="addForm" autocomplete="off"><input id="addIn" placeholder="${E('add.placeholder')}" enterkeyhint="done" autocapitalize="sentences" aria-label="${E('add.aria')}"><button type="button" class="ib mic" id="micBtn" aria-label="${E('add.mic')}">${ic('mic')}</button><button class="ib plus" aria-label="${E('add.btn')}">${ic('plus')}</button></form><div class="sugg" id="sugg" hidden></div></div>
+<div class="hint" id="hint" hidden><span>${E('hint.gestures')}</span><button type="button" id="hintX">${E('hint.ok')}</button></div><div class="fb" id="chips"></div><main id="main"></main></div>`;bind();setSync()}
 function emo(i){const r=resolveIcon(i.name,i.category),c=ecat(i),sty=` style="--cc:${categoryColor(c)}"`;return r.matched||c!=='Sonstiges'?`<span class="em"${sty}>${ICO(r.icon)}</span>`:`<span class="em"${sty}><b class="ltr">${esc(i.name.charAt(0).toUpperCase())}</b></span>`}
 function badges(i){const a=(i.store_ids||[]).map(id=>S.stores.find(s=>s.id===id)).filter(Boolean);if(!a.length)return'';
  const b=a.slice(0,2).map(bgOne).join('');
  return`<span class="bd">${b}${a.length>2?`<span class="bg more" title="${esc(a.slice(2).map(s=>s.name).join(', '))}">+${a.length-2}</span>`:''}</span>`}
 function tile(i,done){const dots=badges(i);
- return`<div class="tile${done?' done':''}${S.pop.has(i.id)?' pop':''}" data-id="${i.id}" role="button" tabindex="0" aria-label="${esc(i.name)}${done?' wieder hinzufügen':' erledigt'}" aria-keyshortcuts="E">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(i.spec)}</span>`:''}${i.photo_path?thHTML(i.photo_path):''}${dots}</div>`}
+ return`<div class="tile${done?' done':''}${S.pop.has(i.id)?' pop':''}" data-id="${i.id}" role="button" tabindex="0" aria-label="${esc(T(done?'item.readd':'item.complete',{name:i.name}))}" aria-keyshortcuts="E">${emo(i)}<span class="nm">${esc(i.name)}</span>${i.spec?`<span class="sp">${esc(dspec(i.spec))}</span>`:''}${i.photo_path?thHTML(i.photo_path):''}${dots}</div>`}
 function openItems(){let a=S.items.filter(i=>i.list_id===S.listId&&!i.done);if(S.filter)a=a.filter(i=>i.store_ids?.includes(S.filter)||(S.every&&!i.store_ids?.length));return a.sort((x,y)=>x.sort-y.sort)}
 function catList(items){const have=new Set(items.map(ecat));const order=[...S.catOrder,...CATS];const all=[...new Set([...order,...have])];return all.filter(c=>have.has(c))}
 function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
  const l=S.lists.find(x=>x.id===S.listId);$('#listName').textContent=l?.name||'Fetchy';
- $('#viewBtn').innerHTML=ic(S.view==='grid'?'list':'grid');$('#viewBtn').setAttribute('aria-label',S.view==='grid'?'Listenansicht':'Kachelansicht');
+ $('#viewBtn').innerHTML=ic(S.view==='grid'?'list':'grid');$('#viewBtn').setAttribute('aria-label',T(S.view==='grid'?'shell.view_list':'shell.view_grid'));
  $('#grpBtn').classList.toggle('on',S.group);
  $('#chips').innerHTML=fbar();fitChips();S.pickRedraw?.();
  const open=openItems(),done=S.items.filter(i=>i.list_id===S.listId&&i.done).sort((a,b)=>(b.done_at||'').localeCompare(a.done_at||'')).slice(0,30);
- const fst=S.stores.find(x=>x.id===S.filter);let h=`<div class="zt">Einkaufen <b>${open.length||''}</b></div>`;if(fst&&open.length)h+=`<button class="sfab" type="button" aria-label="Einkaufen bei ${esc(fst.name)}">${ic('cart')}<span>Einkaufen bei ${esc(fst.name)}</span></button>`;
- if(!open.length)h+=`<div class="empty"><div class="big">${ICO('cart',' xl')}</div><p>Alles erledigt.<br>Tippe oben, um etwas hinzuzufügen.</p></div>`;
- else if(S.group)for(const c of catList(open)){const its=open.filter(i=>ecat(i)===c);h+=`<section class="grp${S.collapsed[c]?' c':''}" data-cat="${esc(c)}"><div class="gh"><button class="grip" data-grip aria-label="Kategorie verschieben">${ic('grip')}</button><button class="gt" data-tog><i class="gd" style="background:${categoryColor(c)}"></i>${ICO(categoryIcon(c),' sm')} ${esc(c)} <span class="cnt">${its.length}</span>${ic('chev')}</button></div><div class="grid" data-cat="${esc(c)}">${its.map(i=>tile(i)).join('')}</div></section>`}
+ const fst=S.stores.find(x=>x.id===S.filter);let h=`<div class="zt">${E('list.todo')} <b>${open.length||''}</b></div>`;if(fst&&open.length)h+=`<button class="sfab" type="button" aria-label="${E('list.shop_at',{store:fst.name})}">${ic('cart')}<span>${E('list.shop_at',{store:fst.name})}</span></button>`;
+ if(!open.length)h+=`<div class="empty"><div class="big">${ICO('cart',' xl')}</div><p>${E('list.empty_title')}<br>${E('list.empty_hint')}</p></div>`;
+ else if(S.group)for(const c of catList(open)){const its=open.filter(i=>ecat(i)===c);h+=`<section class="grp${S.collapsed[c]?' c':''}" data-cat="${esc(c)}"><div class="gh"><button class="grip" data-grip aria-label="${E('list.cat_move')}">${ic('grip')}</button><button class="gt" data-tog><i class="gd" style="background:${categoryColor(c)}"></i>${ICO(categoryIcon(c),' sm')} ${esc(catName(c))} <span class="cnt">${its.length}</span>${ic('chev')}</button></div><div class="grid" data-cat="${esc(c)}">${its.map(i=>tile(i)).join('')}</div></section>`}
  else h+=`<div class="grid" data-cat="">${open.map(i=>tile(i)).join('')}</div>`;
- if(done.length)h+=`<div class="zt">Zuletzt verwendet</div><div class="grid" id="doneGrid">${done.map(i=>tile(i,true)).join('')}</div>`;
+ if(done.length)h+=`<div class="zt">${E('list.recent')}</div><div class="grid" id="doneGrid">${done.map(i=>tile(i,true)).join('')}</div>`;
  const m=$('#main');m.className=S.view==='list'?'list':'';m.innerHTML=h;S.pop.clear();persist();if(SM.o)smRender()}
 
 /* ---------- Eingabe / Vorschläge ---------- */
@@ -448,7 +455,7 @@ function suggest(){const v=$('#addIn').value.trim(),box=$('#sugg');if(!v){box.hi
  for(const r of Object.values(S.cat)){const n=norm(r.name);if(n.includes(q))seen.set(r.name_key,{name:r.name,cat:r.category,rank:(n.startsWith(q)?0:1000)-r.uses})}
  for(const b of BL){const n=norm(b.name);if(n.includes(q)&&!seen.has(b.key))seen.set(b.key,{name:b.name,cat:b.category,rank:(n.startsWith(q)?500:1500)})}
  sugs=[...seen.values()].sort((a,b)=>a.rank-b.rank).slice(0,6).map(s=>({...s,spec:p.spec}));hl=-1;
- box.hidden=!sugs.length;box.innerHTML=sugs.map((s,i)=>`<button type="button" data-s="${i}"><span class="si" style="--cc:${categoryColor(resolveIcon(s.name,s.cat).category)}">${ICO(resolveIcon(s.name,s.cat).icon,' sm')}</span><span>${esc(s.name)}${s.spec?` <small>${esc(s.spec)}</small>`:''}</span><small>${esc(s.cat)}</small></button>`).join('')}
+ box.hidden=!sugs.length;box.innerHTML=sugs.map((s,i)=>`<button type="button" data-s="${i}"><span class="si" style="--cc:${categoryColor(resolveIcon(s.name,s.cat).category)}">${ICO(resolveIcon(s.name,s.cat).icon,' sm')}</span><span>${esc(s.name)}${s.spec?` <small>${esc(s.spec)}</small>`:''}</span><small>${esc(catName(s.cat))}</small></button>`).join('')}
 function submitAdd(){const inp=$('#addIn'),v=inp.value.trim();if(!v){openAdd({name:''});return}
  if(hl>=0&&sugs[hl])addItems([{name:sugs[hl].name,spec:sugs[hl].spec}],[]);else addFromText(v);
  inp.value='';$('#sugg').hidden=true;hl=-1}
@@ -463,7 +470,7 @@ function bind(){const m=$('#main'),inp=$('#addIn');
  {const h=$('#hint');if(!LS.get('pq.hint1',false)){h.hidden=false;$('#hintX').onclick=()=>{h.hidden=true;LS.set('pq.hint1',true)}}}
  $('#micBtn').onclick=startVoice;$('#listBtn').onclick=openLists;$('#setBtn').onclick=openSettings;$('#cartBtn').onclick=()=>openShop(S.filter);new ResizeObserver(()=>fitChips()).observe($('#chips'));
  $('#viewBtn').onclick=()=>{S.view=S.view==='grid'?'list':'grid';LS.set('pq.view',S.view);render()};
- $('#grpBtn').onclick=()=>{S.group=!S.group;LS.set('pq.group',S.group);render();toast(S.group?'Nach Kategorie gruppiert':'Eigene Reihenfolge')};
+ $('#grpBtn').onclick=()=>{S.group=!S.group;LS.set('pq.group',S.group);render();toast(T(S.group?'toast.grouped':'toast.own_order'))};
  $('#chips').onclick=e=>{const f=e.target.closest('[data-f]');if(e.target.closest('[data-pick]')){openStorePicker();return}if(f){S.filter=f.dataset.f&&f.dataset.f!==S.filter?f.dataset.f:null;render()}};
  m.addEventListener('click',e=>{if(e.target.closest('.sfab')){openShop(S.filter);return}const tg=e.target.closest('[data-tog]');if(tg){const c=tg.closest('.grp').dataset.cat;S.collapsed[c]=!S.collapsed[c];LS.set('pq.col',S.collapsed);tg.closest('.grp').classList.toggle('c',!!S.collapsed[c])}});
  m.addEventListener('keydown',e=>{const t=e.target.closest?.('.tile');if(t&&e.target===t){if(e.key==='Enter'||e.key===' '){e.preventDefault();tapTile(t)}else if(e.key==='e'||e.key==='E'||e.key==='F2'){e.preventDefault();openDetail(t.dataset.id)}}});
@@ -509,7 +516,7 @@ function tapTile(t){const id=t.dataset.id,it=S.items.find(i=>i.id===id);if(!it||
  if(it.done){S.pop.add(id);upItem(id,{done:false,done_at:null,sort:nextSort(it.list_id)});return}
  completeTile(t,it)}
 function completeTile(t,it,quick){const id=it.id,sort0=it.sort;if(!quick){t.classList.add('chk');t.insertAdjacentHTML('beforeend',`<span class="ck">${CHK_SVG}</span>`);navigator.vibrate?.(8)}
- setTimeout(()=>{S.pop.add(id);upItem(id,{done:true,done_at:now()});FIN.checked(it);toast(`${it.name.trim()} erledigt ·`,()=>{S.pop.add(id);upItem(id,{done:false,done_at:null,sort:sort0})})},quick?0:250)}
+ setTimeout(()=>{S.pop.add(id);upItem(id,{done:true,done_at:now()});FIN.checked(it);toast(T('toast.item_done',{name:it.name.trim()}),()=>{S.pop.add(id);upItem(id,{done:false,done_at:null,sort:sort0})})},quick?0:250)}
 function beginDrag(x,y,moved){const el=G.el;unpress(el);const r=el.getBoundingClientRect();const g=el.cloneNode(true);g.classList.add('ghost');g.style.width=r.width+'px';g.style.height=r.height+'px';
  D={el,g,kind:G.kind,dx:x-r.left,dy:y-r.top,moved:!!moved,last:[x,y]};document.body.append(g);el.classList.add('dragging');S.drag=true;moveDrag(x,y);
  (function loop(){if(!D)return;const y=D.last[1];if(y<90)scrollBy(0,-10);else if(y>innerHeight-90)scrollBy(0,10);D.raf=requestAnimationFrame(loop)})()}
@@ -544,17 +551,18 @@ function sheetFx(o){const vv=window.visualViewport,sh=$('.sh',o);let off=()=>{};
  sh.addEventListener('touchmove',e=>{if(y0!=null)e.preventDefault()},{passive:false});return off}
 function closeSheet(){const s=S.sheets.pop();if(!s)return;s.off?.();s.o.classList.remove('open');if(!s.cs){const p=[...S.sheets].reverse().find(x=>!x.cs);p?.o.classList.remove('bk')}setTimeout(()=>s.o.remove(),220);if(!S.sheets.length)document.documentElement.classList.remove('lk');s.onClose?.()}
 addEventListener('keydown',e=>{if(e.key==='Escape'&&S.sheets.length)closeSheet()});
-function askText(title,val='',ok='OK'){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><input id="aq" value="${esc(val)}" maxlength="60"><div class="row"><button class="btn" id="ax">Abbrechen</button><button class="btn pri" id="ao">${ok}</button></div>`,{top:true,onClose:()=>{if(!done)res(null)}});
+function askText(title,val='',ok=T('common.ok')){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><input id="aq" value="${esc(val)}" maxlength="60"><div class="row"><button class="btn" id="ax">${E('common.cancel')}</button><button class="btn pri" id="ao">${esc(ok)}</button></div>`,{top:true,onClose:()=>{if(!done)res(null)}});
  const i=$('#aq',b);setTimeout(()=>{i.focus();i.select()},250);const go=()=>{done=true;res(i.value.trim()||null);closeSheet()};$('#ao',b).onclick=go;$('#ax',b).onclick=()=>closeSheet();i.onkeydown=e=>{if(e.key==='Enter')go()}})}
-function askConfirm(title,ok='Löschen'){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><div class="row"><button class="btn" id="ax">Abbrechen</button><button class="btn pri" id="ao">${ok}</button></div>`,{top:true,onClose:()=>{if(!done)res(false)}});$('#ao',b).onclick=()=>{done=true;res(true);closeSheet()};$('#ax',b).onclick=()=>closeSheet()})}
-const shHead=(title,ok)=>`<div class="shh"><button type="button" class="tb" id="ax">Abbrechen</button><h3>${esc(title)}</h3><button type="button" class="tb ok" id="ao">${esc(ok)}</button></div>`;
-const QU=['Stk','g','kg','ml','l','Pack'],QSTEP={Stk:1,Pack:1,g:100,ml:100,kg:.5,l:.5},QMAP={stk:'Stk','stück':'Stk',x:'Stk','×':'Stk',pkg:'Pack',pack:'Pack',packung:'Pack',packungen:'Pack',g:'g',gramm:'g',kg:'kg',kilo:'kg',ml:'ml',l:'l',liter:'l'};
+function askConfirm(title,ok=T('common.delete')){return new Promise(res=>{let done=false;const b=sheet(`<h3>${esc(title)}</h3><div class="row"><button class="btn" id="ax">${E('common.cancel')}</button><button class="btn pri" id="ao">${esc(ok)}</button></div>`,{top:true,onClose:()=>{if(!done)res(false)}});$('#ao',b).onclick=()=>{done=true;res(true);closeSheet()};$('#ax',b).onclick=()=>closeSheet()})}
+const shHead=(title,ok)=>`<div class="shh"><button type="button" class="tb" id="ax">${E('common.cancel')}</button><h3>${esc(title)}</h3><button type="button" class="tb ok" id="ao">${esc(ok)}</button></div>`;
+/* i18n-ignore: Einheiten-IDs */ const QU=['Stk','g','kg','ml','l','Pack'],QSTEP={Stk:1,Pack:1,g:100,ml:100,kg:.5,l:.5},QMAP={stk:'Stk','stück':'Stk',x:'Stk','×':'Stk',pkg:'Pack',pack:'Pack',packung:'Pack',packungen:'Pack',g:'g',gramm:'g',kg:'kg',kilo:'kg',ml:'ml',l:'l',liter:'l'};
 function parseQty(spec){spec=(spec||'').trim();if(!spec)return{n:'',u:'Stk',d:''};
  const m=spec.match(new RegExp('^(\\d+(?:[.,]\\d+)?)\\s*(?:('+UN+')(?=\\s|$))?\\s*(.*)$','i'));
  if(m&&(m[2]||!m[3]||/^\s/.test(spec.slice(m[1].length)))){const u=QMAP[(m[2]||'stk').toLowerCase().replace(/\.$/,'')];if(u)return{n:m[1].replace('.',','),u,d:m[3].trim()}}
  return{n:'',u:'Stk',d:spec}}
+const dspec=s=>{const m=String(s||'').match(/^([\d.,]+) (Stk|Pack|g|kg|ml|l)(?= |$)/);return m?m[1]+' '+unitName(m[2])+String(s).slice(m[0].length):s}; /* i18n-ignore: Einheiten-IDs */
 function qtyHTML(p,spec){const q=parseQty(spec);
- return`<label for="${p}n">Menge</label><div class="qty" id="${p}q" data-u="${q.u}"><button type="button" class="qb" data-d="-1" aria-label="Weniger">−</button><input id="${p}n" inputmode="decimal" autocomplete="off" placeholder="–" value="${esc(q.n)}" maxlength="8" enterkeyhint="done"><button type="button" class="qb" data-d="1" aria-label="Mehr">+</button></div><div class="chips qc" id="${p}u">${QU.map(u=>`<button type="button" class="chip${u===q.u?' on':''}" data-u="${u}">${u}</button>`).join('')}</div><label for="${p}d">Details</label><input id="${p}d" value="${esc(q.d)}" placeholder="z. B. Bio, ungesalzen" maxlength="40" enterkeyhint="done">`}
+ return`<label for="${p}n">${E('qty.label')}</label><div class="qty" id="${p}q" data-u="${q.u}"><button type="button" class="qb" data-d="-1" aria-label="${E('qty.less')}">−</button><input id="${p}n" inputmode="decimal" autocomplete="off" placeholder="–" value="${esc(q.n)}" maxlength="8" enterkeyhint="done"><button type="button" class="qb" data-d="1" aria-label="${E('qty.more')}">+</button></div><div class="chips qc" id="${p}u">${QU.map(u=>`<button type="button" class="chip${u===q.u?' on':''}" data-u="${u}">${esc(unitName(u))}</button>`).join('')}</div><label for="${p}d">${E('qty.details')}</label><input id="${p}d" value="${esc(q.d)}" placeholder="${E('qty.details_ph')}" maxlength="40" enterkeyhint="done">`}
 function qtyInit(b,p){const q=$('#'+p+'q',b),n=$('#'+p+'n',b),us=$('#'+p+'u',b);
  n.addEventListener('input',()=>{const v=n.value.replace(/[^\d.,]/g,'');if(v!==n.value)n.value=v});
  q.addEventListener('click',e=>{const bt=e.target.closest('[data-d]');if(!bt)return;const v=parseFloat(n.value.replace(',','.')),nv=Math.max(0,(isNaN(v)?0:v)+(+bt.dataset.d)*QSTEP[q.dataset.u]);n.value=nv?String(Math.round(nv*100)/100).replace('.',','):''});
@@ -564,29 +572,29 @@ const submitKey=(b,go)=>b.addEventListener('keydown',e=>{const t=e.target;if(e.k
 const storeChip=(s,on)=>`<button class="chip${on?' on':''}" data-st="${s.id}"><span class="d" style="background:${on?'currentColor':esc(s.color)}"></span>${esc(s.name)}</button>`;
 function storePicker(host,sel,{top=0}={}){const u={};if(top){for(const i of S.items)for(const id of i.store_ids||[])u[id]=(u[id]||0)+1;for(const r of Object.values(S.cat))for(const id of r.store_ids||[])u[id]=(u[id]||0)+1}
  const hot=[...S.stores].filter(s=>u[s.id]).sort((a,b)=>u[b.id]-u[a.id]).slice(0,top).map(s=>s.id);
- if(!S.stores.length){host.innerHTML='<span class="hint">Noch keine Geschäfte – in den Einstellungen hinzufügen.</span>';return}
- host.innerHTML=`${S.stores.length>6?'<input class="sq" type="search" placeholder="Geschäft suchen…" aria-label="Geschäft suchen" autocomplete="off" enterkeyhint="search">':''}<div class="chips sc"></div>`;
+ if(!S.stores.length){host.innerHTML=`<span class="hint">${E('picker.no_stores')}</span>`;return}
+ host.innerHTML=`${S.stores.length>6?`<input class="sq" type="search" placeholder="${E('picker.shop_search')}" aria-label="${E('picker.shop_search_aria')}" autocomplete="off" enterkeyhint="search">`:''}<div class="chips sc"></div>`;
  const q=$('.sq',host),box=$('.sc',host);
  const draw=()=>{const t=q?norm(q.value):'';const k=s=>sel.has(s.id)?0:!t&&hot.includes(s.id)?1+hot.indexOf(s.id)/100:2;
   const a=S.stores.filter(s=>sel.has(s.id)||!t||norm(s.name).includes(t)).sort((x,y)=>k(x)-k(y));
-  box.innerHTML=a.map(s=>storeChip(s,sel.has(s.id))).join('')||'<span class="hint">Kein Geschäft gefunden</span>'};
+  box.innerHTML=a.map(s=>storeChip(s,sel.has(s.id))).join('')||`<span class="hint">${E('picker.shop_none')}</span>`};
  box.onclick=e=>{const c=e.target.closest('[data-st]');if(!c)return;sel.has(c.dataset.st)?sel.delete(c.dataset.st):sel.add(c.dataset.st);draw()};
  if(q){q.oninput=draw;q.onkeydown=e=>{if(e.key==='Enter')e.preventDefault()}}draw()}
 function openDetail(id,newSpec){const it=S.items.find(i=>i.id===id);if(!it)return;const sel=new Set(it.store_ids||[]);
  const cats=[...new Set([...CATS,ecat(it)])],ec0=ecat(it),ri=resolveIcon(it.name,ec0);
- const b=sheet(`${shHead('Artikel bearbeiten','Speichern')}<div class="ap"><div class="ape" style="--cc:${categoryColor(ec0)}">${ri.matched||ec0!=='Sonstiges'?ICO(ri.icon):`<b class="ltr">${esc(it.name.charAt(0).toUpperCase())}</b>`}</div></div><label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80">${qtyHTML('dq',newSpec!==undefined?newSpec:it.spec)}<label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===ec0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Foto</div><div id="dph"></div><div class="lbl">Geschäfte</div><div id="dst"></div><button type="button" class="btn danger" id="dd" style="width:100%;margin-top:20px">Löschen</button>`);
+ const b=sheet(`${shHead(T('detail.title'),T('common.save'))}<div class="ap"><div class="ape" style="--cc:${categoryColor(ec0)}">${ri.matched||ec0!=='Sonstiges'?ICO(ri.icon):`<b class="ltr">${esc(it.name.charAt(0).toUpperCase())}</b>`}</div></div><label for="dn">${E('common.name')}</label><input id="dn" value="${esc(it.name)}" maxlength="80">${qtyHTML('dq',newSpec!==undefined?newSpec:it.spec)}<label for="dc">${E('common.category')}</label><select id="dc">${cats.map(c=>`<option value="${esc(c)}"${c===ec0?' selected':''}>${esc(catName(c))}</option>`).join('')}</select><div class="lbl">${E('common.photo')}</div><div id="dph"></div><div class="lbl">${E('common.stores')}</div><div id="dst"></div><button type="button" class="btn danger" id="dd" style="width:100%;margin-top:20px">${E('common.delete')}</button>`);
  storePicker($('#dst',b),sel);qtyInit(b,'dq');FIN.detail(b,id);const ph=photoField($('#dph',b),{path:it.photo_path});
- $('#dd',b).onclick=()=>{delItem(id);closeSheet();toast('Gelöscht')};
+ $('#dd',b).onclick=()=>{delItem(id);closeSheet();toast(T('common.deleted'))};
  $('#ax',b).onclick=()=>closeSheet();
  const go=()=>{const name=$('#dn',b).value.trim()||it.name,spec=qtySpec(b,'dq'),category=$('#dc',b).value,store_ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id);
   const patch={name,spec,category,store_ids};
-  if(ph.blob){const path=`items/${id}.jpg`;uploadPhoto(path,ph.blob).catch(()=>toast('Foto konnte nicht hochgeladen werden'));patch.photo_path=path}else if(ph.removed&&it.photo_path){removePhoto(it.photo_path);patch.photo_path=null}
+  if(ph.blob){const path=`items/${id}.jpg`;uploadPhoto(path,ph.blob).catch(()=>toast(T('toast.photo_upload_failed')));patch.photo_path=path}else if(ph.removed&&it.photo_path){removePhoto(it.photo_path);patch.photo_path=null}
   upItem(id,patch);putCatalog(name,category,store_ids,false);closeSheet()};
  $('#ao',b).onclick=go;submitKey(b,go)}
 function openAdd(p){const key=p.name.toLowerCase().trim(),lk=lookup(key),valid=id=>S.stores.some(s=>s.id===id);
  const sel=new Set((p.stores||[]).filter(valid));if(!sel.size)(lk?.store_ids||[]).filter(valid).forEach(id=>sel.add(id));if(!sel.size&&S.filter)sel.add(S.filter);
  const cat0=[lk?.category,p.category].find(c=>c&&c!=='Sonstiges')||guessCategory(p.name),cats=[...new Set([...CATS,cat0])];let touched=false,spec0=p.spec||'';
- const b=sheet(`${shHead('Artikel hinzufügen','Hinzufügen')}<div class="ap"><div class="ape" id="ape"></div></div><label for="an">Artikel</label><input id="an" value="${esc(p.name)}" maxlength="80" autocapitalize="sentences">${qtyHTML('aq',spec0)}<label for="ac">Kategorie</label><select id="ac">${cats.map(c=>`<option${c===cat0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Foto</div><div id="aph"></div><div class="lbl">Geschäfte</div><div id="ast"></div>`);const ph=photoField($('#aph',b),{});
+ const b=sheet(`${shHead(T('add.title'),T('common.add'))}<div class="ap"><div class="ape" id="ape"></div></div><label for="an">${E('add.item')}</label><input id="an" value="${esc(p.name)}" maxlength="80" autocapitalize="sentences">${qtyHTML('aq',spec0)}<label for="ac">${E('common.category')}</label><select id="ac">${cats.map(c=>`<option value="${esc(c)}"${c===cat0?' selected':''}>${esc(catName(c))}</option>`).join('')}</select><div class="lbl">${E('common.photo')}</div><div id="aph"></div><div class="lbl">${E('common.stores')}</div><div id="ast"></div>`);const ph=photoField($('#aph',b),{});
  const an=$('#an',b),as=$('#aqn',b),ac=$('#ac',b);qtyInit(b,'aq');
  const prev=()=>{const n=an.value.trim(),cv=ac.value,r=n?resolveIcon(n,cv):{icon:categoryIcon(cv),matched:false},el=$('#ape',b);el.style.setProperty('--cc',categoryColor(cv!=='Sonstiges'?cv:r.category));el.innerHTML=r.matched||cv!=='Sonstiges'||!n?ICO(r.icon):`<b class="ltr">${esc(n.charAt(0).toUpperCase())}</b>`};
   prev();storePicker($('#ast',b),sel,{top:6});
@@ -599,12 +607,12 @@ function openAdd(p){const key=p.name.toLowerCase().trim(),lk=lookup(key),valid=i
  $('#ao',b).onclick=go;$('#ax',b).onclick=()=>closeSheet();
  submitKey(b,go);
  (p.name?as:an).focus({preventScroll:true})}
-function openLists(){const b=sheet('');const draw=()=>{b.innerHTML=`<h3>Listen</h3>${S.lists.map(l=>`<div class="item${l.id===S.listId?' sel':''}"><button class="n" data-sel="${l.id}" style="min-height:44px;text-align:left">${esc(l.name)}${l.id===S.listId?' ✓':''}</button><button class="ib" data-ren="${l.id}" aria-label="Umbenennen">✎</button><button class="ib" data-del="${l.id}" aria-label="Löschen">✕</button></div>`).join('')}<div class="row"><button class="btn pri" id="ln">Neue Liste</button></div>`};draw();
+function openLists(){const b=sheet('');const draw=()=>{b.innerHTML=`<h3>${E('lists.title')}</h3>${S.lists.map(l=>`<div class="item${l.id===S.listId?' sel':''}"><button class="n" data-sel="${l.id}" style="min-height:44px;text-align:left">${esc(l.name)}${l.id===S.listId?' ✓':''}</button><button class="ib" data-ren="${l.id}" aria-label="${E('lists.rename_aria')}">✎</button><button class="ib" data-del="${l.id}" aria-label="${E('common.delete')}">✕</button></div>`).join('')}<div class="row"><button class="btn pri" id="ln">${E('lists.new')}</button></div>`};draw();
  b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;
   if(t.dataset.sel){S.listId=t.dataset.sel;S.filter=null;LS.set('pq.list',S.listId);render();closeSheet()}
-  else if(t.dataset.ren){const l=S.lists.find(x=>x.id===t.dataset.ren),n=await askText('Liste umbenennen',l.name);if(n){l.name=n;enqueue({t:'lists',o:'update',id:l.id,d:{name:n}});draw();render()}}
-  else if(t.dataset.del){if(S.lists.length<2){toast('Mindestens eine Liste nötig');return}const l=S.lists.find(x=>x.id===t.dataset.del);if(await askConfirm(`«${l.name}» löschen?`)){S.lists=S.lists.filter(x=>x!==l);S.items=S.items.filter(i=>i.list_id!==l.id);enqueue({t:'lists',o:'delete',id:l.id});if(S.listId===l.id){S.listId=S.lists[0].id;LS.set('pq.list',S.listId)}draw();render()}}
-  else if(t.id==='ln'){const n=await askText('Neue Liste','', 'Erstellen');if(n){const l={id:uid(),name:n,sort:(S.lists.at(-1)?.sort||0)+1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l});S.listId=l.id;LS.set('pq.list',l.id);render();closeSheet()}}}}
+  else if(t.dataset.ren){const l=S.lists.find(x=>x.id===t.dataset.ren),n=await askText(T('lists.rename_title'),l.name);if(n){l.name=n;enqueue({t:'lists',o:'update',id:l.id,d:{name:n}});draw();render()}}
+  else if(t.dataset.del){if(S.lists.length<2){toast(T('toast.min_one_list'));return}const l=S.lists.find(x=>x.id===t.dataset.del);if(await askConfirm(T('common.delete_named',{name:l.name}))){S.lists=S.lists.filter(x=>x!==l);S.items=S.items.filter(i=>i.list_id!==l.id);enqueue({t:'lists',o:'delete',id:l.id});if(S.listId===l.id){S.listId=S.lists[0].id;LS.set('pq.list',S.listId)}draw();render()}}
+  else if(t.id==='ln'){const n=await askText(T('lists.new'),'',T('common.create'));if(n){const l={id:uid(),name:n,sort:(S.lists.at(-1)?.sort||0)+1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l});S.listId=l.id;LS.set('pq.list',l.id);render();closeSheet()}}}}
 /* ---------- Läden: Helfer ---------- */
 Object.assign(ICONS,{chevR:'<path d="M9 6l6 6-6 6"/>',search:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/>',copy:'<rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/>',check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',grip:'<path d="M5 8h14M5 12h14M5 16h14"/>',list:'<path d="M8 7h11M8 12h11M8 17h11M4.5 7h.01M4.5 12h.01M4.5 17h.01"/>',key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'});
 const KINDS=['Lebensmittel','Drogerie','Apotheke','Baumarkt','Wohnen','Sonstige'];
@@ -622,22 +630,22 @@ function openCounts(){const m=new Map();for(const i of S.items)if(i.list_id===S.
 function fbar(){if(!S.stores.length)return'';const cnt=openCounts(),fv=s=>s.favorite?0:1,sel=S.stores.find(s=>s.id===S.filter);
  const av=S.stores.filter(s=>cnt.get(s.id)&&s!==sel).sort((a,b)=>fv(a)-fv(b)||a.sort-b.sort),all=sel?[sel,...av]:av,
   c=s=>{const n=cnt.get(s.id)||0;return`<button type="button" class="chip${S.filter===s.id?' on':''}" data-f="${s.id}" data-s aria-pressed="${S.filter===s.id}"><span class="d" style="background:${esc(s.color)}"></span><span class="nm2">${esc(s.name)}</span>${n?`<span class="n">${n}</span>`:''}</button>`};
- return`<button type="button" class="chip${!S.filter?' on':''}" data-f="" aria-pressed="${!S.filter}">Alle</button>`+all.map(c).join('')+`<button type="button" class="chip tg" data-pick aria-haspopup="dialog">Läden${ic('chev')}</button>`}
+ return`<button type="button" class="chip${!S.filter?' on':''}" data-f="" aria-pressed="${!S.filter}">${E('filter.all')}</button>`+all.map(c).join('')+`<button type="button" class="chip tg" data-pick aria-haspopup="dialog">${E('filter.stores')}${ic('chev')}</button>`}
 function fitChips(){const c=$('#chips');if(!c)return;const more=$('[data-pick]',c),al=$('[data-f=""]',c);if(!more||!al)return;const all=[...c.querySelectorAll('.chip[data-s]')],W=c.clientWidth;if(!W)return;
  all.forEach(x=>x.style.display='');more.innerHTML=`+${all.length}${ic('chev')}`;
  const g=8;let used=al.offsetWidth+g+more.offsetWidth,k=0;
  for(const x of all){const w=x.offsetWidth+g;if(used+w>W&&!(k===0&&x.classList.contains('on')))break;used+=w;k++}
- all.forEach((x,i)=>{x.style.display=i<k?'':'none'});const n=all.length-k;more.innerHTML=(n?'+'+n:'Läden')+ic('chev');more.setAttribute('aria-label',n?`${n} weitere Läden`:'Läden wählen')}
+ all.forEach((x,i)=>{x.style.display=i<k?'':'none'});const n=all.length-k;more.innerHTML=(n?'+'+n:esc(T('filter.stores')))+ic('chev');more.setAttribute('aria-label',n?TP('filter.more_aria',n):T('filter.pick_aria'))}
 function openStorePicker(){let q='';const b=sheet('',{onClose:()=>{S.pickRedraw=null}});
- b.innerHTML=`<div class="shh"><span></span><h3>Laden wählen</h3><button type="button" class="tb ok" id="ao">Fertig</button></div><div class="srch">${ic('search')}<input id="pq" type="search" placeholder="Laden suchen" aria-label="Laden suchen" autocomplete="off" enterkeyhint="search"></div><div class="rows" style="margin:8px 0 4px"><div class="sr fr"><span class="tx"><span id="evl">Artikel ohne Laden auch anzeigen</span></span><button type="button" class="tgl" id="evt" role="switch" aria-checked="${S.every}" aria-labelledby="evl"><i></i></button></div></div><div id="pl"></div>`;
- const draw=()=>{const cnt=openCounts(),t=norm(q),m=S.stores.filter(s=>!t||norm(s.name).includes(t)||norm(kindOf(s)).includes(t));let h='';
-  for(const k of KINDS){const g=m.filter(s=>kindOf(s)===k).sort((a,b)=>(a.favorite?0:1)-(b.favorite?0:1)||a.sort-b.sort);if(g.length)h+=`<div class="gl">${k}</div><div class="rows">${g.map(s=>{const n=cnt.get(s.id)||0;return`<div class="sr${n?'':' dim'}"><button type="button" class="rb" data-pk="${s.id}" aria-label="${esc(s.name)}, ${n} offen${s.favorite?', Favorit':''}">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${s.favorite?STAR:''}<span class="ct">${n}</span></button></div>`}).join('')}</div>`}
-  if(!m.length)h=`<div class="rows"><div class="sr emp" role="status">Kein Laden gefunden</div></div>`;$('#pl',b).innerHTML=h};
+ b.innerHTML=`<div class="shh"><span></span><h3>${E('picker.title')}</h3><button type="button" class="tb ok" id="ao">${E('common.done')}</button></div><div class="srch">${ic('search')}<input id="pq" type="search" placeholder="${E('picker.search')}" aria-label="${E('picker.search')}" autocomplete="off" enterkeyhint="search"></div><div class="rows" style="margin:8px 0 4px"><div class="sr fr"><span class="tx"><span id="evl">${E('picker.unassigned')}</span></span><button type="button" class="tgl" id="evt" role="switch" aria-checked="${S.every}" aria-labelledby="evl"><i></i></button></div></div><div id="pl"></div>`;
+ const draw=()=>{const cnt=openCounts(),t=norm(q),m=S.stores.filter(s=>!t||norm(s.name).includes(t)||norm(kindName(kindOf(s))).includes(t));let h='';
+  for(const k of KINDS){const g=m.filter(s=>kindOf(s)===k).sort((a,b)=>(a.favorite?0:1)-(b.favorite?0:1)||a.sort-b.sort);if(g.length)h+=`<div class="gl">${esc(kindName(k))}</div><div class="rows">${g.map(s=>{const n=cnt.get(s.id)||0;return`<div class="sr${n?'':' dim'}"><button type="button" class="rb" data-pk="${s.id}" aria-label="${E('store.row_aria',{name:s.name,n})}${s.favorite?E('store.fav_suffix'):''}">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${s.favorite?STAR:''}<span class="ct">${n}</span></button></div>`}).join('')}</div>`}
+  if(!m.length)h=`<div class="rows"><div class="sr emp" role="status">${E('picker.none')}</div></div>`;$('#pl',b).innerHTML=h};
  S.pickRedraw=draw;draw();
  b.oninput=e=>{if(e.target.id==='pq'){q=e.target.value;draw()}};
  b.onclick=e=>{const t=e.target.closest('button');if(!t)return;if(t.id==='ao'){closeSheet();return}if(t.id==='evt'){S.every=!S.every;LS.set('pq.every',S.every);t.setAttribute('aria-checked',S.every);render();return}if(t.dataset.pk){S.filter=t.dataset.pk;closeSheet();render()}}}
 function delStore(s){S.items.filter(i=>i.store_ids?.includes(s.id)).forEach(i=>upItem(i.id,{store_ids:i.store_ids.filter(x=>x!==s.id)}));S.stores=S.stores.filter(x=>x!==s);if(S.filter===s.id)S.filter=null;enqueue({t:'stores',o:'delete',id:s.id});render();S.stRedraw?.()}
-async function askDelStore(s){if(!await askConfirm(`«${s.name}» löschen?`))return false;delStore(s);return true}
+async function askDelStore(s){if(!await askConfirm(T('common.delete_named',{name:s.name})))return false;delStore(s);return true}
 function placeStore(id,prevId,nextId){const s=S.stores.find(x=>x.id===id),p=S.stores.find(x=>x.id===prevId),n=S.stores.find(x=>x.id===nextId);if(!s)return;
  s.sort=p&&n?(p.sort+n.sort)/2:p?p.sort+1:n?n.sort-1:s.sort;S.stores.sort((x,y)=>x.sort-y.sort);enqueue({t:'stores',o:'update',id,d:{sort:s.sort}});render()}
 const STAR='<span class="fv" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4L2.8 9.5l6.4-.8z"/></svg></span>';
@@ -660,8 +668,8 @@ async function prepPhoto(file){let bm;try{bm=await createImageBitmap(file,{image
  const w0=bm.width||bm.naturalWidth,h0=bm.height||bm.naturalHeight,k=Math.min(1,1280/Math.max(w0,h0)),c=document.createElement('canvas');c.width=Math.round(w0*k);c.height=Math.round(h0*k);
  const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(bm,0,0,c.width,c.height);bm.close?.();
  const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.8));if(!b)throw new Error('blob');return b}
-const thHTML=(p,cls='')=>`<span class="th${cls?' '+cls:''}" data-p="${esc(p)}" role="img" aria-label="Foto"></span>`;
-const renderThumb=item=>item.photo_path?`<span class="th lg" data-p="${esc(item.photo_path)}" role="button" aria-label="Foto anzeigen"></span>`:'';
+const thHTML=(p,cls='')=>`<span class="th${cls?' '+cls:''}" data-p="${esc(p)}" role="img" aria-label="${E('common.photo')}"></span>`;
+const renderThumb=item=>item.photo_path?`<span class="th lg" data-p="${esc(item.photo_path)}" role="button" aria-label="${E('photo.show')}"></span>`:'';
 const thIO=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){thIO.unobserve(e.target);const el=e.target;photoUrl(el.dataset.p).then(u=>{if(u&&el.isConnected){el.style.backgroundImage=`url("${u}")`;el.dataset.h='k'}else el.dataset.h='f'})}},{rootMargin:'240px'});
 function scanTh(){$$('.th[data-p]:not([data-h])').forEach(el=>{const u=cachedUrl(el.dataset.p);if(u){el.style.backgroundImage=`url("${u}")`;el.dataset.h='k';return}el.dataset.h='o';thIO.observe(el)})}
 {let q=0;new MutationObserver(()=>{if(q)return;q=1;requestAnimationFrame(()=>{q=0;scanTh()})}).observe(document.body,{childList:true,subtree:true})}
@@ -669,7 +677,7 @@ addEventListener('online',()=>{$$('.th[data-h=f]').forEach(e=>delete e.dataset.h
 let fileIn=null;
 function pickFile(kind,cb){fileIn?.remove();const i=fileIn=document.createElement('input');i.type='file';i.accept='image/*';if(kind==='cam')i.setAttribute('capture','environment');i.hidden=true;i.tabIndex=-1;i.setAttribute('aria-hidden','true');i.style.cssText='display:none!important;position:fixed;width:0;height:0;pointer-events:none';i.addEventListener('click',e=>e.stopPropagation());i.addEventListener('change',()=>{const f=i.files?.[0];i.remove();if(fileIn===i)fileIn=null;if(f)cb(f)});document.body.append(i);i.click()}
 function photoField(host,{path}){const st={blob:null,removed:false,path:path||null};let url=null;
- host.innerHTML=`<div class="rows"><div class="sr pf"><button type="button" class="pvw" data-pf="view" aria-label="Foto ansehen"></button><button type="button" class="btn pfb" data-pf="cam">${ic('camera')}Kamera</button><button type="button" class="btn pfb" data-pf="gal">${ic('image')}Galerie</button><button type="button" class="tl" data-pf="rm">Entfernen</button></div></div>`;
+ host.innerHTML=`<div class="rows"><div class="sr pf"><button type="button" class="pvw" data-pf="view" aria-label="${E('photo.view')}"></button><button type="button" class="btn pfb" data-pf="cam">${ic('camera')}${E('photo.camera')}</button><button type="button" class="btn pfb" data-pf="gal">${ic('image')}${E('photo.gallery')}</button><button type="button" class="tl" data-pf="rm">${E('photo.remove')}</button></div></div>`;
  const draw=()=>{const pv=$('.pvw',host),has=st.blob||(st.path&&!st.removed);if(url){URL.revokeObjectURL(url);url=null}
   pv.disabled=!has;if(st.blob){url=URL.createObjectURL(st.blob);pv.innerHTML='<span class="th xl" style="background-image:url(\''+url+'\')"></span>'}
   else if(has)pv.innerHTML=thHTML(st.path,'xl');else pv.innerHTML=`<span class="th xl emp">${ic('image')}</span>`;$('[data-pf=rm]',host).hidden=!has};
@@ -677,13 +685,13 @@ function photoField(host,{path}){const st={blob:null,removed:false,path:path||nu
   if((a==='cam'||a==='gal')&&e.isTrusted&&t.tagName==='BUTTON')pickFile(a,onFile);
   else if(a==='rm'){st.blob=null;st.removed=true;draw()}
   else if(a==='view'){if(st.blob)openViewer(null,url);else if(st.path)openViewer(st.path)}});
- const onFile=async f=>{try{st.blob=await prepPhoto(f);st.removed=false;draw()}catch{toast('Foto konnte nicht gelesen werden')}};
+ const onFile=async f=>{try{st.blob=await prepPhoto(f);st.removed=false;draw()}catch{toast(T('toast.photo_unreadable'))}};
  draw();return st}
-function openViewer(path,direct){const o=document.createElement('div');o.className='vw';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label','Foto');
- o.innerHTML=`<button type="button" class="ib vx" aria-label="Schliessen">${ic('x')}</button><div class="vz"><img alt="Foto"></div>`;document.body.append(o);
+function openViewer(path,direct){const o=document.createElement('div');o.className='vw';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label',T('common.photo'));
+ o.innerHTML=`<button type="button" class="ib vx" aria-label="${E('common.close')}">${ic('x')}</button><div class="vz"><img alt="${E('common.photo')}"></div>`;document.body.append(o);
  const vz=$('.vz',o),im=$('img',o);let zoomed=false,t0=0,x0=0,y0=0;const esc2=e=>{if(e.key==='Escape'){e.stopPropagation();cl()}};
  const cl=()=>{removeEventListener('keydown',esc2,true);o.remove()};addEventListener('keydown',esc2,true);$('.vx',o).onclick=cl;
- (direct?Promise.resolve(direct):photoUrl(path)).then(u=>{if(!u){toast('Foto nicht verfügbar');cl();return}im.src=u});
+ (direct?Promise.resolve(direct):photoUrl(path)).then(u=>{if(!u){toast(T('toast.photo_unavailable'));cl();return}im.src=u});
  vz.addEventListener('pointerup',e=>{if(e.pointerType==='touch'&&!e.isPrimary)return;const n=Date.now();
   if(n-t0<320&&Math.hypot(e.clientX-x0,e.clientY-y0)<30){t0=0;const r=im.getBoundingClientRect();
    if(!zoomed){const rx=(e.clientX-r.left)/r.width,ry=(e.clientY-r.top)/r.height,W=r.width*2.5;o.classList.add('z');im.style.width=W+'px';im.style.height='auto';vz.scrollLeft=rx*W-e.clientX;vz.scrollTop=ry*im.offsetHeight-e.clientY;zoomed=true}
@@ -691,7 +699,7 @@ function openViewer(path,direct){const o=document.createElement('div');o.classNa
   else{t0=n;x0=e.clientX;y0=e.clientY}})}
 /* Kundenkarten */
 let CARDS=LS.get('pq.cards',[]);const saveCards=()=>LS.set('pq.cards',CARDS);
-const FMTS=[['CODE128','Strichcode'],['EAN13','EAN-13'],['EAN8','EAN-8'],['QR','QR'],['CODE39','Code 39'],['UPC','UPC']];
+const FMTS=[['CODE128',''],['EAN13','EAN-13'],['EAN8','EAN-8'],['QR','QR'],['CODE39','Code 39'],['UPC','UPC']];
 const detectFmt=n=>/^\d{13}$/.test(n)?'EAN13':/^\d{8}$/.test(n)?'EAN8':'CODE128';
 const CAN_SCAN=typeof BarcodeDetector!=='undefined'&&!!navigator.mediaDevices?.getUserMedia;
 async function loadCards(){try{const r=await sb.from('loyalty_cards').select('*').order('sort');if(!r.error&&!queue.length){CARDS=r.data||[];saveCards();S.cardRedraw?.();if(SM.o)smRender()}}catch{}}
@@ -702,66 +710,65 @@ const hiSheet=html=>{const b=sheet(html);b.closest('.ov').classList.add('hi');re
 async function codeSVG(c){const NS='http://www.w3.org/2000/svg';
  if(c.format==='QR'){await loadScript('vendor/qrcode.min.js');const q=qrcode(0,'M');q.addData(String(c.number));q.make();const n=q.getModuleCount(),m=4;let d='';
   for(let y=0;y<n;y++)for(let x=0;x<n;x++)if(q.isDark(y,x))d+=`M${x+m} ${y+m}h1v1h-1z`;
-  return`<svg xmlns="${NS}" viewBox="0 0 ${n+2*m} ${n+2*m}" shape-rendering="crispEdges" role="img" aria-label="QR-Code"><path d="${d}" fill="#000"/></svg>`}
+  return`<svg xmlns="${NS}" viewBox="0 0 ${n+2*m} ${n+2*m}" shape-rendering="crispEdges" role="img" aria-label="${E('card.qr_aria')}"><path d="${d}" fill="#000"/></svg>`}
  await loadScript('vendor/jsbarcode.min.js');const mk=f=>{const s=document.createElementNS(NS,'svg');JsBarcode(s,String(c.number),{format:f,width:3,height:120,margin:14,background:'#fff',lineColor:'#000',displayValue:false});
-  if(!s.getAttribute('viewBox'))s.setAttribute('viewBox',`0 0 ${parseFloat(s.getAttribute('width'))} ${parseFloat(s.getAttribute('height'))}`);s.removeAttribute('width');s.removeAttribute('height');s.setAttribute('role','img');s.setAttribute('aria-label','Strichcode');return s.outerHTML};
+  if(!s.getAttribute('viewBox'))s.setAttribute('viewBox',`0 0 ${parseFloat(s.getAttribute('width'))} ${parseFloat(s.getAttribute('height'))}`);s.removeAttribute('width');s.removeAttribute('height');s.setAttribute('role','img');s.setAttribute('aria-label',T('card.barcode_aria'));return s.outerHTML};
  try{return mk(c.format||'CODE128')}catch{try{return mk('CODE128')}catch{return''}}}
 async function viewCard(c){const st=S.stores.find(s=>s.id===c.store_id),o=document.createElement('div');o.className='cv';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label',c.label);let wl=null;
- o.innerHTML=`<div class="cvh">${st?avHTML(st):`<span class="lic">${ic('card')}</span>`}<div class="smt"><b>${esc(c.label)}</b><small>${esc([st?.name,c.owner?who(c.owner):''].filter(Boolean).join(' · '))}</small></div></div><div class="cvc" id="cvc"></div><div class="cvn">${esc(c.number)}</div>${c.photo_path?`<div class="cvp">${thHTML(c.photo_path,'lg')}</div>`:''}<p class="cvt">Helligkeit hochdrehen · Tippen zum Schliessen</p>`;
+ o.innerHTML=`<div class="cvh">${st?avHTML(st):`<span class="lic">${ic('card')}</span>`}<div class="smt"><b>${esc(c.label)}</b><small>${esc([st?.name,c.owner?who(c.owner):''].filter(Boolean).join(' · '))}</small></div></div><div class="cvc" id="cvc"></div><div class="cvn">${esc(c.number)}</div>${c.photo_path?`<div class="cvp">${thHTML(c.photo_path,'lg')}</div>`:''}<p class="cvt">${E('card.brightness')}</p>`;
  const esc2=e=>{if(e.key==='Escape'){e.stopPropagation();cl()}},cl=()=>{removeEventListener('keydown',esc2,true);wl?.release?.().catch?.(()=>{});o.remove()};
  addEventListener('keydown',esc2,true);o.onclick=e=>{const t=e.target.closest('.th[data-p]');if(t){openViewer(t.dataset.p);return}cl()};document.body.append(o);
  try{wl=await navigator.wakeLock?.request('screen')}catch{}
- const svg=await codeSVG(c);$('#cvc',o).innerHTML=svg||'<p class="cvt">Code nicht darstellbar</p>'}
-function showCards(sid){const a=cardsOf(sid);if(!a.length){toast('Keine Karte für diesen Laden');return}if(a.length===1){viewCard(a[0]);return}pickCards(a)}
-function pickCards(a){const b=hiSheet(`<h3>Karte zeigen</h3><div class="rows">${a.map(c=>`<div class="sr"><button type="button" class="rb" data-cid="${c.id}">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span>${ic('chevR')}</button></div>`).join('')}</div>`);
+ const svg=await codeSVG(c);$('#cvc',o).innerHTML=svg||`<p class="cvt">${E('card.code_unavailable')}</p>`}
+function showCards(sid){const a=cardsOf(sid);if(!a.length){toast(T('card.none_for_store'));return}if(a.length===1){viewCard(a[0]);return}pickCards(a)}
+function pickCards(a){const b=hiSheet(`<h3>${E('card.show')}</h3><div class="rows">${a.map(c=>`<div class="sr"><button type="button" class="rb" data-cid="${c.id}">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span>${ic('chevR')}</button></div>`).join('')}</div>`);
  b.onclick=e=>{const t=e.target.closest('[data-cid]');if(!t)return;const c=CARDS.find(x=>x.id===t.dataset.cid);if(c){closeSheet();viewCard(c)}}}
-function scanOverlay(){return new Promise(res=>{const o=document.createElement('div');o.className='scn';o.innerHTML=`<video playsinline muted></video><div class="scf"></div><p>Strichcode oder QR-Code in den Rahmen halten</p><button type="button" class="btn" id="scx">Abbrechen</button>`;document.body.append(o);
+function scanOverlay(){return new Promise(res=>{const o=document.createElement('div');o.className='scn';o.innerHTML=`<video playsinline muted></video><div class="scf"></div><p>${E('card.scan_prompt')}</p><button type="button" class="btn" id="scx">${E('common.cancel')}</button>`;document.body.append(o);
  const v=$('video',o);let stream=null,alive=true;const MAP={code_128:'CODE128',ean_13:'EAN13',ean_8:'EAN8',qr_code:'QR',code_39:'CODE39',upc_a:'UPC',upc_e:'UPC'};
  const fin=r=>{if(!alive)return;alive=false;stream?.getTracks().forEach(t=>t.stop());o.remove();res(r)};$('#scx',o).onclick=()=>fin(null);
  (async()=>{try{const det=new BarcodeDetector({formats:Object.keys(MAP)});stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});v.srcObject=stream;await v.play();
   const tick=async()=>{if(!alive)return;try{const r=await det.detect(v);if(r[0]?.rawValue){navigator.vibrate?.(30);fin({number:r[0].rawValue,format:MAP[r[0].format]||'CODE128'});return}}catch{}setTimeout(tick,200)};tick()}
- catch{toast('Kamera nicht verfügbar');fin(null)}})()})}
+ catch{toast(T('toast.camera_unavailable'));fin(null)}})()})}
 function openCard(id){const ex=id&&CARDS.find(c=>c.id===id),cid=ex?.id||uid();let fmt=ex?.format||'CODE128',touched=!!ex;
- const b=sheet(`${shHead(ex?'Karte bearbeiten':'Neue Karte','Speichern')}<label for="cst">Laden</label><select id="cst"><option value="">Kein Laden</option>${S.stores.map(s=>`<option value="${s.id}"${s.id===ex?.store_id?' selected':''}>${esc(s.name)}</option>`).join('')}</select>
-<label for="clb">Bezeichnung</label><input id="clb" maxlength="40" autocomplete="off" placeholder="z. B. Cumulus Arik" value="${esc(ex?.label||'')}">
-<label for="cnum">Nummer</label><input id="cnum" autocomplete="off" spellcheck="false" autocapitalize="off" value="${esc(ex?.number||'')}">${CAN_SCAN?`<button type="button" class="btn" id="csc" style="width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px">${ic('scan')}Karte scannen</button>`:''}
-<label id="cfl">Format</label><div class="chips" role="radiogroup" aria-labelledby="cfl" id="cfm"></div><div class="er" id="cer" role="alert"></div>
-<div class="lbl">Foto der Karte (Vorderseite)</div><div id="cph"></div>${ex?'<button type="button" class="btn danger" id="cdel" style="width:100%;margin-top:20px">Karte löschen</button>':''}`);
+ const b=sheet(`${shHead(T(ex?'card.edit_title':'card.new_title'),T('common.save'))}<label for="cst">${E('card.store')}</label><select id="cst"><option value="">${E('card.no_store')}</option>${S.stores.map(s=>`<option value="${s.id}"${s.id===ex?.store_id?' selected':''}>${esc(s.name)}</option>`).join('')}</select>
+<label for="clb">${E('card.label')}</label><input id="clb" maxlength="40" autocomplete="off" placeholder="${E('card.label_ph')}" value="${esc(ex?.label||'')}">
+<label for="cnum">${E('card.number')}</label><input id="cnum" autocomplete="off" spellcheck="false" autocapitalize="off" value="${esc(ex?.number||'')}">${CAN_SCAN?`<button type="button" class="btn" id="csc" style="width:100%;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px">${ic('scan')}${E('card.scan')}</button>`:''}
+<label id="cfl">${E('card.format')}</label><div class="chips" role="radiogroup" aria-labelledby="cfl" id="cfm"></div><div class="er" id="cer" role="alert"></div>
+<div class="lbl">${E('card.photo_front')}</div><div id="cph"></div>${ex?`<button type="button" class="btn danger" id="cdel" style="width:100%;margin-top:20px">${E('card.delete')}</button>`:''}`);
  const ph=photoField($('#cph',b),{path:ex?.photo_path}),num=$('#cnum',b);
- const drawF=()=>{$('#cfm',b).innerHTML=FMTS.map(([k,l])=>`<button type="button" class="chip${k===fmt?' on':''}" role="radio" aria-checked="${k===fmt}" data-k="${k}">${l}</button>`).join('')};drawF();
+ const drawF=()=>{$('#cfm',b).innerHTML=FMTS.map(([k,l])=>`<button type="button" class="chip${k===fmt?' on':''}" role="radio" aria-checked="${k===fmt}" data-k="${k}">${esc(k==='CODE128'?T('card.fmt_barcode'):l)}</button>`).join('')};drawF();
  $('#cfm',b).onclick=e=>{const t=e.target.closest('[data-k]');if(!t)return;fmt=t.dataset.k;touched=true;drawF()};
  num.oninput=()=>{$('#cer',b).textContent='';if(!touched){fmt=detectFmt(num.value.trim());drawF()}};
  $('#csc',b)?.addEventListener('click',async()=>{const r=await scanOverlay();if(r){num.value=r.number;fmt=r.format;touched=true;drawF()}});
  $('#ax',b).onclick=()=>closeSheet();
  let busy=false;$('#ao',b).onclick=async()=>{if(busy)return;const number=num.value.trim(),sid=$('#cst',b).value||null,label=$('#clb',b).value.trim()||S.stores.find(s=>s.id===sid)?.name||'';
-  if(!number){$('#cer',b).textContent='Bitte eine Nummer eingeben oder scannen.';num.focus();return}if(!label){$('#cer',b).textContent='Bitte eine Bezeichnung eingeben.';$('#clb',b).focus();return}
+  if(!number){$('#cer',b).textContent=T('card.err_number');num.focus();return}if(!label){$('#cer',b).textContent=T('card.err_label');$('#clb',b).focus();return}
   busy=true;let photo_path=ex?.photo_path||null;
-  if(ph.blob){try{await uploadPhoto(`cards/${cid}.jpg`,ph.blob);photo_path=`cards/${cid}.jpg`}catch{toast('Foto konnte nicht hochgeladen werden')}}else if(ph.removed&&photo_path){removePhoto(photo_path);photo_path=null}
+  if(ph.blob){try{await uploadPhoto(`cards/${cid}.jpg`,ph.blob);photo_path=`cards/${cid}.jpg`}catch{toast(T('toast.photo_upload_failed'))}}else if(ph.removed&&photo_path){removePhoto(photo_path);photo_path=null}
   const row={store_id:sid,label,number,format:fmt,photo_path,sort:ex?.sort??(CARDS.reduce((m,c)=>Math.max(m,c.sort||0),0)+1)};
   if(ex){Object.assign(ex,row);enqueue({t:'loyalty_cards',o:'update',id:cid,d:row})}else{CARDS.push({id:cid,...row,owner:S.user?.email,created_at:now()});enqueue({t:'loyalty_cards',o:'insert',d:{id:cid,...row}})}
   saveCards();S.cardRedraw?.();if(SM.o)smRender();closeSheet()};
- $('#cdel',b)?.addEventListener('click',async()=>{if(!await askConfirm(`«${ex.label}» löschen?`))return;removePhoto(ex.photo_path);CARDS=CARDS.filter(c=>c.id!==cid);enqueue({t:'loyalty_cards',o:'delete',id:cid});saveCards();S.cardRedraw?.();if(SM.o)smRender();closeSheet()})}
+ $('#cdel',b)?.addEventListener('click',async()=>{if(!await askConfirm(T('common.delete_named',{name:ex.label})))return;removePhoto(ex.photo_path);CARDS=CARDS.filter(c=>c.id!==cid);enqueue({t:'loyalty_cards',o:'delete',id:cid});saveCards();S.cardRedraw?.();if(SM.o)smRender();closeSheet()})}
 /* Verlauf */
-let ACT=null;const ACT_F=[['all','Alle'],['added','Neu'],['done','Erledigt'],['deleted','Gelöscht']];
-const ACT_V={added:'hinzugefügt',done:'abgehakt',reopened:'wieder geöffnet',edited:'bearbeitet',deleted:'gelöscht'};
+let ACT=null;const ACT_F=['all','added','done','deleted'],ACT_V=['added','done','reopened','edited','deleted'];
 function applyAct(p){if(p.eventType!=='INSERT'||!ACT)return;if(!ACT.some(a=>a.id===p.new.id)){ACT.unshift(p.new);ACT=ACT.slice(0,200)}S.actRedraw?.()}
 const dayKey=d=>d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate();
-function dayLabel(d){const n=new Date(),y=new Date(n);y.setDate(n.getDate()-1);return dayKey(d)===dayKey(n)?'Heute':dayKey(d)===dayKey(y)?'Gestern':d.toLocaleDateString('de-CH',{weekday:'long',day:'numeric',month:'long'})}
+function dayLabel(d){const n=new Date(),y=new Date(n);y.setDate(n.getDate()-1);return dayKey(d)===dayKey(n)?T('day.today'):dayKey(d)===dayKey(y)?T('day.yesterday'):fmtDate(d,{weekday:'long',day:'numeric',month:'long'})}
 function openHistory(){let flt='all';const b=sheet('',{onClose:()=>{S.actRedraw=null}});
  const draw=()=>{const list=(ACT||[]).filter(a=>flt==='all'||a.action===flt);let h='';
-  if(ACT===null)h+='<div class="sf" role="status">Lädt…</div>';else if(!list.length)h+='<div class="rows"><div class="sr emp" role="status">Noch keine Einträge</div></div>';
+  if(ACT===null)h+=`<div class="sf" role="status">${E('common.loading')}</div>`;else if(!list.length)h+=`<div class="rows"><div class="sr emp" role="status">${E('hist.empty')}</div></div>`;
   else{let last='';for(const a of list){const d=new Date(a.at),k=dayKey(d);if(k!==last){if(last)h+='</div>';h+=`<div class="gl">${dayLabel(d)}</div><div class="rows">`;last=k}
     const nm=who(a.actor),it=S.items.find(i=>i.id===a.item_id),spec=a.details?.spec,r=resolveIcon(a.item_name||'',it?.category),c=it?ecat(it):guessCategory(a.item_name||''),er=nm==='Erika';
-    h+=`<div class="sr"><button type="button" class="rb ar" data-a="${a.id}"><span class="av ${er?'er':'ar0'}" aria-hidden="true">${esc(nm.charAt(0).toUpperCase())}</span><span class="tx at"><b>${esc(nm)}</b> hat <b>${esc(a.item_name||'')}</b> ${ACT_V[a.action]||esc(a.action)}${spec&&a.action==='added'?` (${esc(spec)})`:''}</span><span class="ico-w" style="--cc:${categoryColor(c)}">${ICO(r.icon,' sm')}</span><time class="ct">${d.toLocaleTimeString('de-CH',{hour:'2-digit',minute:'2-digit'})}</time></button></div>`}
+    h+=`<div class="sr"><button type="button" class="rb ar" data-a="${a.id}"><span class="av ${er?'er':'ar0'}" aria-hidden="true">${esc(nm.charAt(0).toUpperCase())}</span><span class="tx at">${TH('hist.line',{actor:nm,item:a.item_name||'',verb:ACT_V.includes(a.action)?T('hist.v_'+a.action):a.action})}${spec&&a.action==='added'?` (${esc(spec)})`:''}</span><span class="ico-w" style="--cc:${categoryColor(c)}">${ICO(r.icon,' sm')}</span><time class="ct">${fmtDate(d,{hour:'2-digit',minute:'2-digit'})}</time></button></div>`}
    h+='</div>'}
   const sc=b.closest('.sh').scrollTop;$('#al',b).innerHTML=h;b.closest('.sh').scrollTop=sc};
- b.innerHTML=`<div class="shh" style="margin-bottom:0"><span></span><h3>Verlauf</h3><button type="button" class="tb ok" id="ao">Fertig</button></div><div class="segw"><div class="seg" role="radiogroup" aria-label="Filter" style="--i:0"><i class="segp" aria-hidden="true"></i>${ACT_F.map(([k,l])=>`<button type="button" role="radio" aria-checked="${k===flt}" data-fl="${k}">${l}</button>`).join('')}</div></div><div id="al"></div>`;
+ b.innerHTML=`<div class="shh" style="margin-bottom:0"><span></span><h3>${E('hist.title')}</h3><button type="button" class="tb ok" id="ao">${E('common.done')}</button></div><div class="segw"><div class="seg" role="radiogroup" aria-label="${E('hist.filter_aria')}" style="--i:0"><i class="segp" aria-hidden="true"></i>${ACT_F.map(k=>`<button type="button" role="radio" aria-checked="${k===flt}" data-fl="${k}">${E('hist.f_'+k)}</button>`).join('')}</div></div><div id="al"></div>`;
  S.actRedraw=draw;draw();
- sb.from('activity').select('*').order('at',{ascending:false}).limit(200).then(r=>{if(!r.error){ACT=r.data;draw()}else{ACT=ACT||[];draw();toast('Verlauf nicht ladbar')}},()=>{ACT=ACT||[];draw()});
- b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;if(t.id==='ao'){closeSheet();return}if(t.dataset.fl){flt=t.dataset.fl;const sg=t.closest('.seg');sg.style.setProperty('--i',ACT_F.findIndex(x=>x[0]===flt));$$('[data-fl]',sg).forEach(x=>x.setAttribute('aria-checked',x===t));draw();return}
+ sb.from('activity').select('*').order('at',{ascending:false}).limit(200).then(r=>{if(!r.error){ACT=r.data;draw()}else{ACT=ACT||[];draw();toast(T('hist.load_failed'))}},()=>{ACT=ACT||[];draw()});
+ b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;if(t.id==='ao'){closeSheet();return}if(t.dataset.fl){flt=t.dataset.fl;const sg=t.closest('.seg');sg.style.setProperty('--i',ACT_F.indexOf(flt));$$('[data-fl]',sg).forEach(x=>x.setAttribute('aria-checked',x===t));draw();return}
   const a=ACT?.find(x=>String(x.id)===t.dataset.a);if(!a)return;
   if(a.item_id&&S.items.some(i=>i.id===a.item_id))openDetail(a.item_id);
-  else if(a.item_name&&await askConfirm(`«${a.item_name}» wieder hinzufügen?`,'Hinzufügen'))commit([{name:a.item_name,spec:a.details?.spec||null}],[])}}
+  else if(a.item_name&&await askConfirm(T('dup.readd_confirm',{name:a.item_name}),T('common.add')))commit([{name:a.item_name,spec:a.details?.spec||null}],[])}}
 
 /* ---------- Einkaufsmodus ---------- */
 const SM={o:null,store:null,only:LS.get('pq.smonly',false),sort:false,cartOpen:false,t0:'',cart:new Set(),seen:null,drag:false,wl:null};
@@ -770,7 +777,7 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 function smOrder(st){return[...new Set([...(st?.category_order||[]),...(st?[]:S.catOrder),...CATS])]}
 function smItems(){const id=SM.store;return S.items.filter(i=>i.list_id===S.listId&&(!id||i.store_ids?.includes(id)||(!SM.only&&!i.store_ids?.length)))}
 function openShop(storeId){if(SM.o)return;const st=S.stores.find(x=>x.id===storeId)||null;Object.assign(SM,{store:st?.id||null,sort:false,cartOpen:false,t0:now(),cart:new Set(),seen:null,drag:false});
- const o=document.createElement('div');o.className='sm';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label','Einkaufsmodus');
+ const o=document.createElement('div');o.className='sm';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label',T('shop.title'));
  o.innerHTML='<div class="smh" id="smh"></div><div class="smp"><i id="smpi"></i></div><div class="smb" id="smb"><div id="sm-card-slot"></div><div id="smc"></div></div>';
  document.body.append(o);SM.o=o;requestAnimationFrame(()=>o.classList.add('open'));
  o.addEventListener('click',smClick);o.addEventListener('pointerdown',smDrag);
@@ -779,24 +786,24 @@ function openShop(storeId){if(SM.o)return;const st=S.stores.find(x=>x.id===store
 function closeShop(){const o=SM.o;if(!o)return;const trip=[SM.store,[...SM.cart]];SM.o=null;FIN.shopEnd(trip[0],trip[1]);SM.wl?.release?.().catch?.(()=>{});SM.wl=null;o.classList.remove('open');setTimeout(()=>o.remove(),220)}
 addEventListener('keydown',e=>{if(e.key==='Escape'&&SM.o&&!S.sheets.length)closeShop()});
 function smRow(i,cls=''){const nw=SM.seen&&!SM.seen.has(i.id)?' new':'';
- return`<button type="button" class="smr${cls}${nw}" data-id="${i.id}" aria-label="${esc(i.name)}${cls?' wieder hinzufügen':' erledigt'}">${emo(i)}<span class="nm">${esc(i.name)}${i.spec?`<small>${esc(i.spec)}</small>`:''}</span>${renderThumb(i)}<span class="ck">${ic('check')}</span></button>`}
+ return`<button type="button" class="smr${cls}${nw}" data-id="${i.id}" aria-label="${esc(T(cls?'item.readd':'item.complete',{name:i.name}))}">${emo(i)}<span class="nm">${esc(i.name)}${i.spec?`<small>${esc(dspec(i.spec))}</small>`:''}</span>${renderThumb(i)}<span class="ck">${ic('check')}</span></button>`}
 function smRender(){const o=SM.o;if(!o||SM.drag)return;
  const st=S.stores.find(x=>x.id===SM.store)||null;if(SM.store&&!st){closeShop();return}
  const all=smItems(),open=all.filter(i=>!i.done).sort((a,b)=>a.sort-b.sort),cart=all.filter(i=>i.done&&(SM.cart.has(i.id)||(i.done_at&&i.done_at>=SM.t0))).sort((a,b)=>(b.done_at||'').localeCompare(a.done_at||'')),total=open.length+cart.length;
- $('#smh',o).innerHTML=`${st?avHTML(st):`<span class="lic">${ic('cart')}</span>`}<div class="smt"><b>${esc(st?st.name:'Alle Läden')}</b><small>${cart.length} von ${total}</small></div><button type="button" class="ib" data-sm="close" aria-label="Einkaufsmodus schliessen">${ic('x')}</button>`;
+ $('#smh',o).innerHTML=`${st?avHTML(st):`<span class="lic">${ic('cart')}</span>`}<div class="smt"><b>${esc(st?st.name:T('shop.all_stores'))}</b><small>${E('shop.progress',{done:cart.length,total})}</small></div><button type="button" class="ib" data-sm="close" aria-label="${E('shop.close_aria')}">${ic('x')}</button>`;
  $('#smpi',o).style.width=(total?cart.length/total*100:0)+'%';
  let h='';
  if(SM.sort&&st){const have=new Set(all.map(ecat)),ord=smOrder(st);const cats=[...new Set([...ord,...have])].filter(c=>CATS.includes(c)||have.has(c));
-  h=`<div class="smx"><span class="sf" style="margin:0">Am Griff ziehen, wie die Gänge bei «${esc(st.name)}» aufeinander folgen.</span><button type="button" class="tl" data-sm="sortend">Fertig</button></div><div id="sso">${cats.map(c=>`<div class="sso" data-cat="${esc(c)}"><button type="button" class="dh" aria-label="${esc(c)} verschieben">${ic('grip')}</button><span class="tx"><i class="gd" style="background:${categoryColor(c)};width:8px;height:8px;border-radius:50%"></i>${ICO(categoryIcon(c),' sm')}${esc(c)}</span></div>`).join('')}</div>`}
+  h=`<div class="smx"><span class="sf" style="margin:0">${E('shop.sort_hint',{store:st.name})}</span><button type="button" class="tl" data-sm="sortend">${E('common.done')}</button></div><div id="sso">${cats.map(c=>`<div class="sso" data-cat="${esc(c)}"><button type="button" class="dh" aria-label="${E('shop.move_aria',{name:catName(c)})}">${ic('grip')}</button><span class="tx"><i class="gd" style="background:${categoryColor(c)};width:8px;height:8px;border-radius:50%"></i>${ICO(categoryIcon(c),' sm')}${esc(catName(c))}</span></div>`).join('')}</div>`}
  else{
-  h=`<div class="smx">${st?`<button type="button" class="chip tg${SM.only?' on':''}" data-sm="only" aria-pressed="${SM.only}">Nur dieser Laden${SM.only?' ✓':''}</button><button type="button" class="tl" data-sm="sort">Gänge sortieren</button>`:''}</div>`;
-  if(!open.length&&cart.length)h+=`<div class="smok"><div class="big">${ic('check')}</div><h2>Alles im Wagen ✓</h2><p>Nichts mehr auf der Liste${st?' für '+esc(st.name):''}.</p><button type="button" class="btn pri" data-sm="close">Einkauf beenden</button></div>`;
-  else if(!total)h+=`<div class="empty"><div class="big">${ICO('cart',' xl')}</div><p>Hier gibt es nichts zu besorgen.</p></div>`;
+  h=`<div class="smx">${st?`<button type="button" class="chip tg${SM.only?' on':''}" data-sm="only" aria-pressed="${SM.only}">${E('shop.only_this')}${SM.only?' ✓':''}</button><button type="button" class="tl" data-sm="sort">${E('shop.sort_aisles')}</button>`:''}</div>`;
+  if(!open.length&&cart.length)h+=`<div class="smok"><div class="big">${ic('check')}</div><h2>${E('shop.all_in_cart')}</h2><p>${st?E('shop.empty_store',{store:st.name}):E('shop.empty_all')}</p><button type="button" class="btn pri" data-sm="close">${E('shop.finish')}</button></div>`;
+  else if(!total)h+=`<div class="empty"><div class="big">${ICO('cart',' xl')}</div><p>${E('shop.nothing')}</p></div>`;
   const byCat=new Map();for(const i of open){const c=ecat(i);(byCat.get(c)||byCat.set(c,[]).get(c)).push(i)}
   const ord=smOrder(st),cats=[...byCat.keys()].sort((a,b)=>{const x=ord.indexOf(a),y=ord.indexOf(b);return(x<0?999:x)-(y<0?999:y)});
-  for(const c of cats){const its=byCat.get(c);h+=`<div class="smg"><i class="gd" style="background:${categoryColor(c)}"></i>${esc(c)}<span class="cnt">${its.length}</span></div>`+its.map(i=>smRow(i)).join('')}
-  if(cart.length)h+=`<button type="button" class="smd" data-sm="cart" aria-expanded="${SM.cartOpen}">Im Wagen<span class="cnt">${cart.length}</span>${ic('chev')}</button>`+(SM.cartOpen?cart.map(i=>smRow(i,' done')).join(''):'')}
- {const cs=st?cardsOf(st.id):[];$('#sm-card-slot',o).innerHTML=cs.length?`<button type="button" class="btn smcard" data-sm="card">${ic('card')}<span>Karte zeigen${cs.length>1?` (${cs.length})`:''}</span></button>`:''}
+  for(const c of cats){const its=byCat.get(c);h+=`<div class="smg"><i class="gd" style="background:${categoryColor(c)}"></i>${esc(catName(c))}<span class="cnt">${its.length}</span></div>`+its.map(i=>smRow(i)).join('')}
+  if(cart.length)h+=`<button type="button" class="smd" data-sm="cart" aria-expanded="${SM.cartOpen}">${E('shop.in_cart')}<span class="cnt">${cart.length}</span>${ic('chev')}</button>`+(SM.cartOpen?cart.map(i=>smRow(i,' done')).join(''):'')}
+ {const cs=st?cardsOf(st.id):[];$('#sm-card-slot',o).innerHTML=cs.length?`<button type="button" class="btn smcard" data-sm="card">${ic('card')}<span>${cs.length>1?E('card.show_n',{count:cs.length}):E('card.show')}</span></button>`:''}
  const sc=$('#smb',o).scrollTop;$('#smc',o).innerHTML=h;$('#smb',o).scrollTop=sc;
  if(!SM.seen)SM.seen=new Set();all.forEach(i=>SM.seen.add(i.id))}
 function smClick(e){const th=e.target.closest('.th[data-p]');if(th){openViewer(th.dataset.p);return}const t=e.target.closest('button');if(!t)return;const a=t.dataset.sm;
@@ -825,76 +832,78 @@ const u8=s=>{const r=atob((s+'='.repeat((4-s.length%4)%4)).replace(/-/g,'+').rep
 const IOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const standalone=()=>navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;
 const NP={on:false,busy:false,endpoint:null,prefs:{added:true,shopping:true,done:false}};
-const NPREFS=[['added','Neue Artikel vom Partner','Wenn dein Partner etwas hinzufügt'],['shopping','Partner geht einkaufen','Wenn ein Einkauf startet'],['done','Abgehakt vom Partner','Wenn dein Partner Artikel erledigt']];
+const NPREFS=[['added','np.added','np.added_sub'],['shopping','np.shopping','np.shopping_sub'],['done','np.done','np.done_sub']];
 function npSupport(){if(IOS&&!standalone())return'ios';if(!('serviceWorker'in navigator&&'PushManager'in window&&'Notification'in window))return'unsupported';return Notification.permission==='denied'?'denied':'ok'}
 async function npLoad(){NP.on=false;NP.endpoint=null;if(npSupport()!=='ok')return;
  try{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(!sub||Notification.permission!=='granted')return;
   NP.on=true;NP.endpoint=sub.endpoint;const{data}=await sb.from('push_subscriptions').select('prefs').eq('endpoint',sub.endpoint).maybeSingle();if(data?.prefs)NP.prefs={...NP.prefs,...data.prefs}}catch{}}
 async function npSave(sub){const j=sub.toJSON();NP.endpoint=j.endpoint;const{error}=await sb.from('push_subscriptions').upsert({endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,prefs:NP.prefs},{onConflict:'endpoint'});if(error)throw error}
 async function npToggle(on){
- if(on){const perm=await Notification.requestPermission();if(perm!=='granted'){toast('Mitteilungen wurden nicht erlaubt');return}
+ if(on){const perm=await Notification.requestPermission();if(perm!=='granted'){toast(T('np.not_allowed'));return}
   const reg=await navigator.serviceWorker.ready;const sub=(await reg.pushManager.getSubscription())||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID)});await npSave(sub);NP.on=true}
  else{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(sub){await sb.from('push_subscriptions').delete().eq('endpoint',sub.endpoint);await sub.unsubscribe()}NP.on=false;NP.endpoint=null}}
-function npHTML(){const sup=npSupport(),hint={ios:'Auf iPhone zuerst zum Home-Bildschirm hinzufügen (Teilen → «Zum Home-Bildschirm»), dann hier Mitteilungen aktivieren.',unsupported:'Dieser Browser unterstützt keine Mitteilungen.',denied:'Mitteilungen sind blockiert. Erlaube sie in den Browser- oder Systemeinstellungen für Fetchy.'}[sup];
+function npHTML(){const sup=npSupport(),hint=E({ios:'np.hint_ios',unsupported:'np.hint_unsupported',denied:'np.hint_denied'}[sup]||'np.hint_denied');
  const tg=(k,on,l,sm,lic)=>`<div class="sr"${lic?'':' style="--ins:16px"'}>${lic?`<span class="lic">${ic('bell')}</span>`:''}<span class="tx"${lic?'':' style="margin-left:16px"'}><span id="np-${k}">${l}</span><small>${sm}</small></span><button type="button" class="tgl" role="switch" data-np="${k}" aria-checked="${on}" aria-labelledby="np-${k}"${NP.busy?' disabled':''}><i></i></button></div>`;
  let h='';
  if(sup!=='ok')return h+`<div class="rows"><div class="sr emp" role="status" style="padding:12px 16px">${hint}</div></div>`;
- h+=`<div class="rows">${tg('main',NP.on,'Mitteilungen auf diesem Gerät','Push-Nachrichten von Fetchy',true)}`;
- if(NP.on)h+=NPREFS.map(([k,l,sm])=>tg(k,!!NP.prefs[k],l,sm)).join('')+`<div class="sr"><button type="button" class="rb acc" data-np="test"><span class="tx" style="margin-left:0">Test-Mitteilung senden</span></button></div>`;
+ h+=`<div class="rows">${tg('main',NP.on,E('np.main'),E('np.main_sub'),true)}`;
+ if(NP.on)h+=NPREFS.map(([k,l,sm])=>tg(k,!!NP.prefs[k],E(l),E(sm))).join('')+`<div class="sr"><button type="button" class="rb acc" data-np="test"><span class="tx" style="margin-left:0">${E('np.test')}</span></button></div>`;
  return h+'</div>'}
-const npSum=()=>npSupport()!=='ok'?'Nicht verfügbar':NP.on?'An':'Aus';
+const npSum=()=>npSupport()!=='ok'?T('np.unavailable'):T(NP.on?'common.on':'common.off');
 async function npClick(t){const k=t.dataset.np;
  try{if(k==='main'){NP.busy=true;await npToggle(!NP.on)}
-  else if(k==='test'){const{error}=await sb.functions.invoke('notify',{body:{type:'test'}});toast(error?'Test fehlgeschlagen':'Test-Mitteilung gesendet')}
+  else if(k==='test'){const{error}=await sb.functions.invoke('notify',{body:{type:'test'}});toast(T(error?'np.test_failed':'np.test_sent'))}
   else{NP.prefs[k]=!NP.prefs[k];if(NP.endpoint){const{error}=await sb.from('push_subscriptions').update({prefs:NP.prefs}).eq('endpoint',NP.endpoint);if(error)throw error}}}
- catch(e){if(k==='main')toast('Mitteilungen konnten nicht geändert werden');else if(k!=='test'){NP.prefs[k]=!NP.prefs[k];toast('Speichern fehlgeschlagen')}}
+ catch(e){if(k==='main')toast(T('np.change_failed'));else if(k!=='test'){NP.prefs[k]=!NP.prefs[k];toast(T('common.save_failed'))}}
  NP.busy=false}
 
 /* ---------- Einstellungen ---------- */
-function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false;const b=sheet('',{onClose:()=>{S.stRedraw=null;S.cardRedraw=null;FIN.settingsMount(null)}});
+function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false,offLang=()=>{};const b=sheet('',{onClose:()=>{offLang();S.stRedraw=null;S.cardRedraw=null;FIN.settingsMount(null)}});
  const SEC={listen:true,...LS.get('pq.sec',{})},isO=k=>!!SEC[k];
- const sec=(k,t,body,act='')=>{const o=isO(k);return`<section class="ds${o?' open':''}"><div class="sth"><button type="button" class="dsb" id="dh-${k}" data-sec="${k}" aria-expanded="${o}" aria-controls="dp-${k}">${ic('chevR')}<span class="dst">${t}</span><span class="dss" id="ds-${k}"></span></button>${act}</div><div class="dp" id="dp-${k}" role="region" aria-labelledby="dh-${k}"><div class="dpi">${body}</div></div></section>`};
+ const sec=(k,t,body,act='')=>{const o=isO(k);return`<section class="ds${o?' open':''}"><div class="sth"><button type="button" class="dsb" id="dh-${k}" data-sec="${k}" aria-expanded="${o}" aria-controls="dp-${k}">${ic('chevR')}<span class="dst">${esc(t)}</span><span class="dss" id="ds-${k}"></span></button>${act}</div><div class="dp" id="dp-${k}" role="region" aria-labelledby="dh-${k}"><div class="dpi">${body}</div></div></section>`};
  const sums=()=>{const set=(k,v)=>{const e=$('#ds-'+k,b);if(e)e.textContent=v},n=S.lists.length,ns=S.stores.length,f=S.stores.filter(x=>x.favorite).length,c=CARDS.length;
-  set('listen',`${n} ${n===1?'Liste':'Listen'}`);set('laden',`${ns} ${ns===1?'Laden':'Läden'} · ${f} ${f===1?'Favorit':'Favoriten'}`);set('karten',`${c} ${c===1?'Karte':'Karten'}`);set('mitt',npSum());set('voice',S.token?'Bereit':'–');set('konto',S.user?.email||'');set('fin',FIN.sum())};
+  set('listen',TP('sum.lists',n));set('laden',TP('sum.stores',ns)+' · '+TP('sum.favs',f));set('karten',TP('sum.cards',c));set('mitt',npSum());set('voice',S.token?T('sum.ready'):'–');set('lang',LANGS.find(x=>x.code===getLang())?.name||'');set('konto',S.user?.email||'');set('fin',FIN.sum())};
  const sRow=s=>{const fav=!!s.favorite,k=kindOf(s);return edit
-  ?`<div class="sr" data-id="${s.id}"><button type="button" class="mn" data-a="rm" aria-label="${esc(s.name)} löschen"><span></span></button><button type="button" class="rb" data-a="ed" aria-label="${esc(s.name)}${fav?', Favorit':''}, bearbeiten">${avHTML(s)}<span class="tx">${esc(s.name)}<small>${k}</small></span>${fav?STAR:''}</button><button type="button" class="dh" data-a="mv" aria-label="${esc(s.name)} verschieben, mit Pfeiltasten hoch oder runter">${ic('grip')}</button></div>`
-  :`<div class="sr" data-id="${s.id}"><button type="button" class="rb" data-a="ed" aria-label="${esc(s.name)}${fav?', Favorit':''}, bearbeiten">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${fav?STAR:''}${ic('chevR')}</button></div>`};
+  ?`<div class="sr" data-id="${s.id}"><button type="button" class="mn" data-a="rm" aria-label="${E('store.delete_aria',{name:s.name})}"><span></span></button><button type="button" class="rb" data-a="ed" aria-label="${E('store.edit_aria',{name:s.name,fav:fav?T('store.fav_suffix'):''})}">${avHTML(s)}<span class="tx">${esc(s.name)}<small>${esc(kindName(k))}</small></span>${fav?STAR:''}</button><button type="button" class="dh" data-a="mv" aria-label="${E('store.move_aria',{name:s.name})}">${ic('grip')}</button></div>`
+  :`<div class="sr" data-id="${s.id}"><button type="button" class="rb" data-a="ed" aria-label="${E('store.edit_aria',{name:s.name,fav:fav?T('store.fav_suffix'):''})}">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${fav?STAR:''}${ic('chevR')}</button></div>`};
  const drawStores=()=>{const host=$('#sg',b);if(!host)return;let h='';
   if(edit)h=S.stores.length?`<div class="rows ed" id="sl2">${S.stores.map(sRow).join('')}</div>`:'';
-  else{const t=norm(q),m=S.stores.filter(s=>!t||norm(s.name).includes(t)||norm(kindOf(s)).includes(t));
-   for(const k of KINDS){const g=m.filter(s=>kindOf(s)===k);if(g.length)h+=`<div class="gl">${k}</div><div class="rows">${g.map(sRow).join('')}</div>`}
-   if(!m.length&&S.stores.length)h=`<div class="rows"><div class="sr emp" role="status">Kein Laden gefunden</div></div>`}
-  h+=`<div class="rows"><div class="sr"><button type="button" class="rb acc" data-a="add"><span class="lic pl">${ic('plus')}</span><span class="tx">Laden hinzufügen</span></button></div></div><div class="sf">${edit?'Am Griff ziehen oder mit den Pfeiltasten verschieben. Die Reihenfolge gilt auch in der Filterleiste.':'Tippe auf einen Laden, um Name, Farbe und Kategorie zu ändern.'}</div>`;
-  host.innerHTML=h;const eb=$('#eb',b);eb.textContent=edit?'Fertig':'Bearbeiten';eb.setAttribute('aria-pressed',edit);$('#sbar',b).hidden=edit;sums()};
+  else{const t=norm(q),m=S.stores.filter(s=>!t||norm(s.name).includes(t)||norm(kindName(kindOf(s))).includes(t));
+   for(const k of KINDS){const g=m.filter(s=>kindOf(s)===k);if(g.length)h+=`<div class="gl">${esc(kindName(k))}</div><div class="rows">${g.map(sRow).join('')}</div>`}
+   if(!m.length&&S.stores.length)h=`<div class="rows"><div class="sr emp" role="status">${E('picker.none')}</div></div>`}
+  h+=`<div class="rows"><div class="sr"><button type="button" class="rb acc" data-a="add"><span class="lic pl">${ic('plus')}</span><span class="tx">${E('store.add')}</span></button></div></div><div class="sf">${E(edit?'store.hint_edit':'store.hint')}</div>`;
+  host.innerHTML=h;const eb=$('#eb',b);eb.textContent=T(edit?'common.done':'common.edit');eb.setAttribute('aria-pressed',edit);$('#sbar',b).hidden=edit;sums()};
  S.stRedraw=()=>{if(!S.dragging)drawStores()};
- const draw=()=>{const lr=S.lists.map(l=>{const n=S.items.filter(i=>i.list_id===l.id&&!i.done).length;return`<div class="sr"><button type="button" class="rb" data-a="lists" aria-label="${esc(l.name)}, ${n} offen, Listen verwalten"><span class="lic">${ic('list')}</span><span class="tx">${esc(l.name)}</span><span class="ct">${n}</span>${ic('chevR')}</button></div>`}).join('');
-  b.innerHTML=`<div class="shh"><span></span><h3>Einstellungen</h3><button type="button" class="tb ok" id="ao">Fertig</button></div>
-<div class="rows"><div class="sr"><button type="button" class="rb" data-a="hist"><span class="lic">${ic('history')}</span><span class="tx">Verlauf<small>Wer hat was hinzugefügt oder abgehakt</small></span>${ic('chevR')}</button></div></div>
-${sec('listen','Listen',`<div class="rows">${lr}<div class="sr"><button type="button" class="rb acc" data-a="nl"><span class="lic pl">${ic('plus')}</span><span class="tx">Neue Liste</span></button></div></div><div class="sf">Tippe auf eine Liste, um Listen umzubenennen oder zu löschen.</div>`)}
-${sec('laden','Läden',`<div class="srch" id="sbar">${ic('search')}<input id="sq2" type="search" placeholder="Laden suchen" aria-label="Laden suchen" autocomplete="off" enterkeyhint="search" value="${esc(q)}"></div><div id="sg"></div>`,`<button type="button" class="tl" id="eb" aria-pressed="false"${isO('laden')?'':' hidden'}>Bearbeiten</button>`)}
-${sec('karten','Kundenkarten','<div id="kc"></div>')}
-${sec('mitt','Mitteilungen','<div id="np"></div>')}
-${sec('voice','Sprachassistent',`<div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">Dein Token<small class="mo">${esc(S.token||'– nicht verfügbar –')}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="Token kopieren">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">Endpunkt<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="Endpunkt-URL kopieren">${ic('copy')}</button></div></div>
-<div class="sf"><p><b>iPhone:</b> Kurzbefehl «Fetchy» anlegen: «Diktat» → «Inhalte von URL abrufen» (Methode POST, JSON mit <i>text</i> = Diktierter Text, Header <i>x-postae-token</i> = dein Token). Danach «Hey Siri, Fetchy».</p><p><b>Android:</b> «Hey Google, öffne Fetchy» oder App-Verknüpfung «Sprechen» – öffnet Fetchy mit <i>?voice=1</i> und startet die Spracheingabe.</p></div>`)}
-${sec('fin','Finanzen','<div id="fn"></div>')}
-${sec('konto','Konto',`<div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">Abmelden</button></div></div>`)}`;drawStores();drawCards();drawPush();drawFin();sums()};
- const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${esc(c.label)} anzeigen">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${esc(c.label)} bearbeiten">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">Karte hinzufügen</span></button></div></div><div class="sf">Tippe auf eine Karte, um sie an der Kasse zu zeigen. Lang drücken auf einen Laden zeigt dessen Karten.</div>`;sums()};
+ const draw=()=>{const lr=S.lists.map(l=>{const n=S.items.filter(i=>i.list_id===l.id&&!i.done).length;return`<div class="sr"><button type="button" class="rb" data-a="lists" aria-label="${E('lists.row_aria',{name:l.name,n})}"><span class="lic">${ic('list')}</span><span class="tx">${esc(l.name)}</span><span class="ct">${n}</span>${ic('chevR')}</button></div>`}).join('');
+  b.innerHTML=`<div class="shh"><span></span><h3>${E('settings.title')}</h3><button type="button" class="tb ok" id="ao">${E('common.done')}</button></div>
+<div class="rows"><div class="sr"><button type="button" class="rb" data-a="hist"><span class="lic">${ic('history')}</span><span class="tx">${E('hist.title')}<small>${E('hist.sub')}</small></span>${ic('chevR')}</button></div></div>
+${sec('listen',T('sec.lists'),`<div class="rows">${lr}<div class="sr"><button type="button" class="rb acc" data-a="nl"><span class="lic pl">${ic('plus')}</span><span class="tx">${E('lists.new')}</span></button></div></div><div class="sf">${E('lists.hint')}</div>`)}
+${sec('laden',T('sec.stores'),`<div class="srch" id="sbar">${ic('search')}<input id="sq2" type="search" placeholder="${E('picker.search')}" aria-label="${E('picker.search')}" autocomplete="off" enterkeyhint="search" value="${esc(q)}"></div><div id="sg"></div>`,`<button type="button" class="tl" id="eb" aria-pressed="false"${isO('laden')?'':' hidden'}>${E('common.edit')}</button>`)}
+${sec('karten',T('sec.cards'),'<div id="kc"></div>')}
+${sec('mitt',T('sec.notifs'),'<div id="np"></div>')}
+${sec('voice',T('sec.voice'),`<div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">${E('voice.token')}<small class="mo">${esc(S.token||T('voice.token_none'))}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="${E('voice.copy_token')}">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">${E('voice.endpoint')}<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="${E('voice.copy_endpoint')}">${ic('copy')}</button></div></div>
+<div class="sf"><p>${T('voice.ios')}</p><p>${T('voice.android')}</p></div>`)}
+${sec('fin',T('sec.fin'),'<div id="fn"></div>')}
+${sec('lang',T('sec.lang'),`<div class="rows" role="radiogroup" aria-label="${E('lang.language')}">${LANGS.map(l=>`<div class="sr"><button type="button" class="rb" role="radio" aria-checked="${l.code===getLang()}" data-lang="${l.code}" lang="${esc(l.locale)}"><span class="tx">${esc(l.name)}</span>${l.code===getLang()?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button></div>`).join('')}</div><div class="rows" style="margin-top:12px"><div class="sr dim"><button type="button" class="rb" disabled aria-disabled="true"><span class="tx">${E('lang.country')}<small>${E('lang.country_soon')}</small></span>${ic('chevR')}</button></div></div>`)}
+${sec('konto',T('sec.account'),`<div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">${E('account.logout')}</button></div></div>`)}`;drawStores();drawCards();drawPush();drawFin();sums()};
+ const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${E('card.view_aria',{label:c.label})}">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${E('card.edit_aria',{label:c.label})}">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">${E('card.add')}</span></button></div></div><div class="sf">${E('card.hint')}</div>`;sums()};
  S.cardRedraw=()=>drawCards();
  const drawFin=()=>{const h=$('#fn',b);if(h)FIN.settingsMount(h)};
  const drawPush=()=>{const h=$('#np',b);if(h)h.innerHTML=npHTML();sums()};
- draw();npLoad().then(drawPush);
+ draw();npLoad().then(drawPush);offLang=onLangChange(()=>draw());
  b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;
   if(t.id==='ao'){closeSheet();return}
   if(t.dataset.sec){const k=t.dataset.sec,o=!SEC[k];SEC[k]=o;LS.set('pq.sec',SEC);t.closest('.ds').classList.toggle('open',o);t.setAttribute('aria-expanded',o);if(k==='laden'){$('#eb',b).hidden=!o;if(!o&&edit){edit=false;drawStores()}}return}
+  if(t.dataset.lang){await setLang(t.dataset.lang);return}
   if(t.dataset.cv){const c=CARDS.find(x=>x.id===t.dataset.cv);if(c)viewCard(c);return}
   if(t.dataset.ce!==undefined){openCard(t.dataset.ce||null);return}
   if(t.id==='eb'){edit=!edit;drawStores();return}
-  if(t.dataset.cp!==undefined){try{await navigator.clipboard.writeText(t.dataset.cp);toast('Kopiert')}catch{toast('Kopieren nicht möglich')}return}
+  if(t.dataset.cp!==undefined){try{await navigator.clipboard.writeText(t.dataset.cp);toast(T('common.copied'))}catch{toast(T('common.copy_failed'))}return}
   if(t.dataset.np){if(t.getAttribute('role')==='switch')t.setAttribute('aria-checked',t.getAttribute('aria-checked')!=='true');await npClick(t);drawPush();return}
   const a=t.dataset.a,row=t.closest('[data-id]'),s=row&&S.stores.find(x=>x.id===row.dataset.id);
   if(a==='hist')openHistory();
   else if(a==='lists')openLists();
-  else if(a==='nl'){const n=await askText('Neue Liste','','Erstellen');if(n){const l={id:uid(),name:n,sort:(S.lists.at(-1)?.sort||0)+1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l});render();draw()}}
+  else if(a==='nl'){const n=await askText(T('lists.new'),'',T('common.create'));if(n){const l={id:uid(),name:n,sort:(S.lists.at(-1)?.sort||0)+1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l});render();draw()}}
   else if(a==='ed'&&s)openStore(s.id);
   else if(a==='add')openStore();
   else if(a==='rm'&&s)askDelStore(s);
@@ -921,23 +930,23 @@ ${sec('konto','Konto',`<div class="rows"><div class="sr"><span class="lic">${ic(
 function openStore(id){const ex=id&&S.stores.find(x=>x.id===id),used=new Set(S.stores.map(s=>hexOf(s.color).toUpperCase()));
  const d={kind:ex?kindOf(ex):'Lebensmittel',fav:!!ex?.favorite,color:ex?hexOf(ex.color).toUpperCase():(SWATCH.find(c=>!used.has(c))||SWATCH[0])};
  let[H,Sa,V]=rgb2hsv(...hex2rgb(d.color));const b=sheet('');
- b.innerHTML=`<div class="shh"><button type="button" class="tb" id="ax">Abbrechen</button><h3>${ex?'Laden bearbeiten':'Neuer Laden'}</h3><button type="button" class="tb ok" id="ao">Speichern</button></div>
+ b.innerHTML=`<div class="shh"><button type="button" class="tb" id="ax">${E('common.cancel')}</button><h3>${E(ex?'store.edit_title':'store.new_title')}</h3><button type="button" class="tb ok" id="ao">${E('common.save')}</button></div>
 <div class="pv" aria-hidden="true"><span id="pva"></span><span id="pvb"></span></div>
-<label for="sn">Name</label><input id="sn" maxlength="40" autocomplete="off" enterkeyhint="done" value="${esc(ex?.name||'')}" aria-describedby="ne"><div class="er" id="ne" role="alert"></div>
-<label id="kl">Kategorie</label><div class="chips" role="radiogroup" aria-labelledby="kl" id="kk">${KINDS.map(k=>`<button type="button" class="chip${k===d.kind?' on':''}" role="radio" aria-checked="${k===d.kind}" data-k="${k}">${k}</button>`).join('')}</div>
-<div class="rows" style="margin-top:14px"><div class="sr fr"><span class="tx"><span id="fl">Favorit</span><small id="fh">Favoriten stehen in der Filterleiste zuerst</small></span><button type="button" class="tgl" id="fv" role="switch" aria-checked="${d.fav}" aria-labelledby="fl" aria-describedby="fh"><i></i></button></div></div>
-<label id="cl">Farbe</label><div class="swg" role="radiogroup" aria-labelledby="cl">${SWATCH.map(c=>`<button type="button" class="swb" role="radio" aria-checked="false" data-c="${c}" aria-label="Farbe ${c}"><span style="background:${c}">${ic('check')}</span></button>`).join('')}</div>
-<div class="cc" id="cc"><div class="ccr"><span class="dot" id="cd"></span><b id="cl2">Eigene Farbe</b><div class="hx"><span aria-hidden="true">#</span><input id="hx" maxlength="7" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Hex-Farbwert"></div></div>
-<div class="pad" id="pad" tabindex="0" role="slider" aria-label="Sättigung und Helligkeit"><i></i></div>
-<input id="hu" class="hs" type="range" min="0" max="360" step="1" aria-label="Farbton"></div>
-${ex?`<div class="rows" style="margin-top:24px"><div class="sr"><button type="button" class="rb dng" id="dl">Laden löschen</button></div></div>`:''}`;
+<label for="sn">${E('common.name')}</label><input id="sn" maxlength="40" autocomplete="off" enterkeyhint="done" value="${esc(ex?.name||'')}" aria-describedby="ne"><div class="er" id="ne" role="alert"></div>
+<label id="kl">${E('store.kind')}</label><div class="chips" role="radiogroup" aria-labelledby="kl" id="kk">${KINDS.map(k=>`<button type="button" class="chip${k===d.kind?' on':''}" role="radio" aria-checked="${k===d.kind}" data-k="${k}">${esc(kindName(k))}</button>`).join('')}</div>
+<div class="rows" style="margin-top:14px"><div class="sr fr"><span class="tx"><span id="fl">${E('store.favorite')}</span><small id="fh">${E('store.favorite_hint')}</small></span><button type="button" class="tgl" id="fv" role="switch" aria-checked="${d.fav}" aria-labelledby="fl" aria-describedby="fh"><i></i></button></div></div>
+<label id="cl">${E('store.color')}</label><div class="swg" role="radiogroup" aria-labelledby="cl">${SWATCH.map(c=>`<button type="button" class="swb" role="radio" aria-checked="false" data-c="${c}" aria-label="${E('store.color_aria',{color:c})}"><span style="background:${c}">${ic('check')}</span></button>`).join('')}</div>
+<div class="cc" id="cc"><div class="ccr"><span class="dot" id="cd"></span><b id="cl2">${E('store.custom_color')}</b><div class="hx"><span aria-hidden="true">#</span><input id="hx" maxlength="7" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="${E('store.hex_aria')}"></div></div>
+<div class="pad" id="pad" tabindex="0" role="slider" aria-label="${E('store.pad_aria')}"><i></i></div>
+<input id="hu" class="hs" type="range" min="0" max="360" step="1" aria-label="${E('store.hue_aria')}"></div>
+${ex?`<div class="rows" style="margin-top:24px"><div class="sr"><button type="button" class="rb dng" id="dl">${E('store.delete')}</button></div></div>`:''}`;
  const sn=$('#sn',b),hx=$('#hx',b),hu=$('#hu',b),pad=$('#pad',b),cc=$('#cc',b);
  const paint=skip=>{const c=d.color,ink=inkOf(c),nm=sn.value.trim();
-  $('#pva',b).innerHTML=avHTML({name:nm||'Laden',color:c},'xl');$('#pvb',b).innerHTML=bgOne({name:nm||'Laden',color:c});
+  $('#pva',b).innerHTML=avHTML({name:nm||T('store.default_name'),color:c},'xl');$('#pvb',b).innerHTML=bgOne({name:nm||T('store.default_name'),color:c});
   $$('.swb',b).forEach(x=>{const on=x.dataset.c===c;x.classList.toggle('on',on);x.setAttribute('aria-checked',on);x.firstElementChild.style.color=ink});
   $('#cd',b).style.background=c;if(skip!=='hx'){hx.value=c.slice(1);hx.removeAttribute('aria-invalid')}if(skip!=='hu')hu.value=Math.round(H);
   cc.style.setProperty('--h',H);const th=pad.firstElementChild;th.style.left=Sa*100+'%';th.style.top=(1-V)*100+'%';th.style.background=c;
-  pad.setAttribute('aria-valuetext',`Sättigung ${Math.round(Sa*100)} %, Helligkeit ${Math.round(V*100)} %`)};
+  pad.setAttribute('aria-valuetext',T('store.pad_value',{s:Math.round(Sa*100),v:Math.round(V*100)}))};
  const setHex=(c,skip)=>{d.color=c.toUpperCase();const[h,s,v]=rgb2hsv(...hex2rgb(d.color));if(s>0&&v>0)H=h;Sa=s;V=v;paint(skip)};
  const fromHsv=skip=>{d.color=hsv2hex(H,Sa,V);paint(skip)};
  paint();
@@ -955,8 +964,8 @@ ${ex?`<div class="rows" style="margin-top:24px"><div class="sr"><button type="bu
  pad.onkeydown=e=>{const k={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,1],ArrowDown:[0,-1]}[e.key];if(!k)return;e.preventDefault();Sa=Math.min(1,Math.max(0,Sa+k[0]*.03));V=Math.min(1,Math.max(0,V+k[1]*.03));fromHsv()};
  $('#ax',b).onclick=()=>closeSheet();
  const go=()=>{const name=sn.value.trim(),ne=$('#ne',b),bad=m=>{ne.textContent=m;sn.setAttribute('aria-invalid','true');sn.focus()};
-  if(!name)return bad('Bitte einen Namen eingeben');
-  if(S.stores.some(x=>x.id!==ex?.id&&x.name.toLowerCase()===name.toLowerCase()))return bad('Diesen Laden gibt es schon');
+  if(!name)return bad(T('store.err_name'));
+  if(S.stores.some(x=>x.id!==ex?.id&&x.name.toLowerCase()===name.toLowerCase()))return bad(T('store.err_dup'));
   const f={name,color:d.color,kind:d.kind,favorite:d.fav};
   if(ex){Object.assign(ex,f);enqueue({t:'stores',o:'update',id:ex.id,d:f})}
   else{const st={id:uid(),...f,sort:S.stores.reduce((m,s)=>Math.max(m,s.sort||0),0)+1};S.stores.push(st);enqueue({t:'stores',o:'insert',d:st})}
@@ -966,34 +975,35 @@ ${ex?`<div class="rows" style="margin-top:24px"><div class="sr"><button type="bu
  else setTimeout(()=>sn.focus(),250)}
 
 /* ---------- Sprache ---------- */
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null,lang='de-CH';
-function startVoice(){const inp=$('#addIn'),mic=$('#micBtn');if(!SR){toast('Spracheingabe wird hier nicht unterstützt');return}
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null,vlang='';
+function startVoice(){const inp=$('#addIn'),mic=$('#micBtn');if(!SR){toast(T('voice.unsupported'));return}
  if(rec){rec.stop();return}
- const r=rec=new SR();r.lang=lang;r.interimResults=true;r.continuous=false;let retry=false;
- r.onstart=()=>{mic.classList.add('on');inp.placeholder='Ich höre zu…'};
+ const r=rec=new SR();r.lang=vlang||locale();r.interimResults=true;r.continuous=false;let retry=false;
+ r.onstart=()=>{mic.classList.add('on');inp.placeholder=T('voice.listening')};
  r.onresult=e=>{let t='';for(const x of e.results)t+=x[0].transcript+' ';inp.value=t.trim()};
- r.onerror=e=>{if((e.error==='language-not-supported'||e.error==='service-not-allowed')&&lang==='de-CH'){lang='de-DE';retry=true}else if(e.error==='not-allowed')toast('Mikrofon nicht erlaubt');else if(e.error==='no-speech')toast('Nichts gehört')};
- r.onend=()=>{rec=null;mic.classList.remove('on');inp.placeholder='Artikel hinzufügen…';if(retry){startVoice();return}const t=inp.value.trim();if(t){inp.value='';$('#sugg').hidden=true;addFromText(t)}};
+ r.onerror=e=>{if((e.error==='language-not-supported'||e.error==='service-not-allowed')&&!vlang){const b0=locale().split('-')[0];vlang=b0==='de'?'de-DE':b0;retry=true}else if(e.error==='not-allowed')toast(T('voice.mic_denied'));else if(e.error==='no-speech')toast(T('voice.no_speech'))};
+ r.onend=()=>{rec=null;mic.classList.remove('on');inp.placeholder=T('add.placeholder');if(retry){startVoice();return}const t=inp.value.trim();if(t){inp.value='';$('#sugg').hidden=true;addFromText(t)}};
  try{r.start()}catch{rec=null}}
-function voiceOverlay(){const o=document.createElement('div');o.className='vo';o.innerHTML=`<button class="mb" aria-label="Tippen zum Sprechen">${ic('mic')}</button><div><b style="font-size:20px">Tippen zum Sprechen</b><p class="hint">z. B. «Milch, 2 Bananen und Brot bei Migros»</p></div><button class="btn" id="vx">Schliessen</button>`;
+function voiceOverlay(){const o=document.createElement('div');o.className='vo';o.innerHTML=`<button class="mb" aria-label="${E('voice.tap')}">${ic('mic')}</button><div><b style="font-size:20px">${E('voice.tap')}</b><p class="hint">${E('voice.example')}</p></div><button class="btn" id="vx">${E('common.close')}</button>`;
  $('.mb',o).onclick=()=>{o.remove();startVoice()};$('#vx',o).onclick=()=>o.remove();document.body.append(o)}
 
 /* ---------- Auth ---------- */
-function showAuth(msg=''){document.body.classList.remove('in');FIN.apply();$('#app').innerHTML=`<div class="auth"><img src="icon.svg" alt=""><h1>Fetch<span style="color:#E3B341">y</span></h1><p>Gemeinsame Einkaufsliste</p><form id="af"><input type="email" id="em" placeholder="E-Mail" autocomplete="email" required><input type="password" id="pw" placeholder="Passwort" autocomplete="current-password" minlength="6" required><div class="msg" id="am" role="alert">${esc(msg)}</div><button class="btn pri" id="si">Anmelden</button><button type="button" class="btn" id="su">Konto erstellen</button></form></div>`;
+function showAuth(msg=''){document.body.classList.remove('in');FIN.apply();$('#app').innerHTML=`<div class="auth"><img src="icon.svg" alt=""><h1>Fetch<span style="color:#E3B341">y</span></h1><p>${E('auth.tagline')}</p><form id="af"><input type="email" id="em" placeholder="${E('auth.email')}" autocomplete="email" required><input type="password" id="pw" placeholder="${E('auth.password')}" autocomplete="current-password" minlength="6" required><div class="msg" id="am" role="alert">${esc(msg)}</div><button class="btn pri" id="si">${E('auth.signin')}</button><button type="button" class="btn" id="su">${E('auth.signup')}</button></form></div>`;
  const m=(t,ok)=>{const e=$('#am');e.textContent=t;e.className='msg'+(ok?' ok':'')};
  $('#af').onsubmit=async e=>{e.preventDefault();m('');const{data,error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});
-  if(error){m(/confirm/i.test(error.message)?'Bitte zuerst die Bestätigungsmail öffnen.':'E-Mail oder Passwort falsch.');return}S.user=data.user;start()};
- $('#su').onclick=async()=>{const em=$('#em').value.trim(),pw=$('#pw').value;if(!em||pw.length<6){m('E-Mail und Passwort (min. 6 Zeichen) eingeben.');return}m('');
+  if(error){m(T(/confirm/i.test(error.message)?'auth.err_confirm':'auth.err_bad'));return}S.user=data.user;start()};
+ $('#su').onclick=async()=>{const em=$('#em').value.trim(),pw=$('#pw').value;if(!em||pw.length<6){m(T('auth.err_fields'));return}m('');
   const{data,error}=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:location.origin+location.pathname}});
-  if(error){m(/password/i.test(error.message)?'Passwort zu schwach (min. 6 Zeichen).':/already|registered/i.test(error.message)?'Konto existiert bereits – bitte anmelden.':'Kein Zugriff');return}
-  if(data.session){S.user=data.user;start()}else m('Bestätigungsmail prüfen, dann hier anmelden.',true)}}
+  if(error){m(T(/password/i.test(error.message)?'auth.err_weak':/already|registered/i.test(error.message)?'auth.err_exists':'auth.no_access'));return}
+  if(data.session){S.user=data.user;start()}else m(T('auth.check_mail'),true)}}
 
 const FIN=createFinance({sb,S,$,$$,esc,LS,uid,now,toast,sheet,closeSheet,enqueue,avHTML,ICO,ecat,categoryColor,categoryIcon,guessCategory,shHead,askConfirm,who,inShop:()=>!!SM.o,pending:()=>queue.length});
+onLangChange(()=>{if(!S.user){if($('.auth'))showAuth();return}buildShell();render();FIN.relabel();SM.o?.setAttribute('aria-label',T('shop.title'))});
 /* ---------- Start ---------- */
 let started=false;
 async function start(){const c=LS.get('pq.cache',null);if(c){Object.assign(S,{lists:c.lists||[],stores:c.stores||[],items:c.items||[],cat:c.cat||{},token:c.token||null})}
  if(!S.lists.some(l=>l.id===S.listId))S.listId=S.lists[0]?.id||null;buildShell();render();subscribe();
- FIN.load();try{await load();await ensureList();render()}catch(e){if(e.denied){denied();return}toast('Offline – zuletzt gespeicherter Stand')}
+ FIN.load();try{await load();await ensureList();render()}catch(e){if(e.denied){denied();return}toast(T('toast.offline_cached'))}
  flush();
  if(!started){started=true;const add=P.get('add'),v=P.get('voice');if(add||v){history.replaceState(null,'',location.pathname+location.hash)}
   if(add)addFromText(add);if(v==='1')voiceOverlay()}}

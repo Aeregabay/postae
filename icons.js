@@ -75,7 +75,7 @@ const ENDS=['en','n','e','s','er','nen','se'];
 const forms=w=>{const o=new Set([w]);if(w.length>3)for(const e of ENDS)if(w.endsWith(e)&&w.length-e.length>=3)o.add(w.slice(0,-e.length));return[...o]};
 function wordVariants(word){const a=nrmAE(word),b=nrmFold(word);const s=new Set();for(const w of new Set([a,b]))if(w.length>=2)for(const f of forms(w))s.add(f);return[...s]}
 
-function matchWord(word,stage){const vs=wordVariants(word);
+function matchWord(word,stage,T){const{IDX,MAXL}=T,vs=wordVariants(word);
  if(stage===1){for(const v of vs){const h=IDX.get(v);if(h)return h}return null}
  if(stage===2){let best=null,bl=0;for(const v of vs)for(let L=Math.min(v.length-1,MAXL);L>=3&&L>bl;L--){const h=IDX.get(v.slice(-L));if(h){best=h;bl=L;break}}return best}
  let best=null,bl=3;
@@ -86,19 +86,22 @@ function matchWord(word,stage){const vs=wordVariants(word);
 
 const MODS=[[/^(katzen|hunde|vogel|tier|nager)/,'Tierbedarf'],[/^(velo|fahrrad|auto|pneu)/,'Auto & Velo'],[/^(baby|kinder)/,'Baby & Kind'],[/^garten/,'Garten & Pflanzen']];
 const cache=new Map();
-export function matchKeyword(name){const raw=String(name||'').trim();if(!raw)return null;const ck=raw.toLowerCase();if(cache.has(ck))return cache.get(ck);
+export function matchKeyword(name,lang='de'){const T=tbl(lang),{IDX,MODS,SPLIT,cache}=T,raw=String(name||'').trim();if(!raw)return null;const ck=raw.toLowerCase();if(cache.has(ck))return cache.get(ck);
  let words=raw.match(/[\p{L}][\p{L}-]*/gu)||[];const cut=words.findIndex((w,i)=>i>0&&SPLIT.test(w));if(cut>0)words=words.slice(0,cut);
  const parts=words.flatMap(w=>w.includes('-')&&!IDX.has(nrmAE(w))?[w,...w.split('-')]:[w]);
  let hit=null;const joined=parts.join('');if(parts.length>1)hit=IDX.get(nrmAE(joined))||null;
- let stg=0,hw='';for(const st of[1,2,3]){if(hit)break;for(const w of parts){hit=matchWord(w,st);if(hit){stg=st;hw=nrmAE(w);break}}}
+ let stg=0,hw='';for(const st of[1,2,3]){if(hit)break;for(const w of parts){hit=matchWord(w,st,T);if(hit){stg=st;hw=nrmAE(w);break}}}
  // Head noun decides the icon (suffix match first); a leading modifier (katzen-, velo-, ...) may still decide the category.
  if(hit&&stg>=2){for(const[re,c]of MODS){const m=hw.match(re);if(m&&hw.length>=m[0].length+4){if(c!==hit.category)hit={...hit,category:c};break}}}
  cache.set(ck,hit);return hit}
-export function resolveIcon(name,category){const h=matchKeyword(name);if(h)return{icon:h.icon,emoji:h.emoji,category:h.category,matched:true};
+export function resolveIcon(name,category,lang='de'){const h=matchKeyword(name,lang);if(h)return{icon:h.icon,emoji:h.emoji,category:h.category,matched:true};
  const c=CMAP[category]&&category!=='Sonstiges'?category:null;const cc=CMAP[c||'Sonstiges'];return{icon:cc.icon,emoji:cc.emoji,category:cc.name,matched:false}}
 const STORE={baumarkt:'Werkzeug & Baumarkt',hornbach:'Werkzeug & Baumarkt',jumbo:'Werkzeug & Baumarkt',obi:'Werkzeug & Baumarkt',bauhaus:'Werkzeug & Baumarkt',drogerie:'Körperpflege',dm:'Körperpflege',müller:'Körperpflege',mueller:'Körperpflege',wohnen:'Wohnen & Deko',ikea:'Wohnen & Deko',apotheke:'Apotheke',elektro:'Elektro & Technik',melectronics:'Elektro & Technik',tierhandlung:'Tierbedarf',fressnapf:'Tierbedarf',papeterie:'Papeterie & Büro',garten:'Garten & Pflanzen',gärtnerei:'Garten & Pflanzen',sport:'Sport & Freizeit',velo:'Auto & Velo',kleider:'Kleidung & Textil',bäckerei:'Brot & Gebäck',metzgerei:'Fleisch & Fisch',getränke:'Getränke'};
-export function guessCategory(name,storeKind){const h=matchKeyword(name);if(h)return h.category;
+export function guessCategory(name,storeKind,lang='de'){const h=matchKeyword(name,lang);if(h)return h.category;const STORE=tbl(lang).STORE;
  const k=String(storeKind||'').toLowerCase().trim();if(k){if(STORE[k])return STORE[k];for(const[s,c]of Object.entries(STORE))if(k.includes(s))return c}
  return'Sonstiges'}
 // Suggestion source: one entry per keyword (display form capitalized)
-export const suggestionKeywords=()=>KEYWORDS.map(v=>({name:v.kw.charAt(0).toUpperCase()+v.kw.slice(1),icon:v.icon,emoji:v.emoji,category:v.category,key:v.kw}));
+export const suggestionKeywords=(lang='de')=>tbl(lang).KEYWORDS.map(v=>({name:v.kw.charAt(0).toUpperCase()+v.kw.slice(1),icon:v.icon,emoji:v.emoji,category:v.category,key:v.kw}));
+// Per-language keyword tables. Only German for now; add TABLES.<lang> = {IDX,get MAXL(),MODS,SPLIT,STORE,KEYWORDS,cache} to plug in another language (falls back to 'de').
+const TABLES={de:{IDX,get MAXL(){return MAXL},MODS,SPLIT,STORE,KEYWORDS:KEYWORDS,cache}};
+const tbl=lang=>TABLES[lang]||TABLES.de;

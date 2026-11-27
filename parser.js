@@ -1,5 +1,5 @@
 // Rule-based German (incl. Swiss-German-ish) shopping utterance parser. No dependencies, no LLM.
-// parseUtterance(text, stores) -> { items: [{name, spec}], store: {id,name}|null }
+// parseUtterance(text, stores, lang = "de") -> { items: [{name, spec}], store: {id,name}|null }
 const B = "(?<![\\p{L}\\p{N}])", E = "(?![\\p{L}\\p{N}])";
 const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const re = (src, f = "giu") => new RegExp(src, f);
@@ -17,10 +17,10 @@ const NUMW = "eins|zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|elf|zwölf";
 const NUMD = `\\d+(?:${D}\\d+)?`;
 
 const fmtN = n => String(n).replace(".", ",");
-const toNum = s => (/^\d/.test(s) ? parseFloat(s.replace(D, ".")) : NW[s.toLowerCase()]);
-const unitSpec = (n, u) => {
+const toNum = (s, R) => (/^\d/.test(s) ? parseFloat(s.replace(D, ".")) : R.NW[s.toLowerCase()]);
+const unitSpec = (n, u, R) => {
   if (!u) return fmtN(n);
-  const m = UNIT_MAP[u.toLowerCase()];
+  const m = R.UNIT_MAP[u.toLowerCase()];
   return `${fmtN(n)} ${m[1] && n !== 1 ? m[1] : m[0]}`;
 };
 
@@ -47,24 +47,31 @@ const LEAD = re(`^(?:ein\\s+paar|paar|ein|eine|einen|einem|einer|der|die|das|den
 const CONJ = re(`[,;.!?]+|${B}(?:und\\s+dann|und\\s+noch|auch\\s+noch|und|dann|sowie|ausserdem|außerdem|zudem|plus)${E}`);
 const PURPOSE = re(`${B}(?:für|fürs|zum|zur)\\s+(?:(?:auf|in)\\s+)?(?:(?:die|den|das|dem|der)\\s+)?`, "iu");
 
+// Per-language rule tables. Only German for now; add RULES.<lang> = {...} to plug in another language (falls back to 'de').
+const RULES = { de: { UNIT_MAP, U, NW, NUMW, PHRASES, TOKENS, STOP, LEAD, CONJ, PURPOSE, FOR: "für ",
+  PRE: "(?:(?:beim|bei\\s+der|bei\\s+dem|bei|im|in\\s+der|in\\s+dem|in|vom|von\\s+der|von\\s+dem|von|aus\\s+dem|aus\\s+der|aus|für\\s+den|für\\s+die|für)\\s+)?" } };
+const rulesFor = lang => RULES[lang] || RULES.de;
+
 const cap = s => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const clean = s => s.replace(/\s+/g, " ").replace(/^[\s,.;:!?\-–]+|[\s,.;:!?\-–]+$/g, "");
 
-function takeQty(s) {
+function takeQty(s, R) {
+  const { U, NUMW } = R;
   let m = s.match(re(`^(?:ein\\s+)?halb(?:e|es|en)?\\s+(${U})${E}\\s*(.*)$`, "iu"));
   if (m) return { n: 0.5, u: m[1], rest: m[2] };
   m = s.match(re(`^(${NUMD})\\s*(?:(${U})${E}\\s*)?(.*)$`, "iu"));
-  if (m && (m[2] || m[3])) return { n: toNum(m[1]), u: m[2], rest: m[3] };
+  if (m && (m[2] || m[3])) return { n: toNum(m[1], R), u: m[2], rest: m[3] };
   m = s.match(re(`^(${NUMW})${E}\\s*(?:(${U})${E}\\s*)?(.*)$`, "iu"));
-  if (m && m[3]) return { n: toNum(m[1]), u: m[2], rest: m[3] };
+  if (m && m[3]) return { n: toNum(m[1], R), u: m[2], rest: m[3] };
   m = s.match(re(`^(ein|eine|einen|einem)\\s+(${U})${E}\\s*(.*)$`, "iu"));
   if (m && m[3]) return { n: 1, u: m[2], rest: m[3] };
   m = s.match(re(`^(.+?)\\s+(${NUMD}|${NUMW})\\s*(?:(${U})${E})?$`, "iu"));
-  if (m) return { n: toNum(m[2]), u: m[3], rest: m[1] };
+  if (m) return { n: toNum(m[2], R), u: m[3], rest: m[1] };
   return null;
 }
 
-function parseClause(c) {
+function parseClause(c, R) {
+  const { PHRASES, TOKENS, PURPOSE, LEAD, STOP } = R;
   let s = c;
   for (const p of PHRASES) s = s.replace(p, " ");
   s = s.replace(TOKENS, " ");
@@ -77,11 +84,11 @@ function parseClause(c) {
     const before = clean(s.slice(0, pm.index));
     let noun = clean(before ? after : after.split(/\s+/)[0] || "");
     let tail = before ? "" : clean(after.slice(noun.length));
-    if (noun) { purpose = "für " + noun; s = clean(before + " " + tail); }
+    if (noun) { purpose = R.FOR + noun; s = clean(before + " " + tail); }
   }
   let spec = null;
-  const q = takeQty(s);
-  if (q) { spec = unitSpec(q.n, q.u); s = clean(q.rest); }
+  const q = takeQty(s, R);
+  if (q) { spec = unitSpec(q.n, q.u, R); s = clean(q.rest); }
   let prev;
   do { prev = s; s = clean(s.replace(LEAD, "")); } while (s !== prev);
   s = s.replace(re(`\\s+(?:mehr|dazu)$`, "iu"), "");
@@ -92,10 +99,10 @@ function parseClause(c) {
   return { name: cap(s), spec: parts.length ? parts.join(" · ").replace(new RegExp(D, "g"), ",") : null };
 }
 
-export function parseUtterance(text, stores = []) {
+export function parseUtterance(text, stores = [], lang = "de") {
+  const R = rulesFor(lang), { PRE, CONJ } = R;
   let t = String(text ?? "").replace(/(\d)[.,](\d)/g, `$1${D}$2`).replace(/\s+/g, " ").trim();
   let store = null;
-  const PRE = "(?:(?:beim|bei\\s+der|bei\\s+dem|bei|im|in\\s+der|in\\s+dem|in|vom|von\\s+der|von\\s+dem|von|aus\\s+dem|aus\\s+der|aus|für\\s+den|für\\s+die|für)\\s+)?";
   for (const s of [...(stores || [])].sort((a, b) => b.name.length - a.name.length)) {
     const r = re(`${B}${PRE}${esc(s.name)}${E}`);
     if (r.test(t)) { store ??= s; t = t.replace(r, " "); }
@@ -103,7 +110,7 @@ export function parseUtterance(text, stores = []) {
   const items = [], seen = new Map();
   for (const c of t.split(CONJ)) {
     if (!c || !c.trim()) continue;
-    const it = parseClause(c);
+    const it = parseClause(c, R);
     if (!it) continue;
     const k = it.name.toLowerCase();
     if (seen.has(k)) { const o = seen.get(k); if (!o.spec && it.spec) o.spec = it.spec; continue; }
