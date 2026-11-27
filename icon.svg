@@ -1,34 +1,44 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 <rect width="512" height="512" rx="112" fill="#5f8f7f"/>
 <!-- tail -->
-<path d="M150 392 C 92 392, 70 330, 104 292" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round"/>
-<!-- body -->
-<ellipse cx="236" cy="352" rx="118" ry="88" fill="#fff"/>
-<!-- front paws -->
-<ellipse cx="300" cy="420" rx="26" ry="16" fill="#fff"/>
-<ellipse cx="352" cy="418" rx="26" ry="16" fill="#fff"/>
+<path d="M262 352 C 200 372, 176 330, 196 292" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round"/>
+<!-- basket contents -->
+<rect x="156" y="104" width="30" height="120" rx="15" transform="rotate(-20 171 164)" fill="#f1d29a"/>
+<path d="M170 112 l9 6 M164 134 l9 6 M158 156 l9 6" stroke="#c99a55" stroke-width="5" stroke-linecap="round" transform="rotate(-20 171 164)"/>
+<circle cx="240" cy="198" r="26" fill="#7bbf6a"/>
+<path d="M228 198 q12 -16 24 0" fill="none" stroke="#5a9a4c" stroke-width="5" stroke-linecap="round"/>
+<path d="M196 212 L212 104 L218 214 Z" fill="#f39a3d"/>
+<path d="M212 104 l-12 -22 M212 104 l3 -26 M212 104 l16 -18" stroke="#7bbf6a" stroke-width="8" stroke-linecap="round"/>
+<!-- wicker basket backpack -->
+<rect x="158" y="204" width="110" height="138" rx="22" fill="#d9a86c"/>
+<path d="M158 238 h110 M158 272 h110 M158 306 h110" stroke="#b5814a" stroke-width="6"/>
+<path d="M186 204 v138 M213 204 v138 M240 204 v138" stroke="#c4925a" stroke-width="5"/>
+<rect x="152" y="196" width="122" height="20" rx="10" fill="#8a5a30"/>
+<!-- legs -->
+<path d="M286 352 L272 428" stroke="#fff" stroke-width="34" stroke-linecap="round"/>
+<path d="M326 352 L350 424" stroke="#fff" stroke-width="34" stroke-linecap="round"/>
+<ellipse cx="264" cy="438" rx="28" ry="15" fill="#fff"/>
+<ellipse cx="362" cy="432" rx="28" ry="15" fill="#fff"/>
+<!-- torso -->
+<rect x="252" y="228" width="104" height="140" rx="50" fill="#fff"/>
+<!-- straps -->
+<path d="M262 236 q34 6 40 40" fill="none" stroke="#8a5a30" stroke-width="12" stroke-linecap="round"/>
+<path d="M258 318 q30 8 52 2" fill="none" stroke="#8a5a30" stroke-width="10" stroke-linecap="round"/>
+<!-- scarf -->
+<path d="M262 230 q42 18 86 0 l-2 20 q-42 16 -82 0 z" fill="#e2725b"/>
+<path d="M330 246 l10 46 l16 -6 l-8 -42 z" fill="#e2725b"/>
+<!-- arm -->
+<path d="M336 268 Q 372 292 378 330" fill="none" stroke="#fff" stroke-width="28" stroke-linecap="round"/>
 <!-- head -->
-<path d="M282 214 L290 148 L336 186 Z" fill="#fff"/>
-<path d="M392 186 L420 136 L424 208 Z" fill="#fff"/>
-<path d="M296 176 L300 160 L320 178 Z" fill="#f3b6b6"/>
-<path d="M404 178 L416 158 L414 190 Z" fill="#f3b6b6"/>
-<ellipse cx="352" cy="252" rx="86" ry="74" fill="#fff"/>
-<!-- face -->
-<path d="M314 248 q12 -12 24 0" fill="none" stroke="#2f4f45" stroke-width="8" stroke-linecap="round"/>
-<path d="M370 248 q12 -12 24 0" fill="none" stroke="#2f4f45" stroke-width="8" stroke-linecap="round"/>
-<ellipse cx="312" cy="276" rx="13" ry="8" fill="#f3b6b6"/>
-<ellipse cx="398" cy="276" rx="13" ry="8" fill="#f3b6b6"/>
-<path d="M348 266 h12 l-6 7 z" fill="#e08a8a"/>
-<path d="M354 273 q-8 10 -16 4 M354 273 q8 10 16 4" fill="none" stroke="#2f4f45" stroke-width="5" stroke-linecap="round"/>
-<!-- basket contents (behind basket front) -->
-<rect x="150" y="150" width="34" height="120" rx="17" transform="rotate(-14 167 210)" fill="#e9c58a"/>
-<path d="M176 156 l8 6 M168 178 l8 6 M160 200 l8 6" stroke="#c99a55" stroke-width="5" stroke-linecap="round" transform="rotate(-14 167 210)"/>
-<circle cx="212" cy="238" r="30" fill="#7bbf6a"/>
-<path d="M198 238 q14 -18 28 0" fill="none" stroke="#5a9a4c" stroke-width="5" stroke-linecap="round"/>
-<path d="M240 252 L268 140 L266 256 Z" fill="#f39a3d"/>
-<path d="M268 140 l-14 -26 M268 140 l4 -30 M268 140 l18 -22" stroke="#7bbf6a" stroke-width="9" stroke-linecap="round"/>
-<!-- basket -->
-<path d="M140 252 h168 l-16 70 a14 14 0 0 1 -14 11 H170 a14 14 0 0 1 -14 -11 z" fill="#fff" stroke="#5f8f7f" stroke-width="8" stroke-linejoin="round"/>
-<path d="M134 252 h180" stroke="#2f4f45" stroke-width="12" stroke-linecap="round"/>
-<path d="M190 268 v52 M224 268 v56 M258 268 v52" stroke="#5f8f7f" stroke-width="7" stroke-linecap="round"/>
+<path d="M258 156 L262 92 L304 128 Z" fill="#fff"/>
+<path d="M334 124 L370 86 L374 150 Z" fill="#fff"/>
+<path d="M268 128 L270 106 L290 124 Z" fill="#f3b6b6"/>
+<path d="M346 120 L362 102 L362 132 Z" fill="#f3b6b6"/>
+<ellipse cx="316" cy="168" rx="72" ry="64" fill="#fff"/>
+<path d="M286 166 q11 -11 22 0" fill="none" stroke="#2f4f45" stroke-width="7" stroke-linecap="round"/>
+<path d="M334 166 q11 -11 22 0" fill="none" stroke="#2f4f45" stroke-width="7" stroke-linecap="round"/>
+<ellipse cx="282" cy="190" rx="11" ry="7" fill="#f3b6b6"/>
+<ellipse cx="360" cy="190" rx="11" ry="7" fill="#f3b6b6"/>
+<path d="M315 182 h12 l-6 7 z" fill="#e08a8a"/>
+<path d="M321 189 q-7 9 -14 4 M321 189 q7 9 14 4" fill="none" stroke="#2f4f45" stroke-width="4.5" stroke-linecap="round"/>
 </svg>

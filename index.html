@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Postä</title>
+<title>Purchase</title>
 <meta name="theme-color" content="#f7f7f4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121513" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Postä">
+<meta name="apple-mobile-web-app-title" content="Purchase">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -258,6 +258,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { parseUtterance } from './parser.js';
 import { CATEGORIES, resolveIcon, guessCategory, categoryColor, categoryIcon, suggestionKeywords } from './icons.js';
 import { ICON_SVGS } from './icon-svgs.js';
+import { createFinance } from './finance.js';
 const SB_URL='https://dzuhqugacawaqfcvayoa.supabase.co',SB_KEY='sb_publishable_1xtQRorof2bprnu3zU93pw_D-Z7qojE';
 const sb=createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,storage:window.localStorage}});
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -395,11 +396,11 @@ async function load(){await flush();
  const bad=[l,s,i].find(r=>r.error);if(bad){if(/permission|policy|42501|JWT/i.test(bad.error.code+bad.error.message)){const e=new Error('denied');e.denied=true;throw e}throw bad.error}
  if(queue.length)return;
  S.lists=l.data;S.stores=s.data;S.items=i.data;S.cat={};(c.data||[]).forEach(r=>S.cat[r.name_key]=r);S.token=v.data?.token||null;S.tokenRow=v.data||null;persist();loadCards()}
-async function refetch(){if(!S.user)return;try{await load();await ensureList();scheduleRender()}catch(e){if(e.denied)denied()}}
+async function refetch(){if(!S.user)return;FIN.load();try{await load();await ensureList();scheduleRender()}catch(e){if(e.denied)denied()}}
 async function ensureList(){if(!S.lists.length&&navigator.onLine){const l={id:uid(),name:'Einkauf',sort:1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l})}
  if(!S.lists.some(l=>l.id===S.listId))S.listId=S.lists[0]?.id||null;LS.set('pq.list',S.listId)}
 function subscribe(){if(chan)sb.removeChannel(chan);chan=sb.channel('postae');
- for(const t of['items','lists','stores'])chan.on('postgres_changes',{event:'*',schema:'public',table:t},p=>applyChange(t,p));chan.on('postgres_changes',{event:'*',schema:'public',table:'loyalty_cards'},applyCard);chan.on('postgres_changes',{event:'INSERT',schema:'public',table:'activity'},applyAct);chan.subscribe()}
+ for(const t of['items','lists','stores'])chan.on('postgres_changes',{event:'*',schema:'public',table:t},p=>applyChange(t,p));chan.on('postgres_changes',{event:'*',schema:'public',table:'loyalty_cards'},applyCard);chan.on('postgres_changes',{event:'INSERT',schema:'public',table:'activity'},applyAct);FIN.subscribe(chan);chan.subscribe()}
 function applyChange(t,p){const arr=t==='items'?S.items:t==='lists'?S.lists:S.stores;
  if(p.eventType==='DELETE'){const i=arr.findIndex(x=>x.id===p.old.id);if(i>=0)arr.splice(i,1)}
  else{const i=arr.findIndex(x=>x.id===p.new.id);if(i>=0)arr[i]=p.new;else arr.push(p.new)}
@@ -421,7 +422,7 @@ function tile(i,done){const dots=badges(i);
 function openItems(){let a=S.items.filter(i=>i.list_id===S.listId&&!i.done);if(S.filter)a=a.filter(i=>i.store_ids?.includes(S.filter)||(S.every&&!i.store_ids?.length));return a.sort((x,y)=>x.sort-y.sort)}
 function catList(items){const have=new Set(items.map(ecat));const order=[...S.catOrder,...CATS];const all=[...new Set([...order,...have])];return all.filter(c=>have.has(c))}
 function render(){if(!S.user)return;if(!$('#wrap'))buildShell();
- const l=S.lists.find(x=>x.id===S.listId);$('#listName').textContent=l?.name||'Postä';
+ const l=S.lists.find(x=>x.id===S.listId);$('#listName').textContent=l?.name||'Purchase';
  $('#viewBtn').innerHTML=ic(S.view==='grid'?'list':'grid');$('#viewBtn').setAttribute('aria-label',S.view==='grid'?'Listenansicht':'Kachelansicht');
  $('#grpBtn').classList.toggle('on',S.group);
  $('#chips').innerHTML=fbar();fitChips();S.pickRedraw?.();
@@ -501,7 +502,7 @@ function tapTile(t){const id=t.dataset.id,it=S.items.find(i=>i.id===id);if(!it||
  if(it.done){S.pop.add(id);upItem(id,{done:false,done_at:null,sort:nextSort(it.list_id)});return}
  completeTile(t,it)}
 function completeTile(t,it,quick){const id=it.id,sort0=it.sort;if(!quick){t.classList.add('chk');t.insertAdjacentHTML('beforeend',`<span class="ck">${CHK_SVG}</span>`);navigator.vibrate?.(8)}
- setTimeout(()=>{S.pop.add(id);upItem(id,{done:true,done_at:now()});toast(`${it.name.trim()} erledigt ·`,()=>{S.pop.add(id);upItem(id,{done:false,done_at:null,sort:sort0})})},quick?0:250)}
+ setTimeout(()=>{S.pop.add(id);upItem(id,{done:true,done_at:now()});FIN.checked(it);toast(`${it.name.trim()} erledigt ·`,()=>{S.pop.add(id);upItem(id,{done:false,done_at:null,sort:sort0})})},quick?0:250)}
 function beginDrag(x,y,moved){const el=G.el;unpress(el);const r=el.getBoundingClientRect();const g=el.cloneNode(true);g.classList.add('ghost');g.style.width=r.width+'px';g.style.height=r.height+'px';
  D={el,g,kind:G.kind,dx:x-r.left,dy:y-r.top,moved:!!moved,last:[x,y]};document.body.append(g);el.classList.add('dragging');S.drag=true;moveDrag(x,y);
  (function loop(){if(!D)return;const y=D.last[1];if(y<90)scrollBy(0,-10);else if(y>innerHeight-90)scrollBy(0,10);D.raf=requestAnimationFrame(loop)})()}
@@ -567,7 +568,7 @@ function storePicker(host,sel,{top=0}={}){const u={};if(top){for(const i of S.it
 function openDetail(id,newSpec){const it=S.items.find(i=>i.id===id);if(!it)return;const sel=new Set(it.store_ids||[]);
  const cats=[...new Set([...CATS,ecat(it)])],ec0=ecat(it),ri=resolveIcon(it.name,ec0);
  const b=sheet(`${shHead('Artikel bearbeiten','Speichern')}<div class="ap"><div class="ape" style="--cc:${categoryColor(ec0)}">${ri.matched||ec0!=='Sonstiges'?ICO(ri.icon):`<b class="ltr">${esc(it.name.charAt(0).toUpperCase())}</b>`}</div></div><label for="dn">Name</label><input id="dn" value="${esc(it.name)}" maxlength="80">${qtyHTML('dq',newSpec!==undefined?newSpec:it.spec)}<label for="dc">Kategorie</label><select id="dc">${cats.map(c=>`<option${c===ec0?' selected':''}>${esc(c)}</option>`).join('')}</select><div class="lbl">Foto</div><div id="dph"></div><div class="lbl">Geschäfte</div><div id="dst"></div><button type="button" class="btn danger" id="dd" style="width:100%;margin-top:20px">Löschen</button>`);
- storePicker($('#dst',b),sel);qtyInit(b,'dq');const ph=photoField($('#dph',b),{path:it.photo_path});
+ storePicker($('#dst',b),sel);qtyInit(b,'dq');FIN.detail(b,id);const ph=photoField($('#dph',b),{path:it.photo_path});
  $('#dd',b).onclick=()=>{delItem(id);closeSheet();toast('Gelöscht')};
  $('#ax',b).onclick=()=>closeSheet();
  const go=()=>{const name=$('#dn',b).value.trim()||it.name,spec=qtySpec(b,'dq'),category=$('#dc',b).value,store_ids=S.stores.filter(s=>sel.has(s.id)).map(s=>s.id);
@@ -768,7 +769,7 @@ function openShop(storeId){if(SM.o)return;const st=S.stores.find(x=>x.id===store
  o.addEventListener('click',smClick);o.addEventListener('pointerdown',smDrag);
  sb.functions.invoke('notify',{body:{type:'shopping',store:st?.name||null,store_id:st?.id||null}}).catch(()=>{});
  smWake();smRender()}
-function closeShop(){const o=SM.o;if(!o)return;SM.o=null;SM.wl?.release?.().catch?.(()=>{});SM.wl=null;o.classList.remove('open');setTimeout(()=>o.remove(),220)}
+function closeShop(){const o=SM.o;if(!o)return;const trip=[SM.store,[...SM.cart]];SM.o=null;FIN.shopEnd(trip[0],trip[1]);SM.wl?.release?.().catch?.(()=>{});SM.wl=null;o.classList.remove('open');setTimeout(()=>o.remove(),220)}
 addEventListener('keydown',e=>{if(e.key==='Escape'&&SM.o&&!S.sheets.length)closeShop()});
 function smRow(i,cls=''){const nw=SM.seen&&!SM.seen.has(i.id)?' new':'';
  return`<button type="button" class="smr${cls}${nw}" data-id="${i.id}" aria-label="${esc(i.name)}${cls?' wieder hinzufügen':' erledigt'}">${emo(i)}<span class="nm">${esc(i.name)}${i.spec?`<small>${esc(i.spec)}</small>`:''}</span>${renderThumb(i)}<span class="ck">${ic('check')}</span></button>`}
@@ -800,7 +801,7 @@ function smClick(e){const th=e.target.closest('.th[data-p]');if(th){openViewer(t
  const id=t.dataset.id;if(!id||t.dataset.busy)return;const it=S.items.find(x=>x.id===id);if(!it)return;
  if(it.done){SM.cart.delete(id);upItem(id,{done:false,done_at:null});return}
  t.dataset.busy='1';t.classList.add('out');navigator.vibrate?.(10);
- setTimeout(()=>{SM.cart.add(id);upItem(id,{done:true,done_at:now()})},260)}
+ setTimeout(()=>{SM.cart.add(id);upItem(id,{done:true,done_at:now()});FIN.checked(it)},260)}
 function smDrag(e){const h=e.target.closest('.sso .dh');if(!h||e.button>0)return;e.preventDefault();
  const row=h.closest('.sso'),list=row.parentElement,y0=e.clientY,top0=row.getBoundingClientRect().top;let ap=0;SM.drag=true;row.classList.add('drag');
  const mv=ev=>{const nat=row.getBoundingClientRect().top-ap;ap=ev.clientY-y0+(top0-nat);row.style.transform=`translateY(${ap}px)`;
@@ -827,11 +828,11 @@ async function npToggle(on){
  if(on){const perm=await Notification.requestPermission();if(perm!=='granted'){toast('Mitteilungen wurden nicht erlaubt');return}
   const reg=await navigator.serviceWorker.ready;const sub=(await reg.pushManager.getSubscription())||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:u8(VAPID)});await npSave(sub);NP.on=true}
  else{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(sub){await sb.from('push_subscriptions').delete().eq('endpoint',sub.endpoint);await sub.unsubscribe()}NP.on=false;NP.endpoint=null}}
-function npHTML(){const sup=npSupport(),hint={ios:'Auf iPhone zuerst zum Home-Bildschirm hinzufügen (Teilen → «Zum Home-Bildschirm»), dann hier Mitteilungen aktivieren.',unsupported:'Dieser Browser unterstützt keine Mitteilungen.',denied:'Mitteilungen sind blockiert. Erlaube sie in den Browser- oder Systemeinstellungen für Postä.'}[sup];
+function npHTML(){const sup=npSupport(),hint={ios:'Auf iPhone zuerst zum Home-Bildschirm hinzufügen (Teilen → «Zum Home-Bildschirm»), dann hier Mitteilungen aktivieren.',unsupported:'Dieser Browser unterstützt keine Mitteilungen.',denied:'Mitteilungen sind blockiert. Erlaube sie in den Browser- oder Systemeinstellungen für Purchase.'}[sup];
  const tg=(k,on,l,sm,lic)=>`<div class="sr"${lic?'':' style="--ins:16px"'}>${lic?`<span class="lic">${ic('bell')}</span>`:''}<span class="tx"${lic?'':' style="margin-left:16px"'}><span id="np-${k}">${l}</span><small>${sm}</small></span><button type="button" class="tgl" role="switch" data-np="${k}" aria-checked="${on}" aria-labelledby="np-${k}"${NP.busy?' disabled':''}><i></i></button></div>`;
  let h='';
  if(sup!=='ok')return h+`<div class="rows"><div class="sr emp" role="status" style="padding:12px 16px">${hint}</div></div>`;
- h+=`<div class="rows">${tg('main',NP.on,'Mitteilungen auf diesem Gerät','Push-Nachrichten von Postä',true)}`;
+ h+=`<div class="rows">${tg('main',NP.on,'Mitteilungen auf diesem Gerät','Push-Nachrichten von Purchase',true)}`;
  if(NP.on)h+=NPREFS.map(([k,l,sm])=>tg(k,!!NP.prefs[k],l,sm)).join('')+`<div class="sr"><button type="button" class="rb acc" data-np="test"><span class="tx" style="margin-left:0">Test-Mitteilung senden</span></button></div>`;
  return h+'</div>'}
 const npSum=()=>npSupport()!=='ok'?'Nicht verfügbar':NP.on?'An':'Aus';
@@ -843,11 +844,11 @@ async function npClick(t){const k=t.dataset.np;
  NP.busy=false}
 
 /* ---------- Einstellungen ---------- */
-function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false;const b=sheet('',{onClose:()=>{S.stRedraw=null;S.cardRedraw=null}});
+function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false;const b=sheet('',{onClose:()=>{S.stRedraw=null;S.cardRedraw=null;FIN.settingsMount(null)}});
  const SEC={listen:true,...LS.get('pq.sec',{})},isO=k=>!!SEC[k];
  const sec=(k,t,body,act='')=>{const o=isO(k);return`<section class="ds${o?' open':''}"><div class="sth"><button type="button" class="dsb" id="dh-${k}" data-sec="${k}" aria-expanded="${o}" aria-controls="dp-${k}">${ic('chevR')}<span class="dst">${t}</span><span class="dss" id="ds-${k}"></span></button>${act}</div><div class="dp" id="dp-${k}" role="region" aria-labelledby="dh-${k}"><div class="dpi">${body}</div></div></section>`};
  const sums=()=>{const set=(k,v)=>{const e=$('#ds-'+k,b);if(e)e.textContent=v},n=S.lists.length,ns=S.stores.length,f=S.stores.filter(x=>x.favorite).length,c=CARDS.length;
-  set('listen',`${n} ${n===1?'Liste':'Listen'}`);set('laden',`${ns} ${ns===1?'Laden':'Läden'} · ${f} ${f===1?'Favorit':'Favoriten'}`);set('karten',`${c} ${c===1?'Karte':'Karten'}`);set('mitt',npSum());set('voice',S.token?'Bereit':'–');set('konto',S.user?.email||'')};
+  set('listen',`${n} ${n===1?'Liste':'Listen'}`);set('laden',`${ns} ${ns===1?'Laden':'Läden'} · ${f} ${f===1?'Favorit':'Favoriten'}`);set('karten',`${c} ${c===1?'Karte':'Karten'}`);set('mitt',npSum());set('voice',S.token?'Bereit':'–');set('konto',S.user?.email||'');set('fin',FIN.sum())};
  const sRow=s=>{const fav=!!s.favorite,k=kindOf(s);return edit
   ?`<div class="sr" data-id="${s.id}"><button type="button" class="mn" data-a="rm" aria-label="${esc(s.name)} löschen"><span></span></button><button type="button" class="rb" data-a="ed" aria-label="${esc(s.name)}${fav?', Favorit':''}, bearbeiten">${avHTML(s)}<span class="tx">${esc(s.name)}<small>${k}</small></span>${fav?STAR:''}</button><button type="button" class="dh" data-a="mv" aria-label="${esc(s.name)} verschieben, mit Pfeiltasten hoch oder runter">${ic('grip')}</button></div>`
   :`<div class="sr" data-id="${s.id}"><button type="button" class="rb" data-a="ed" aria-label="${esc(s.name)}${fav?', Favorit':''}, bearbeiten">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${fav?STAR:''}${ic('chevR')}</button></div>`};
@@ -867,10 +868,12 @@ ${sec('laden','Läden',`<div class="srch" id="sbar">${ic('search')}<input id="sq
 ${sec('karten','Kundenkarten','<div id="kc"></div>')}
 ${sec('mitt','Mitteilungen','<div id="np"></div>')}
 ${sec('voice','Sprachassistent',`<div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">Dein Token<small class="mo">${esc(S.token||'– nicht verfügbar –')}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="Token kopieren">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">Endpunkt<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="Endpunkt-URL kopieren">${ic('copy')}</button></div></div>
-<div class="sf"><p><b>iPhone:</b> Kurzbefehl «Postä» anlegen: «Diktat» → «Inhalte von URL abrufen» (Methode POST, JSON mit <i>text</i> = Diktierter Text, Header <i>x-postae-token</i> = dein Token). Danach «Hey Siri, Postä».</p><p><b>Android:</b> «Hey Google, öffne Postä» oder App-Verknüpfung «Sprechen» – öffnet Postä mit <i>?voice=1</i> und startet die Spracheingabe.</p></div>`)}
-${sec('konto','Konto',`<div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">Abmelden</button></div></div>`)}`;drawStores();drawCards();drawPush();sums()};
+<div class="sf"><p><b>iPhone:</b> Kurzbefehl «Purchase» anlegen: «Diktat» → «Inhalte von URL abrufen» (Methode POST, JSON mit <i>text</i> = Diktierter Text, Header <i>x-postae-token</i> = dein Token). Danach «Hey Siri, Purchase».</p><p><b>Android:</b> «Hey Google, öffne Purchase» oder App-Verknüpfung «Sprechen» – öffnet Purchase mit <i>?voice=1</i> und startet die Spracheingabe.</p></div>`)}
+${sec('fin','Finanzen','<div id="fn"></div>')}
+${sec('konto','Konto',`<div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">Abmelden</button></div></div>`)}`;drawStores();drawCards();drawPush();drawFin();sums()};
  const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${esc(c.label)} anzeigen">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${esc(c.label)} bearbeiten">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">Karte hinzufügen</span></button></div></div><div class="sf">Tippe auf eine Karte, um sie an der Kasse zu zeigen. Lang drücken auf einen Laden zeigt dessen Karten.</div>`;sums()};
  S.cardRedraw=()=>drawCards();
+ const drawFin=()=>{const h=$('#fn',b);if(h)FIN.settingsMount(h)};
  const drawPush=()=>{const h=$('#np',b);if(h)h.innerHTML=npHTML();sums()};
  draw();npLoad().then(drawPush);
  b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;
@@ -969,7 +972,7 @@ function voiceOverlay(){const o=document.createElement('div');o.className='vo';o
  $('.mb',o).onclick=()=>{o.remove();startVoice()};$('#vx',o).onclick=()=>o.remove();document.body.append(o)}
 
 /* ---------- Auth ---------- */
-function showAuth(msg=''){document.body.classList.remove('in');$('#app').innerHTML=`<div class="auth"><img src="icon.svg" alt=""><h1>Postä</h1><p>Gemeinsame Einkaufsliste</p><form id="af"><input type="email" id="em" placeholder="E-Mail" autocomplete="email" required><input type="password" id="pw" placeholder="Passwort" autocomplete="current-password" minlength="6" required><div class="msg" id="am" role="alert">${esc(msg)}</div><button class="btn pri" id="si">Anmelden</button><button type="button" class="btn" id="su">Konto erstellen</button></form></div>`;
+function showAuth(msg=''){document.body.classList.remove('in');FIN.apply();$('#app').innerHTML=`<div class="auth"><img src="icon.svg" alt=""><h1>Purchase</h1><p>Gemeinsame Einkaufsliste</p><form id="af"><input type="email" id="em" placeholder="E-Mail" autocomplete="email" required><input type="password" id="pw" placeholder="Passwort" autocomplete="current-password" minlength="6" required><div class="msg" id="am" role="alert">${esc(msg)}</div><button class="btn pri" id="si">Anmelden</button><button type="button" class="btn" id="su">Konto erstellen</button></form></div>`;
  const m=(t,ok)=>{const e=$('#am');e.textContent=t;e.className='msg'+(ok?' ok':'')};
  $('#af').onsubmit=async e=>{e.preventDefault();m('');const{data,error}=await sb.auth.signInWithPassword({email:$('#em').value.trim(),password:$('#pw').value});
   if(error){m(/confirm/i.test(error.message)?'Bitte zuerst die Bestätigungsmail öffnen.':'E-Mail oder Passwort falsch.');return}S.user=data.user;start()};
@@ -978,16 +981,17 @@ function showAuth(msg=''){document.body.classList.remove('in');$('#app').innerHT
   if(error){m(/password/i.test(error.message)?'Passwort zu schwach (min. 6 Zeichen).':/already|registered/i.test(error.message)?'Konto existiert bereits – bitte anmelden.':'Kein Zugriff');return}
   if(data.session){S.user=data.user;start()}else m('Bestätigungsmail prüfen, dann hier anmelden.',true)}}
 
+const FIN=createFinance({sb,S,$,$$,esc,LS,uid,now,toast,sheet,closeSheet,enqueue,avHTML,ICO,ecat,categoryColor,categoryIcon,guessCategory,shHead,askConfirm,who,inShop:()=>!!SM.o,pending:()=>queue.length});
 /* ---------- Start ---------- */
 let started=false;
 async function start(){const c=LS.get('pq.cache',null);if(c){Object.assign(S,{lists:c.lists||[],stores:c.stores||[],items:c.items||[],cat:c.cat||{},token:c.token||null})}
  if(!S.lists.some(l=>l.id===S.listId))S.listId=S.lists[0]?.id||null;buildShell();render();subscribe();
- try{await load();await ensureList();render()}catch(e){if(e.denied){denied();return}toast('Offline – zuletzt gespeicherter Stand')}
+ FIN.load();try{await load();await ensureList();render()}catch(e){if(e.denied){denied();return}toast('Offline – zuletzt gespeicherter Stand')}
  flush();
  if(!started){started=true;const add=P.get('add'),v=P.get('voice');if(add||v){history.replaceState(null,'',location.pathname+location.hash)}
   if(add)addFromText(add);if(v==='1')voiceOverlay()}}
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
-sb.auth.onAuthStateChange(ev=>{if(ev==='SIGNED_OUT'&&S.user){S.user=null;localStorage.removeItem('pq.cache');queue=[];LS.set('pq.queue',[]);started=false;if(chan)sb.removeChannel(chan);chan=null;showAuth()}});
+sb.auth.onAuthStateChange(ev=>{if(ev==='SIGNED_OUT'&&S.user){S.user=null;FIN.reset();localStorage.removeItem('pq.cache');queue=[];LS.set('pq.queue',[]);started=false;if(chan)sb.removeChannel(chan);chan=null;showAuth()}});
 (async()=>{const{data:{session}}=await sb.auth.getSession();if(session){S.user=session.user;start()}else showAuth()})();
 </script>
 </body>
