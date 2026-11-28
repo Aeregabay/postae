@@ -1,1 +1,19 @@
-{}
+{
+ "account.logout": "Afmelden",
+ "auth.signin": "Aanmelden",
+ "auth.signup": "Account aanmaken",
+ "auth.err_confirm": "Open eerst de bevestigingsmail.",
+ "auth.err_bad": "E-mailadres of wachtwoord is niet correct.",
+ "auth.err_exists": "Account bestaat al – meld je aan.",
+ "auth.check_mail": "Check je bevestigingsmail en meld je daarna hier aan.",
+ "kind.hardware": "Doe-het-zelf",
+ "cat.tools": "Gereedschap & doe-het-zelf",
+ "cat.stationery": "Schrijfwaren & kantoor",
+ "cat.snacks": "Snacks & snoepgoed",
+ "shop.all_in_cart": "Alles in het karretje ✓",
+ "shop.in_cart": "In het karretje",
+ "fin.card_title_shop": "Boodschappen {shop}: totaal volgens kasticket?",
+ "voice.example": "bijv. «Melk, 2 bananen en brood bij Delhaize»",
+ "card.label_ph": "bijv. Colruyt Xtra Arik",
+ "card.hint": "Tik op een kaart om ze aan de kassa te tonen. Een winkel lang indrukken toont de bijbehorende kaarten."
+}
