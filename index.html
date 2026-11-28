@@ -169,6 +169,7 @@ code,.code{display:block;font:13px ui-monospace,Menlo,monospace;background:var(-
 .rb>svg.i{width:18px;height:18px;color:var(--mut);opacity:.6}
 .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px}
 .tx small{display:block;margin-top:1px;font-size:12.5px;line-height:1.3;color:var(--mut);white-space:normal}
+.tx.lb{flex:none;max-width:48%}.rb .val{flex:1 1 auto;min-width:0;margin-left:12px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;color:var(--mut)}
 .tx small.mo{font:12.5px ui-monospace,Menlo,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ct{color:var(--mut);font-size:15px;font-variant-numeric:tabular-nums}
 .lic{flex:none;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--acc-s);color:var(--acc-d);font-size:20px}.lic svg.i{width:18px;height:18px}.lic.pl{background:var(--acc);color:var(--on)}
@@ -355,7 +356,7 @@ function upItem(id,patch){const it=S.items.find(i=>i.id===id);if(!it)return;Obje
 function nextSort(lid){return S.items.filter(i=>i.list_id===lid).reduce((m,i)=>Math.max(m,i.sort||0),0)+1}
 function putCatalog(name,category,store_ids,inc){const key=name.toLowerCase().trim();const old=S.cat[key];
  const row={name_key:key,name:old?.name||name,category,store_ids,uses:(old?.uses||0)+(inc?1:0),last_used:now()};S.cat[key]=row;enqueue({t:'catalog',o:'upsert',k:'name_key',d:row})}
-function toast(msg,undo){const t=$('#toast');t.innerHTML=`<span>${esc(msg)}</span>${undo?`<button>${E('common.undo')}</button>`:''}`;t.classList.add('show');if(undo)t.querySelector('button').onclick=()=>{undo();t.classList.remove('show')};clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),undo?5000:2600)}
+function toast(msg,undo,label){const t=$('#toast');t.innerHTML=`<span>${esc(msg)}</span>${undo?`<button>${label?esc(label):E('common.undo')}</button>`:''}`;t.classList.add('show');if(undo)t.querySelector('button').onclick=()=>{undo();t.classList.remove('show')};clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),label?8000:undo?5000:2600)}
 
 /* ---------- Hinzufügen ---------- */
 function addMany(list,storeIds){const lid=S.listId;if(!lid)return{created:[],react:[],skipped:0};const created=[],react=[];let skipped=0;
@@ -897,17 +898,40 @@ async function openCatalog(){const R=REG(),cs=R.countries,b=sheet('');
 function firstRunCatalog(){if(S.stores.length||!navigator.onLine||LS.get('pq.catSeen',false))return;LS.set('pq.catSeen',true);openCatalog()}
 
 /* ---------- Einstellungen ---------- */
-function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false,pending=false,offLang=()=>{};const b=sheet('',{onClose:()=>{offLang();S.rgRedraw=null;if(pending){pending=false;setTimeout(openCatalog,350)}S.stRedraw=null;S.cardRedraw=null;FIN.settingsMount(null)}});
+function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false,offLang=()=>{};const b=sheet('',{onClose:()=>{offLang();S.rgRedraw=null;S.stRedraw=null;S.cardRedraw=null;FIN.settingsMount(null)}});
  const SEC={listen:true,...LS.get('pq.sec',{})},isO=k=>!!SEC[k];
  const sec=(k,t,body,act='')=>{const o=isO(k);return`<section class="ds${o?' open':''}"><div class="sth"><button type="button" class="dsb" id="dh-${k}" data-sec="${k}" aria-expanded="${o}" aria-controls="dp-${k}">${ic('chevR')}<span class="dst">${esc(t)}</span><span class="dss" id="ds-${k}"></span></button>${act}</div><div class="dp" id="dp-${k}" role="region" aria-labelledby="dh-${k}"><div class="dpi">${body}</div></div></section>`};
  const sums=()=>{const set=(k,v)=>{const e=$('#ds-'+k,b);if(e)e.textContent=v},n=S.lists.length,ns=S.stores.length,f=S.stores.filter(x=>x.favorite).length,c=CARDS.length;
   set('listen',TP('sum.lists',n));set('laden',TP('sum.stores',ns)+' · '+TP('sum.favs',f));set('karten',TP('sum.cards',c));set('mitt',npSum());set('voice',S.token?T('sum.ready'):'–');set('lang',LANGS.find(x=>x.code===getLang())?.name||'');set('konto',S.user?.email||'');set('fin',FIN.sum())};
- const regionHTML=()=>{const R=REG(),cs=R.countries,rest=COUNTRIES.filter(c=>!cs.includes(c)).sort((a,c)=>cName(a).localeCompare(cName(c),locale()));
-  const row=(c,i)=>{const on=cs.includes(c),pr=on&&i===0;return`<div class="sr"><button type="button" class="rb" role="checkbox" aria-checked="${on}" data-co="${c}"><span class="lic" aria-hidden="true">${flag(c)}</span><span class="tx">${esc(cName(c))}${pr?`<small>${E('region.primary')}</small>`:''}</span>${on?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button>${on&&!pr?`<button type="button" class="tl" data-pri="${c}">${E('region.make_primary')}</button>`:''}</div>`};
-  const seg=cs.filter(c=>SUBS[c]).map(c=>`<label id="rl-${c}">${esc(cName(c))} · ${E('region.region')}</label><div class="chips" role="radiogroup" aria-labelledby="rl-${c}">${SUBS[c].map(x=>`<button type="button" class="chip${subOf(c)===x?' on':''}" role="radio" aria-checked="${subOf(c)===x}" data-sub="${c}:${x}">${E('region.'+c.toLowerCase()+'.'+x)}</button>`).join('')}</div>`).join('');
-  return`<label id="rcl">${E('region.countries')}</label><div class="rows" role="group" aria-labelledby="rcl">${[...cs,...rest].map(row).join('')}</div>${seg}<div class="sf">${E('region.hint')}</div>${pending?`<div class="rows" style="margin-top:12px"><div class="sr"><button type="button" class="rb acc" data-a="sugg"><span class="lic pl">${ic('plus')}</span><span class="tx">${E('region.suggest')}</span></button></div></div>`:''}`};
+ const curLang=()=>LANGS.find(x=>x.code===getLang())?.name||'';
+ const homeVal=()=>{const c=REG().countries[0],x=subOf(c);return flag(c)+' '+cName(c)+(x?' · '+T('region.'+c.toLowerCase()+'.'+x):'')};
+ const extraVal=()=>{const x=REG().countries.slice(1);return x.length?x.map(flag).join(' '):T('region.none')};
+ const regionHTML=()=>{const row=(a,l,v)=>`<div class="sr"><button type="button" class="rb" data-a="${a}"><span class="tx lb">${E(l)}</span><span class="val">${esc(v)}</span>${ic('chevR')}</button></div>`;
+  return`<div class="rows">${row('plang','lang.language',curLang())}${row('phome','region.home',homeVal())}${row('pextra','region.extra',extraVal())}<div class="sr"><button type="button" class="rb acc" data-a="cat"><span class="lic pl">${ic('list')}</span><span class="tx">${E('catalog.add_btn')}</span></button></div></div>`};
  const drawRegion=()=>{const h=$('#rg',b);if(h)h.innerHTML=regionHTML()};
  const applyRegion=(cs,subs)=>{saveRegion(cs,subs);drawRegion()};
+ const offerCat=c=>toast(T('region.suggest_toast',{name:cName(c)}),()=>openCatalog(),T('region.suggest_act'));
+ const pickLang=()=>{const lb=sheet('');lb.innerHTML=`<div class="shh"><span></span><h3>${E('lang.language')}</h3><button type="button" class="tb ok" id="ao">${E('common.done')}</button></div><div class="rows" role="radiogroup" aria-label="${E('lang.language')}">${LANGS.map(l=>`<div class="sr"><button type="button" class="rb" role="radio" aria-checked="${l.code===getLang()}" data-lang="${l.code}" lang="${esc(l.locale)}"><span class="tx">${esc(l.name)}</span>${l.code===getLang()?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button></div>`).join('')}</div>`;
+  lb.onclick=async e=>{const t=e.target.closest('button');if(!t)return;if(t.id==='ao'){closeSheet();return}if(t.dataset.lang){await setLang(t.dataset.lang);closeSheet()}}};
+ const pickCountry=(mode,done)=>{const R0=REG(),ex=mode==='home'?[]:R0.countries,sel=mode==='home'?R0.countries[0]:null,pb=sheet('');let qq='';
+  const all=COUNTRIES.filter(c=>!ex.includes(c)).sort((x,y)=>cName(x).localeCompare(cName(y),locale()));
+  const list=()=>{const t=norm(qq),m=all.filter(c=>!t||norm(cName(c)).includes(t)),h=$('#cl',pb);
+   h.innerHTML=m.length?`<div class="rows" role="radiogroup" aria-label="${E(mode==='home'?'region.home':'region.add_country')}">${m.map(c=>`<div class="sr"><button type="button" class="rb" role="radio" aria-checked="${c===sel}" data-pc="${c}"><span class="lic" aria-hidden="true">${flag(c)}</span><span class="tx">${esc(cName(c))}</span>${c===sel?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button></div>`).join('')}</div>`:`<div class="rows"><div class="sr emp" role="status">${E('region.none_found')}</div></div>`};
+  pb.innerHTML=`<div class="shh"><button type="button" class="tb" id="ax">${E('common.cancel')}</button><h3>${E(mode==='home'?'region.pick_home':'region.add_country')}</h3><span></span></div><div class="srch">${ic('search')}<input id="cq2" type="search" placeholder="${E('region.search')}" aria-label="${E('region.search')}" autocomplete="off" enterkeyhint="search"></div><div id="cl"></div>`;
+  list();$('#cq2',pb).oninput=e=>{qq=e.target.value;list()};
+  const fin=(c,x)=>{const R=REG(),subs={...R.subs};if(x)subs[c]=x;const cs=mode==='home'?[c,...R.countries.slice(1).filter(y=>y!==c)]:[...R.countries.filter(y=>y!==c),c];applyRegion(cs,subs);closeSheet();done?.();offerCat(c)};
+  pb.onclick=e=>{const t=e.target.closest('button');if(!t)return;
+   if(t.id==='ax'){closeSheet();return}
+   if(t.dataset.pc){const c=t.dataset.pc;if(!SUBS[c]){fin(c);return}
+    pb.innerHTML=`<div class="shh"><button type="button" class="tb" id="ax">${E('common.cancel')}</button><h3>${esc(cName(c))} · ${E('region.region')}</h3><span></span></div><div class="rows" role="radiogroup" aria-label="${E('region.region')}">${SUBS[c].map(x=>`<div class="sr"><button type="button" class="rb" role="radio" aria-checked="${subOf(c)===x&&REG().countries.includes(c)}" data-ps="${c}:${x}"><span class="tx">${E('region.'+c.toLowerCase()+'.'+x)}</span>${subOf(c)===x&&REG().countries.includes(c)?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button></div>`).join('')}</div>`;return}
+   if(t.dataset.ps){const[c,x]=t.dataset.ps.split(':');fin(c,x)}}};
+ const openExtra=()=>{const xb=sheet('',{onClose:()=>{S.xRedraw=null}});
+  const d=()=>{const cs=REG().countries.slice(1);xb.innerHTML=`<div class="shh"><span></span><h3>${E('region.extra')}</h3><button type="button" class="tb ok" id="ao">${E('common.done')}</button></div><div class="sf" style="margin-top:0">${E('region.extra_hint')}</div><div class="rows ed">${cs.map(c=>{const x=subOf(c);return`<div class="sr"><button type="button" class="mn" data-rm="${c}" aria-label="${E('region.remove_aria',{name:cName(c)})}"><span></span></button><span class="lic" aria-hidden="true">${flag(c)}</span><span class="tx">${esc(cName(c))}${x?`<small>${E('region.'+c.toLowerCase()+'.'+x)}</small>`:''}</span></div>`}).join('')}<div class="sr"><button type="button" class="rb acc" data-a="addc"><span class="lic pl">${ic('plus')}</span><span class="tx">${E('region.add_country')}</span></button></div></div>`};
+  d();S.xRedraw=d;
+  xb.onclick=e=>{const t=e.target.closest('button');if(!t)return;
+   if(t.id==='ao'){closeSheet();return}
+   if(t.dataset.rm){const R=REG();applyRegion(R.countries.filter(c=>c!==t.dataset.rm),R.subs);d();return}
+   if(t.dataset.a==='addc')pickCountry('extra',d)}};
  S.rgRedraw=drawRegion;
  const sRow=s=>{const fav=!!s.favorite,k=kindOf(s);return edit
   ?`<div class="sr" data-id="${s.id}"><button type="button" class="mn" data-a="rm" aria-label="${E('store.delete_aria',{name:s.name})}"><span></span></button><button type="button" class="rb" data-a="ed" aria-label="${E('store.edit_aria',{name:s.name,fav:fav?T('store.fav_suffix'):''})}">${avHTML(s)}<span class="tx">${esc(s.name)}<small>${esc(kindName(k))}</small></span>${fav?STAR:''}</button><button type="button" class="dh" data-a="mv" aria-label="${E('store.move_aria',{name:s.name})}">${ic('grip')}</button></div>`
@@ -930,7 +954,7 @@ ${sec('mitt',T('sec.notifs'),'<div id="np"></div>')}
 ${sec('voice',T('sec.voice'),`<div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">${E('voice.token')}<small class="mo">${esc(S.token||T('voice.token_none'))}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="${E('voice.copy_token')}">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">${E('voice.endpoint')}<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="${E('voice.copy_endpoint')}">${ic('copy')}</button></div></div>
 <div class="sf"><p>${T('voice.ios')}</p><p>${T('voice.android')}</p></div>`)}
 ${sec('fin',T('sec.fin'),'<div id="fn"></div>')}
-${sec('lang',T('sec.lang'),`<div class="rows" role="radiogroup" aria-label="${E('lang.language')}">${LANGS.map(l=>`<div class="sr"><button type="button" class="rb" role="radio" aria-checked="${l.code===getLang()}" data-lang="${l.code}" lang="${esc(l.locale)}"><span class="tx">${esc(l.name)}</span>${l.code===getLang()?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button></div>`).join('')}</div><div id="rg" style="margin-top:12px">${regionHTML()}</div>`)}
+${sec('lang',T('sec.lang'),`<div id="rg">${regionHTML()}</div>`)}
 ${sec('konto',T('sec.account'),`<div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">${E('account.logout')}</button></div></div>`)}`;drawStores();drawCards();drawPush();drawFin();sums()};
  const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${E('card.view_aria',{label:c.label})}">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${E('card.edit_aria',{label:c.label})}">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">${E('card.add')}</span></button></div></div><div class="sf">${E('card.hint')}</div>`;sums()};
  S.cardRedraw=()=>drawCards();
@@ -940,10 +964,6 @@ ${sec('konto',T('sec.account'),`<div class="rows"><div class="sr"><span class="l
  b.onclick=async e=>{const t=e.target.closest('button');if(!t)return;
   if(t.id==='ao'){closeSheet();return}
   if(t.dataset.sec){const k=t.dataset.sec,o=!SEC[k];SEC[k]=o;LS.set('pq.sec',SEC);t.closest('.ds').classList.toggle('open',o);t.setAttribute('aria-expanded',o);if(k==='laden'){$('#eb',b).hidden=!o;if(!o&&edit){edit=false;drawStores()}}return}
-  if(t.dataset.lang){await setLang(t.dataset.lang);return}
-  if(t.dataset.co){const c=t.dataset.co,R=REG();let cs=[...R.countries];if(cs.includes(c)){if(cs.length>1)cs=cs.filter(x=>x!==c)}else{cs.push(c);pending=true}applyRegion(cs,R.subs);$(`[data-co="${c}"]`,b)?.focus({preventScroll:true});return}
-  if(t.dataset.pri){const R=REG();applyRegion([t.dataset.pri,...R.countries.filter(x=>x!==t.dataset.pri)],R.subs);return}
-  if(t.dataset.sub){const[c,x]=t.dataset.sub.split(':'),R=REG();pending=true;applyRegion(R.countries,{...R.subs,[c]:x});return}
   if(t.dataset.cv){const c=CARDS.find(x=>x.id===t.dataset.cv);if(c)viewCard(c);return}
   if(t.dataset.ce!==undefined){openCard(t.dataset.ce||null);return}
   if(t.id==='eb'){edit=!edit;drawStores();return}
@@ -955,7 +975,10 @@ ${sec('konto',T('sec.account'),`<div class="rows"><div class="sr"><span class="l
   else if(a==='nl'){const n=await askText(T('lists.new'),'',T('common.create'));if(n){const l={id:uid(),name:n,sort:(S.lists.at(-1)?.sort||0)+1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l});render();draw()}}
   else if(a==='ed'&&s)openStore(s.id);
   else if(a==='add')openStore();
-  else if(a==='cat'||a==='sugg'){pending=false;openCatalog()}
+  else if(a==='cat')openCatalog();
+  else if(a==='plang')pickLang();
+  else if(a==='phome')pickCountry('home');
+  else if(a==='pextra')openExtra();
   else if(a==='rm'&&s)askDelStore(s);
   else if(a==='lo'){closeSheet();await flush();await sb.auth.signOut()}};
  b.oninput=e=>{if(e.target.id==='sq2'){q=e.target.value;drawStores()}};
