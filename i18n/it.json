@@ -248,8 +248,6 @@
  "voice.example": "es. «Latte, 2 banane e pane da Migros»",
  "account.logout": "Esci",
  "lang.language": "Lingua",
- "lang.country": "Paese",
- "lang.country_soon": "presto disponibile",
  "auth.tagline": "Lista della spesa condivisa",
  "auth.email": "E-mail",
  "auth.password": "Password",
@@ -393,5 +391,42 @@
   "one": "Insieme come unico scontrino ({count})",
   "other": "Insieme come unico scontrino ({count})"
  },
- "shell.view_switch": "Cambia vista"
+ "shell.view_switch": "Cambia vista",
+ "kind.discounter": "Discount",
+ "kind.clothing": "Abbigliamento",
+ "kind.online": "Online",
+ "kind.electronics": "Elettronica",
+ "kind.furniture": "Mobili",
+ "kind.pets": "Animali",
+ "kind.sport": "Sport",
+ "region.countries": "Paesi",
+ "region.primary": "Paese principale",
+ "region.make_primary": "Imposta come paese principale",
+ "region.region": "Regione",
+ "region.ch.de": "Svizzera tedesca",
+ "region.ch.fr": "Svizzera romanda",
+ "region.ch.it": "Ticino",
+ "region.be.nl": "Fiandre",
+ "region.be.fr": "Vallonia-Bruxelles",
+ "region.hint": "Vale per tutta la famiglia.",
+ "region.suggest": "Suggerisci negozi per questa selezione",
+ "catalog.title": "Negozi dal catalogo",
+ "catalog.add_btn": "Aggiungi negozi dal catalogo",
+ "catalog.top20": "Seleziona la top 20",
+ "catalog.all": "Tutti",
+ "catalog.none": "Nessuno",
+ "catalog.top": "Top",
+ "catalog.exists": "già presente",
+ "catalog.empty_country": "Ancora nessun negozio per questo paese",
+ "catalog.loading": "Caricamento del catalogo…",
+ "catalog.error": "Impossibile caricare il catalogo",
+ "catalog.change": "Cambia paese e regione",
+ "catalog.add_n": {
+  "one": "Aggiungi {count} negozio",
+  "other": "Aggiungi {count} negozi"
+ },
+ "catalog.added": {
+  "one": "{count} negozio aggiunto",
+  "other": "{count} negozi aggiunti"
+ }
 }

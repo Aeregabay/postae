@@ -1,3 +1,4 @@
+import {ICON_SVGS} from './icon-svgs.js';
 // Postä icon resolver: SVG icon key (see icon-svgs.js) + category per item name. Emoji kept as optional fallback. Browser/Node, no deps.
 export const CATEGORIES=[
 {name:'Früchte & Gemüse',emoji:'🥬',icon:'carrot',color:'#5BAF5F'},
@@ -60,22 +61,40 @@ const DATA=[
 ['Sport & Freizeit',`:soccer fussball ball volleyball basketball tennisball :barbell hantel gewicht yogamatte fitnessband gymnastikmatte :run laufschuhe sportschuhe trikot :swim badekappe schwimmbrille :tent zelt schlafsack campingstuhl campinggas :ski ski skihelm snowboard :fishing angel :mountain kletterseil magnesia :tennis tischtennis tennisschläger badminton federball :hiking wanderschuhe wanderstock :backpack trinkflasche :volleyball pumpe ballpumpe :guitar gitarre gitarrensaiten :dice würfel karten kartenspiel :news zeitschrift zeitung magazin`],
 ['Auto & Velo',`:bike velo fahrrad veloschlauch veloflickzeug velopumpe velohelm velolicht veloschloss fahrradschloss fahrradhelm fahrradlicht kettenöl kettenspray veloketten :car auto autoshampoo scheibenwischer frostschutz scheibenreiniger motoröl vignette autoteppich warndreieck :tire reifen pneu :battery starthilfekabel :ice eiskratzer :parking parkscheibe :scooter trottinett roller :bottle autopflege lederpflege`]];
 
-const IDX=new Map();let MAXL=0;
 const nrmAE=s=>s.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]/g,'');
 const nrmFold=s=>s.toLowerCase().replace(/ä/g,'a').replace(/ö/g,'o').replace(/ü/g,'u').replace(/ß/g,'ss').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z]/g,'');
-export const KEYWORDS=[];
-const SEEN=new Set();
-for(const[cat,str]of[...SPEC,...DATA]){let ic=CMAP[cat].icon;
- for(const t of str.split(/\s+/)){if(!t)continue;if(t[0]===':'){ic=t.slice(1);continue}
-  const v={icon:ic,emoji:EMOJI_OF[ic]||CMAP[cat].emoji,category:cat,kw:t};if(!SEEN.has(t)){SEEN.add(t);KEYWORDS.push(v)}
-  for(const k of new Set([nrmAE(t),nrmFold(t)])){if(k.length<2)continue;if(!IDX.has(k))IDX.set(k,v);MAXL=Math.max(MAXL,k.length)}}}
+const nrmDefault=s=>s.toLowerCase().replace(/ß/g,'ss').replace(/ł/g,'l').replace(/đ/g,'d').replace(/ø/g,'o').replace(/æ/g,'ae').replace(/œ/g,'oe').normalize('NFD').replace(/\p{M}/gu,'').replace(/[^\p{L}\p{N}]/gu,'');
+const DE_ENDS=['en','n','e','s','er','nen','se'];
+const deForms=w=>{const o=[];if(w.length>3)for(const e of DE_ENDS)if(w.endsWith(e)&&w.length-e.length>=3)o.push(w.slice(0,-e.length));return o};
+const enForms=w=>{const o=[];if(w.length>3){if(w.endsWith('ies'))o.push(w.slice(0,-3)+'y');if(w.endsWith('ves'))o.push(w.slice(0,-3)+'f');if(w.endsWith('es')&&w.length>4)o.push(w.slice(0,-2));if(w.endsWith('s'))o.push(w.slice(0,-1))}return o};
+const roForms=w=>{const o=[];if(w.length>3){if(w.endsWith('aux'))o.push(w.slice(0,-3)+'al');if(w.endsWith('es')&&w.length>4)o.push(w.slice(0,-2));if(w.endsWith('s')||w.endsWith('x'))o.push(w.slice(0,-1))}return o};
+const DEFAULT_FORMS={suffix:deForms,last:enForms,first:roForms};
+const noGlobal=r=>r instanceof RegExp?new RegExp(r.source,r.flags.replace(/[gy]/g,'')):r;
 
-const SPLIT=/^(für|fuer|fürs|fuers|zum|zur|mit|aus|von|ohne|und|&)$/i;
-const ENDS=['en','n','e','s','er','nen','se'];
-const forms=w=>{const o=new Set([w]);if(w.length>3)for(const e of ENDS)if(w.endsWith(e)&&w.length-e.length>=3)o.add(w.slice(0,-e.length));return[...o]};
-function wordVariants(word){const a=nrmAE(word),b=nrmFold(word);const s=new Set();for(const w of new Set([a,b]))if(w.length>=2)for(const f of forms(w))s.add(f);return[...s]}
+// Build a lookup table. pack: {DATA:[[cat,str]...], HEAD, SPLIT, MODS, STORE, norms:[fn...]|normalize:fn, forms}
+function buildTable(lang,pack){
+ const bad=m=>{throw new Error(`registerIcons("${lang}"): ${m}`)};
+ if(!pack||typeof pack!=='object')bad('pack must be an object');
+ const HEAD=pack.HEAD||'suffix';if(!DEFAULT_FORMS[HEAD])bad(`HEAD must be 'suffix' | 'last' | 'first' (got ${JSON.stringify(pack.HEAD)})`);
+ if(!Array.isArray(pack.DATA)||!pack.DATA.length)bad('DATA must be a non-empty array of [categoryId, "<:icon word ...>"]');
+ if(!(pack.SPLIT instanceof RegExp))bad('SPLIT must be a RegExp');
+ const MODS=(pack.MODS||[]).map(([r,c],i)=>{if(!(r instanceof RegExp))bad(`MODS[${i}][0] must be a RegExp`);if(!CMAP[c])bad(`MODS[${i}]: unknown category "${c}"`);return[noGlobal(r),c]});
+ const STORE=pack.STORE||{};for(const[k,c]of Object.entries(STORE))if(!CMAP[c])bad(`STORE["${k}"]: unknown category "${c}"`);
+ const norms=pack.norms||[pack.normalize||nrmDefault];
+ const forms=pack.forms||DEFAULT_FORMS[HEAD];
+ const IDX=new Map(),KEYWORDS=[],SEEN=new Set();let MAXL=0;
+ const iconOk=k=>ICON_SVGS[k]||EMOJI_OF[k];
+ pack.DATA.forEach((g,gi)=>{if(!Array.isArray(g)||typeof g[1]!=='string')bad(`DATA[${gi}] must be [categoryId, string]`);const[cat,str]=g;
+  if(!CMAP[cat])bad(`DATA[${gi}]: unknown category "${cat}"`);
+  let ic=CMAP[cat].icon;
+  for(const t of str.split(/\s+/)){if(!t)continue;if(t[0]===':'){ic=t.slice(1);if(!iconOk(ic))bad(`DATA[${gi}] (${cat}): unknown icon key "${ic}"`);continue}
+   const v={icon:ic,emoji:EMOJI_OF[ic]||CMAP[cat].emoji,category:cat,kw:t};if(!SEEN.has(t)){SEEN.add(t);KEYWORDS.push(v)}
+   for(const k of new Set(norms.map(n=>n(t)))){if(k.length<2)continue;if(!IDX.has(k))IDX.set(k,v);MAXL=Math.max(MAXL,k.length)}}});
+ return{IDX,MAXL,MODS,SPLIT:noGlobal(pack.SPLIT),STORE,KEYWORDS,cache:new Map(),HEAD,norms,forms};
+}
+function wordVariants(word,T){const s=new Set();for(const n of new Set(T.norms.map(f=>f(word))))if(n.length>=2){s.add(n);for(const f of T.forms(n))if(f&&f.length>=2)s.add(f)}return[...s]}
 
-function matchWord(word,stage,T){const{IDX,MAXL}=T,vs=wordVariants(word);
+function matchWord(word,stage,T){const{IDX,MAXL}=T,vs=wordVariants(word,T);
  if(stage===1){for(const v of vs){const h=IDX.get(v);if(h)return h}return null}
  if(stage===2){let best=null,bl=0;for(const v of vs)for(let L=Math.min(v.length-1,MAXL);L>=3&&L>bl;L--){const h=IDX.get(v.slice(-L));if(h){best=h;bl=L;break}}return best}
  let best=null,bl=3;
@@ -84,24 +103,36 @@ function matchWord(word,stage,T){const{IDX,MAXL}=T,vs=wordVariants(word);
  for(const v of vs)for(let L=Math.min(v.length-1,MAXL);L>bl;L--){for(let i=1;i+L<=v.length;i++){const h=IDX.get(v.slice(i,i+L));if(h){best=h;bl=L;break}}}
  return best}
 
-const MODS=[[/^(katzen|hunde|vogel|tier|nager)/,'Tierbedarf'],[/^(velo|fahrrad|auto|pneu)/,'Auto & Velo'],[/^(baby|kinder)/,'Baby & Kind'],[/^garten/,'Garten & Pflanzen']];
-const cache=new Map();
-export function matchKeyword(name,lang='de'){const T=tbl(lang),{IDX,MODS,SPLIT,cache}=T,raw=String(name||'').trim();if(!raw)return null;const ck=raw.toLowerCase();if(cache.has(ck))return cache.get(ck);
- let words=raw.match(/[\p{L}][\p{L}-]*/gu)||[];const cut=words.findIndex((w,i)=>i>0&&SPLIT.test(w));if(cut>0)words=words.slice(0,cut);
- const parts=words.flatMap(w=>w.includes('-')&&!IDX.has(nrmAE(w))?[w,...w.split('-')]:[w]);
- let hit=null;const joined=parts.join('');if(parts.length>1)hit=IDX.get(nrmAE(joined))||null;
- let stg=0,hw='';for(const st of[1,2,3]){if(hit)break;for(const w of parts){hit=matchWord(w,st,T);if(hit){stg=st;hw=nrmAE(w);break}}}
- // Head noun decides the icon (suffix match first); a leading modifier (katzen-, velo-, ...) may still decide the category.
- if(hit&&stg>=2){for(const[re,c]of MODS){const m=hw.match(re);if(m&&hw.length>=m[0].length+4){if(c!==hit.category)hit={...hit,category:c};break}}}
+const DE_MODS=[[/^(katzen|hunde|vogel|tier|nager)/,'Tierbedarf'],[/^(velo|fahrrad|auto|pneu)/,'Auto & Velo'],[/^(baby|kinder)/,'Baby & Kind'],[/^garten/,'Garten & Pflanzen']];
+const DE_STORE={baumarkt:'Werkzeug & Baumarkt',hornbach:'Werkzeug & Baumarkt',jumbo:'Werkzeug & Baumarkt',obi:'Werkzeug & Baumarkt',bauhaus:'Werkzeug & Baumarkt',drogerie:'Körperpflege',dm:'Körperpflege',müller:'Körperpflege',mueller:'Körperpflege',wohnen:'Wohnen & Deko',ikea:'Wohnen & Deko',apotheke:'Apotheke',elektro:'Elektro & Technik',melectronics:'Elektro & Technik',tierhandlung:'Tierbedarf',fressnapf:'Tierbedarf',papeterie:'Papeterie & Büro',garten:'Garten & Pflanzen',gärtnerei:'Garten & Pflanzen',sport:'Sport & Freizeit',velo:'Auto & Velo',kleider:'Kleidung & Textil',bäckerei:'Brot & Gebäck',metzgerei:'Fleisch & Fisch',getränke:'Getränke'};
+
+// Per-language keyword tables. German is built below; other languages via registerIcons(lang, pack) (see lang/README.md). Unknown lang falls back to 'de'.
+const TABLES={};
+export function registerIcons(lang,pack){if(!lang||typeof lang!=='string')throw new Error('registerIcons: lang must be a non-empty string');TABLES[lang]=buildTable(lang,pack);return TABLES[lang].KEYWORDS.length}
+TABLES.de=buildTable('de',{DATA:[...SPEC,...DATA],HEAD:'suffix',SPLIT:/^(für|fuer|fürs|fuers|zum|zur|mit|aus|von|ohne|und|&)$/i,MODS:DE_MODS,STORE:DE_STORE,norms:[nrmAE,nrmFold]});
+export const KEYWORDS=TABLES.de.KEYWORDS;
+const tbl=lang=>TABLES[lang]||TABLES[String(lang).split('-')[0]]||TABLES.de;
+
+export function matchKeyword(name,lang='de'){const T=tbl(lang),{IDX,MODS,SPLIT,cache,HEAD,norms}=T,nrm=norms[0],raw=String(name||'').trim();if(!raw)return null;const ck=raw.toLowerCase();if(cache.has(ck))return cache.get(ck);
+ let words=raw.match(/[\p{L}][\p{L}-]*/gu)||[];if(HEAD!=='suffix')words=(raw.replace(/['’]/g,' ').match(/[\p{L}\p{M}][\p{L}\p{M}-]*/gu)||[]);
+ const cut=words.findIndex((w,i)=>i>0&&SPLIT.test(w));let rest=[];if(cut>0){rest=words.slice(cut+1);words=words.slice(0,cut)}
+ const parts=words.flatMap(w=>w.includes('-')&&!IDX.has(nrm(w))?[w,...w.split('-')]:[w]);
+ let hit=null;const joined=parts.join('');if(parts.length>1)hit=IDX.get(nrm(joined))||null;
+ // order in which words are tried: German/'first' left to right, 'last' right to left; words after a SPLIT word only as last resort (non-suffix)
+ const order=HEAD==='last'?[...parts].reverse():[...parts];
+ const stages=HEAD==='suffix'?[1,2,3]:[1,2];
+ let stg=0,hw='';
+ for(const st of stages){if(hit)break;for(const w of order){hit=matchWord(w,st,T);if(hit){stg=st;hw=nrm(w);break}}}
+ if(!hit&&HEAD!=='suffix')for(const w of HEAD==='last'?[...rest].reverse():rest){hit=matchWord(w,1,T);if(hit){stg=1;hw=nrm(w);break}}
+ // Head noun decides the icon; a modifier (katzen-, velo-, cat, ...) may still decide the category.
+ if(hit){if(HEAD==='suffix'){if(stg>=2)for(const[re,c]of MODS){const m=hw.match(re);if(m&&hw.length>=m[0].length+4){if(c!==hit.category)hit={...hit,category:c};break}}}
+  else{const others=order.filter(w=>nrm(w)!==hw).map(nrm);
+   for(const[re,c]of MODS){if(others.some(o=>re.test(o))||(stg===2&&(m=>m&&hw.length>=m[0].length+4)(hw.match(re)))){if(c!==hit.category)hit={...hit,category:c};break}}}}
  cache.set(ck,hit);return hit}
 export function resolveIcon(name,category,lang='de'){const h=matchKeyword(name,lang);if(h)return{icon:h.icon,emoji:h.emoji,category:h.category,matched:true};
  const c=CMAP[category]&&category!=='Sonstiges'?category:null;const cc=CMAP[c||'Sonstiges'];return{icon:cc.icon,emoji:cc.emoji,category:cc.name,matched:false}}
-const STORE={baumarkt:'Werkzeug & Baumarkt',hornbach:'Werkzeug & Baumarkt',jumbo:'Werkzeug & Baumarkt',obi:'Werkzeug & Baumarkt',bauhaus:'Werkzeug & Baumarkt',drogerie:'Körperpflege',dm:'Körperpflege',müller:'Körperpflege',mueller:'Körperpflege',wohnen:'Wohnen & Deko',ikea:'Wohnen & Deko',apotheke:'Apotheke',elektro:'Elektro & Technik',melectronics:'Elektro & Technik',tierhandlung:'Tierbedarf',fressnapf:'Tierbedarf',papeterie:'Papeterie & Büro',garten:'Garten & Pflanzen',gärtnerei:'Garten & Pflanzen',sport:'Sport & Freizeit',velo:'Auto & Velo',kleider:'Kleidung & Textil',bäckerei:'Brot & Gebäck',metzgerei:'Fleisch & Fisch',getränke:'Getränke'};
 export function guessCategory(name,storeKind,lang='de'){const h=matchKeyword(name,lang);if(h)return h.category;const STORE=tbl(lang).STORE;
  const k=String(storeKind||'').toLowerCase().trim();if(k){if(STORE[k])return STORE[k];for(const[s,c]of Object.entries(STORE))if(k.includes(s))return c}
  return'Sonstiges'}
 // Suggestion source: one entry per keyword (display form capitalized)
 export const suggestionKeywords=(lang='de')=>tbl(lang).KEYWORDS.map(v=>({name:v.kw.charAt(0).toUpperCase()+v.kw.slice(1),icon:v.icon,emoji:v.emoji,category:v.category,key:v.kw}));
-// Per-language keyword tables. Only German for now; add TABLES.<lang> = {IDX,get MAXL(),MODS,SPLIT,STORE,KEYWORDS,cache} to plug in another language (falls back to 'de').
-const TABLES={de:{IDX,get MAXL(){return MAXL},MODS,SPLIT,STORE,KEYWORDS:KEYWORDS,cache}};
-const tbl=lang=>TABLES[lang]||TABLES.de;

@@ -248,8 +248,6 @@
  "voice.example": "p. ej. «Leche, 2 plátanos y pan en Mercadona»",
  "account.logout": "Cerrar sesión",
  "lang.language": "Idioma",
- "lang.country": "País",
- "lang.country_soon": "próximamente",
  "auth.tagline": "Lista de la compra compartida",
  "auth.email": "Correo electrónico",
  "auth.password": "Contraseña",
@@ -393,5 +391,42 @@
   "one": "Juntos en un solo recibo ({count})",
   "other": "Juntos en un solo recibo ({count})"
  },
- "shell.view_switch": "Cambiar vista"
+ "shell.view_switch": "Cambiar vista",
+ "kind.discounter": "Descuento",
+ "kind.clothing": "Ropa",
+ "kind.online": "En línea",
+ "kind.electronics": "Electrónica",
+ "kind.furniture": "Muebles",
+ "kind.pets": "Mascotas",
+ "kind.sport": "Deporte",
+ "region.countries": "Países",
+ "region.primary": "País principal",
+ "region.make_primary": "Establecer como país principal",
+ "region.region": "Región",
+ "region.ch.de": "Suiza alemana",
+ "region.ch.fr": "Suiza francesa",
+ "region.ch.it": "Tesino",
+ "region.be.nl": "Flandes",
+ "region.be.fr": "Valonia-Bruselas",
+ "region.hint": "Se aplica a todo el hogar.",
+ "region.suggest": "Sugerir tiendas para esta selección",
+ "catalog.title": "Tiendas del catálogo",
+ "catalog.add_btn": "Añadir tiendas del catálogo",
+ "catalog.top20": "Seleccionar el top 20",
+ "catalog.all": "Todas",
+ "catalog.none": "Ninguna",
+ "catalog.top": "Top",
+ "catalog.exists": "ya añadida",
+ "catalog.empty_country": "Aún no hay tiendas para este país",
+ "catalog.loading": "Cargando catálogo…",
+ "catalog.error": "No se pudo cargar el catálogo",
+ "catalog.change": "Cambiar país y región",
+ "catalog.add_n": {
+  "one": "Añadir {count} tienda",
+  "other": "Añadir {count} tiendas"
+ },
+ "catalog.added": {
+  "one": "{count} tienda añadida",
+  "other": "{count} tiendas añadidas"
+ }
 }

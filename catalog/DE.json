@@ -1,0 +1,902 @@
+{
+  "country": "DE",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Edeka",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#005CA9",
+      "aliases": [
+        "edeka",
+        "edeka"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Rewe",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#CC071E",
+      "aliases": [
+        "rewe",
+        "reve",
+        "rewe markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 3,
+      "color": "#00005F",
+      "aliases": [
+        "aldi",
+        "aldi nord",
+        "aldi süd",
+        "aldi sued"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#E5A800",
+      "aliases": [
+        "lidl",
+        "liedl"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Kaufland",
+      "kind": "Lebensmittel",
+      "rank": 5,
+      "color": "#6B6B6B",
+      "aliases": [
+        "kaufland",
+        "kauf land"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Penny",
+      "kind": "Discounter",
+      "rank": 6,
+      "color": "#1A1A1A",
+      "aliases": [
+        "penny",
+        "penni"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Netto Marken-Discount",
+      "kind": "Discounter",
+      "rank": 7,
+      "color": "#E4572E",
+      "aliases": [
+        "netto",
+        "netto marken discount",
+        "netto markendiscount"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "dm",
+      "kind": "Drogerie",
+      "rank": 8,
+      "color": "#0096D6",
+      "aliases": [
+        "dm",
+        "dm drogerie",
+        "d m",
+        "dm markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Rossmann",
+      "kind": "Drogerie",
+      "rank": 9,
+      "color": "#C8102E",
+      "aliases": [
+        "rossmann",
+        "rosmann",
+        "roßmann"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 10,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon",
+        "amazon prime"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 11,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea",
+        "ikeia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "MediaMarkt",
+      "kind": "Elektronik",
+      "rank": 12,
+      "color": "#DF0000",
+      "aliases": [
+        "mediamarkt",
+        "media markt",
+        "mediamarkt saturn"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "OBI",
+      "kind": "Baumarkt",
+      "rank": 13,
+      "color": "#F06400",
+      "aliases": [
+        "obi",
+        "oby"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Hornbach",
+      "kind": "Baumarkt",
+      "rank": 14,
+      "color": "#E26B00",
+      "aliases": [
+        "hornbach",
+        "horn bach"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": 15,
+      "color": "#FF6900",
+      "aliases": [
+        "zalando",
+        "zalando shop"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.textilwirtschaft.de/business/news/e-com-studie-von-ehi-und-ecdb-das-sind-die-umsatzstaerksten-online-modehaendler-der-republik-252374"
+    },
+    {
+      "name": "Otto",
+      "kind": "Online",
+      "rank": 16,
+      "color": "#C4001A",
+      "aliases": [
+        "otto",
+        "otto versand",
+        "otto.de"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Müller",
+      "kind": "Drogerie",
+      "rank": 17,
+      "color": "#F37021",
+      "aliases": [
+        "müller",
+        "mueller",
+        "muller",
+        "müller drogerie"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Action",
+      "kind": "Sonstige",
+      "rank": 18,
+      "color": "#0072CE",
+      "aliases": [
+        "action",
+        "aktion"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Saturn",
+      "kind": "Elektronik",
+      "rank": 19,
+      "color": "#EB6E00",
+      "aliases": [
+        "saturn",
+        "saturn markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": 20,
+      "color": "#E50010",
+      "aliases": [
+        "h&m",
+        "h und m",
+        "hm",
+        "hennes und mauritz",
+        "h m"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.textilwirtschaft.de/business/news/e-com-studie-von-ehi-und-ecdb-das-sind-die-umsatzstaerksten-online-modehaendler-der-republik-252374"
+    },
+    {
+      "name": "Globus",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#009640",
+      "aliases": [
+        "globus",
+        "globus markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Marktkauf",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#B8860B",
+      "aliases": [
+        "marktkauf",
+        "markt kauf"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Tegut",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#00843D",
+      "aliases": [
+        "tegut",
+        "teguth"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Norma",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#00A6C8",
+      "aliases": [
+        "norma",
+        "normal"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://lebensmittelpraxis.de/zentrale-management/48046-top-30-lebensmittelhaendler-ein-jahr-preiskampf-das-ist-die-bilanz.html"
+    },
+    {
+      "name": "Budni",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#E2007A",
+      "aliases": [
+        "budni",
+        "budnikowsky",
+        "budnikowski"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Douglas",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#1D1D1B",
+      "aliases": [
+        "douglas",
+        "duglas"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "DocMorris",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A19A",
+      "aliases": [
+        "docmorris",
+        "doc morris",
+        "dok morris"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Shop Apotheke",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#7AB800",
+      "aliases": [
+        "shop apotheke",
+        "shopapotheke",
+        "shop-apotheke"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Aponeo",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#0067B1",
+      "aliases": [
+        "aponeo",
+        "apo neo"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Mycare",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#FF4F59",
+      "aliases": [
+        "mycare",
+        "my care",
+        "mai kehr"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Medpex",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#8A2BE2",
+      "aliases": [
+        "medpex",
+        "med pex"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "C&A",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0A4DA2",
+      "aliases": [
+        "c&a",
+        "c und a",
+        "ca",
+        "cunda"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.textilwirtschaft.de/business/news/e-com-studie-von-ehi-und-ecdb-das-sind-die-umsatzstaerksten-online-modehaendler-der-republik-252374"
+    },
+    {
+      "name": "Primark",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0099D8",
+      "aliases": [
+        "primark",
+        "primmark"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.textilwirtschaft.de/business/news/e-com-studie-von-ehi-und-ecdb-das-sind-die-umsatzstaerksten-online-modehaendler-der-republik-252374"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#000000",
+      "aliases": [
+        "zara",
+        "sara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.textilwirtschaft.de/business/news/e-com-studie-von-ehi-und-ecdb-das-sind-die-umsatzstaerksten-online-modehaendler-der-republik-252374"
+    },
+    {
+      "name": "KiK",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#DA291C",
+      "aliases": [
+        "kik",
+        "kick"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.textilwirtschaft.de/business/news/e-com-studie-von-ehi-und-ecdb-das-sind-die-umsatzstaerksten-online-modehaendler-der-republik-252374"
+    },
+    {
+      "name": "eBay",
+      "kind": "Online",
+      "rank": null,
+      "color": "#E53238",
+      "aliases": [
+        "ebay",
+        "e bay",
+        "ebay kleinanzeigen"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Temu",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FB7701",
+      "aliases": [
+        "temu",
+        "te mu"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Cyberport",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#EE7203",
+      "aliases": [
+        "cyberport",
+        "cyber port"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Notebooksbilliger",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#0B3D91",
+      "aliases": [
+        "notebooksbilliger",
+        "notebooks billiger",
+        "nbb"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Expert",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#0054A6",
+      "aliases": [
+        "expert",
+        "experts",
+        "expert markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Bauhaus",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#D6001C",
+      "aliases": [
+        "bauhaus",
+        "bau haus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Toom",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#E30613",
+      "aliases": [
+        "toom",
+        "tom baumarkt",
+        "toom baumarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Hagebau",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#009036",
+      "aliases": [
+        "hagebau",
+        "hage bau",
+        "hagebaumarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "XXXLutz",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#D50032",
+      "aliases": [
+        "xxxlutz",
+        "xxx lutz",
+        "xxl lutz",
+        "lutz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Roller",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#F7A600",
+      "aliases": [
+        "roller",
+        "roller möbel",
+        "roller moebel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Poco",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#FFD200",
+      "aliases": [
+        "poco",
+        "poco einrichtungsmarkt",
+        "poko"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Höffner",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#003A70",
+      "aliases": [
+        "höffner",
+        "hoeffner",
+        "hoffner"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Depot",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#1F6F5C",
+      "aliases": [
+        "depot",
+        "depo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Søstrene Grene",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#D4145A",
+      "aliases": [
+        "søstrene grene",
+        "sostrene grene",
+        "sostrene",
+        "schwestern grene"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Zara Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#5B5B5B",
+      "aliases": [
+        "zara home",
+        "sara home"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Butlers",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#7A4B2A",
+      "aliases": [
+        "butlers",
+        "batlers"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Westwing",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#8E6C8A",
+      "aliases": [
+        "westwing",
+        "west wing"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Fressnapf",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#D4252A",
+      "aliases": [
+        "fressnapf",
+        "fress napf"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#0066B3",
+      "aliases": [
+        "zooplus",
+        "zoo plus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://retail-news.de/e-commerce-deutschland-umsatz-2025/"
+    },
+    {
+      "name": "Das Futterhaus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E8112D",
+      "aliases": [
+        "das futterhaus",
+        "futterhaus",
+        "futter haus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Zoo & Co",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00964B",
+      "aliases": [
+        "zoo & co",
+        "zoo und co",
+        "zoo co"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#FFB400",
+      "aliases": [
+        "maxi zoo",
+        "maxizoo",
+        "maxi zu"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "dekathlon",
+        "decathlon sport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#005AA7",
+      "aliases": [
+        "intersport",
+        "inter sport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "SportScheck",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "sportscheck",
+        "sport scheck"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Sport 2000",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0095DA",
+      "aliases": [
+        "sport 2000",
+        "sport zweitausend"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Globetrotter",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#00704A",
+      "aliases": [
+        "globetrotter",
+        "globe trotter"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Tchibo",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#6F4E37",
+      "aliases": [
+        "tchibo",
+        "tschibo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "TEDi",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#00A3A1",
+      "aliases": [
+        "tedi",
+        "teddy",
+        "ted i"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Woolworth",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#E4002B",
+      "aliases": [
+        "woolworth",
+        "wool worth",
+        "wulworth"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    },
+    {
+      "name": "Thalia",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#0F2A4A",
+      "aliases": [
+        "thalia",
+        "talia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.t-online.de/leben/aktuelles/id_101089104/edeka-fuehrt-ranking-diese-supermaerkte-sind-in-deutschland-am-beliebtesten.html"
+    }
+  ]
+}

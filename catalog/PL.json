@@ -1,0 +1,942 @@
+{
+  "country": "PL",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Biedronka",
+      "kind": "Discounter",
+      "rank": 1,
+      "color": "#E30613",
+      "aliases": [
+        "biedronka",
+        "biedronke",
+        "biedronki",
+        "bedronka"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscihandlowe.pl/handel-i-dystrybucja/ranking-top-20%E2%80%91siecispozywczych-w-polsce-2025%E2%80%91oto-najwieksi-detalisci-2529107"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 2,
+      "color": "#0050AA",
+      "aliases": [
+        "lidl",
+        "lidel",
+        "lidla"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Dino",
+      "kind": "Lebensmittel",
+      "rank": 3,
+      "color": "#7B1113",
+      "aliases": [
+        "dino",
+        "dina",
+        "dino polska"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Żabka",
+      "kind": "Lebensmittel",
+      "rank": 4,
+      "color": "#00A650",
+      "aliases": [
+        "zabka",
+        "żabka",
+        "zabke",
+        "żabkę",
+        "zabki"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscihandlowe.pl/handel-i-dystrybucja/ranking-top-20%E2%80%91siecispozywczych-w-polsce-2025%E2%80%91oto-najwieksi-detalisci-2529107"
+    },
+    {
+      "name": "Kaufland",
+      "kind": "Lebensmittel",
+      "rank": 5,
+      "color": "#4D4D4D",
+      "aliases": [
+        "kaufland",
+        "kaufland polska",
+        "kauflandu"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscihandlowe.pl/handel-i-dystrybucja/ranking-top-20%E2%80%91siecispozywczych-w-polsce-2025%E2%80%91oto-najwieksi-detalisci-2529107"
+    },
+    {
+      "name": "Rossmann",
+      "kind": "Drogerie",
+      "rank": 6,
+      "color": "#C2185B",
+      "aliases": [
+        "rossmann",
+        "rosman",
+        "rosmann",
+        "rossmana"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Allegro",
+      "kind": "Online",
+      "rank": 7,
+      "color": "#FF5A00",
+      "aliases": [
+        "allegro",
+        "alegro",
+        "allegro pl"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Auchan",
+      "kind": "Lebensmittel",
+      "rank": 8,
+      "color": "#A0522D",
+      "aliases": [
+        "auchan",
+        "aszan",
+        "auchana",
+        "oszan"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscihandlowe.pl/handel-i-dystrybucja/ranking-top-20%E2%80%91siecispozywczych-w-polsce-2025%E2%80%91oto-najwieksi-detalisci-2529107"
+    },
+    {
+      "name": "Carrefour",
+      "kind": "Lebensmittel",
+      "rank": 9,
+      "color": "#00A3E0",
+      "aliases": [
+        "carrefour",
+        "karefur",
+        "karrefour",
+        "carrefoura"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscihandlowe.pl/handel-i-dystrybucja/ranking-top-20%E2%80%91siecispozywczych-w-polsce-2025%E2%80%91oto-najwieksi-detalisci-2529107"
+    },
+    {
+      "name": "Netto",
+      "kind": "Discounter",
+      "rank": 10,
+      "color": "#F2C200",
+      "aliases": [
+        "netto",
+        "neto",
+        "netta"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscihandlowe.pl/handel-i-dystrybucja/ranking-top-20%E2%80%91siecispozywczych-w-polsce-2025%E2%80%91oto-najwieksi-detalisci-2529107"
+    },
+    {
+      "name": "Stokrotka",
+      "kind": "Lebensmittel",
+      "rank": 11,
+      "color": "#8BB800",
+      "aliases": [
+        "stokrotka",
+        "stokrotke",
+        "stokrotki"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Media Expert",
+      "kind": "Elektronik",
+      "rank": 12,
+      "color": "#E2007A",
+      "aliases": [
+        "media expert",
+        "mediaexpert",
+        "media ekspert",
+        "media experta"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Castorama",
+      "kind": "Baumarkt",
+      "rank": 13,
+      "color": "#009AA6",
+      "aliases": [
+        "castorama",
+        "kastorama",
+        "castoramie"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Leroy Merlin",
+      "kind": "Baumarkt",
+      "rank": 14,
+      "color": "#78BE20",
+      "aliases": [
+        "leroy merlin",
+        "leroy",
+        "lerua merlen",
+        "leroy merlina"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 15,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea",
+        "ikea polska",
+        "ikee",
+        "ikea sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Pepco",
+      "kind": "Kleidung",
+      "rank": 16,
+      "color": "#0A3D91",
+      "aliases": [
+        "pepco",
+        "pepko",
+        "pepca"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Action",
+      "kind": "Sonstige",
+      "rank": 17,
+      "color": "#F26B21",
+      "aliases": [
+        "action",
+        "akszn",
+        "action polska",
+        "akcja"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Hebe",
+      "kind": "Drogerie",
+      "rank": 18,
+      "color": "#7B2D8E",
+      "aliases": [
+        "hebe",
+        "hebe drogeria",
+        "hebe sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Empik",
+      "kind": "Sonstige",
+      "rank": 19,
+      "color": "#E4A800",
+      "aliases": [
+        "empik",
+        "empiku",
+        "empik sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Sinsay",
+      "kind": "Kleidung",
+      "rank": 20,
+      "color": "#E91E8C",
+      "aliases": [
+        "sinsay",
+        "sinsej",
+        "sinsaj",
+        "sinsaya"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "E.Leclerc",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#3F51B5",
+      "aliases": [
+        "leclerc",
+        "e leclerc",
+        "eleclerc",
+        "leklerk"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Lewiatan",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#B8860B",
+      "aliases": [
+        "lewiatan",
+        "lewiatana",
+        "lewiatanie"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscihandlowe.pl/handel-i-dystrybucja/ranking-top-20%E2%80%91siecispozywczych-w-polsce-2025%E2%80%91oto-najwieksi-detalisci-2529107"
+    },
+    {
+      "name": "Super-Pharm",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#00857C",
+      "aliases": [
+        "super-pharm",
+        "super pharm",
+        "superpharm",
+        "super farm"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscikosmetyczne.pl/wk/dystrybucja-kosmetykow/sieci-drogeryjne/rynek-drogeryjny-2025-rozwiniety-i-mocno-konkurencyjny-rocznik-wk-2025-26-2531150"
+    },
+    {
+      "name": "Douglas",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#1C2B5A",
+      "aliases": [
+        "douglas",
+        "duglas",
+        "douglasa"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Sephora",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#111111",
+      "aliases": [
+        "sephora",
+        "sefora",
+        "sephorze"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wiadomoscikosmetyczne.pl/wk/dystrybucja-kosmetykow/sieci-drogeryjne/rynek-drogeryjny-2025-rozwiniety-i-mocno-konkurencyjny-rocznik-wk-2025-26-2531150"
+    },
+    {
+      "name": "Dbam o Zdrowie",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#006E51",
+      "aliases": [
+        "dbam o zdrowie",
+        "dbam o zdrowie apteka",
+        "apteka dbam o zdrowie",
+        "dbam o zdrowie sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Apteka Gemini",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#3FA7D6",
+      "aliases": [
+        "gemini",
+        "apteka gemini",
+        "gemini apteka"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.gemini.pl/"
+    },
+    {
+      "name": "DOZ Apteka",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#E8A100",
+      "aliases": [
+        "doz",
+        "doz apteka",
+        "apteka doz",
+        "dos"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.doz.pl/"
+    },
+    {
+      "name": "Apteka Melissa",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#F06292",
+      "aliases": [
+        "melissa",
+        "apteka melissa",
+        "melisa"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://aptekamelissa.pl/"
+    },
+    {
+      "name": "Apteka Ziko",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#795548",
+      "aliases": [
+        "ziko",
+        "apteka ziko",
+        "ziko apteka"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ziko.pl/"
+    },
+    {
+      "name": "4F",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#1B5E20",
+      "aliases": [
+        "4f",
+        "cztery ef",
+        "four f",
+        "4 f"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Reserved",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#5C5C5C",
+      "aliases": [
+        "reserved",
+        "rezerwed",
+        "rizerwd"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#E50010",
+      "aliases": [
+        "h&m",
+        "hm",
+        "h i m",
+        "ha em"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.hm.com/pl_pl/"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#111111",
+      "aliases": [
+        "zara",
+        "zary",
+        "zare"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "CCC",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#8D6E63",
+      "aliases": [
+        "ccc",
+        "cece",
+        "ce ce ce",
+        "ccc buty"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://ccc.eu/pl/"
+    },
+    {
+      "name": "Temu",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FF3D6E",
+      "aliases": [
+        "temu",
+        "temu pl",
+        "temo"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.temu.com/pl"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": null,
+      "color": "#232F3E",
+      "aliases": [
+        "amazon",
+        "amazon pl",
+        "amazonie",
+        "amazona"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.amazon.pl/"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": null,
+      "color": "#A33B00",
+      "aliases": [
+        "zalando",
+        "zalando pl",
+        "zalandzie"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zalando.pl/"
+    },
+    {
+      "name": "AliExpress",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FF4747",
+      "aliases": [
+        "aliexpress",
+        "ali express",
+        "aliekspres",
+        "ali"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://pl.aliexpress.com/"
+    },
+    {
+      "name": "RTV Euro AGD",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#005BAA",
+      "aliases": [
+        "rtv euro agd",
+        "euro rtv agd",
+        "euro agd",
+        "rtv euro"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "x-kom",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#1A73E8",
+      "aliases": [
+        "x-kom",
+        "xkom",
+        "iks kom",
+        "x kom"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Komputronik",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#D32F2F",
+      "aliases": [
+        "komputronik",
+        "komputronika",
+        "komputronik sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Morele.net",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#FF8C00",
+      "aliases": [
+        "morele",
+        "morele.net",
+        "morele net",
+        "morele pl"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.morele.net/"
+    },
+    {
+      "name": "Media Markt",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#DF0000",
+      "aliases": [
+        "media markt",
+        "mediamarkt",
+        "media markt polska",
+        "media markt sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://mediamarkt.pl/"
+    },
+    {
+      "name": "OBI",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#FF7A00",
+      "aliases": [
+        "obi",
+        "obi baumarkt",
+        "obi sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.obi.pl/"
+    },
+    {
+      "name": "Bricomarché",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "bricomarche",
+        "bricomarché",
+        "brikomarsze",
+        "bricomarsz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Mrówka",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#C25A00",
+      "aliases": [
+        "mrowka",
+        "mrówka",
+        "psb mrowka",
+        "psb mrówka"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Jysk",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#0066B2",
+      "aliases": [
+        "jysk",
+        "jusk",
+        "jysk meble",
+        "jyska"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Black Red White",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#B00020",
+      "aliases": [
+        "black red white",
+        "brw",
+        "blek red wajt",
+        "brw meble"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Agata Meble",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#6D4C9F",
+      "aliases": [
+        "agata meble",
+        "agata",
+        "agata sklep",
+        "agaty"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.agatameble.pl/"
+    },
+    {
+      "name": "Komfort",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#2E7D32",
+      "aliases": [
+        "komfort",
+        "komfort meble",
+        "komforta"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Home & You",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#9E7B4B",
+      "aliases": [
+        "home and you",
+        "home & you",
+        "home you",
+        "hom end ju"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Zara Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#B5A48B",
+      "aliases": [
+        "zara home",
+        "zara hom",
+        "zara home sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "H&M Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#C62828",
+      "aliases": [
+        "h&m home",
+        "hm home",
+        "h i m home",
+        "hm hom"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "TEDi",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#00A0DC",
+      "aliases": [
+        "tedi",
+        "tedi sklep",
+        "tedy",
+        "tedi polska"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.tedi.com/pl/"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "dekatlon",
+        "decatlon",
+        "dekathlon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Martes Sport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#F58220",
+      "aliases": [
+        "martes sport",
+        "martes",
+        "martes sports",
+        "martez"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Sportano",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#00B140",
+      "aliases": [
+        "sportano",
+        "sportano pl",
+        "sportana"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#003DA5",
+      "aliases": [
+        "intersport",
+        "intersport polska",
+        "intersporcie",
+        "inter sport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    },
+    {
+      "name": "Sizeer",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#212121",
+      "aliases": [
+        "sizeer",
+        "sajzer",
+        "sizer",
+        "sizeer sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://sizeer.com/"
+    },
+    {
+      "name": "Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E4002B",
+      "aliases": [
+        "maxi zoo",
+        "maxizoo",
+        "maksi zoo",
+        "maxi zoo sklep"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maxizoo.pl/"
+    },
+    {
+      "name": "Kakadu",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00A19B",
+      "aliases": [
+        "kakadu",
+        "kakadu sklep",
+        "kakadu zoo",
+        "kakadu zoologiczny"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.kakadu.pl/"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#0E4C92",
+      "aliases": [
+        "zooplus",
+        "zoo plus",
+        "zooplus pl",
+        "zooplusa"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zooplus.pl/"
+    },
+    {
+      "name": "Smyk",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#FFB300",
+      "aliases": [
+        "smyk",
+        "smyka",
+        "smyk sklep",
+        "smik"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ey.com/pl_pl/newsroom/2025/11/ey-retail-performance-ranking-2025"
+    }
+  ]
+}

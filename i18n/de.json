@@ -248,8 +248,6 @@
  "voice.example": "z. B. «Milch, 2 Bananen und Brot bei Migros»",
  "account.logout": "Abmelden",
  "lang.language": "Sprache",
- "lang.country": "Land",
- "lang.country_soon": "bald verfügbar",
  "auth.tagline": "Gemeinsame Einkaufsliste",
  "auth.email": "E-Mail",
  "auth.password": "Passwort",
@@ -393,5 +391,42 @@
   "one": "Zusammen als ein Beleg ({count})",
   "other": "Zusammen als ein Beleg ({count})"
  },
- "shell.view_switch": "Ansicht wechseln"
+ "shell.view_switch": "Ansicht wechseln",
+ "kind.discounter": "Discounter",
+ "kind.clothing": "Kleidung",
+ "kind.online": "Online",
+ "kind.electronics": "Elektronik",
+ "kind.furniture": "Möbel",
+ "kind.pets": "Tierbedarf",
+ "kind.sport": "Sport",
+ "region.countries": "Länder",
+ "region.primary": "Hauptland",
+ "region.make_primary": "Als Hauptland festlegen",
+ "region.region": "Region",
+ "region.ch.de": "Deutschschweiz",
+ "region.ch.fr": "Romandie",
+ "region.ch.it": "Ticino",
+ "region.be.nl": "Vlaanderen",
+ "region.be.fr": "Wallonie-Bruxelles",
+ "region.hint": "Gilt für den ganzen Haushalt.",
+ "region.suggest": "Läden für diese Auswahl vorschlagen",
+ "catalog.title": "Läden aus Katalog",
+ "catalog.add_btn": "Läden aus Katalog hinzufügen",
+ "catalog.top20": "Top 20 auswählen",
+ "catalog.all": "Alle",
+ "catalog.none": "Keine",
+ "catalog.top": "Top",
+ "catalog.exists": "bereits vorhanden",
+ "catalog.empty_country": "Noch keine Läden für dieses Land",
+ "catalog.loading": "Katalog wird geladen …",
+ "catalog.error": "Katalog konnte nicht geladen werden",
+ "catalog.change": "Land & Region ändern",
+ "catalog.add_n": {
+  "one": "{count} Laden hinzufügen",
+  "other": "{count} Läden hinzufügen"
+ },
+ "catalog.added": {
+  "one": "{count} Laden hinzugefügt",
+  "other": "{count} Läden hinzugefügt"
+ }
 }

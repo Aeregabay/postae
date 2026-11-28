@@ -248,8 +248,6 @@
  "voice.example": "e.g. “Milk, 2 bananas and bread at Migros”",
  "account.logout": "Sign out",
  "lang.language": "Language",
- "lang.country": "Country",
- "lang.country_soon": "coming soon",
  "auth.tagline": "Shared shopping list",
  "auth.email": "Email",
  "auth.password": "Password",
@@ -393,5 +391,42 @@
   "one": "Together as one receipt ({count})",
   "other": "Together as one receipt ({count})"
  },
- "shell.view_switch": "Switch view"
+ "shell.view_switch": "Switch view",
+ "kind.discounter": "Discounters",
+ "kind.clothing": "Clothing",
+ "kind.online": "Online",
+ "kind.electronics": "Electronics",
+ "kind.furniture": "Furniture",
+ "kind.pets": "Pet supplies",
+ "kind.sport": "Sports",
+ "region.countries": "Countries",
+ "region.primary": "Primary country",
+ "region.make_primary": "Make primary country",
+ "region.region": "Region",
+ "region.ch.de": "German-speaking Switzerland",
+ "region.ch.fr": "French-speaking Switzerland",
+ "region.ch.it": "Ticino",
+ "region.be.nl": "Flanders",
+ "region.be.fr": "Wallonia-Brussels",
+ "region.hint": "Applies to the whole household.",
+ "region.suggest": "Suggest stores for this selection",
+ "catalog.title": "Stores from catalogue",
+ "catalog.add_btn": "Add stores from catalogue",
+ "catalog.top20": "Select top 20",
+ "catalog.all": "All",
+ "catalog.none": "None",
+ "catalog.top": "Top",
+ "catalog.exists": "already added",
+ "catalog.empty_country": "No stores for this country yet",
+ "catalog.loading": "Loading catalogue…",
+ "catalog.error": "Could not load the catalogue",
+ "catalog.change": "Change country & region",
+ "catalog.add_n": {
+  "one": "Add {count} store",
+  "other": "Add {count} stores"
+ },
+ "catalog.added": {
+  "one": "{count} store added",
+  "other": "{count} stores added"
+ }
 }

@@ -1,0 +1,537 @@
+{
+  "country": "LU",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Cactus",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#E30613",
+      "aliases": [
+        "cactus",
+        "kaktus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Delhaize",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#009639",
+      "aliases": [
+        "delhaize",
+        "delhaise"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Auchan",
+      "kind": "Lebensmittel",
+      "rank": 3,
+      "color": "#00A0DF",
+      "aliases": [
+        "auchan",
+        "ochan"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#F0B400",
+      "aliases": [
+        "lidl"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 5,
+      "color": "#00005F",
+      "aliases": [
+        "aldi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Match",
+      "kind": "Lebensmittel",
+      "rank": 6,
+      "color": "#8C1D40",
+      "aliases": [
+        "match",
+        "smatch"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Cora",
+      "kind": "Lebensmittel",
+      "rank": 7,
+      "color": "#E2007A",
+      "aliases": [
+        "cora"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "E.Leclerc",
+      "kind": "Lebensmittel",
+      "rank": 8,
+      "color": "#F37021",
+      "aliases": [
+        "leclerc",
+        "e leclerc"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://paperjam.lu/article/e-leclerc-n3-marche-au-luxembo"
+    },
+    {
+      "name": "Colruyt",
+      "kind": "Lebensmittel",
+      "rank": 9,
+      "color": "#E8731A",
+      "aliases": [
+        "colruyt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 10,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.amazon.de/"
+    },
+    {
+      "name": "Naturata",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#6FA600",
+      "aliases": [
+        "naturata"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Alavita",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#2E7D32",
+      "aliases": [
+        "alavita"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Monoprix",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#1A1A1A",
+      "aliases": [
+        "monoprix"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Cactus Shoppi",
+      "kind": "Lebensmittel",
+      "rank": 13,
+      "color": "#B71C1C",
+      "aliases": [
+        "shoppi",
+        "cactus shoppi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.cactus.lu/"
+    },
+    {
+      "name": "Smatch",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#FFB300",
+      "aliases": [
+        "smatch",
+        "s match"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Delhaize Proxy",
+      "kind": "Lebensmittel",
+      "rank": 12,
+      "color": "#43A047",
+      "aliases": [
+        "proxy",
+        "delhaize proxy",
+        "shop and go"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "Cactus Hobbi",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#C2185B",
+      "aliases": [
+        "cactus hobbi",
+        "hobbi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://luxtoday.lu/en/blog/supermarkets-in-luxembourg"
+    },
+    {
+      "name": "dm",
+      "kind": "Drogerie",
+      "rank": 11,
+      "color": "#00A0E2",
+      "aliases": [
+        "dm",
+        "dm drogerie",
+        "dm markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dm.lu/"
+    },
+    {
+      "name": "Rossmann",
+      "kind": "Drogerie",
+      "rank": 20,
+      "color": "#C8102E",
+      "aliases": [
+        "rossmann"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.rossmann.de/"
+    },
+    {
+      "name": "Pharmacie Ketterthill",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#3F8F3F",
+      "aliases": [
+        "ketterthill"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ketterthill.lu/"
+    },
+    {
+      "name": "Pharmacie Hygeia",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A3A3",
+      "aliases": [
+        "hygeia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.pharmacie-hygeia.lu/"
+    },
+    {
+      "name": "Pharmacie Lafayette",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A651",
+      "aliases": [
+        "lafayette"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.pharmacielafayette.com/"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": 14,
+      "color": "#2B2B2B",
+      "aliases": [
+        "zara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zara.com/lu/"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#CC0033",
+      "aliases": [
+        "h&m",
+        "hm"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www2.hm.com/fr_lu/"
+    },
+    {
+      "name": "C&A",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#5C6BC0",
+      "aliases": [
+        "c&a"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.c-and-a.com/"
+    },
+    {
+      "name": "Pull&Bear",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#6B8E23",
+      "aliases": [
+        "pull and bear",
+        "pull&bear"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.pullandbear.com/"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FF6900",
+      "aliases": [
+        "zalando"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zalando.lu/"
+    },
+    {
+      "name": "Cdiscount",
+      "kind": "Online",
+      "rank": null,
+      "color": "#1B3F94",
+      "aliases": [
+        "cdiscount"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.cdiscount.com/"
+    },
+    {
+      "name": "Saturn",
+      "kind": "Elektronik",
+      "rank": 17,
+      "color": "#F5821F",
+      "aliases": [
+        "saturn"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.saturn.lu/"
+    },
+    {
+      "name": "Fnac",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E1A400",
+      "aliases": [
+        "fnac"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.fnac.lu/"
+    },
+    {
+      "name": "Mediamarkt",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#DF0000",
+      "aliases": [
+        "media markt",
+        "mediamarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mediamarkt.lu/"
+    },
+    {
+      "name": "Hornbach",
+      "kind": "Baumarkt",
+      "rank": 18,
+      "color": "#F58220",
+      "aliases": [
+        "hornbach"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.hornbach.lu/"
+    },
+    {
+      "name": "Bricorama",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#0078D7",
+      "aliases": [
+        "bricorama"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bricorama.lu/"
+    },
+    {
+      "name": "Brico Cactus",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#009639",
+      "aliases": [
+        "brico cactus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.cactus.lu/"
+    },
+    {
+      "name": "Ikea",
+      "kind": "Möbel",
+      "rank": 15,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ikea.com/lu/"
+    },
+    {
+      "name": "Conforama",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E2231A",
+      "aliases": [
+        "conforama"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.conforama.lu/"
+    },
+    {
+      "name": "Maisons du Monde",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#B8860B",
+      "aliases": [
+        "maisons du monde"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maisonsdumonde.com/LU/fr"
+    },
+    {
+      "name": "Action",
+      "kind": "Wohnen",
+      "rank": 19,
+      "color": "#0A3D91",
+      "aliases": [
+        "action"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.action.com/fr-lu/"
+    },
+    {
+      "name": "Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#C62828",
+      "aliases": [
+        "maxi zoo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maxizoo.lu/"
+    },
+    {
+      "name": "Fressnapf",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E30613",
+      "aliases": [
+        "fressnapf"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.fressnapf.lu/"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": 16,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.decathlon.lu/"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#D40F2C",
+      "aliases": [
+        "intersport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.intersport.lu/"
+    },
+    {
+      "name": "Cultura",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#1C3A5E",
+      "aliases": [
+        "cultura"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.cultura.com/"
+    }
+  ]
+}

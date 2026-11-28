@@ -1,0 +1,812 @@
+{
+  "country": "FR",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "E.Leclerc",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#F37021",
+      "aliases": [
+        "leclerc",
+        "e leclerc",
+        "eleclerc"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Carrefour",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#004E9F",
+      "aliases": [
+        "carrefour",
+        "carrefour city",
+        "carrefour market"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Intermarché",
+      "kind": "Lebensmittel",
+      "rank": 3,
+      "color": "#E2001A",
+      "aliases": [
+        "intermarche",
+        "inter marche"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Super U",
+      "kind": "Lebensmittel",
+      "rank": 4,
+      "color": "#8C1D40",
+      "aliases": [
+        "super u",
+        "systeme u",
+        "hyper u",
+        "u express"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Auchan",
+      "kind": "Lebensmittel",
+      "rank": 5,
+      "color": "#009639",
+      "aliases": [
+        "auchan",
+        "ochan"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 6,
+      "color": "#F0B400",
+      "aliases": [
+        "lidl",
+        "lidle"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 7,
+      "color": "#00005F",
+      "aliases": [
+        "aldi",
+        "haldi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Monoprix",
+      "kind": "Lebensmittel",
+      "rank": 8,
+      "color": "#1A1A1A",
+      "aliases": [
+        "monoprix",
+        "mono prix"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 9,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.fevad.com/"
+    },
+    {
+      "name": "Leroy Merlin",
+      "kind": "Baumarkt",
+      "rank": 10,
+      "color": "#78BE20",
+      "aliases": [
+        "leroy merlin",
+        "leroi merlin"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.leroymerlin.fr/"
+    },
+    {
+      "name": "Action",
+      "kind": "Wohnen",
+      "rank": 11,
+      "color": "#E8412C",
+      "aliases": [
+        "action"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.action.com/fr-fr/"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": 12,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "decathlon sport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.decathlon.fr/"
+    },
+    {
+      "name": "Picard",
+      "kind": "Lebensmittel",
+      "rank": 13,
+      "color": "#29A8E0",
+      "aliases": [
+        "picard",
+        "picard surgeles"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Grand Frais",
+      "kind": "Lebensmittel",
+      "rank": 14,
+      "color": "#6FA600",
+      "aliases": [
+        "grand frais",
+        "grandfrais"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 15,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea",
+        "ikéa"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ikea.com/fr/fr/"
+    },
+    {
+      "name": "Franprix",
+      "kind": "Lebensmittel",
+      "rank": 16,
+      "color": "#E5007D",
+      "aliases": [
+        "franprix",
+        "franc prix"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lsa-conso.fr/parts-de-marche/annee_2026/"
+    },
+    {
+      "name": "Kiabi",
+      "kind": "Kleidung",
+      "rank": 17,
+      "color": "#00A3A1",
+      "aliases": [
+        "kiabi",
+        "kiabi mode"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.kiabi.com/"
+    },
+    {
+      "name": "Fnac",
+      "kind": "Elektronik",
+      "rank": 18,
+      "color": "#E1A400",
+      "aliases": [
+        "fnac",
+        "fnak"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.fnac.com/"
+    },
+    {
+      "name": "Cdiscount",
+      "kind": "Online",
+      "rank": 19,
+      "color": "#1B3F94",
+      "aliases": [
+        "cdiscount",
+        "c discount"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.cdiscount.com/"
+    },
+    {
+      "name": "Castorama",
+      "kind": "Baumarkt",
+      "rank": 20,
+      "color": "#0078D7",
+      "aliases": [
+        "castorama",
+        "casto"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.castorama.fr/"
+    },
+    {
+      "name": "Netto",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#B58900",
+      "aliases": [
+        "netto",
+        "neto"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.netto.fr/"
+    },
+    {
+      "name": "Sephora",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#000000",
+      "aliases": [
+        "sephora",
+        "séphora"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sephora.fr/"
+    },
+    {
+      "name": "Marionnaud",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#7B2A8E",
+      "aliases": [
+        "marionnaud",
+        "marionau"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.marionnaud.fr/"
+    },
+    {
+      "name": "Yves Rocher",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#2E7D32",
+      "aliases": [
+        "yves rocher",
+        "ive rocher"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.yves-rocher.fr/"
+    },
+    {
+      "name": "Beauty Success",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#C2185B",
+      "aliases": [
+        "beauty success"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.beautysuccess.fr/"
+    },
+    {
+      "name": "Pharmacie Lafayette",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A651",
+      "aliases": [
+        "lafayette",
+        "pharmacie lafayette"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.pharmacielafayette.com/"
+    },
+    {
+      "name": "Giphar",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#E94E1B",
+      "aliases": [
+        "giphar",
+        "pharmacie giphar"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.giphar.fr/"
+    },
+    {
+      "name": "Aprium",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#0A6E8A",
+      "aliases": [
+        "aprium",
+        "pharmacie aprium"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.aprium.fr/"
+    },
+    {
+      "name": "Plus Pharmacie",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#D81B60",
+      "aliases": [
+        "plus pharmacie",
+        "pharmacie plus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.pluspharmacie.fr/"
+    },
+    {
+      "name": "Citypharma",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#6A1B9A",
+      "aliases": [
+        "citypharma",
+        "city pharma"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.citypharma.fr/"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#CC0033",
+      "aliases": [
+        "h&m",
+        "hm",
+        "hennes"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www2.hm.com/fr_fr/"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#2B2B2B",
+      "aliases": [
+        "zara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zara.com/fr/"
+    },
+    {
+      "name": "Primark",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0DA6E0",
+      "aliases": [
+        "primark"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.primark.com/fr-fr"
+    },
+    {
+      "name": "C&A",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#5C6BC0",
+      "aliases": [
+        "c&a",
+        "c et a",
+        "cea"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.c-and-a.com/fr/fr/shop"
+    },
+    {
+      "name": "Vinted",
+      "kind": "Online",
+      "rank": null,
+      "color": "#09B1BA",
+      "aliases": [
+        "vinted",
+        "vintet"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.vinted.fr/"
+    },
+    {
+      "name": "Temu",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FB7701",
+      "aliases": [
+        "temu",
+        "temou"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.temu.com/fr"
+    },
+    {
+      "name": "Veepee",
+      "kind": "Online",
+      "rank": null,
+      "color": "#C4007A",
+      "aliases": [
+        "veepee",
+        "vente privee",
+        "vente-privee"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.veepee.fr/"
+    },
+    {
+      "name": "Darty",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E30613",
+      "aliases": [
+        "darty"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.darty.com/"
+    },
+    {
+      "name": "Boulanger",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#F58220",
+      "aliases": [
+        "boulanger",
+        "boulangé"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.boulanger.com/"
+    },
+    {
+      "name": "Electro Dépôt",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#FFB400",
+      "aliases": [
+        "electro depot",
+        "electrodepot"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.electrodepot.fr/"
+    },
+    {
+      "name": "Brico Dépôt",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#005AA7",
+      "aliases": [
+        "brico depot",
+        "bricodepot"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bricodepot.fr/"
+    },
+    {
+      "name": "Bricomarché",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#E3000F",
+      "aliases": [
+        "bricomarche",
+        "brico marche"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bricomarche.com/"
+    },
+    {
+      "name": "Mr.Bricolage",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F9A01B",
+      "aliases": [
+        "mr bricolage",
+        "monsieur bricolage",
+        "mister bricolage"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mr-bricolage.fr/"
+    },
+    {
+      "name": "Conforama",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E2231A",
+      "aliases": [
+        "conforama",
+        "conforamma"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.conforama.fr/"
+    },
+    {
+      "name": "BUT",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#D4001A",
+      "aliases": [
+        "but",
+        "butt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.but.fr/"
+    },
+    {
+      "name": "Cuisinella",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#7C4D2E",
+      "aliases": [
+        "cuisinella"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.cuisinella.com/"
+    },
+    {
+      "name": "Maisons du Monde",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#B8860B",
+      "aliases": [
+        "maisons du monde",
+        "maison du monde"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maisonsdumonde.com/FR/fr"
+    },
+    {
+      "name": "Gifi",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#EC008C",
+      "aliases": [
+        "gifi",
+        "gifi magasin"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.gifi.fr/"
+    },
+    {
+      "name": "La Foir'Fouille",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#D81E05",
+      "aliases": [
+        "foir fouille",
+        "la foir fouille",
+        "foirfouille"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lafoirfouille.fr/"
+    },
+    {
+      "name": "Centrakor",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#00A9CE",
+      "aliases": [
+        "centrakor",
+        "centracor"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.centrakor.com/"
+    },
+    {
+      "name": "Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E4002B",
+      "aliases": [
+        "maxi zoo",
+        "maxizoo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maxizoo.fr/"
+    },
+    {
+      "name": "Animalis",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00954F",
+      "aliases": [
+        "animalis"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.animalis.com/"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#1E5AA8",
+      "aliases": [
+        "zooplus",
+        "zoo plus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zooplus.fr/"
+    },
+    {
+      "name": "Médor et Compagnie",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#F28C00",
+      "aliases": [
+        "medor et compagnie",
+        "medor"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.medoretcompagnie.fr/"
+    },
+    {
+      "name": "Tom&Co",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#6D4C41",
+      "aliases": [
+        "tom&co",
+        "tom and co",
+        "tom et co"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.tomandco.fr/"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#D40F2C",
+      "aliases": [
+        "intersport",
+        "inter sport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.intersport.fr/"
+    },
+    {
+      "name": "Sport 2000",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#FDB913",
+      "aliases": [
+        "sport 2000",
+        "sport deux mille"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sport2000.fr/"
+    },
+    {
+      "name": "Twinner",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#7CB342",
+      "aliases": [
+        "twinner"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.twinner.fr/"
+    },
+    {
+      "name": "JD Sports",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#3B3B3B",
+      "aliases": [
+        "jd sports",
+        "jd"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.jdsports.fr/"
+    },
+    {
+      "name": "Cultura",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#1C3A5E",
+      "aliases": [
+        "cultura"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.cultura.com/"
+    },
+    {
+      "name": "La Grande Récré",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#F5821F",
+      "aliases": [
+        "la grande recre",
+        "grande recre"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lagranderecre.fr/"
+    },
+    {
+      "name": "Bureau Vallée",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#E5242B",
+      "aliases": [
+        "bureau vallee",
+        "bureau vallée"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bureau-vallee.fr/"
+    }
+  ]
+}

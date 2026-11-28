@@ -1,0 +1,925 @@
+{
+  "country": "CH",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Migros",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#FF6600",
+      "aliases": [
+        "migros",
+        "migro",
+        "mi gros"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.migros.ch"
+    },
+    {
+      "name": "Coop",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#E2001A",
+      "aliases": [
+        "coop",
+        "koop",
+        "kopp"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.coop.ch"
+    },
+    {
+      "name": "Aldi Suisse",
+      "kind": "Discounter",
+      "rank": 3,
+      "color": "#00A3E0",
+      "aliases": [
+        "aldi",
+        "aldi suisse",
+        "aldi schweiz",
+        "aldi suisse"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.aldi-suisse.ch"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#E5B800",
+      "aliases": [
+        "lidl",
+        "lidl schweiz",
+        "lidel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lidl.ch"
+    },
+    {
+      "name": "Denner",
+      "kind": "Discounter",
+      "rank": 5,
+      "color": "#9B1C24",
+      "aliases": [
+        "denner",
+        "dener",
+        "denner satellit"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.denner.ch"
+    },
+    {
+      "name": "Galaxus",
+      "kind": "Online",
+      "rank": 6,
+      "color": "#111111",
+      "aliases": [
+        "galaxus",
+        "galaxis",
+        "galaxus schweiz"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.netzwoche.ch/news/2026-07-03/das-sind-die-umsatzstaerksten-onlineshops-der-schweiz-0"
+    },
+    {
+      "name": "Volg",
+      "kind": "Lebensmittel",
+      "rank": 7,
+      "color": "#00843D",
+      "aliases": [
+        "volg",
+        "folg",
+        "volk"
+      ],
+      "regions": [
+        "de"
+      ],
+      "online_only": false,
+      "source": "https://www.volg.ch"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": 8,
+      "color": "#6E6E6E",
+      "aliases": [
+        "zalando",
+        "salando",
+        "zalando schweiz"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.netzwoche.ch/news/2026-07-03/das-sind-die-umsatzstaerksten-onlineshops-der-schweiz-0"
+    },
+    {
+      "name": "Manor",
+      "kind": "Sonstige",
+      "rank": 9,
+      "color": "#8A1538",
+      "aliases": [
+        "manor",
+        "manor warenhaus",
+        "manor food"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.manor.ch"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 10,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea",
+        "ikea schweiz",
+        "ikea suisse"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ikea.com/ch"
+    },
+    {
+      "name": "Landi",
+      "kind": "Lebensmittel",
+      "rank": 11,
+      "color": "#E39B00",
+      "aliases": [
+        "landi",
+        "landi laden",
+        "landi fenaco"
+      ],
+      "regions": [
+        "de",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.landi.ch"
+    },
+    {
+      "name": "Jumbo",
+      "kind": "Baumarkt",
+      "rank": 12,
+      "color": "#F26B21",
+      "aliases": [
+        "jumbo",
+        "dschumbo",
+        "jumbo baumarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.jumbo.ch"
+    },
+    {
+      "name": "Interdiscount",
+      "kind": "Elektronik",
+      "rank": 13,
+      "color": "#C8102E",
+      "aliases": [
+        "interdiscount",
+        "inter discount",
+        "interdiscount schweiz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.interdiscount.ch"
+    },
+    {
+      "name": "Media Markt",
+      "kind": "Elektronik",
+      "rank": 14,
+      "color": "#DF0000",
+      "aliases": [
+        "media markt",
+        "mediamarkt",
+        "media mart"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mediamarkt.ch"
+    },
+    {
+      "name": "Amavita",
+      "kind": "Apotheke",
+      "rank": 15,
+      "color": "#00A19A",
+      "aliases": [
+        "amavita",
+        "amavita apotheke",
+        "ama vita"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.amavita.ch"
+    },
+    {
+      "name": "Fust",
+      "kind": "Elektronik",
+      "rank": 16,
+      "color": "#E30613",
+      "aliases": [
+        "fust",
+        "fust elektro",
+        "fust electro"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.fust.ch"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": 17,
+      "color": "#E50010",
+      "aliases": [
+        "h&m",
+        "h und m",
+        "hm",
+        "hennes und mauritz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www2.hm.com/de_ch"
+    },
+    {
+      "name": "Müller",
+      "kind": "Drogerie",
+      "rank": 18,
+      "color": "#F28C00",
+      "aliases": [
+        "muller",
+        "müller",
+        "mueller",
+        "muller drogerie"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mueller.ch"
+    },
+    {
+      "name": "dm",
+      "kind": "Drogerie",
+      "rank": 19,
+      "color": "#0A3F8F",
+      "aliases": [
+        "dm",
+        "dm drogerie",
+        "dm drogeriemarkt",
+        "de em"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dm-drogeriemarkt.ch"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 20,
+      "color": "#232F3E",
+      "aliases": [
+        "amazon",
+        "amazon de",
+        "amason"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://ecommercegermany.com/blog/largest-online-shops-switzerland-2026/"
+    },
+    {
+      "name": "Spar",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#005C2E",
+      "aliases": [
+        "spar",
+        "shpar",
+        "spar supermarkt"
+      ],
+      "regions": [
+        "de"
+      ],
+      "online_only": false,
+      "source": "https://www.spar.ch"
+    },
+    {
+      "name": "Aligro",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#E4002B",
+      "aliases": [
+        "aligro",
+        "aligro markt"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.aligro.ch"
+    },
+    {
+      "name": "Coop Pronto",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#F0501E",
+      "aliases": [
+        "coop pronto",
+        "pronto",
+        "coop pronto shop"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.coop.ch/de/unternehmen/standorte-und-oeffnungszeiten.html"
+    },
+    {
+      "name": "Import Parfumerie",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#7A1F5C",
+      "aliases": [
+        "import parfumerie",
+        "import parfümerie",
+        "import"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.import-parfumerie.ch"
+    },
+    {
+      "name": "Douglas",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#222222",
+      "aliases": [
+        "douglas",
+        "duglas",
+        "douglas parfumerie"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.douglas.ch"
+    },
+    {
+      "name": "Marionnaud",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#B0006E",
+      "aliases": [
+        "marionnaud",
+        "marionno",
+        "marionnaud parfumerie"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.marionnaud.ch"
+    },
+    {
+      "name": "Coop Vitality",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A650",
+      "aliases": [
+        "coop vitality",
+        "vitality",
+        "coop apotheke"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.coopvitality.ch"
+    },
+    {
+      "name": "Sun Store",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#F7A800",
+      "aliases": [
+        "sun store",
+        "sunstore",
+        "sun store apotheke"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sunstore.ch"
+    },
+    {
+      "name": "TopPharm",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#009EE0",
+      "aliases": [
+        "toppharm",
+        "top pharm",
+        "toppharm apotheke"
+      ],
+      "regions": [
+        "de",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.toppharm.ch"
+    },
+    {
+      "name": "Benu",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#6A2C91",
+      "aliases": [
+        "benu",
+        "benu apotheke",
+        "benu pharmacie"
+      ],
+      "regions": [
+        "de",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.benu.ch"
+    },
+    {
+      "name": "C&A",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0066B3",
+      "aliases": [
+        "c&a",
+        "c und a",
+        "ce und a",
+        "c a"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.c-and-a.com/ch/de"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#000000",
+      "aliases": [
+        "zara",
+        "sara",
+        "zara schweiz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zara.com/ch"
+    },
+    {
+      "name": "Dosenbach",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#C4161C",
+      "aliases": [
+        "dosenbach",
+        "dosenbach schuhe",
+        "dosenbach ochsner"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dosenbach.ch"
+    },
+    {
+      "name": "Tally Weijl",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#D6007F",
+      "aliases": [
+        "tally weijl",
+        "tally wail",
+        "tali weil"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.tally-weijl.com/ch"
+    },
+    {
+      "name": "Digitec",
+      "kind": "Online",
+      "rank": null,
+      "color": "#8A6D00",
+      "aliases": [
+        "digitec",
+        "digi tech",
+        "digitec galaxus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.digitec.ch"
+    },
+    {
+      "name": "Brack",
+      "kind": "Online",
+      "rank": null,
+      "color": "#0097A7",
+      "aliases": [
+        "brack",
+        "brack ch",
+        "brack electronics"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.brack.ch"
+    },
+    {
+      "name": "Melectronics",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#D95400",
+      "aliases": [
+        "melectronics",
+        "m electronics",
+        "me electronics"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.melectronics.ch"
+    },
+    {
+      "name": "Mobilezone",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#1E3A8A",
+      "aliases": [
+        "mobilezone",
+        "mobile zone",
+        "mobilzone"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mobilezone.ch"
+    },
+    {
+      "name": "Coop Bau+Hobby",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#B3262E",
+      "aliases": [
+        "coop bau und hobby",
+        "bau und hobby",
+        "coop bau hobby",
+        "bau+hobby"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.coop.ch/de/bau-hobby.html"
+    },
+    {
+      "name": "Do it + Garden",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F9A000",
+      "aliases": [
+        "do it garden",
+        "do it und garden",
+        "doit garden",
+        "do it + garden"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.doitgarden.ch"
+    },
+    {
+      "name": "Hornbach",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#E8700A",
+      "aliases": [
+        "hornbach",
+        "horn bach",
+        "hornbach baumarkt"
+      ],
+      "regions": [
+        "de",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.hornbach.ch"
+    },
+    {
+      "name": "Bauhaus",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#D2232A",
+      "aliases": [
+        "bauhaus",
+        "bau haus",
+        "bauhaus fachcentrum"
+      ],
+      "regions": [
+        "de",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.bauhaus.ch"
+    },
+    {
+      "name": "Pfister",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#003B6F",
+      "aliases": [
+        "pfister",
+        "fister",
+        "moebel pfister",
+        "pfister möbel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.pfister.ch"
+    },
+    {
+      "name": "Conforama",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E5007E",
+      "aliases": [
+        "conforama",
+        "konforama",
+        "conforama suisse"
+      ],
+      "regions": [
+        "fr",
+        "de"
+      ],
+      "online_only": false,
+      "source": "https://www.conforama.ch"
+    },
+    {
+      "name": "XXXLutz",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E3001B",
+      "aliases": [
+        "xxxlutz",
+        "xxx lutz",
+        "triple x lutz",
+        "lutz"
+      ],
+      "regions": [
+        "de"
+      ],
+      "online_only": false,
+      "source": "https://www.xxxlutz.ch"
+    },
+    {
+      "name": "Lipo",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#009FE3",
+      "aliases": [
+        "lipo",
+        "lipo möbel",
+        "lipo meubles"
+      ],
+      "regions": [
+        "de",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.lipo.ch"
+    },
+    {
+      "name": "Micasa",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#2E7D32",
+      "aliases": [
+        "micasa",
+        "mi casa",
+        "micasa migros"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.micasa.ch"
+    },
+    {
+      "name": "Depot",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#1F1F1F",
+      "aliases": [
+        "depot",
+        "depo",
+        "depot wohnaccessoires"
+      ],
+      "regions": [
+        "de"
+      ],
+      "online_only": false,
+      "source": "https://www.depot-online.ch"
+    },
+    {
+      "name": "Zara Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#6B5B45",
+      "aliases": [
+        "zara home",
+        "sara home",
+        "zarahome"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zarahome.com/ch"
+    },
+    {
+      "name": "Søstrene Grene",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#B45F7C",
+      "aliases": [
+        "sostrene grene",
+        "søstrene grene",
+        "soestrene grene",
+        "sostrene"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sostrenegrene.com/ch"
+    },
+    {
+      "name": "Maisons du Monde",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#3E7C7B",
+      "aliases": [
+        "maisons du monde",
+        "maison du monde",
+        "maisons du monde suisse"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.maisonsdumonde.com/CH"
+    },
+    {
+      "name": "Qualipet",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "qualipet",
+        "quali pet",
+        "qualipet tierbedarf"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.qualipet.ch"
+    },
+    {
+      "name": "Fressnapf",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E4002B",
+      "aliases": [
+        "fressnapf",
+        "fress napf",
+        "maxi zoo",
+        "fressnapf schweiz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.fressnapf.ch"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00518A",
+      "aliases": [
+        "zooplus",
+        "zoo plus",
+        "zooplus schweiz"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zooplus.ch"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "dekathlon",
+        "decathlon schweiz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.decathlon.ch"
+    },
+    {
+      "name": "Ochsner Sport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#00843D",
+      "aliases": [
+        "ochsner sport",
+        "ochsner",
+        "ochsner sports"
+      ],
+      "regions": [
+        "de",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.ochsnersport.ch"
+    },
+    {
+      "name": "SportX",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#FF6F00",
+      "aliases": [
+        "sportx",
+        "sport x",
+        "sport x migros",
+        "sportxx"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sportx.ch"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0B3C8C",
+      "aliases": [
+        "intersport",
+        "inter sport",
+        "intersport schweiz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.intersport.ch"
+    },
+    {
+      "name": "Athleticum",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#CE1126",
+      "aliases": [
+        "athleticum",
+        "athletikum",
+        "athleticum sportmarkt"
+      ],
+      "regions": [
+        "de",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.athleticum.ch"
+    },
+    {
+      "name": "Coop City",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "coop city",
+        "coop sity",
+        "city coop"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.coop.ch/de/coop-city.html"
+    },
+    {
+      "name": "Otto's",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#D4001A",
+      "aliases": [
+        "ottos",
+        "otto's",
+        "otto",
+        "otto s"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ottos.ch"
+    },
+    {
+      "name": "Migrolino",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#FF8A00",
+      "aliases": [
+        "migrolino",
+        "migro lino",
+        "migrolino shop"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.migrolino.ch"
+    }
+  ]
+}

@@ -1,0 +1,798 @@
+{
+  "country": "BE",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Colruyt",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#E8731A",
+      "aliases": [
+        "colruyt",
+        "kolruyt"
+      ],
+      "regions": [
+        "nl",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Delhaize",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#E30613",
+      "aliases": [
+        "delhaize",
+        "delhaise"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Carrefour",
+      "kind": "Lebensmittel",
+      "rank": 3,
+      "color": "#004E9F",
+      "aliases": [
+        "carrefour",
+        "carrefour market",
+        "carrefour express"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#00005F",
+      "aliases": [
+        "aldi",
+        "haldi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 5,
+      "color": "#F0B400",
+      "aliases": [
+        "lidl",
+        "lidle"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Intermarché",
+      "kind": "Lebensmittel",
+      "rank": 6,
+      "color": "#8C1D40",
+      "aliases": [
+        "intermarche",
+        "inter marche"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Albert Heijn",
+      "kind": "Lebensmittel",
+      "rank": 7,
+      "color": "#00A0E2",
+      "aliases": [
+        "albert heijn",
+        "albert hein",
+        "ah"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.ah.be/"
+    },
+    {
+      "name": "Jumbo",
+      "kind": "Lebensmittel",
+      "rank": 8,
+      "color": "#FFC900",
+      "aliases": [
+        "jumbo"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Okay",
+      "kind": "Lebensmittel",
+      "rank": 9,
+      "color": "#E4002B",
+      "aliases": [
+        "okay",
+        "okey"
+      ],
+      "regions": [
+        "nl",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Spar",
+      "kind": "Lebensmittel",
+      "rank": 10,
+      "color": "#007A3D",
+      "aliases": [
+        "spar",
+        "spaar"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Kruidvat",
+      "kind": "Drogerie",
+      "rank": 11,
+      "color": "#00A650",
+      "aliases": [
+        "kruidvat",
+        "kruidfat"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.kruidvat.be/"
+    },
+    {
+      "name": "Action",
+      "kind": "Wohnen",
+      "rank": 12,
+      "color": "#0A3D91",
+      "aliases": [
+        "action"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.action.com/nl-be/"
+    },
+    {
+      "name": "Hema",
+      "kind": "Wohnen",
+      "rank": 13,
+      "color": "#7A7A7A",
+      "aliases": [
+        "hema",
+        "hèma"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.hema.be/"
+    },
+    {
+      "name": "Bol",
+      "kind": "Online",
+      "rank": 14,
+      "color": "#0000A4",
+      "aliases": [
+        "bol",
+        "bol.com",
+        "bol punt com"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.bol.com/be/"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 15,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.amazon.com.be/"
+    },
+    {
+      "name": "Ikea",
+      "kind": "Möbel",
+      "rank": 16,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ikea.com/be/"
+    },
+    {
+      "name": "Brico",
+      "kind": "Baumarkt",
+      "rank": 17,
+      "color": "#FF6600",
+      "aliases": [
+        "brico"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.brico.be/"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": 18,
+      "color": "#2B2B2B",
+      "aliases": [
+        "zara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zara.com/be/"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": 19,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.decathlon.be/"
+    },
+    {
+      "name": "MediaMarkt",
+      "kind": "Elektronik",
+      "rank": 20,
+      "color": "#DF0000",
+      "aliases": [
+        "media markt",
+        "mediamarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mediamarkt.be/"
+    },
+    {
+      "name": "Match",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#D0021B",
+      "aliases": [
+        "match",
+        "smatch"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.matchsmatch.be/"
+    },
+    {
+      "name": "Louis Delhaize",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#B71C1C",
+      "aliases": [
+        "louis delhaize",
+        "cora"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.delhaize.be/"
+    },
+    {
+      "name": "Bio-Planet",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#7CB342",
+      "aliases": [
+        "bio planet",
+        "bioplanet"
+      ],
+      "regions": [
+        "nl",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.esmmagazine.com/index.php/retail/top-10-supermarket-chains-in-belgium-235791"
+    },
+    {
+      "name": "Trendy Foods",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#6D4C41",
+      "aliases": [
+        "trendy foods"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.colruytgroup.com/"
+    },
+    {
+      "name": "Ici Paris XL",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#B80048",
+      "aliases": [
+        "ici paris",
+        "ici paris xl"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.iciparisxl.be/"
+    },
+    {
+      "name": "DI",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#E91E63",
+      "aliases": [
+        "di",
+        "di parfumerie"
+      ],
+      "regions": [
+        "nl",
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.di.be/"
+    },
+    {
+      "name": "Springtree",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#00B2A9",
+      "aliases": [
+        "springtree"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.springtree.be/"
+    },
+    {
+      "name": "Pharmacie.be",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#3F8F3F",
+      "aliases": [
+        "pharmacie be"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.pharmacie.be/"
+    },
+    {
+      "name": "Multipharma",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A3A3",
+      "aliases": [
+        "multipharma",
+        "multi pharma"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.multipharma.be/"
+    },
+    {
+      "name": "Apotheek.be",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#2E7D32",
+      "aliases": [
+        "apotheek"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.apotheek.be/"
+    },
+    {
+      "name": "Medi-Market",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00AEEF",
+      "aliases": [
+        "medi market",
+        "medimarket"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.medi-market.be/"
+    },
+    {
+      "name": "Pharmacies Plus",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#D81B60",
+      "aliases": [
+        "pharmacies plus",
+        "plus pharmacie"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.pharmaciesplus.be/"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#CC0033",
+      "aliases": [
+        "h&m",
+        "hm"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www2.hm.com/nl_be/"
+    },
+    {
+      "name": "C&A",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#5C6BC0",
+      "aliases": [
+        "c&a",
+        "c en a"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.c-and-a.com/be/"
+    },
+    {
+      "name": "Primark",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0DA6E0",
+      "aliases": [
+        "primark"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.primark.com/nl-be"
+    },
+    {
+      "name": "JBC",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#F5A800",
+      "aliases": [
+        "jbc"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.jbc.be/"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FF6900",
+      "aliases": [
+        "zalando"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zalando.be/"
+    },
+    {
+      "name": "Coolblue",
+      "kind": "Online",
+      "rank": null,
+      "color": "#0090E3",
+      "aliases": [
+        "coolblue",
+        "cool blue"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.coolblue.be/"
+    },
+    {
+      "name": "Vanden Borre",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E3000F",
+      "aliases": [
+        "vanden borre",
+        "van den borre"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.vandenborre.be/"
+    },
+    {
+      "name": "Krefel",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#005BAA",
+      "aliases": [
+        "krefel",
+        "krefel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.krefel.be/"
+    },
+    {
+      "name": "Fnac",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E1A400",
+      "aliases": [
+        "fnac"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.fnac.be/"
+    },
+    {
+      "name": "Gamma",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#00A0DF",
+      "aliases": [
+        "gamma"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.gamma.be/"
+    },
+    {
+      "name": "Hubo",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F58220",
+      "aliases": [
+        "hubo"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.hubo.be/"
+    },
+    {
+      "name": "Brico Plan-It",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#C62828",
+      "aliases": [
+        "brico plan it",
+        "bricoplanit"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.brico.be/"
+    },
+    {
+      "name": "Mr.Bricolage",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F9A01B",
+      "aliases": [
+        "mr bricolage"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.mr-bricolage.be/"
+    },
+    {
+      "name": "Conforama",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E2231A",
+      "aliases": [
+        "conforama"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.conforama.be/"
+    },
+    {
+      "name": "Leen Bakker",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#009FE3",
+      "aliases": [
+        "leen bakker"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.leenbakker.be/"
+    },
+    {
+      "name": "Kwantum",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#7B1FA2",
+      "aliases": [
+        "kwantum"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.kwantum.be/"
+    },
+    {
+      "name": "Maisons du Monde",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#B8860B",
+      "aliases": [
+        "maisons du monde"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maisonsdumonde.com/BE/fr"
+    },
+    {
+      "name": "Zeeman",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#E4002B",
+      "aliases": [
+        "zeeman"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.zeeman.com/be-nl"
+    },
+    {
+      "name": "Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#C62828",
+      "aliases": [
+        "maxi zoo",
+        "maxizoo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maxizoo.be/"
+    },
+    {
+      "name": "Tom&Co",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#6D4C41",
+      "aliases": [
+        "tom&co",
+        "tom and co"
+      ],
+      "regions": [
+        "fr"
+      ],
+      "online_only": false,
+      "source": "https://www.tomandco.be/"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#1E5AA8",
+      "aliases": [
+        "zooplus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zooplus.be/"
+    },
+    {
+      "name": "Aveve",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#009639",
+      "aliases": [
+        "aveve"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.aveve.be/"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#D40F2C",
+      "aliases": [
+        "intersport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.intersport.be/"
+    },
+    {
+      "name": "Torfs",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#1A1A1A",
+      "aliases": [
+        "torfs"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.torfs.be/"
+    },
+    {
+      "name": "Standaard Boekhandel",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#1F4E8C",
+      "aliases": [
+        "standaard boekhandel"
+      ],
+      "regions": [
+        "nl"
+      ],
+      "online_only": false,
+      "source": "https://www.standaardboekhandel.be/"
+    },
+    {
+      "name": "Brantano",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#E53935",
+      "aliases": [
+        "brantano"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.brantano.be/"
+    }
+  ]
+}

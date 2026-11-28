@@ -74,7 +74,7 @@ export const fmtNum=(n,opts)=>new Intl.NumberFormat(loc,opts).format(n);
 
 /* Stabile interne IDs (Kategorien/Laden-Arten/Einheiten stehen als deutsche Namen in der DB) → Übersetzungsschlüssel. Nur Anzeige, DB-Werte bleiben unverändert. */
 const CAT_SLUG={'Früchte & Gemüse':'fruit_veg','Brot & Gebäck':'bakery','Milch & Käse':'dairy','Fleisch & Fisch':'meat_fish','Vorräte':'pantry','Tiefkühl':'frozen','Getränke':'drinks','Snacks & Süsses':'snacks','Haushalt':'household','Körperpflege':'personal_care','Apotheke':'pharmacy','Küche & Haushaltswaren':'kitchenware','Werkzeug & Baumarkt':'tools','Elektro & Technik':'electronics','Papeterie & Büro':'stationery','Wohnen & Deko':'home_deco','Garten & Pflanzen':'garden','Tierbedarf':'pets','Kleidung & Textil':'clothing','Baby & Kind':'baby','Sport & Freizeit':'sports','Auto & Velo':'auto_bike','Sonstiges':'other'};
-const KIND_SLUG={Lebensmittel:'food',Drogerie:'drugstore',Apotheke:'pharmacy',Baumarkt:'hardware',Wohnen:'home',Sonstige:'other'};
+const KIND_SLUG={Lebensmittel:'food',Drogerie:'drugstore',Apotheke:'pharmacy',Baumarkt:'hardware',Wohnen:'home',Sonstige:'other',Discounter:'discounter',Kleidung:'clothing',Online:'online',Elektronik:'electronics',Möbel:'furniture',Tierbedarf:'pets',Sport:'sport'};
 const UNIT_SLUG={Stk:'pcs',Pack:'pack',g:'g',kg:'kg',ml:'ml',l:'l'};
 const via=(map,pre)=>id=>map[id]?t(pre+map[id]):id;
 export const catName=via(CAT_SLUG,'cat.'),kindName=via(KIND_SLUG,'kind.'),unitName=via(UNIT_SLUG,'unit.');

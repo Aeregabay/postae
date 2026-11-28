@@ -15,5 +15,42 @@
  "fin.card_title_shop": "Boodschappen {shop}: totaal volgens kasticket?",
  "voice.example": "bijv. «Melk, 2 bananen en brood bij Delhaize»",
  "card.label_ph": "bijv. Colruyt Xtra Arik",
- "card.hint": "Tik op een kaart om ze aan de kassa te tonen. Een winkel lang indrukken toont de bijbehorende kaarten."
+ "card.hint": "Tik op een kaart om ze aan de kassa te tonen. Een winkel lang indrukken toont de bijbehorende kaarten.",
+ "kind.discounter": "Discounters",
+ "kind.clothing": "Kleding",
+ "kind.online": "Online",
+ "kind.electronics": "Elektronica",
+ "kind.furniture": "Meubelen",
+ "kind.pets": "Dierenbenodigdheden",
+ "kind.sport": "Sport",
+ "region.countries": "Landen",
+ "region.primary": "Hoofdland",
+ "region.make_primary": "Als hoofdland instellen",
+ "region.region": "Regio",
+ "region.ch.de": "Duitstalig Zwitserland",
+ "region.ch.fr": "Franstalig Zwitserland",
+ "region.ch.it": "Ticino",
+ "region.be.nl": "Vlaanderen",
+ "region.be.fr": "Wallonië-Brussel",
+ "region.hint": "Geldt voor het hele gezin.",
+ "region.suggest": "Winkels voorstellen voor deze selectie",
+ "catalog.title": "Winkels uit catalogus",
+ "catalog.add_btn": "Winkels uit catalogus toevoegen",
+ "catalog.top20": "Top 20 selecteren",
+ "catalog.all": "Alles",
+ "catalog.none": "Geen",
+ "catalog.top": "Top",
+ "catalog.exists": "al toegevoegd",
+ "catalog.empty_country": "Nog geen winkels voor dit land",
+ "catalog.loading": "Catalogus wordt geladen…",
+ "catalog.error": "Catalogus kon niet worden geladen",
+ "catalog.change": "Land en regio wijzigen",
+ "catalog.add_n": {
+  "one": "{count} winkel toevoegen",
+  "other": "{count} winkels toevoegen"
+ },
+ "catalog.added": {
+  "one": "{count} winkel toegevoegd",
+  "other": "{count} winkels toegevoegd"
+ }
 }

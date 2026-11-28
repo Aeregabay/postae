@@ -1,0 +1,673 @@
+{
+  "country": "PT",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Continente",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#E2001A",
+      "aliases": [
+        "continente"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://eco.sapo.pt/2026/03/26/no-duelo-de-titas-dos-supermercados-continente-da-mais-uma-dentada-na-quota-de-mercado-da-concorrencia/"
+    },
+    {
+      "name": "Pingo Doce",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#00843D",
+      "aliases": [
+        "pingo doce",
+        "pingo doces"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://eco.sapo.pt/2026/03/26/no-duelo-de-titas-dos-supermercados-continente-da-mais-uma-dentada-na-quota-de-mercado-da-concorrencia/"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 3,
+      "color": "#F5A800",
+      "aliases": [
+        "lidl",
+        "lidel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://econews.pt/?p=47874"
+    },
+    {
+      "name": "Auchan",
+      "kind": "Lebensmittel",
+      "rank": 4,
+      "color": "#D2232A",
+      "aliases": [
+        "auchan",
+        "ochan"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://econews.pt/?p=47874"
+    },
+    {
+      "name": "Intermarché",
+      "kind": "Lebensmittel",
+      "rank": 5,
+      "color": "#E4002B",
+      "aliases": [
+        "intermarche",
+        "intermarché",
+        "inter marche"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://econews.pt/?p=47874"
+    },
+    {
+      "name": "Mercadona",
+      "kind": "Lebensmittel",
+      "rank": 6,
+      "color": "#006B3F",
+      "aliases": [
+        "mercadona"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://esmmagazine.com/retail/mercadona-becomes-fourth-largest-retailer-in-portugal-283858"
+    },
+    {
+      "name": "Worten",
+      "kind": "Elektronik",
+      "rank": 7,
+      "color": "#FF3B30",
+      "aliases": [
+        "worten"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://marketeer.sapo.pt/finalistas-premios/cadeias-de-retalho"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 8,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://marketeer.sapo.pt/finalistas-premios/cadeias-de-retalho"
+    },
+    {
+      "name": "Leroy Merlin",
+      "kind": "Baumarkt",
+      "rank": 9,
+      "color": "#78BE20",
+      "aliases": [
+        "leroy merlin",
+        "leroi merlin",
+        "leroy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://marketeer.sapo.pt/finalistas-premios/cadeias-de-retalho"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": 10,
+      "color": "#111111",
+      "aliases": [
+        "zara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://marketeer.sapo.pt/finalistas-premios/cadeias-de-retalho"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": 11,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "decatlon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://marketeer.sapo.pt/finalistas-premios/cadeias-de-retalho"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 12,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.amazon.es"
+    },
+    {
+      "name": "Wells",
+      "kind": "Drogerie",
+      "rank": 13,
+      "color": "#E6007E",
+      "aliases": [
+        "wells",
+        "dr wells"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wells.pt"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 14,
+      "color": "#00AEEF",
+      "aliases": [
+        "aldi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.aldi.pt"
+    },
+    {
+      "name": "Sport Zone",
+      "kind": "Sport",
+      "rank": 15,
+      "color": "#E8540E",
+      "aliases": [
+        "sport zone",
+        "sportzone"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sportzone.pt"
+    },
+    {
+      "name": "Primark",
+      "kind": "Kleidung",
+      "rank": 16,
+      "color": "#0DB4E6",
+      "aliases": [
+        "primark"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.primark.com/pt-pt"
+    },
+    {
+      "name": "El Corte Inglés",
+      "kind": "Sonstige",
+      "rank": 17,
+      "color": "#2E7D32",
+      "aliases": [
+        "el corte ingles",
+        "corte ingles"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.elcorteingles.pt"
+    },
+    {
+      "name": "Fnac",
+      "kind": "Elektronik",
+      "rank": 18,
+      "color": "#E1A600",
+      "aliases": [
+        "fnac"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.fnac.pt"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": 19,
+      "color": "#FF6900",
+      "aliases": [
+        "zalando"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zalando.pt"
+    },
+    {
+      "name": "Conforama",
+      "kind": "Möbel",
+      "rank": 20,
+      "color": "#C2410C",
+      "aliases": [
+        "conforama"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.conforama.pt"
+    },
+    {
+      "name": "Meu Super",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#7CB342",
+      "aliases": [
+        "meu super",
+        "meusuper"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.meusuper.pt"
+    },
+    {
+      "name": "Perfumes & Companhia",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#AB47BC",
+      "aliases": [
+        "perfumes e companhia",
+        "perfumes and companhia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.perfumesecompanhia.pt"
+    },
+    {
+      "name": "Sephora",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#000000",
+      "aliases": [
+        "sephora"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sephora.pt"
+    },
+    {
+      "name": "Douglas",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#0A5C36",
+      "aliases": [
+        "douglas"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.douglas.pt"
+    },
+    {
+      "name": "Farmácias Portuguesas",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#009688",
+      "aliases": [
+        "farmacias portuguesas",
+        "farmácia portuguesa",
+        "farmacia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.farmaciasportuguesas.pt"
+    },
+    {
+      "name": "Holon",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#1976D2",
+      "aliases": [
+        "holon",
+        "farmacias holon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.holon.pt"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#E50010",
+      "aliases": [
+        "h&m",
+        "hm",
+        "agá éme"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www2.hm.com/pt_pt"
+    },
+    {
+      "name": "Pull&Bear",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#8D6E63",
+      "aliases": [
+        "pull and bear",
+        "pull&bear"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.pullandbear.com/pt"
+    },
+    {
+      "name": "Bershka",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#455A64",
+      "aliases": [
+        "bershka"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bershka.com/pt"
+    },
+    {
+      "name": "Shein",
+      "kind": "Online",
+      "rank": null,
+      "color": "#9C27B0",
+      "aliases": [
+        "shein"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://pt.shein.com"
+    },
+    {
+      "name": "Temu",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FB6B2B",
+      "aliases": [
+        "temu"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.temu.com/pt"
+    },
+    {
+      "name": "AliExpress",
+      "kind": "Online",
+      "rank": null,
+      "color": "#C62828",
+      "aliases": [
+        "aliexpress",
+        "ali express"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://pt.aliexpress.com"
+    },
+    {
+      "name": "Vinted",
+      "kind": "Online",
+      "rank": null,
+      "color": "#09B1BA",
+      "aliases": [
+        "vinted"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.vinted.pt"
+    },
+    {
+      "name": "MediaMarkt",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#B71C1C",
+      "aliases": [
+        "mediamarkt",
+        "media markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://mediamarkt.pt"
+    },
+    {
+      "name": "Radio Popular",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#1E3A8A",
+      "aliases": [
+        "radio popular",
+        "rádio popular"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.radiopopular.pt"
+    },
+    {
+      "name": "PCDIGA",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#F97316",
+      "aliases": [
+        "pcdiga",
+        "pc diga"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.pcdiga.com"
+    },
+    {
+      "name": "Maxmat",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F9A825",
+      "aliases": [
+        "maxmat",
+        "max mat"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maxmat.pt"
+    },
+    {
+      "name": "AKI",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#2E7D32",
+      "aliases": [
+        "aki"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.aki.pt"
+    },
+    {
+      "name": "Bricomarché",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#D84315",
+      "aliases": [
+        "bricomarche",
+        "bricomarché"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bricomarche.pt"
+    },
+    {
+      "name": "Moviflor",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#6A1B9A",
+      "aliases": [
+        "moviflor"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.moviflor.pt"
+    },
+    {
+      "name": "Zara Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#9E9D24",
+      "aliases": [
+        "zara home"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zarahome.com/pt"
+    },
+    {
+      "name": "Casa",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#EC407A",
+      "aliases": [
+        "casa"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.casa.com/pt"
+    },
+    {
+      "name": "Maisons du Monde",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#AD1457",
+      "aliases": [
+        "maisons du monde"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maisonsdumonde.com/PT"
+    },
+    {
+      "name": "Flying Tiger",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#EF5350",
+      "aliases": [
+        "tiger",
+        "flying tiger"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://flyingtiger.com/pt-PT"
+    },
+    {
+      "name": "JYSK",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#0072BC",
+      "aliases": [
+        "jysk",
+        "iisk"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://jysk.pt"
+    },
+    {
+      "name": "Tiendanimal",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#F57C00",
+      "aliases": [
+        "tiendanimal",
+        "tienda animal"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.tiendanimal.pt"
+    },
+    {
+      "name": "Kiwoko",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00A650",
+      "aliases": [
+        "kiwoko"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.kiwoko.pt"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#004B93",
+      "aliases": [
+        "zooplus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zooplus.pt"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#003DA5",
+      "aliases": [
+        "intersport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.intersport.pt"
+    },
+    {
+      "name": "JD Sports",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#212121",
+      "aliases": [
+        "jd sports",
+        "jd"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.jdsports.pt"
+    },
+    {
+      "name": "Foot Locker",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#D50000",
+      "aliases": [
+        "foot locker",
+        "footlocker"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.footlocker.pt"
+    },
+    {
+      "name": "Bertrand",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#B71C1C",
+      "aliases": [
+        "bertrand",
+        "livraria bertrand"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bertrand.pt"
+    },
+    {
+      "name": "Wook",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#EF6C00",
+      "aliases": [
+        "wook"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.wook.pt"
+    }
+  ]
+}

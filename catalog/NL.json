@@ -1,0 +1,890 @@
+{
+  "country": "NL",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Albert Heijn",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#00A0E2",
+      "aliases": [
+        "albert heijn",
+        "ah",
+        "albert hein",
+        "appie"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.retaildetail.eu/news/food/aldi-and-albert-heijn-gain-market-share-in-the-netherlands/"
+    },
+    {
+      "name": "Jumbo",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#F5B800",
+      "aliases": [
+        "jumbo",
+        "yumbo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.retaildetail.eu/news/food/aldi-and-albert-heijn-gain-market-share-in-the-netherlands/"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 3,
+      "color": "#0050AA",
+      "aliases": [
+        "lidl",
+        "liedl"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.retaildetail.eu/news/food/aldi-and-albert-heijn-gain-market-share-in-the-netherlands/"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#F37021",
+      "aliases": [
+        "aldi",
+        "aldi nederland"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.discountretailconsulting.com/post/netherlands-aldi-dominates-as-the-discount-era-solidifies"
+    },
+    {
+      "name": "Kruidvat",
+      "kind": "Drogerie",
+      "rank": 5,
+      "color": "#E4002B",
+      "aliases": [
+        "kruidvat",
+        "kruidfat"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/810610/leading-drugstores-in-the-netherlands-by-number-of-stores"
+    },
+    {
+      "name": "bol",
+      "kind": "Online",
+      "rank": 6,
+      "color": "#0000A4",
+      "aliases": [
+        "bol",
+        "bol.com",
+        "bol punt com"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://ecommercenews.eu/bol-still-biggest-online-seller-in-dutch-ecommerce/"
+    },
+    {
+      "name": "Action",
+      "kind": "Sonstige",
+      "rank": 7,
+      "color": "#8A1538",
+      "aliases": [
+        "action",
+        "aktion"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.action.com/nl-nl/"
+    },
+    {
+      "name": "Plus",
+      "kind": "Lebensmittel",
+      "rank": 8,
+      "color": "#78B82A",
+      "aliases": [
+        "plus",
+        "plus supermarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.retaildetail.eu/news/food/aldi-and-albert-heijn-gain-market-share-in-the-netherlands/"
+    },
+    {
+      "name": "Etos",
+      "kind": "Drogerie",
+      "rank": 9,
+      "color": "#00A19A",
+      "aliases": [
+        "etos",
+        "ethos"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/810610/leading-drugstores-in-the-netherlands-by-number-of-stores"
+    },
+    {
+      "name": "HEMA",
+      "kind": "Wohnen",
+      "rank": 10,
+      "color": "#00A0B0",
+      "aliases": [
+        "hema",
+        "hèma"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.hema.nl/"
+    },
+    {
+      "name": "Gamma",
+      "kind": "Baumarkt",
+      "rank": 11,
+      "color": "#003B8E",
+      "aliases": [
+        "gamma",
+        "gamma bouwmarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/950418/leading-diy-stores-in-the-netherlands"
+    },
+    {
+      "name": "Praxis",
+      "kind": "Baumarkt",
+      "rank": 12,
+      "color": "#FF6A13",
+      "aliases": [
+        "praxis",
+        "praxis bouwmarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/950418/leading-diy-stores-in-the-netherlands"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 13,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea",
+        "ikea nederland"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ikea.com/nl/nl/"
+    },
+    {
+      "name": "Coolblue",
+      "kind": "Elektronik",
+      "rank": 14,
+      "color": "#0090E3",
+      "aliases": [
+        "coolblue",
+        "cool blue"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://ecommercenews.eu/bol-still-biggest-online-seller-in-dutch-ecommerce/"
+    },
+    {
+      "name": "Dirk",
+      "kind": "Discounter",
+      "rank": 15,
+      "color": "#E30613",
+      "aliases": [
+        "dirk",
+        "dirk van den broek",
+        "dirk vd broek"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.retaildetail.eu/news/food/aldi-and-albert-heijn-gain-market-share-in-the-netherlands/"
+    },
+    {
+      "name": "Zeeman",
+      "kind": "Kleidung",
+      "rank": 16,
+      "color": "#D4002A",
+      "aliases": [
+        "zeeman",
+        "seeman"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zeeman.com/nl/"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 17,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon",
+        "amazon.nl",
+        "amazone"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://ecommercenews.eu/bol-still-biggest-online-seller-in-dutch-ecommerce/"
+    },
+    {
+      "name": "Hoogvliet",
+      "kind": "Lebensmittel",
+      "rank": 18,
+      "color": "#E2001A",
+      "aliases": [
+        "hoogvliet",
+        "hoogvliet supermarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.retaildetail.eu/news/food/aldi-and-albert-heijn-gain-market-share-in-the-netherlands/"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": 19,
+      "color": "#FF6900",
+      "aliases": [
+        "zalando",
+        "salando"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://ecommercenews.eu/bol-still-biggest-online-seller-in-dutch-ecommerce/"
+    },
+    {
+      "name": "MediaMarkt",
+      "kind": "Elektronik",
+      "rank": 20,
+      "color": "#DF0000",
+      "aliases": [
+        "mediamarkt",
+        "media markt",
+        "mediamarkt nederland"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mediamarkt.nl/"
+    },
+    {
+      "name": "Spar",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#00793C",
+      "aliases": [
+        "spar",
+        "spar supermarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.retaildetail.eu/news/food/aldi-and-albert-heijn-gain-market-share-in-the-netherlands/"
+    },
+    {
+      "name": "Vomar",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#FFD100",
+      "aliases": [
+        "vomar",
+        "vomar voordeelmarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.retaildetail.eu/news/food/aldi-and-albert-heijn-gain-market-share-in-the-netherlands/"
+    },
+    {
+      "name": "Ekoplaza",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#6BB536",
+      "aliases": [
+        "ekoplaza",
+        "eko plaza"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ekoplaza.nl/"
+    },
+    {
+      "name": "Picnic",
+      "kind": "Online",
+      "rank": null,
+      "color": "#E8383D",
+      "aliases": [
+        "picnic",
+        "picknick"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://picnic.app/nl/"
+    },
+    {
+      "name": "Poiesz",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#B30000",
+      "aliases": [
+        "poiesz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.poiesz-supermarkten.nl/"
+    },
+    {
+      "name": "Boni",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#F2A900",
+      "aliases": [
+        "boni",
+        "boni supermarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.boni.nl/"
+    },
+    {
+      "name": "DA",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#7A1F5C",
+      "aliases": [
+        "da",
+        "da drogist",
+        "da drogisterij"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/810610/leading-drugstores-in-the-netherlands-by-number-of-stores"
+    },
+    {
+      "name": "Trekpleister",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#1B3F94",
+      "aliases": [
+        "trekpleister",
+        "trek pleister"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/810610/leading-drugstores-in-the-netherlands-by-number-of-stores"
+    },
+    {
+      "name": "Holland & Barrett",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#006B3F",
+      "aliases": [
+        "holland and barrett",
+        "holland en barrett",
+        "holland barrett"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.hollandandbarrett.nl/"
+    },
+    {
+      "name": "BENU",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A6A6",
+      "aliases": [
+        "benu",
+        "benu apotheek"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.benuapotheek.nl/"
+    },
+    {
+      "name": "Service Apotheek",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#E5007D",
+      "aliases": [
+        "service apotheek",
+        "serviceapotheek"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.serviceapotheek.nl/"
+    },
+    {
+      "name": "Brocacef",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#005EB8",
+      "aliases": [
+        "brocacef",
+        "brocacef apotheek"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.brocacef.nl/"
+    },
+    {
+      "name": "Mediq Apotheek",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00B2A9",
+      "aliases": [
+        "mediq",
+        "mediq apotheek",
+        "medic apotheek"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mediqapotheek.nl/"
+    },
+    {
+      "name": "Dokter Drenth",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#F28C28",
+      "aliases": [
+        "dokter drenth",
+        "doctor drenth"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.dokterdrenth.nl/"
+    },
+    {
+      "name": "C&A",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#1D3F8F",
+      "aliases": [
+        "c&a",
+        "c en a",
+        "cna",
+        "sea en a"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.c-and-a.com/nl/nl/shop"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#E50010",
+      "aliases": [
+        "h&m",
+        "h en m",
+        "hm",
+        "hennes en mauritz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www2.hm.com/nl_nl/"
+    },
+    {
+      "name": "Primark",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0DAADB",
+      "aliases": [
+        "primark",
+        "prie mark"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.primark.com/nl"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#000000",
+      "aliases": [
+        "zara",
+        "sara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zara.com/nl/"
+    },
+    {
+      "name": "Wehkamp",
+      "kind": "Online",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "wehkamp",
+        "weh kamp"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.wehkamp.nl/"
+    },
+    {
+      "name": "Karwei",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#E5007D",
+      "aliases": [
+        "karwei",
+        "carwei"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/950418/leading-diy-stores-in-the-netherlands"
+    },
+    {
+      "name": "Hornbach",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F58220",
+      "aliases": [
+        "hornbach",
+        "horenbach"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/950418/leading-diy-stores-in-the-netherlands"
+    },
+    {
+      "name": "Hubo",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#00A650",
+      "aliases": [
+        "hubo",
+        "hubo bouwmarkt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://statista.com/statistics/950418/leading-diy-stores-in-the-netherlands"
+    },
+    {
+      "name": "Bauhaus",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#E30613",
+      "aliases": [
+        "bauhaus",
+        "bouhaus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bauhaus.nl/"
+    },
+    {
+      "name": "Intratuin",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#2E8B3D",
+      "aliases": [
+        "intratuin",
+        "intra tuin"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.intratuin.nl/"
+    },
+    {
+      "name": "Leen Bakker",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E30613",
+      "aliases": [
+        "leen bakker",
+        "lin bakker"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.leenbakker.nl/"
+    },
+    {
+      "name": "Kwantum",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#FFB400",
+      "aliases": [
+        "kwantum",
+        "kwantum woonwinkel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.kwantum.nl/"
+    },
+    {
+      "name": "Jysk",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#005CA9",
+      "aliases": [
+        "jysk",
+        "yusk"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://jysk.nl/"
+    },
+    {
+      "name": "Swiss Sense",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#1A1A1A",
+      "aliases": [
+        "swiss sense",
+        "swisssense"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.swisssense.nl/"
+    },
+    {
+      "name": "Beter Bed",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#7F1D4E",
+      "aliases": [
+        "beter bed",
+        "betterbed"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.beterbed.nl/"
+    },
+    {
+      "name": "Xenos",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#E87722",
+      "aliases": [
+        "xenos",
+        "senos"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.xenos.nl/"
+    },
+    {
+      "name": "Søstrene Grene",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#8C1D40",
+      "aliases": [
+        "sostrene grene",
+        "søstrene grene",
+        "sostrene"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://sostrenegrene.com/nl/"
+    },
+    {
+      "name": "Flying Tiger Copenhagen",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#D50032",
+      "aliases": [
+        "flying tiger",
+        "tiger",
+        "flying tiger copenhagen"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://flyingtiger.com/nl-nl"
+    },
+    {
+      "name": "Casa",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#2B2B2B",
+      "aliases": [
+        "casa",
+        "casa woonwinkel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.casashops.nl/"
+    },
+    {
+      "name": "Pets Place",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00A3E0",
+      "aliases": [
+        "pets place",
+        "petsplace"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petsplace.nl/"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#F28B00",
+      "aliases": [
+        "zooplus",
+        "zoo plus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zooplus.nl/"
+    },
+    {
+      "name": "Dierenwinkel Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "maxi zoo",
+        "maxizoo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maxizoo.nl/"
+    },
+    {
+      "name": "Welkoop",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00793C",
+      "aliases": [
+        "welkoop",
+        "wel koop"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.welkoop.nl/"
+    },
+    {
+      "name": "Ranzijn",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#1E5AA8",
+      "aliases": [
+        "ranzijn"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ranzijn.nl/"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0A4FA3",
+      "aliases": [
+        "intersport",
+        "inter sport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.intersport.nl/"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "decatlon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.decathlon.nl/"
+    },
+    {
+      "name": "Perry Sport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#E4002B",
+      "aliases": [
+        "perry sport",
+        "perrysport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.perrysport.nl/"
+    },
+    {
+      "name": "Foot Locker",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#2D2D2D",
+      "aliases": [
+        "foot locker",
+        "footlocker"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.footlocker.nl/"
+    },
+    {
+      "name": "Bijenkorf",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#000000",
+      "aliases": [
+        "bijenkorf",
+        "de bijenkorf"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.debijenkorf.nl/"
+    },
+    {
+      "name": "Bcc",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#FF6600",
+      "aliases": [
+        "bcc",
+        "b c c"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bcc.nl/"
+    },
+    {
+      "name": "Expert",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "expert",
+        "expert elektronica"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.expert.nl/"
+    },
+    {
+      "name": "Gall & Gall",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#7A0019",
+      "aliases": [
+        "gall en gall",
+        "gall & gall",
+        "gal en gal"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.gall.nl/"
+    },
+    {
+      "name": "Rituals",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#B8860B",
+      "aliases": [
+        "rituals"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.rituals.com/nl-nl"
+    }
+  ]
+}

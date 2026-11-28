@@ -1,0 +1,902 @@
+{
+  "country": "IT",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Conad",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#E2001A",
+      "aliases": [
+        "conad",
+        "conat"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Coop",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#0054A6",
+      "aliases": [
+        "coop",
+        "ipercoop",
+        "coop italia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Esselunga",
+      "kind": "Lebensmittel",
+      "rank": 3,
+      "color": "#B01E2E",
+      "aliases": [
+        "esselunga",
+        "essere lunga"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Eurospin",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#2E6FD8",
+      "aliases": [
+        "eurospin",
+        "euro spin"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 5,
+      "color": "#E0A800",
+      "aliases": [
+        "lidl",
+        "lidel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Carrefour",
+      "kind": "Lebensmittel",
+      "rank": 6,
+      "color": "#00A3E0",
+      "aliases": [
+        "carrefour",
+        "carrefur"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 7,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon",
+        "amazon it"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Famila",
+      "kind": "Lebensmittel",
+      "rank": 8,
+      "color": "#E4572E",
+      "aliases": [
+        "famila"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Pam Panorama",
+      "kind": "Lebensmittel",
+      "rank": 9,
+      "color": "#7A1F8E",
+      "aliases": [
+        "pam",
+        "panorama",
+        "pam panorama"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 10,
+      "color": "#0B1F5C",
+      "aliases": [
+        "aldi",
+        "aldi italia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "MD",
+      "kind": "Discounter",
+      "rank": 11,
+      "color": "#F26522",
+      "aliases": [
+        "md",
+        "md discount",
+        "emme di"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 12,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea",
+        "ikea italia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Leroy Merlin",
+      "kind": "Baumarkt",
+      "rank": 13,
+      "color": "#78BE20",
+      "aliases": [
+        "leroy merlin",
+        "leroy",
+        "leroi merlin"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "MediaWorld",
+      "kind": "Elektronik",
+      "rank": 14,
+      "color": "#DF0000",
+      "aliases": [
+        "mediaworld",
+        "media world"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": 15,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "decatlon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Acqua & Sapone",
+      "kind": "Drogerie",
+      "rank": 16,
+      "color": "#00A19A",
+      "aliases": [
+        "acqua e sapone",
+        "acqua sapone"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "Tigotà",
+      "kind": "Drogerie",
+      "rank": 17,
+      "color": "#E5007D",
+      "aliases": [
+        "tigota",
+        "tigotà"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": 18,
+      "color": "#FF6900",
+      "aliases": [
+        "zalando",
+        "zalandò"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Unieuro",
+      "kind": "Elektronik",
+      "rank": 19,
+      "color": "#FFB400",
+      "aliases": [
+        "unieuro",
+        "uni euro"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Penny",
+      "kind": "Discounter",
+      "rank": 20,
+      "color": "#A3195B",
+      "aliases": [
+        "penny",
+        "penny market"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Despar",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#009A44",
+      "aliases": [
+        "despar",
+        "eurospar",
+        "interspar"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Bennet",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#C8102E",
+      "aliases": [
+        "bennet"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Sephora",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#111111",
+      "aliases": [
+        "sephora"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "Douglas",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#6B2D5C",
+      "aliases": [
+        "douglas",
+        "duglas"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "Kiko Milano",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#D4145A",
+      "aliases": [
+        "kiko",
+        "kiko milano"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "Farmacie Comunali",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#2E9F5B",
+      "aliases": [
+        "farmacia comunale",
+        "farmacie comunali"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "LloydsFarmacia",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00805E",
+      "aliases": [
+        "lloyds farmacia",
+        "lloydsfarmacia",
+        "lloyds"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "Dr. Max",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#E6002D",
+      "aliases": [
+        "dr max",
+        "dottor max",
+        "drmax"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "Farmacosmo",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#7B3FA0",
+      "aliases": [
+        "farmacosmo"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "Farmacia Loreto",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#1F6FB5",
+      "aliases": [
+        "farmacia loreto",
+        "loreto"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://quifinanza.it/economia/catene-commerciali-classifica/900918/"
+    },
+    {
+      "name": "OVS",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#005AA7",
+      "aliases": [
+        "ovs",
+        "o v s"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#CC071E",
+      "aliases": [
+        "h&m",
+        "hm",
+        "acca emme"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#222222",
+      "aliases": [
+        "zara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Primark",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0DA5E8",
+      "aliases": [
+        "primark"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Calzedonia",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#C9A227",
+      "aliases": [
+        "calzedonia",
+        "calze donia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Intimissimi",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#8E2A4A",
+      "aliases": [
+        "intimissimi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "eBay",
+      "kind": "Online",
+      "rank": null,
+      "color": "#E53238",
+      "aliases": [
+        "ebay",
+        "e bay"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Shein",
+      "kind": "Online",
+      "rank": null,
+      "color": "#555555",
+      "aliases": [
+        "shein",
+        "scin"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Temu",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FB7701",
+      "aliases": [
+        "temu"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Euronics",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#003B8E",
+      "aliases": [
+        "euronics",
+        "euro nics"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Expert",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E20074",
+      "aliases": [
+        "expert"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Apple Store",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#6E6E73",
+      "aliases": [
+        "apple store",
+        "apple"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Brico io",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#EE7D00",
+      "aliases": [
+        "brico io",
+        "bricoio",
+        "brico"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.greenme.it/?p=1224989"
+    },
+    {
+      "name": "Bricocenter",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#E3000F",
+      "aliases": [
+        "bricocenter",
+        "brico center"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.greenme.it/?p=1224989"
+    },
+    {
+      "name": "OBI",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F58220",
+      "aliases": [
+        "obi",
+        "oby"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Tecnomat",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#0A8A3C",
+      "aliases": [
+        "tecnomat",
+        "tecno mat"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.greenme.it/?p=1224989"
+    },
+    {
+      "name": "Mondo Convenienza",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E30613",
+      "aliases": [
+        "mondo convenienza",
+        "mondoconvenienza"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Poltronesofà",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#8C6D46",
+      "aliases": [
+        "poltronesofa",
+        "poltrone sofa",
+        "poltronesofà"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Maisons du Monde",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#4A4A4A",
+      "aliases": [
+        "maisons du monde",
+        "maison du monde"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Divani & Divani",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#9C7A3C",
+      "aliases": [
+        "divani e divani",
+        "divani divani"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Zara Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#3A3A3A",
+      "aliases": [
+        "zara home",
+        "zarahome"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Flying Tiger Copenhagen",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#D81E5B",
+      "aliases": [
+        "tiger",
+        "flying tiger",
+        "flying tiger copenhagen"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Kasanova",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#00A6A6",
+      "aliases": [
+        "kasanova",
+        "casa nova"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Søstrene Grene",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#B8860B",
+      "aliases": [
+        "sostrene grene",
+        "sostrene",
+        "sostre grene"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Tedi",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#D52B1E",
+      "aliases": [
+        "tedi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#C8102F",
+      "aliases": [
+        "maxi zoo",
+        "maxizoo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Arcaplanet",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00A650",
+      "aliases": [
+        "arcaplanet",
+        "arca planet"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Isola dei Tesori",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#1B75BC",
+      "aliases": [
+        "isola dei tesori"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#004B93",
+      "aliases": [
+        "zooplus",
+        "zoo plus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Pet Store Conad",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#F28C28",
+      "aliases": [
+        "pet store conad",
+        "pet store"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.statista.com/statistics/1285229/leading-supermarkets-italy"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#E4002B",
+      "aliases": [
+        "intersport",
+        "inter sport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "JD Sports",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#101820",
+      "aliases": [
+        "jd sports",
+        "jd"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Foot Locker",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#7C7C7C",
+      "aliases": [
+        "foot locker",
+        "footlocker"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Sportler",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#B5121B",
+      "aliases": [
+        "sportler"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Mondadori Store",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#0072BC",
+      "aliases": [
+        "mondadori",
+        "mondadori store"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "laFeltrinelli",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#C2002F",
+      "aliases": [
+        "feltrinelli",
+        "la feltrinelli"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Giunti al Punto",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#00A3A1",
+      "aliases": [
+        "giunti",
+        "giunti al punto"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Libraccio",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#F9A620",
+      "aliases": [
+        "libraccio"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    },
+    {
+      "name": "Deichmann",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#2B2B7B",
+      "aliases": [
+        "deichmann",
+        "deichman"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ipsos.com/it-it/node/1061331"
+    }
+  ]
+}

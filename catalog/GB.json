@@ -1,0 +1,833 @@
+{
+  "country": "GB",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Tesco",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#00539F",
+      "aliases": [
+        "tesco",
+        "tescos"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Sainsbury's",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#F06C00",
+      "aliases": [
+        "sainsburys",
+        "sainsbury",
+        "sainsbury's",
+        "sainsbies"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Asda",
+      "kind": "Lebensmittel",
+      "rank": 3,
+      "color": "#78BE20",
+      "aliases": [
+        "asda",
+        "asder"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#00005F",
+      "aliases": [
+        "aldi",
+        "aldi uk"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 5,
+      "color": "#F2B600",
+      "aliases": [
+        "lidl",
+        "lidel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Morrisons",
+      "kind": "Lebensmittel",
+      "rank": 6,
+      "color": "#007531",
+      "aliases": [
+        "morrisons",
+        "morrison's",
+        "morries"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Co-op",
+      "kind": "Lebensmittel",
+      "rank": 7,
+      "color": "#00B1E7",
+      "aliases": [
+        "co-op",
+        "coop",
+        "co op",
+        "the co-op"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Waitrose",
+      "kind": "Lebensmittel",
+      "rank": 8,
+      "color": "#5E7B3A",
+      "aliases": [
+        "waitrose",
+        "waitrose and partners"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 9,
+      "color": "#37475A",
+      "aliases": [
+        "amazon",
+        "amazon uk"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.amazon.co.uk"
+    },
+    {
+      "name": "Ocado",
+      "kind": "Online",
+      "rank": 10,
+      "color": "#5E2D91",
+      "aliases": [
+        "ocado",
+        "ocardo"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ocado.com"
+    },
+    {
+      "name": "Marks & Spencer",
+      "kind": "Lebensmittel",
+      "rank": 11,
+      "color": "#1A1A1A",
+      "aliases": [
+        "marks and spencer",
+        "m&s",
+        "m and s",
+        "marks & spencer"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.marksandspencer.com"
+    },
+    {
+      "name": "Iceland",
+      "kind": "Lebensmittel",
+      "rank": 12,
+      "color": "#E4002B",
+      "aliases": [
+        "iceland",
+        "iceland foods"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.grocerygazette.co.uk/2026/04/28/lidl-record-share-morrisons/"
+    },
+    {
+      "name": "Boots",
+      "kind": "Drogerie",
+      "rank": 13,
+      "color": "#3D3D9E",
+      "aliases": [
+        "boots",
+        "boots chemist"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.boots.com"
+    },
+    {
+      "name": "Superdrug",
+      "kind": "Drogerie",
+      "rank": 14,
+      "color": "#E6007E",
+      "aliases": [
+        "superdrug",
+        "super drug"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.superdrug.com"
+    },
+    {
+      "name": "Argos",
+      "kind": "Sonstige",
+      "rank": 15,
+      "color": "#B3001B",
+      "aliases": [
+        "argos",
+        "argos catalogue"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.argos.co.uk"
+    },
+    {
+      "name": "B&M",
+      "kind": "Wohnen",
+      "rank": 16,
+      "color": "#2C4F9E",
+      "aliases": [
+        "b&m",
+        "b and m",
+        "bm bargains",
+        "b&m bargains"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bmstores.co.uk"
+    },
+    {
+      "name": "Primark",
+      "kind": "Kleidung",
+      "rank": 17,
+      "color": "#0DAAE4",
+      "aliases": [
+        "primark",
+        "penneys"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.primark.com/en-gb"
+    },
+    {
+      "name": "Next",
+      "kind": "Kleidung",
+      "rank": 18,
+      "color": "#4A4A4A",
+      "aliases": [
+        "next",
+        "next uk"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.next.co.uk"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 19,
+      "color": "#E8B900",
+      "aliases": [
+        "ikea",
+        "ikea uk",
+        "ikeya"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ikea.com/gb/en/"
+    },
+    {
+      "name": "B&Q",
+      "kind": "Baumarkt",
+      "rank": 20,
+      "color": "#FF7A1A",
+      "aliases": [
+        "b&q",
+        "b and q",
+        "bnq"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.diy.com"
+    },
+    {
+      "name": "Farmfoods",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#D2232A",
+      "aliases": [
+        "farmfoods",
+        "farm foods"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.farmfoods.co.uk"
+    },
+    {
+      "name": "Savers",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#00A19B",
+      "aliases": [
+        "savers",
+        "savers health and beauty"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.savers.co.uk"
+    },
+    {
+      "name": "Well Pharmacy",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00843D",
+      "aliases": [
+        "well pharmacy",
+        "well",
+        "well chemist"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.well.co.uk"
+    },
+    {
+      "name": "Rowlands Pharmacy",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#1C75BC",
+      "aliases": [
+        "rowlands",
+        "rowlands pharmacy",
+        "rowlands chemist"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.rowlandspharmacy.co.uk"
+    },
+    {
+      "name": "Day Lewis Pharmacy",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#7A1F5C",
+      "aliases": [
+        "day lewis",
+        "daylewis",
+        "day lewis pharmacy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.daylewispharmacy.co.uk"
+    },
+    {
+      "name": "Pharmacy2U",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#009FDA",
+      "aliases": [
+        "pharmacy2u",
+        "pharmacy to you",
+        "pharmacy 2 u"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.pharmacy2u.co.uk"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#E50010",
+      "aliases": [
+        "h&m",
+        "h and m",
+        "hm"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www2.hm.com/en_gb/"
+    },
+    {
+      "name": "TK Maxx",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#C8102E",
+      "aliases": [
+        "tk maxx",
+        "tkmaxx",
+        "tk max"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.tkmaxx.com"
+    },
+    {
+      "name": "Matalan",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#7B1FA2",
+      "aliases": [
+        "matalan",
+        "matalan clothes"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.matalan.co.uk"
+    },
+    {
+      "name": "eBay",
+      "kind": "Online",
+      "rank": null,
+      "color": "#E53238",
+      "aliases": [
+        "ebay",
+        "e-bay"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ebay.co.uk"
+    },
+    {
+      "name": "ASOS",
+      "kind": "Online",
+      "rank": null,
+      "color": "#2D2D2D",
+      "aliases": [
+        "asos",
+        "a sos"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.asos.com"
+    },
+    {
+      "name": "Very",
+      "kind": "Online",
+      "rank": null,
+      "color": "#0F7B6C",
+      "aliases": [
+        "very",
+        "very.co.uk"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.very.co.uk"
+    },
+    {
+      "name": "Currys",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#6A2C91",
+      "aliases": [
+        "currys",
+        "curry's",
+        "currys pc world"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.currys.co.uk"
+    },
+    {
+      "name": "AO",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#0057B8",
+      "aliases": [
+        "ao",
+        "ao.com",
+        "ao dot com"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://ao.com"
+    },
+    {
+      "name": "Apple Store",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#6E6E73",
+      "aliases": [
+        "apple",
+        "apple store"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.apple.com/uk/retail/"
+    },
+    {
+      "name": "Richer Sounds",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#F7941D",
+      "aliases": [
+        "richer sounds"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.richersounds.com"
+    },
+    {
+      "name": "CeX",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E3001B",
+      "aliases": [
+        "cex",
+        "c e x",
+        "webuy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://uk.webuy.com"
+    },
+    {
+      "name": "Screwfix",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#FF7F00",
+      "aliases": [
+        "screwfix",
+        "screw fix"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.screwfix.com"
+    },
+    {
+      "name": "Wickes",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#00A0DC",
+      "aliases": [
+        "wickes",
+        "wicks"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wickes.co.uk"
+    },
+    {
+      "name": "Homebase",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#00A651",
+      "aliases": [
+        "homebase",
+        "home base"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.homebase.co.uk"
+    },
+    {
+      "name": "Toolstation",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#005AA9",
+      "aliases": [
+        "toolstation",
+        "tool station"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.toolstation.com"
+    },
+    {
+      "name": "DFS",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#1D1D1B",
+      "aliases": [
+        "dfs",
+        "d f s"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dfs.co.uk"
+    },
+    {
+      "name": "ScS",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#C4122F",
+      "aliases": [
+        "scs",
+        "s c s"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sofa.co.uk"
+    },
+    {
+      "name": "Furniture Village",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#8A6D3B",
+      "aliases": [
+        "furniture village"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.furniturevillage.co.uk"
+    },
+    {
+      "name": "Bensons for Beds",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#003B71",
+      "aliases": [
+        "bensons for beds",
+        "bensons",
+        "benson's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bensonsforbeds.co.uk"
+    },
+    {
+      "name": "Dunelm",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#00734A",
+      "aliases": [
+        "dunelm",
+        "dunelm mill"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dunelm.com"
+    },
+    {
+      "name": "The Range",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#9B1B30",
+      "aliases": [
+        "the range",
+        "range"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.therange.co.uk"
+    },
+    {
+      "name": "Home Bargains",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#E31E24",
+      "aliases": [
+        "home bargains",
+        "home bargain"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.homebargains.co.uk"
+    },
+    {
+      "name": "Poundland",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#D40000",
+      "aliases": [
+        "poundland",
+        "pound land"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.poundland.co.uk"
+    },
+    {
+      "name": "Pets at Home",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#00A94F",
+      "aliases": [
+        "pets at home",
+        "pet at home",
+        "pets home"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petsathome.com"
+    },
+    {
+      "name": "Jollyes",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E2007A",
+      "aliases": [
+        "jollyes",
+        "jollys"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.jollyes.co.uk"
+    },
+    {
+      "name": "Pets Corner",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#5AA02C",
+      "aliases": [
+        "pets corner",
+        "pet corner"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petscorner.co.uk"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#0A4FA0",
+      "aliases": [
+        "zooplus",
+        "zoo plus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zooplus.co.uk"
+    },
+    {
+      "name": "Tails.com",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#F36F21",
+      "aliases": [
+        "tails",
+        "tails.com",
+        "tails dot com"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://tails.com"
+    },
+    {
+      "name": "Sports Direct",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#005AAE",
+      "aliases": [
+        "sports direct",
+        "sportsdirect"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sportsdirect.com"
+    },
+    {
+      "name": "JD Sports",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#111111",
+      "aliases": [
+        "jd sports",
+        "jd",
+        "j d sports"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.jdsports.co.uk"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "decathalon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.decathlon.co.uk"
+    },
+    {
+      "name": "Go Outdoors",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#E67E22",
+      "aliases": [
+        "go outdoors",
+        "go outdoor"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.gooutdoors.co.uk"
+    },
+    {
+      "name": "Mountain Warehouse",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#00AEEF",
+      "aliases": [
+        "mountain warehouse"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mountainwarehouse.com"
+    },
+    {
+      "name": "WHSmith",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#003A70",
+      "aliases": [
+        "whsmith",
+        "wh smith",
+        "w h smith"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.whsmith.co.uk"
+    },
+    {
+      "name": "Card Factory",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#C6007E",
+      "aliases": [
+        "card factory"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.cardfactory.co.uk"
+    },
+    {
+      "name": "Halfords",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#F58220",
+      "aliases": [
+        "halfords",
+        "halfword"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.halfords.com"
+    }
+  ]
+}

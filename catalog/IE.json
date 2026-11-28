@@ -1,0 +1,845 @@
+{
+  "country": "IE",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Dunnes Stores",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#1A1A1A",
+      "aliases": [
+        "dunnes",
+        "dunnes stores",
+        "dunne's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bordbia.ie/contentassets/8f7225b54fbd4dc28260f16e96fc716c/2026_irelandmarketroi_groceryretailoverview.pdf"
+    },
+    {
+      "name": "Tesco",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#00539F",
+      "aliases": [
+        "tesco",
+        "tescos"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bordbia.ie/contentassets/8f7225b54fbd4dc28260f16e96fc716c/2026_irelandmarketroi_groceryretailoverview.pdf"
+    },
+    {
+      "name": "SuperValu",
+      "kind": "Lebensmittel",
+      "rank": 3,
+      "color": "#E4002B",
+      "aliases": [
+        "supervalu",
+        "super valu",
+        "super value"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bordbia.ie/contentassets/8f7225b54fbd4dc28260f16e96fc716c/2026_irelandmarketroi_groceryretailoverview.pdf"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#F2B600",
+      "aliases": [
+        "lidl",
+        "lidel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bordbia.ie/contentassets/8f7225b54fbd4dc28260f16e96fc716c/2026_irelandmarketroi_groceryretailoverview.pdf"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 5,
+      "color": "#00005F",
+      "aliases": [
+        "aldi"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bordbia.ie/contentassets/8f7225b54fbd4dc28260f16e96fc716c/2026_irelandmarketroi_groceryretailoverview.pdf"
+    },
+    {
+      "name": "Centra",
+      "kind": "Lebensmittel",
+      "rank": 6,
+      "color": "#00964F",
+      "aliases": [
+        "centra",
+        "sentra"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bordbia.ie/contentassets/8f7225b54fbd4dc28260f16e96fc716c/2026_irelandmarketroi_groceryretailoverview.pdf"
+    },
+    {
+      "name": "Spar",
+      "kind": "Lebensmittel",
+      "rank": 7,
+      "color": "#C8102E",
+      "aliases": [
+        "spar",
+        "eurospar",
+        "euro spar"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bordbia.ie/contentassets/8f7225b54fbd4dc28260f16e96fc716c/2026_irelandmarketroi_groceryretailoverview.pdf"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 8,
+      "color": "#37475A",
+      "aliases": [
+        "amazon",
+        "amazon ireland"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.amazon.ie"
+    },
+    {
+      "name": "Penneys",
+      "kind": "Kleidung",
+      "rank": 9,
+      "color": "#0DAAE4",
+      "aliases": [
+        "penneys",
+        "pennys",
+        "primark",
+        "penney's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.primark.com/en-ie"
+    },
+    {
+      "name": "Boots",
+      "kind": "Drogerie",
+      "rank": 10,
+      "color": "#3D3D9E",
+      "aliases": [
+        "boots",
+        "boots ireland"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.boots.ie"
+    },
+    {
+      "name": "Marks & Spencer",
+      "kind": "Lebensmittel",
+      "rank": 11,
+      "color": "#000000",
+      "aliases": [
+        "marks and spencer",
+        "m&s",
+        "m and s"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.marksandspencer.com/ie"
+    },
+    {
+      "name": "Londis",
+      "kind": "Lebensmittel",
+      "rank": 12,
+      "color": "#F7941D",
+      "aliases": [
+        "londis",
+        "london is"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bordbia.ie/contentassets/8f7225b54fbd4dc28260f16e96fc716c/2026_irelandmarketroi_groceryretailoverview.pdf"
+    },
+    {
+      "name": "Dealz",
+      "kind": "Discounter",
+      "rank": 13,
+      "color": "#00A0E3",
+      "aliases": [
+        "dealz",
+        "deals"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dealz.ie"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 14,
+      "color": "#E8B900",
+      "aliases": [
+        "ikea",
+        "ikeya"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ikea.com/ie/en/"
+    },
+    {
+      "name": "Woodies",
+      "kind": "Baumarkt",
+      "rank": 15,
+      "color": "#00A651",
+      "aliases": [
+        "woodies",
+        "woodie's",
+        "woodies diy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.woodies.ie"
+    },
+    {
+      "name": "Harvey Norman",
+      "kind": "Elektronik",
+      "rank": 16,
+      "color": "#0033A0",
+      "aliases": [
+        "harvey norman"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.harveynorman.ie"
+    },
+    {
+      "name": "DID Electrical",
+      "kind": "Elektronik",
+      "rank": 17,
+      "color": "#E30613",
+      "aliases": [
+        "did electrical",
+        "did",
+        "d i d"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.did.ie"
+    },
+    {
+      "name": "Currys",
+      "kind": "Elektronik",
+      "rank": 18,
+      "color": "#6A2C91",
+      "aliases": [
+        "currys",
+        "curry's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.currys.ie"
+    },
+    {
+      "name": "Petmania",
+      "kind": "Tierbedarf",
+      "rank": 19,
+      "color": "#EA5B0C",
+      "aliases": [
+        "petmania",
+        "pet mania"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petmania.ie"
+    },
+    {
+      "name": "Brown Thomas",
+      "kind": "Sonstige",
+      "rank": 20,
+      "color": "#2A2A2A",
+      "aliases": [
+        "brown thomas",
+        "brownthomas"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.brownthomas.com"
+    },
+    {
+      "name": "Costcutter",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#D81F26",
+      "aliases": [
+        "costcutter",
+        "cost cutter"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.costcutter.ie"
+    },
+    {
+      "name": "McCabes Pharmacy",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#007A87",
+      "aliases": [
+        "mccabes",
+        "mccabe's",
+        "mccabes pharmacy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mccabespharmacy.com"
+    },
+    {
+      "name": "Hickey's Pharmacy",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A19B",
+      "aliases": [
+        "hickeys",
+        "hickey's",
+        "hickeys pharmacy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.hickeyspharmacy.ie"
+    },
+    {
+      "name": "McCauley Pharmacy",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#7A1F5C",
+      "aliases": [
+        "mccauley",
+        "mccauleys",
+        "mccauley pharmacy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mccauley.ie"
+    },
+    {
+      "name": "Haven Pharmacy",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#7CB342",
+      "aliases": [
+        "haven",
+        "haven pharmacy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.havenpharmacy.ie"
+    },
+    {
+      "name": "Lloyds Pharmacy",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00843D",
+      "aliases": [
+        "lloyds pharmacy",
+        "lloyds chemist"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lloydspharmacy.ie"
+    },
+    {
+      "name": "Superdrug",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#E6007E",
+      "aliases": [
+        "superdrug",
+        "super drug"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.superdrug.ie"
+    },
+    {
+      "name": "Sam McCauley Chemists",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#1C75BC",
+      "aliases": [
+        "sam mccauley",
+        "sam mccauleys"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mccauley.ie"
+    },
+    {
+      "name": "Arnotts",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#B8860B",
+      "aliases": [
+        "arnotts",
+        "arnott's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.arnotts.ie"
+    },
+    {
+      "name": "Sephora",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#000001",
+      "aliases": [
+        "sephora",
+        "sefora"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sephora.ie"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#E50010",
+      "aliases": [
+        "h&m",
+        "h and m"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www2.hm.com/en_ie/"
+    },
+    {
+      "name": "TK Maxx",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#B5121B",
+      "aliases": [
+        "tk maxx",
+        "tkmaxx"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.tkmaxx.ie"
+    },
+    {
+      "name": "Dunnes Clothing",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#555555",
+      "aliases": [
+        "dunnes clothing"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dunnesstores.com"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#333333",
+      "aliases": [
+        "zara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.zara.com/ie/"
+    },
+    {
+      "name": "Next",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#4A4A4A",
+      "aliases": [
+        "next"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.next.ie"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FF6900",
+      "aliases": [
+        "zalando",
+        "salando"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zalando.ie"
+    },
+    {
+      "name": "eBay",
+      "kind": "Online",
+      "rank": null,
+      "color": "#E53238",
+      "aliases": [
+        "ebay"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ebay.ie"
+    },
+    {
+      "name": "Shein",
+      "kind": "Online",
+      "rank": null,
+      "color": "#222222",
+      "aliases": [
+        "shein",
+        "she in"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://ie.shein.com"
+    },
+    {
+      "name": "ASOS",
+      "kind": "Online",
+      "rank": null,
+      "color": "#2D2D2D",
+      "aliases": [
+        "asos"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.asos.com"
+    },
+    {
+      "name": "Apple Store",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#6E6E73",
+      "aliases": [
+        "apple",
+        "apple store"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.apple.com/ie/"
+    },
+    {
+      "name": "Power City",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E8112D",
+      "aliases": [
+        "power city"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.powercity.ie"
+    },
+    {
+      "name": "Expert",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#0072BC",
+      "aliases": [
+        "expert",
+        "expert electrical"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.expert.ie"
+    },
+    {
+      "name": "B&Q",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F26B21",
+      "aliases": [
+        "b&q",
+        "b and q"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.diy.com"
+    },
+    {
+      "name": "Chadwicks",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#005AA9",
+      "aliases": [
+        "chadwicks",
+        "chadwick's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.chadwicks.ie"
+    },
+    {
+      "name": "Atlantic Homecare",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#007A3D",
+      "aliases": [
+        "atlantic homecare"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.atlantichomecare.ie"
+    },
+    {
+      "name": "Screwfix",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#FF7F00",
+      "aliases": [
+        "screwfix"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.screwfix.ie"
+    },
+    {
+      "name": "Harvey Norman Furniture",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#5A5AA0",
+      "aliases": [
+        "harvey norman furniture"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.harveynorman.ie"
+    },
+    {
+      "name": "Ashley Furniture",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#8A6D3B",
+      "aliases": [
+        "ashley furniture",
+        "ashleys"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ashley.ie"
+    },
+    {
+      "name": "Carpetright",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#C4122F",
+      "aliases": [
+        "carpetright"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.carpetright.ie"
+    },
+    {
+      "name": "Dunelm",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#00734A",
+      "aliases": [
+        "dunelm"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dunelm.com"
+    },
+    {
+      "name": "Penneys Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#6EC1E4",
+      "aliases": [
+        "penneys home"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.primark.com/en-ie"
+    },
+    {
+      "name": "Søstrene Grene",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#D4145A",
+      "aliases": [
+        "sostrene grene",
+        "sostrene",
+        "sister grene"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://sostrenegrene.com/ie"
+    },
+    {
+      "name": "Homesense",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#00859B",
+      "aliases": [
+        "homesense",
+        "home sense"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.homesense.ie"
+    },
+    {
+      "name": "Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#C0392B",
+      "aliases": [
+        "maxi zoo",
+        "maxizoo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.maxizoo.ie"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#0A4FA0",
+      "aliases": [
+        "zooplus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.zooplus.ie"
+    },
+    {
+      "name": "Pets Corner",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#6BB536",
+      "aliases": [
+        "pets corner"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petscorner.ie"
+    },
+    {
+      "name": "Petstop",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E07B00",
+      "aliases": [
+        "petstop",
+        "pet stop"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petstop.ie"
+    },
+    {
+      "name": "JD Sports",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#111111",
+      "aliases": [
+        "jd sports",
+        "jd"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.jdsports.ie"
+    },
+    {
+      "name": "Elverys",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#D2232A",
+      "aliases": [
+        "elverys",
+        "elverys sports"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.elverys.ie"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.decathlon.ie"
+    },
+    {
+      "name": "Sports Direct",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#005AAE",
+      "aliases": [
+        "sports direct"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sportsdirect.com"
+    },
+    {
+      "name": "Life Style Sports",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#F58220",
+      "aliases": [
+        "life style sports",
+        "lifestyle sports"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lifestylesports.com"
+    },
+    {
+      "name": "Eason",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#8E1B2E",
+      "aliases": [
+        "eason",
+        "easons"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.easons.com"
+    },
+    {
+      "name": "Smyths Toys",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#0066B3",
+      "aliases": [
+        "smyths",
+        "smyths toys"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.smythstoys.com/ie"
+    },
+    {
+      "name": "Tiger",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#E4A800",
+      "aliases": [
+        "tiger",
+        "flying tiger"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://flyingtiger.com/en-ie"
+    }
+  ]
+}

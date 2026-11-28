@@ -16,9 +16,9 @@ const NW = { eins: 1, ein: 1, eine: 1, einen: 1, einem: 1, zwei: 2, drei: 3, vie
 const NUMW = "eins|zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|elf|zwölf";
 const NUMD = `\\d+(?:${D}\\d+)?`;
 
-const fmtN = n => String(n).replace(".", ",");
 const toNum = (s, R) => (/^\d/.test(s) ? parseFloat(s.replace(D, ".")) : R.NW[s.toLowerCase()]);
 const unitSpec = (n, u, R) => {
+  const fmtN = x => String(x).replace(".", R.DEC);
   if (!u) return fmtN(n);
   const m = R.UNIT_MAP[u.toLowerCase()];
   return `${fmtN(n)} ${m[1] && n !== 1 ? m[1] : m[0]}`;
@@ -47,23 +47,62 @@ const LEAD = re(`^(?:ein\\s+paar|paar|ein|eine|einen|einem|einer|der|die|das|den
 const CONJ = re(`[,;.!?]+|${B}(?:und\\s+dann|und\\s+noch|auch\\s+noch|und|dann|sowie|ausserdem|außerdem|zudem|plus)${E}`);
 const PURPOSE = re(`${B}(?:für|fürs|zum|zur)\\s+(?:(?:auf|in)\\s+)?(?:(?:die|den|das|dem|der)\\s+)?`, "iu");
 
-// Per-language rule tables. Only German for now; add RULES.<lang> = {...} to plug in another language (falls back to 'de').
-const RULES = { de: { UNIT_MAP, U, NW, NUMW, PHRASES, TOKENS, STOP, LEAD, CONJ, PURPOSE, FOR: "für ",
-  PRE: "(?:(?:beim|bei\\s+der|bei\\s+dem|bei|im|in\\s+der|in\\s+dem|in|vom|von\\s+der|von\\s+dem|von|aus\\s+dem|aus\\s+der|aus|für\\s+den|für\\s+die|für)\\s+)?" } };
-const rulesFor = lang => RULES[lang] || RULES.de;
+// Per-language rule tables. German is registered below; other languages via registerParser(lang, rules) (see lang/README.md).
+const RULES = {};
+const SRC = x => (x instanceof RegExp ? x.source : String(x));
+const asRe = (x, mk, f = "giu") => (x instanceof RegExp ? x : re(mk(x), f));
+export function registerParser(lang, rules) {
+  const need = (k, ok, what) => { if (!ok(rules?.[k])) throw new Error(`registerParser("${lang}"): rules.${k} must be ${what}`); };
+  const isStr = v => typeof v === "string", isRe = v => v instanceof RegExp, strOrRe = v => isStr(v) || isRe(v);
+  if (!lang || typeof lang !== "string") throw new Error("registerParser: lang must be a non-empty string");
+  need("UNIT_MAP", v => v && typeof v === "object" && Object.values(v).every(a => Array.isArray(a) && a.length >= 1 && a.length <= 2 && a.every(isStr)), "an object {lowercaseWord: [singular, plural?]}");
+  need("NW", v => v && typeof v === "object" && Object.values(v).every(Number.isFinite), "an object {lowercaseWord: number}");
+  need("PHRASES", v => Array.isArray(v) && v.every(strOrRe), "an array of regex source strings or RegExp");
+  need("TOKENS", strOrRe, "a regex source string (alternation) or RegExp");
+  need("STOP", v => v instanceof Set || Array.isArray(v), "a Set or array of lowercase words");
+  need("LEAD", strOrRe, "a regex source string (alternation) or RegExp");
+  need("CONJ", strOrRe, "a regex source string (alternation) or RegExp");
+  need("PURPOSE", strOrRe, "a regex source string or RegExp");
+  need("FOR", isStr, "a string (purpose prefix, e.g. 'for ')");
+  need("PRE", isStr, "a regex source string (may be empty)");
+  for (const k of ["HALF", "ONE_UNIT", "TRAIL", "TRAIL2", "NUMW", "U", "DEC"]) if (rules[k] != null && !isStr(rules[k])) throw new Error(`registerParser("${lang}"): rules.${k} must be a string`);
+  const UNIT_MAP = Object.fromEntries(Object.entries(rules.UNIT_MAP).map(([k, v]) => [k.toLowerCase(), v]));
+  const NW = Object.fromEntries(Object.entries(rules.NW).map(([k, v]) => [k.toLowerCase(), v]));
+  const oneWords = rules.ONE_UNIT ? new Set(rules.ONE_UNIT.split("|")) : new Set();
+  RULES[lang] = {
+    UNIT_MAP, NW,
+    U: rules.U ?? Object.keys(UNIT_MAP).sort((a, b) => b.length - a.length).map(esc).join("|"),
+    NUMW: rules.NUMW ?? Object.keys(NW).filter(k => !oneWords.has(k)).map(esc).join("|"),
+    PHRASES: rules.PHRASES.map(x => asRe(x, s => `${B}(?:${s})${E}`)),
+    TOKENS: asRe(rules.TOKENS, s => `${B}(?:${s})${E}`),
+    STOP: new Set(rules.STOP),
+    LEAD: asRe(rules.LEAD, s => `^(?:${s})${E}\\s*`),
+    CONJ: asRe(rules.CONJ, s => `[,;.!?]+|${B}(?:${s})${E}`),
+    PURPOSE: asRe(rules.PURPOSE, s => s, "iu"),
+    FOR: rules.FOR, PRE: rules.PRE,
+    HALF: rules.HALF || null, ONE_UNIT: rules.ONE_UNIT || null,
+    TRAIL: rules.TRAIL ? re(`\\s+(?:${rules.TRAIL})$`, "iu") : null,
+    TRAIL2: rules.TRAIL2 ? re(`\\s+(?:${rules.TRAIL2})$`, "iu") : null,
+    DEC: rules.DEC ?? ",",
+  };
+}
+registerParser("de", { UNIT_MAP, U, NW, NUMW, PHRASES, TOKENS, STOP, LEAD, CONJ, PURPOSE, FOR: "für ",
+  PRE: "(?:(?:beim|bei\\s+der|bei\\s+dem|bei|im|in\\s+der|in\\s+dem|in|vom|von\\s+der|von\\s+dem|von|aus\\s+dem|aus\\s+der|aus|für\\s+den|für\\s+die|für)\\s+)?",
+  HALF: "(?:ein\\s+)?halb(?:e|es|en)?", ONE_UNIT: "ein|eine|einen|einem", TRAIL: "auf|ein|mit|an", TRAIL2: "mehr|dazu", DEC: "," });
+const rulesFor = lang => RULES[lang] || RULES[String(lang).split("-")[0]] || RULES.de;
 
 const cap = s => (s ? s[0].toUpperCase() + s.slice(1) : s);
 const clean = s => s.replace(/\s+/g, " ").replace(/^[\s,.;:!?\-–]+|[\s,.;:!?\-–]+$/g, "");
 
 function takeQty(s, R) {
   const { U, NUMW } = R;
-  let m = s.match(re(`^(?:ein\\s+)?halb(?:e|es|en)?\\s+(${U})${E}\\s*(.*)$`, "iu"));
+  let m = R.HALF && s.match(re(`^${R.HALF}\\s+(${U})${E}\\s*(.*)$`, "iu"));
   if (m) return { n: 0.5, u: m[1], rest: m[2] };
   m = s.match(re(`^(${NUMD})\\s*(?:(${U})${E}\\s*)?(.*)$`, "iu"));
   if (m && (m[2] || m[3])) return { n: toNum(m[1], R), u: m[2], rest: m[3] };
   m = s.match(re(`^(${NUMW})${E}\\s*(?:(${U})${E}\\s*)?(.*)$`, "iu"));
   if (m && m[3]) return { n: toNum(m[1], R), u: m[2], rest: m[3] };
-  m = s.match(re(`^(ein|eine|einen|einem)\\s+(${U})${E}\\s*(.*)$`, "iu"));
+  m = R.ONE_UNIT && s.match(re(`^(${R.ONE_UNIT})\\s+(${U})${E}\\s*(.*)$`, "iu"));
   if (m && m[3]) return { n: 1, u: m[2], rest: m[3] };
   m = s.match(re(`^(.+?)\\s+(${NUMD}|${NUMW})\\s*(?:(${U})${E})?$`, "iu"));
   if (m) return { n: toNum(m[2], R), u: m[3], rest: m[1] };
@@ -75,7 +114,7 @@ function parseClause(c, R) {
   let s = c;
   for (const p of PHRASES) s = s.replace(p, " ");
   s = s.replace(TOKENS, " ");
-  s = clean(s).replace(re(`\\s+(?:auf|ein|mit|an)$`, "iu"), "");
+  s = R.TRAIL ? clean(s).replace(R.TRAIL, "") : clean(s);
   s = clean(s);
   let purpose = null;
   const pm = PURPOSE.exec(s);
@@ -91,20 +130,21 @@ function parseClause(c, R) {
   if (q) { spec = unitSpec(q.n, q.u, R); s = clean(q.rest); }
   let prev;
   do { prev = s; s = clean(s.replace(LEAD, "")); } while (s !== prev);
-  s = s.replace(re(`\\s+(?:mehr|dazu)$`, "iu"), "");
-  s = clean(s).replace(new RegExp(D, "g"), ",");
+  if (R.TRAIL2) s = s.replace(R.TRAIL2, "");
+  s = clean(s).replace(new RegExp(D, "g"), R.DEC);
   if (!s) return null;
   if (s.toLowerCase().split(/\s+/).every(w => STOP.has(w))) return null;
   const parts = [spec, purpose].filter(Boolean);
-  return { name: cap(s), spec: parts.length ? parts.join(" · ").replace(new RegExp(D, "g"), ",") : null };
+  return { name: cap(s), spec: parts.length ? parts.join(" · ").replace(new RegExp(D, "g"), R.DEC) : null };
 }
 
 export function parseUtterance(text, stores = [], lang = "de") {
   const R = rulesFor(lang), { PRE, CONJ } = R;
   let t = String(text ?? "").replace(/(\d)[.,](\d)/g, `$1${D}$2`).replace(/\s+/g, " ").trim();
   let store = null;
-  for (const s of [...(stores || [])].sort((a, b) => b.name.length - a.name.length)) {
-    const r = re(`${B}${PRE}${esc(s.name)}${E}`);
+  const names = (stores || []).flatMap(s => [s.name, ...(Array.isArray(s.aliases) ? s.aliases : [])].filter(n => typeof n === "string" && n).map(n => ({ n, s })));
+  for (const { n, s } of names.sort((a, b) => b.n.length - a.n.length)) {
+    const r = re(`${B}${PRE}${esc(n)}${E}`);
     if (r.test(t)) { store ??= s; t = t.replace(r, " "); }
   }
   const items = [], seen = new Map();

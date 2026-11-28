@@ -248,8 +248,6 @@
  "voice.example": "ex.: «Leite, 2 bananas e pão no Pingo Doce»",
  "account.logout": "Terminar sessão",
  "lang.language": "Idioma",
- "lang.country": "País",
- "lang.country_soon": "disponível em breve",
  "auth.tagline": "Lista de compras partilhada",
  "auth.email": "E-mail",
  "auth.password": "Palavra-passe",
@@ -393,5 +391,42 @@
   "one": "Juntos num só recibo ({count})",
   "other": "Juntos num só recibo ({count})"
  },
- "shell.view_switch": "Mudar de vista"
+ "shell.view_switch": "Mudar de vista",
+ "kind.discounter": "Descontos",
+ "kind.clothing": "Roupa",
+ "kind.online": "Online",
+ "kind.electronics": "Eletrónica",
+ "kind.furniture": "Mobiliário",
+ "kind.pets": "Animais",
+ "kind.sport": "Desporto",
+ "region.countries": "Países",
+ "region.primary": "País principal",
+ "region.make_primary": "Definir como país principal",
+ "region.region": "Região",
+ "region.ch.de": "Suíça alemã",
+ "region.ch.fr": "Suíça francesa",
+ "region.ch.it": "Ticino",
+ "region.be.nl": "Flandres",
+ "region.be.fr": "Valónia-Bruxelas",
+ "region.hint": "Aplica-se a toda a casa.",
+ "region.suggest": "Sugerir lojas para esta seleção",
+ "catalog.title": "Lojas do catálogo",
+ "catalog.add_btn": "Adicionar lojas do catálogo",
+ "catalog.top20": "Selecionar o top 20",
+ "catalog.all": "Todas",
+ "catalog.none": "Nenhuma",
+ "catalog.top": "Top",
+ "catalog.exists": "já adicionada",
+ "catalog.empty_country": "Ainda não há lojas para este país",
+ "catalog.loading": "A carregar o catálogo…",
+ "catalog.error": "Não foi possível carregar o catálogo",
+ "catalog.change": "Alterar país e região",
+ "catalog.add_n": {
+  "one": "Adicionar {count} loja",
+  "other": "Adicionar {count} lojas"
+ },
+ "catalog.added": {
+  "one": "{count} loja adicionada",
+  "other": "{count} lojas adicionadas"
+ }
 }

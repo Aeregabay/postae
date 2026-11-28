@@ -183,6 +183,8 @@ code,.code{display:block;font:13px ui-monospace,Menlo,monospace;background:var(-
 .sr.drag{z-index:3;background:var(--card);box-shadow:0 8px 24px rgba(0,0,0,.2);border-radius:12px}.sr.drag::before{display:none}
 .srch{position:relative;margin-bottom:4px}.srch svg.i{position:absolute;left:12px;top:13px;width:18px;height:18px;color:var(--mut);pointer-events:none}
 .sh .srch input[type=search]{height:44px;padding:0 12px 0 38px;border:0;border-radius:12px;background:color-mix(in srgb,var(--fg) 7%,var(--bg))}
+.tpb{display:inline-block;margin-left:7px;padding:1px 6px;border-radius:999px;font-size:10.5px;font-weight:650;line-height:1.4;vertical-align:1px;background:var(--acc-s);color:var(--acc-d)}
+.cbx{flex:none;width:24px;height:24px;border-radius:7px;border:1.5px solid var(--line);display:grid;place-items:center;color:var(--on)}.cbx.on{background:var(--acc);border-color:var(--acc)}.cbx svg{width:16px;height:16px}.sr.dim .cbx.on{opacity:.45}
 .sf{margin:8px 16px 0;font-size:13px;line-height:1.4;color:var(--mut)}.sf p{margin:6px 0}
 .pv{display:flex;flex-direction:column;align-items:center;gap:12px;margin:4px 0 8px;padding:20px 16px;background:var(--card);border-radius:14px;box-shadow:var(--sh)}
 .er{margin:4px 2px 0;font-size:13px;color:var(--danger)}.er:empty{display:none}
@@ -406,15 +408,15 @@ function delItem(id){const i=S.items.findIndex(x=>x.id===id);if(i<0)return;const
 /* ---------- Laden / Realtime ---------- */
 let chan;
 async function load(){await flush();
- const[l,s,i,c,v]=await Promise.all([sb.from('lists').select('*').order('sort'),sb.from('stores').select('*').order('sort'),sb.from('items').select('*').order('sort'),sb.from('catalog').select('*').order('uses',{ascending:false}).limit(1500),sb.from('voice_tokens').select('*').limit(1).maybeSingle()]);
+ const[l,s,i,c,v,rg]=await Promise.all([sb.from('lists').select('*').order('sort'),sb.from('stores').select('*').order('sort'),sb.from('items').select('*').order('sort'),sb.from('catalog').select('*').order('uses',{ascending:false}).limit(1500),sb.from('voice_tokens').select('*').limit(1).maybeSingle(),sb.from('settings').select('*').eq('key','region').maybeSingle()]);
  const bad=[l,s,i].find(r=>r.error);if(bad){if(/permission|policy|42501|JWT/i.test(bad.error.code+bad.error.message)){const e=new Error('denied');e.denied=true;throw e}throw bad.error}
  if(queue.length)return;
- S.lists=l.data;S.stores=s.data;S.items=i.data;S.cat={};(c.data||[]).forEach(r=>S.cat[r.name_key]=r);S.token=v.data?.token||null;S.tokenRow=v.data||null;persist();loadCards()}
+ S.lists=l.data;S.stores=s.data;S.items=i.data;S.cat={};(c.data||[]).forEach(r=>S.cat[r.name_key]=r);S.token=v.data?.token||null;S.tokenRow=v.data||null;if(rg?.data?.value){S.region=rg.data.value;LS.set('pq.region',S.region)}persist();loadCards()}
 async function refetch(){if(!S.user)return;FIN.load();try{await load();await ensureList();scheduleRender()}catch(e){if(e.denied)denied()}}
 async function ensureList(){if(!S.lists.length&&navigator.onLine){const l={id:uid(),name:T('list.default_name'),sort:1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l})}
  if(!S.lists.some(l=>l.id===S.listId))S.listId=S.lists[0]?.id||null;LS.set('pq.list',S.listId)}
 function subscribe(){if(chan)sb.removeChannel(chan);chan=sb.channel('postae');
- for(const t of['items','lists','stores'])chan.on('postgres_changes',{event:'*',schema:'public',table:t},p=>applyChange(t,p));chan.on('postgres_changes',{event:'*',schema:'public',table:'loyalty_cards'},applyCard);chan.on('postgres_changes',{event:'INSERT',schema:'public',table:'activity'},applyAct);FIN.subscribe(chan);chan.subscribe()}
+ for(const t of['items','lists','stores'])chan.on('postgres_changes',{event:'*',schema:'public',table:t},p=>applyChange(t,p));chan.on('postgres_changes',{event:'*',schema:'public',table:'loyalty_cards'},applyCard);chan.on('postgres_changes',{event:'INSERT',schema:'public',table:'activity'},applyAct);chan.on('postgres_changes',{event:'*',schema:'public',table:'settings'},p=>{if(p.new?.key==='region'&&p.new.value){S.region=p.new.value;LS.set('pq.region',S.region);S.rgRedraw?.()}});FIN.subscribe(chan);chan.subscribe()}
 function applyChange(t,p){const arr=t==='items'?S.items:t==='lists'?S.lists:S.stores;
  if(p.eventType==='DELETE'){const i=arr.findIndex(x=>x.id===p.old.id);if(i>=0)arr.splice(i,1)}
  else{const i=arr.findIndex(x=>x.id===p.new.id);if(i>=0)arr[i]=p.new;else arr.push(p.new)}
@@ -615,7 +617,7 @@ function openLists(){const b=sheet('');const draw=()=>{b.innerHTML=`<h3>${E('lis
   else if(t.id==='ln'){const n=await askText(T('lists.new'),'',T('common.create'));if(n){const l={id:uid(),name:n,sort:(S.lists.at(-1)?.sort||0)+1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l});S.listId=l.id;LS.set('pq.list',l.id);render();closeSheet()}}}}
 /* ---------- Läden: Helfer ---------- */
 Object.assign(ICONS,{chevR:'<path d="M9 6l6 6-6 6"/>',search:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/>',copy:'<rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/>',check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',grip:'<path d="M5 8h14M5 12h14M5 16h14"/>',list:'<path d="M8 7h11M8 12h11M8 17h11M4.5 7h.01M4.5 12h.01M4.5 17h.01"/>',key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'});
-const KINDS=['Lebensmittel','Drogerie','Apotheke','Baumarkt','Wohnen','Sonstige'];
+const KINDS=['Lebensmittel','Discounter','Drogerie','Apotheke','Kleidung','Online','Elektronik','Baumarkt','Möbel','Wohnen','Tierbedarf','Sport','Sonstige'];
 const SWATCH=['#FF6600','#009FE3','#FFD200','#1C2F7A','#C5004A','#F39200','#00A651','#FBBA00','#E2231A','#333F48','#E35205','#66C3EE','#6DB33F','#0058A3','#1A1A1A','#8A8A8A','#B5651D','#7A6A58','#7B1E2B','#3E6B5E'];
 const kindOf=s=>KINDS.includes(s?.kind)?s.kind:'Sonstige';
 const hexOf=c=>/^#[0-9a-f]{6}$/i.test(c||'')?c:'#999999';
@@ -857,12 +859,54 @@ async function npClick(t){const k=t.dataset.np;
  catch(e){if(k==='main')toast(T('np.change_failed'));else if(k!=='test'){NP.prefs[k]=!NP.prefs[k];toast(T('common.save_failed'))}}
  NP.busy=false}
 
+/* ---------- Region & Katalog ---------- */
+const COUNTRIES=['CH','DE','AT','FR','BE','LU','NL','IT','ES','PT','PL','GB','IE','US'],SUBS={CH:['de','fr','it'],BE:['nl','fr']};
+S.region=LS.get('pq.region',null);
+const flag=c=>String.fromCodePoint(...[...c].map(x=>127397+x.charCodeAt(0)));
+const cName=c=>{try{return new Intl.DisplayNames([locale()],{type:'region'}).of(c)||c}catch{return c}};
+const defSub=c=>c==='CH'?({fr:'fr',it:'it'}[getLang()]||'de'):c==='BE'?(getLang()==='fr'?'fr':'nl'):null;
+const REG=()=>{const r=S.region||{},cs=(r.countries||[]).filter(c=>COUNTRIES.includes(c));return{countries:cs.length?cs:['CH'],subs:r.subregions||{},subregion:r.subregion||null}};
+const subOf=c=>{if(!SUBS[c])return null;const r=REG();return SUBS[c].includes(r.subs[c])?r.subs[c]:SUBS[c].includes(r.subregion)?r.subregion:defSub(c)};
+function saveRegion(cs,subs){const m={};for(const c of cs)if(SUBS[c])m[c]=SUBS[c].includes(subs[c])?subs[c]:defSub(c);
+ const v={countries:cs,subregion:m[cs[0]]||Object.values(m)[0]||null,subregions:m};S.region=v;LS.set('pq.region',v);enqueue({t:'settings',o:'upsert',k:'key',d:{key:'region',value:v}})}
+async function openCatalog(){const R=REG(),cs=R.countries,b=sheet('');
+ b.innerHTML=`<div class="shh"><button type="button" class="tb" id="ax">${E('common.cancel')}</button><h3>${E('catalog.title')}</h3><button type="button" class="tb ok" id="ao" disabled>${E('common.add')}</button></div><div id="cq"><div class="sf" role="status">${E('catalog.loading')}</div></div>`;
+ $('#ax',b).onclick=()=>closeSheet();
+ let rows=[];try{const r=await sb.from('store_catalog').select('*').in('country',cs);if(r.error)throw r.error;rows=r.data||[]}catch{if(b.isConnected)$('#cq',b).innerHTML=`<div class="sf" role="alert">${E('catalog.error')}</div>`;return}
+ if(!b.isConnected)return;
+ const have=new Set(S.stores.map(x=>x.name.toLowerCase())),seen=new Map();
+ for(const r of rows.filter(r=>!r.regions?.length||!SUBS[r.country]||r.regions.includes(subOf(r.country))).sort((a,c)=>(a.rank??99)-(c.rank??99))){const k=r.name.toLowerCase();if(!seen.has(k))seen.set(k,{...r,kind:KINDS.includes(r.kind)?r.kind:'Sonstige',ex:have.has(k)})}
+ const items=[...seen.values()],avail=items.filter(x=>!x.ex),sel=new Set(S.stores.length?[]:avail.filter(x=>x.rank).map(x=>x.id)),multi=cs.length>1;
+ const miss=cs.filter(c=>!rows.some(r=>r.country===c));
+ const draw=()=>{let h=miss.map(c=>`<div class="sf" role="status">${flag(c)} ${esc(cName(c))}: ${E('catalog.empty_country')}</div>`).join('');
+  if(avail.length||items.length)h+=`<div class="chips"><button type="button" class="chip" data-q="top">${E('catalog.top20')}</button><button type="button" class="chip" data-q="all">${E('catalog.all')}</button><button type="button" class="chip" data-q="none">${E('catalog.none')}</button></div>`;
+  for(const k of KINDS){const g=items.filter(x=>x.kind===k).sort((a,c)=>(a.rank?0:1)-(c.rank?0:1)||(a.rank||0)-(c.rank||0)||a.name.localeCompare(c.name,locale()));if(!g.length)continue;
+   h+=`<div class="gl">${esc(kindName(k))}</div><div class="rows">${g.map(x=>{const on=sel.has(x.id);return`<div class="sr${x.ex?' dim':''}"><button type="button" class="rb" role="checkbox" aria-checked="${on||x.ex}" data-cid="${x.id}"${x.ex?' disabled aria-disabled="true"':''}>${avHTML(x)}<span class="tx">${esc(x.name)}${x.rank?`<span class="tpb">${E('catalog.top')}</span>`:''}${x.ex||multi?`<small>${multi?flag(x.country)+' ':''}${x.ex?E('catalog.exists'):''}</small>`:''}</span><span class="cbx${on||x.ex?' on':''}" aria-hidden="true">${on||x.ex?ic('check'):''}</span></button></div>`}).join('')}</div>`}
+  h+=`<div class="rows" style="margin-top:16px"><div class="sr"><button type="button" class="rb" id="cr"><span class="tx">${E('catalog.change')}</span>${ic('chevR')}</button></div></div>`;
+  $('#cq',b).innerHTML=h;const n=sel.size,ao=$('#ao',b);ao.disabled=!n;ao.textContent=n?TP('catalog.add_n',n):T('common.add')};
+ draw();
+ b.onclick=e=>{const t=e.target.closest('button');if(!t||t.disabled)return;
+  if(t.dataset.cid){const id=t.dataset.cid;sel.has(id)?sel.delete(id):sel.add(id);draw();$(`[data-cid="${id}"]`,b)?.focus({preventScroll:true});return}
+  if(t.dataset.q){sel.clear();avail.filter(x=>t.dataset.q==='all'||(t.dataset.q==='top'&&x.rank)).forEach(x=>sel.add(x.id));draw();return}
+  if(t.id==='cr'){closeSheet();LS.set('pq.sec',{...LS.get('pq.sec',{}),lang:true});setTimeout(openSettings,250);return}
+  if(t.id==='ao'){let so=S.stores.reduce((m,x)=>Math.max(m,x.sort||0),0),n=0;
+   for(const x of avail.filter(x=>sel.has(x.id))){const st={id:uid(),name:x.name,color:hexOf(x.color),kind:x.kind,country:x.country,aliases:x.aliases||[],sort:++so};S.stores.push(st);enqueue({t:'stores',o:'insert',d:st});n++}
+   S.stores.sort((x,y)=>x.sort-y.sort);closeSheet();render();S.stRedraw?.();if(n)toast(TP('catalog.added',n))}}}
+function firstRunCatalog(){if(S.stores.length||!navigator.onLine||LS.get('pq.catSeen',false))return;LS.set('pq.catSeen',true);openCatalog()}
+
 /* ---------- Einstellungen ---------- */
-function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false,offLang=()=>{};const b=sheet('',{onClose:()=>{offLang();S.stRedraw=null;S.cardRedraw=null;FIN.settingsMount(null)}});
+function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false,pending=false,offLang=()=>{};const b=sheet('',{onClose:()=>{offLang();S.rgRedraw=null;if(pending){pending=false;setTimeout(openCatalog,350)}S.stRedraw=null;S.cardRedraw=null;FIN.settingsMount(null)}});
  const SEC={listen:true,...LS.get('pq.sec',{})},isO=k=>!!SEC[k];
  const sec=(k,t,body,act='')=>{const o=isO(k);return`<section class="ds${o?' open':''}"><div class="sth"><button type="button" class="dsb" id="dh-${k}" data-sec="${k}" aria-expanded="${o}" aria-controls="dp-${k}">${ic('chevR')}<span class="dst">${esc(t)}</span><span class="dss" id="ds-${k}"></span></button>${act}</div><div class="dp" id="dp-${k}" role="region" aria-labelledby="dh-${k}"><div class="dpi">${body}</div></div></section>`};
  const sums=()=>{const set=(k,v)=>{const e=$('#ds-'+k,b);if(e)e.textContent=v},n=S.lists.length,ns=S.stores.length,f=S.stores.filter(x=>x.favorite).length,c=CARDS.length;
   set('listen',TP('sum.lists',n));set('laden',TP('sum.stores',ns)+' · '+TP('sum.favs',f));set('karten',TP('sum.cards',c));set('mitt',npSum());set('voice',S.token?T('sum.ready'):'–');set('lang',LANGS.find(x=>x.code===getLang())?.name||'');set('konto',S.user?.email||'');set('fin',FIN.sum())};
+ const regionHTML=()=>{const R=REG(),cs=R.countries,rest=COUNTRIES.filter(c=>!cs.includes(c)).sort((a,c)=>cName(a).localeCompare(cName(c),locale()));
+  const row=(c,i)=>{const on=cs.includes(c),pr=on&&i===0;return`<div class="sr"><button type="button" class="rb" role="checkbox" aria-checked="${on}" data-co="${c}"><span class="lic" aria-hidden="true">${flag(c)}</span><span class="tx">${esc(cName(c))}${pr?`<small>${E('region.primary')}</small>`:''}</span>${on?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button>${on&&!pr?`<button type="button" class="tl" data-pri="${c}">${E('region.make_primary')}</button>`:''}</div>`};
+  const seg=cs.filter(c=>SUBS[c]).map(c=>`<label id="rl-${c}">${esc(cName(c))} · ${E('region.region')}</label><div class="chips" role="radiogroup" aria-labelledby="rl-${c}">${SUBS[c].map(x=>`<button type="button" class="chip${subOf(c)===x?' on':''}" role="radio" aria-checked="${subOf(c)===x}" data-sub="${c}:${x}">${E('region.'+c.toLowerCase()+'.'+x)}</button>`).join('')}</div>`).join('');
+  return`<label id="rcl">${E('region.countries')}</label><div class="rows" role="group" aria-labelledby="rcl">${[...cs,...rest].map(row).join('')}</div>${seg}<div class="sf">${E('region.hint')}</div>${pending?`<div class="rows" style="margin-top:12px"><div class="sr"><button type="button" class="rb acc" data-a="sugg"><span class="lic pl">${ic('plus')}</span><span class="tx">${E('region.suggest')}</span></button></div></div>`:''}`};
+ const drawRegion=()=>{const h=$('#rg',b);if(h)h.innerHTML=regionHTML()};
+ const applyRegion=(cs,subs)=>{saveRegion(cs,subs);drawRegion()};
+ S.rgRedraw=drawRegion;
  const sRow=s=>{const fav=!!s.favorite,k=kindOf(s);return edit
   ?`<div class="sr" data-id="${s.id}"><button type="button" class="mn" data-a="rm" aria-label="${E('store.delete_aria',{name:s.name})}"><span></span></button><button type="button" class="rb" data-a="ed" aria-label="${E('store.edit_aria',{name:s.name,fav:fav?T('store.fav_suffix'):''})}">${avHTML(s)}<span class="tx">${esc(s.name)}<small>${esc(kindName(k))}</small></span>${fav?STAR:''}</button><button type="button" class="dh" data-a="mv" aria-label="${E('store.move_aria',{name:s.name})}">${ic('grip')}</button></div>`
   :`<div class="sr" data-id="${s.id}"><button type="button" class="rb" data-a="ed" aria-label="${E('store.edit_aria',{name:s.name,fav:fav?T('store.fav_suffix'):''})}">${avHTML(s)}<span class="tx">${esc(s.name)}</span>${fav?STAR:''}${ic('chevR')}</button></div>`};
@@ -871,7 +915,7 @@ function openSettings(){const ep=SB_URL+'/functions/v1/add';let q='',edit=false,
   else{const t=norm(q),m=S.stores.filter(s=>!t||norm(s.name).includes(t)||norm(kindName(kindOf(s))).includes(t));
    for(const k of KINDS){const g=m.filter(s=>kindOf(s)===k);if(g.length)h+=`<div class="gl">${esc(kindName(k))}</div><div class="rows">${g.map(sRow).join('')}</div>`}
    if(!m.length&&S.stores.length)h=`<div class="rows"><div class="sr emp" role="status">${E('picker.none')}</div></div>`}
-  h+=`<div class="rows"><div class="sr"><button type="button" class="rb acc" data-a="add"><span class="lic pl">${ic('plus')}</span><span class="tx">${E('store.add')}</span></button></div></div><div class="sf">${E(edit?'store.hint_edit':'store.hint')}</div>`;
+  h+=`<div class="rows"><div class="sr"><button type="button" class="rb acc" data-a="add"><span class="lic pl">${ic('plus')}</span><span class="tx">${E('store.add')}</span></button></div><div class="sr"><button type="button" class="rb acc" data-a="cat"><span class="lic pl">${ic('list')}</span><span class="tx">${E('catalog.add_btn')}</span></button></div></div><div class="sf">${E(edit?'store.hint_edit':'store.hint')}</div>`;
   host.innerHTML=h;const eb=$('#eb',b);eb.textContent=T(edit?'common.done':'common.edit');eb.setAttribute('aria-pressed',edit);$('#sbar',b).hidden=edit;sums()};
  S.stRedraw=()=>{if(!S.dragging)drawStores()};
  const draw=()=>{const lr=S.lists.map(l=>{const n=S.items.filter(i=>i.list_id===l.id&&!i.done).length;return`<div class="sr"><button type="button" class="rb" data-a="lists" aria-label="${E('lists.row_aria',{name:l.name,n})}"><span class="lic">${ic('list')}</span><span class="tx">${esc(l.name)}</span><span class="ct">${n}</span>${ic('chevR')}</button></div>`}).join('');
@@ -884,7 +928,7 @@ ${sec('mitt',T('sec.notifs'),'<div id="np"></div>')}
 ${sec('voice',T('sec.voice'),`<div class="rows"><div class="sr"><span class="lic">${ic('key')}</span><span class="tx">${E('voice.token')}<small class="mo">${esc(S.token||T('voice.token_none'))}</small></span><button type="button" class="ib" data-cp="${esc(S.token||'')}" ${S.token?'':'disabled'} aria-label="${E('voice.copy_token')}">${ic('copy')}</button></div><div class="sr"><span class="lic">${ic('link')}</span><span class="tx">${E('voice.endpoint')}<small class="mo">${ep}</small></span><button type="button" class="ib" data-cp="${ep}" aria-label="${E('voice.copy_endpoint')}">${ic('copy')}</button></div></div>
 <div class="sf"><p>${T('voice.ios')}</p><p>${T('voice.android')}</p></div>`)}
 ${sec('fin',T('sec.fin'),'<div id="fn"></div>')}
-${sec('lang',T('sec.lang'),`<div class="rows" role="radiogroup" aria-label="${E('lang.language')}">${LANGS.map(l=>`<div class="sr"><button type="button" class="rb" role="radio" aria-checked="${l.code===getLang()}" data-lang="${l.code}" lang="${esc(l.locale)}"><span class="tx">${esc(l.name)}</span>${l.code===getLang()?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button></div>`).join('')}</div><div class="rows" style="margin-top:12px"><div class="sr dim"><button type="button" class="rb" disabled aria-disabled="true"><span class="tx">${E('lang.country')}<small>${E('lang.country_soon')}</small></span>${ic('chevR')}</button></div></div>`)}
+${sec('lang',T('sec.lang'),`<div class="rows" role="radiogroup" aria-label="${E('lang.language')}">${LANGS.map(l=>`<div class="sr"><button type="button" class="rb" role="radio" aria-checked="${l.code===getLang()}" data-lang="${l.code}" lang="${esc(l.locale)}"><span class="tx">${esc(l.name)}</span>${l.code===getLang()?`<span class="ct" style="color:var(--acc-d)" aria-hidden="true">${ic('check')}</span>`:''}</button></div>`).join('')}</div><div id="rg" style="margin-top:12px">${regionHTML()}</div>`)}
 ${sec('konto',T('sec.account'),`<div class="rows"><div class="sr"><span class="lic">${ic('user')}</span><span class="tx">${esc(S.user?.email||'')}</span></div><div class="sr"><button type="button" class="rb dng" data-a="lo">${E('account.logout')}</button></div></div>`)}`;drawStores();drawCards();drawPush();drawFin();sums()};
  const drawCards=()=>{const h=$('#kc',b);if(!h)return;h.innerHTML=`<div class="rows">${CARDS.map(c=>`<div class="sr"><button type="button" class="rb" data-cv="${c.id}" aria-label="${E('card.view_aria',{label:c.label})}">${cardIcon(c)}<span class="tx">${esc(c.label)}<small>${esc(c.owner?who(c.owner):'')}</small></span></button><button type="button" class="ib" data-ce="${c.id}" aria-label="${E('card.edit_aria',{label:c.label})}">${ic('pencil')}</button></div>`).join('')}<div class="sr"><button type="button" class="rb acc" data-ce=""><span class="lic pl">${ic('plus')}</span><span class="tx">${E('card.add')}</span></button></div></div><div class="sf">${E('card.hint')}</div>`;sums()};
  S.cardRedraw=()=>drawCards();
@@ -895,6 +939,9 @@ ${sec('konto',T('sec.account'),`<div class="rows"><div class="sr"><span class="l
   if(t.id==='ao'){closeSheet();return}
   if(t.dataset.sec){const k=t.dataset.sec,o=!SEC[k];SEC[k]=o;LS.set('pq.sec',SEC);t.closest('.ds').classList.toggle('open',o);t.setAttribute('aria-expanded',o);if(k==='laden'){$('#eb',b).hidden=!o;if(!o&&edit){edit=false;drawStores()}}return}
   if(t.dataset.lang){await setLang(t.dataset.lang);return}
+  if(t.dataset.co){const c=t.dataset.co,R=REG();let cs=[...R.countries];if(cs.includes(c)){if(cs.length>1)cs=cs.filter(x=>x!==c)}else{cs.push(c);pending=true}applyRegion(cs,R.subs);$(`[data-co="${c}"]`,b)?.focus({preventScroll:true});return}
+  if(t.dataset.pri){const R=REG();applyRegion([t.dataset.pri,...R.countries.filter(x=>x!==t.dataset.pri)],R.subs);return}
+  if(t.dataset.sub){const[c,x]=t.dataset.sub.split(':'),R=REG();pending=true;applyRegion(R.countries,{...R.subs,[c]:x});return}
   if(t.dataset.cv){const c=CARDS.find(x=>x.id===t.dataset.cv);if(c)viewCard(c);return}
   if(t.dataset.ce!==undefined){openCard(t.dataset.ce||null);return}
   if(t.id==='eb'){edit=!edit;drawStores();return}
@@ -906,6 +953,7 @@ ${sec('konto',T('sec.account'),`<div class="rows"><div class="sr"><span class="l
   else if(a==='nl'){const n=await askText(T('lists.new'),'',T('common.create'));if(n){const l={id:uid(),name:n,sort:(S.lists.at(-1)?.sort||0)+1,created_at:now()};S.lists.push(l);enqueue({t:'lists',o:'insert',d:l});render();draw()}}
   else if(a==='ed'&&s)openStore(s.id);
   else if(a==='add')openStore();
+  else if(a==='cat'||a==='sugg'){pending=false;openCatalog()}
   else if(a==='rm'&&s)askDelStore(s);
   else if(a==='lo'){closeSheet();await flush();await sb.auth.signOut()}};
  b.oninput=e=>{if(e.target.id==='sq2'){q=e.target.value;drawStores()}};
@@ -1003,7 +1051,7 @@ onLangChange(()=>{if(!S.user){if($('.auth'))showAuth();return}buildShell();rende
 let started=false;
 async function start(){const c=LS.get('pq.cache',null);if(c){Object.assign(S,{lists:c.lists||[],stores:c.stores||[],items:c.items||[],cat:c.cat||{},token:c.token||null})}
  if(!S.lists.some(l=>l.id===S.listId))S.listId=S.lists[0]?.id||null;buildShell();render();subscribe();
- FIN.load();try{await load();await ensureList();render()}catch(e){if(e.denied){denied();return}toast(T('toast.offline_cached'))}
+ FIN.load();try{await load();await ensureList();render();firstRunCatalog()}catch(e){if(e.denied){denied();return}toast(T('toast.offline_cached'))}
  flush();
  if(!started){started=true;const add=P.get('add'),v=P.get('voice');if(add||v){history.replaceState(null,'',location.pathname+location.hash)}
   if(add)addFromText(add);if(v==='1')voiceOverlay()}}

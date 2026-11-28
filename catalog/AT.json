@@ -1,0 +1,812 @@
+{
+  "country": "AT",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Spar",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#00873C",
+      "aliases": [
+        "spar",
+        "schpar",
+        "eurospar",
+        "interspar"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Billa",
+      "kind": "Lebensmittel",
+      "rank": 2,
+      "color": "#FFC800",
+      "aliases": [
+        "billa",
+        "bila",
+        "billa plus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Hofer",
+      "kind": "Discounter",
+      "rank": 3,
+      "color": "#0054A6",
+      "aliases": [
+        "hofer",
+        "hoffer",
+        "hofa"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": 4,
+      "color": "#E5A800",
+      "aliases": [
+        "lidl",
+        "liedl"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Penny",
+      "kind": "Discounter",
+      "rank": 5,
+      "color": "#1A1A1A",
+      "aliases": [
+        "penny",
+        "penni"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "dm",
+      "kind": "Drogerie",
+      "rank": 6,
+      "color": "#0096D6",
+      "aliases": [
+        "dm",
+        "dm drogerie",
+        "d m",
+        "dm markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.gs1.at/sites/default/files/2026-07/Poster-CASH-Handelstabelle-Lebensmittel-und-Drogeriefachhandel-2026.pdf"
+    },
+    {
+      "name": "Bipa",
+      "kind": "Drogerie",
+      "rank": 7,
+      "color": "#E6007E",
+      "aliases": [
+        "bipa",
+        "bippa",
+        "bi pa"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.gs1.at/sites/default/files/2026-07/Poster-CASH-Handelstabelle-Lebensmittel-und-Drogeriefachhandel-2026.pdf"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 8,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon",
+        "amazon prime"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": 9,
+      "color": "#0058A3",
+      "aliases": [
+        "ikea",
+        "ikeia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "MediaMarkt",
+      "kind": "Elektronik",
+      "rank": 10,
+      "color": "#DF0000",
+      "aliases": [
+        "mediamarkt",
+        "media markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "XXXLutz",
+      "kind": "Möbel",
+      "rank": 11,
+      "color": "#D50032",
+      "aliases": [
+        "xxxlutz",
+        "xxx lutz",
+        "lutz",
+        "xxl lutz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Müller",
+      "kind": "Drogerie",
+      "rank": 12,
+      "color": "#F37021",
+      "aliases": [
+        "müller",
+        "mueller",
+        "muller"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.gs1.at/sites/default/files/2026-07/Poster-CASH-Handelstabelle-Lebensmittel-und-Drogeriefachhandel-2026.pdf"
+    },
+    {
+      "name": "Hornbach",
+      "kind": "Baumarkt",
+      "rank": 13,
+      "color": "#E26B00",
+      "aliases": [
+        "hornbach",
+        "horn bach"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Bauhaus",
+      "kind": "Baumarkt",
+      "rank": 14,
+      "color": "#D6001C",
+      "aliases": [
+        "bauhaus",
+        "bau haus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Zalando",
+      "kind": "Online",
+      "rank": 15,
+      "color": "#FF6900",
+      "aliases": [
+        "zalando"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "H&M",
+      "kind": "Kleidung",
+      "rank": 16,
+      "color": "#E50010",
+      "aliases": [
+        "h&m",
+        "h und m",
+        "hm",
+        "hennes und mauritz"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Tchibo",
+      "kind": "Sonstige",
+      "rank": 17,
+      "color": "#6F4E37",
+      "aliases": [
+        "tchibo",
+        "tschibo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Libro",
+      "kind": "Sonstige",
+      "rank": 18,
+      "color": "#0B5FA5",
+      "aliases": [
+        "libro",
+        "libro papier"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Kika",
+      "kind": "Möbel",
+      "rank": 19,
+      "color": "#0073BB",
+      "aliases": [
+        "kika",
+        "kiga"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Action",
+      "kind": "Sonstige",
+      "rank": 20,
+      "color": "#0072CE",
+      "aliases": [
+        "action",
+        "aktion"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "MPreis",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "mpreis",
+        "m preis",
+        "em preis"
+      ],
+      "regions": [
+        "west"
+      ],
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Unimarkt",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#8DC63F",
+      "aliases": [
+        "unimarkt",
+        "uni markt"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Nah&Frisch",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#F28C00",
+      "aliases": [
+        "nah&frisch",
+        "nah und frisch",
+        "nahundfrisch"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Adeg",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#009FE3",
+      "aliases": [
+        "adeg",
+        "a deg",
+        "adek"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Norma",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#00A6C8",
+      "aliases": [
+        "norma",
+        "normal"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nielseniq.com/global/de/news-center/2026/nielseniq-umsatzbarometer-vorlaufige-marktanteile-2025/"
+    },
+    {
+      "name": "Hartlauer",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E30613",
+      "aliases": [
+        "hartlauer",
+        "hart lauer"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Expert",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#0054A6",
+      "aliases": [
+        "expert",
+        "experts"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Cyberport",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#EE7203",
+      "aliases": [
+        "cyberport",
+        "cyber port"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Willhaben",
+      "kind": "Online",
+      "rank": null,
+      "color": "#00A5E0",
+      "aliases": [
+        "willhaben",
+        "will haben"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Geizhals",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FFD200",
+      "aliases": [
+        "geizhals",
+        "geiz hals"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Mein Medikament",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#00A19A",
+      "aliases": [
+        "mein medikament",
+        "meinmedikament"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Shop Apotheke",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#7AB800",
+      "aliases": [
+        "shop apotheke",
+        "shopapotheke"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "DocMorris",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#009688",
+      "aliases": [
+        "docmorris",
+        "doc morris"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Apotheke zur Post",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#8A2BE2",
+      "aliases": [
+        "apotheke zur post",
+        "zur post apotheke"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Apo-Discount",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#FF4F59",
+      "aliases": [
+        "apo discount",
+        "apodiscount"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "C&A",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0A4DA2",
+      "aliases": [
+        "c&a",
+        "c und a",
+        "cunda"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Zara",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#000000",
+      "aliases": [
+        "zara",
+        "sara"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Primark",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#0099D8",
+      "aliases": [
+        "primark",
+        "primmark"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Takko",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#C41E3A",
+      "aliases": [
+        "takko",
+        "tako"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Kastner & Öhler",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#7B1E3A",
+      "aliases": [
+        "kastner und öhler",
+        "kastner & öhler",
+        "kastner oehler",
+        "k und ö"
+      ],
+      "regions": [
+        "east"
+      ],
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "OBI",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#F58220",
+      "aliases": [
+        "obi",
+        "oby"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Hagebau",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#009036",
+      "aliases": [
+        "hagebau",
+        "hage bau"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Bellaflora",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#6BAA2A",
+      "aliases": [
+        "bellaflora",
+        "bella flora"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Porta",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "porta",
+        "porta möbel",
+        "porta moebel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Mömax",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#C5008C",
+      "aliases": [
+        "mömax",
+        "moemax",
+        "momax",
+        "möbel max"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Depot",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#1F6F5C",
+      "aliases": [
+        "depot",
+        "depo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Søstrene Grene",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#D4145A",
+      "aliases": [
+        "søstrene grene",
+        "sostrene grene",
+        "sostrene"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Zara Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#5B5B5B",
+      "aliases": [
+        "zara home",
+        "sara home"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Butlers",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#7A4B2A",
+      "aliases": [
+        "butlers",
+        "batlers"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Fressnapf",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#D4252A",
+      "aliases": [
+        "fressnapf",
+        "fress napf"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Zooplus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#0066B3",
+      "aliases": [
+        "zooplus",
+        "zoo plus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Das Futterhaus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#E8112D",
+      "aliases": [
+        "das futterhaus",
+        "futterhaus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Maxi Zoo",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#FFB400",
+      "aliases": [
+        "maxi zoo",
+        "maxizoo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Hervis",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#E2001A",
+      "aliases": [
+        "hervis",
+        "herwis"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Intersport",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#005AA7",
+      "aliases": [
+        "intersport",
+        "inter sport"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Decathlon",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0082C3",
+      "aliases": [
+        "decathlon",
+        "dekathlon"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Sportler",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#00704A",
+      "aliases": [
+        "sportler",
+        "sport ler"
+      ],
+      "regions": [
+        "west"
+      ],
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Sport 2000",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#0095DA",
+      "aliases": [
+        "sport 2000"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Pagro",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#00843D",
+      "aliases": [
+        "pagro",
+        "pagro diskont"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    },
+    {
+      "name": "Thalia",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#0F2A4A",
+      "aliases": [
+        "thalia",
+        "talia"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.news.at/wirtschaft/groesste-unternehmen-oesterreich-nach-branche"
+    }
+  ]
+}

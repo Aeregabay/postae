@@ -1,0 +1,902 @@
+{
+  "country": "US",
+  "researched_at": "2026-11-28",
+  "stores": [
+    {
+      "name": "Walmart",
+      "kind": "Lebensmittel",
+      "rank": 1,
+      "color": "#0071CE",
+      "aliases": [
+        "walmart",
+        "wal-mart",
+        "wal mart"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Amazon",
+      "kind": "Online",
+      "rank": 2,
+      "color": "#FF9900",
+      "aliases": [
+        "amazon"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Costco",
+      "kind": "Lebensmittel",
+      "rank": 3,
+      "color": "#E31837",
+      "aliases": [
+        "costco",
+        "cosco"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Kroger",
+      "kind": "Lebensmittel",
+      "rank": 4,
+      "color": "#1B3F94",
+      "aliases": [
+        "kroger",
+        "kroger's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Target",
+      "kind": "Sonstige",
+      "rank": 5,
+      "color": "#CC0000",
+      "aliases": [
+        "target",
+        "tarjay"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Home Depot",
+      "kind": "Baumarkt",
+      "rank": 6,
+      "color": "#F96302",
+      "aliases": [
+        "home depot",
+        "the home depot"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Walgreens",
+      "kind": "Apotheke",
+      "rank": 7,
+      "color": "#E31B23",
+      "aliases": [
+        "walgreens",
+        "walgreen's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "CVS",
+      "kind": "Apotheke",
+      "rank": 8,
+      "color": "#7E1F2E",
+      "aliases": [
+        "cvs",
+        "cvs pharmacy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Aldi",
+      "kind": "Discounter",
+      "rank": 9,
+      "color": "#00005F",
+      "aliases": [
+        "aldi",
+        "aldi's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Publix",
+      "kind": "Lebensmittel",
+      "rank": 10,
+      "color": "#3B7D23",
+      "aliases": [
+        "publix",
+        "publics"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Albertsons",
+      "kind": "Lebensmittel",
+      "rank": 11,
+      "color": "#0072BC",
+      "aliases": [
+        "albertsons",
+        "albertson's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Lowe's",
+      "kind": "Baumarkt",
+      "rank": 12,
+      "color": "#004990",
+      "aliases": [
+        "lowes",
+        "lowe's",
+        "lows"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Dollar General",
+      "kind": "Sonstige",
+      "rank": 13,
+      "color": "#FFB400",
+      "aliases": [
+        "dollar general",
+        "dg"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Sam's Club",
+      "kind": "Lebensmittel",
+      "rank": 14,
+      "color": "#0A5CA8",
+      "aliases": [
+        "sams club",
+        "sam's club",
+        "sams"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Trader Joe's",
+      "kind": "Lebensmittel",
+      "rank": 15,
+      "color": "#C8102E",
+      "aliases": [
+        "trader joes",
+        "trader joe's",
+        "tj's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Whole Foods",
+      "kind": "Lebensmittel",
+      "rank": 16,
+      "color": "#00674B",
+      "aliases": [
+        "whole foods",
+        "whole foods market"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Best Buy",
+      "kind": "Elektronik",
+      "rank": 17,
+      "color": "#0046BE",
+      "aliases": [
+        "best buy",
+        "bestbuy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "H-E-B",
+      "kind": "Lebensmittel",
+      "rank": 18,
+      "color": "#D01F2F",
+      "aliases": [
+        "heb",
+        "h-e-b",
+        "h e b"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Meijer",
+      "kind": "Lebensmittel",
+      "rank": 19,
+      "color": "#D2232A",
+      "aliases": [
+        "meijer",
+        "meyer"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Dollar Tree",
+      "kind": "Sonstige",
+      "rank": 20,
+      "color": "#00A651",
+      "aliases": [
+        "dollar tree"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://nrf.com/research-insights/top-retailers/top-100-retailers/top-100-retailers-2026-list"
+    },
+    {
+      "name": "Lidl",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#F2B600",
+      "aliases": [
+        "lidl",
+        "lidel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.lidl.com"
+    },
+    {
+      "name": "Save A Lot",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#E2231A",
+      "aliases": [
+        "save a lot",
+        "save-a-lot"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://savealot.com"
+    },
+    {
+      "name": "WinCo Foods",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#EF3E33",
+      "aliases": [
+        "winco",
+        "win co",
+        "winco foods"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.wincofoods.com"
+    },
+    {
+      "name": "Grocery Outlet",
+      "kind": "Discounter",
+      "rank": null,
+      "color": "#00A94F",
+      "aliases": [
+        "grocery outlet"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.groceryoutlet.com"
+    },
+    {
+      "name": "Food Lion",
+      "kind": "Lebensmittel",
+      "rank": null,
+      "color": "#003DA5",
+      "aliases": [
+        "food lion"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.foodlion.com"
+    },
+    {
+      "name": "Ulta Beauty",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#F26B21",
+      "aliases": [
+        "ulta",
+        "ulta beauty"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ulta.com"
+    },
+    {
+      "name": "Sephora",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#000000",
+      "aliases": [
+        "sephora"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sephora.com"
+    },
+    {
+      "name": "Bath & Body Works",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#6A2C91",
+      "aliases": [
+        "bath and body works",
+        "bath & body works",
+        "bbw"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bathandbodyworks.com"
+    },
+    {
+      "name": "Sally Beauty",
+      "kind": "Drogerie",
+      "rank": null,
+      "color": "#E4007C",
+      "aliases": [
+        "sally beauty",
+        "sallys"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.sallybeauty.com"
+    },
+    {
+      "name": "Mark Cuban Cost Plus Drugs",
+      "kind": "Apotheke",
+      "rank": null,
+      "color": "#1D6FB8",
+      "aliases": [
+        "cost plus drugs",
+        "mark cuban cost plus",
+        "cost plus"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://costplusdrugs.com"
+    },
+    {
+      "name": "TJ Maxx",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#B5121B",
+      "aliases": [
+        "tj maxx",
+        "tjmaxx",
+        "t j maxx"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://tjmaxx.tjx.com"
+    },
+    {
+      "name": "Ross Dress for Less",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#004B8D",
+      "aliases": [
+        "ross",
+        "ross dress for less"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.rossstores.com"
+    },
+    {
+      "name": "Old Navy",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#002D72",
+      "aliases": [
+        "old navy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://oldnavy.gap.com"
+    },
+    {
+      "name": "Kohl's",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#6D2077",
+      "aliases": [
+        "kohls",
+        "kohl's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.kohls.com"
+    },
+    {
+      "name": "Nordstrom",
+      "kind": "Kleidung",
+      "rank": null,
+      "color": "#4A4A4A",
+      "aliases": [
+        "nordstrom",
+        "nordstroms"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.nordstrom.com"
+    },
+    {
+      "name": "eBay",
+      "kind": "Online",
+      "rank": null,
+      "color": "#E53238",
+      "aliases": [
+        "ebay"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.ebay.com"
+    },
+    {
+      "name": "Etsy",
+      "kind": "Online",
+      "rank": null,
+      "color": "#F1641E",
+      "aliases": [
+        "etsy"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.etsy.com"
+    },
+    {
+      "name": "Temu",
+      "kind": "Online",
+      "rank": null,
+      "color": "#FB7701",
+      "aliases": [
+        "temu",
+        "tay moo"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.temu.com"
+    },
+    {
+      "name": "Wayfair",
+      "kind": "Online",
+      "rank": null,
+      "color": "#7F187F",
+      "aliases": [
+        "wayfair"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.wayfair.com"
+    },
+    {
+      "name": "Micro Center",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#C8362B",
+      "aliases": [
+        "micro center",
+        "microcenter"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.microcenter.com"
+    },
+    {
+      "name": "B&H Photo",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#A60F2D",
+      "aliases": [
+        "b&h",
+        "b and h",
+        "b&h photo"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.bhphotovideo.com"
+    },
+    {
+      "name": "Apple Store",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#6E6E73",
+      "aliases": [
+        "apple",
+        "apple store"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.apple.com/retail/"
+    },
+    {
+      "name": "GameStop",
+      "kind": "Elektronik",
+      "rank": null,
+      "color": "#E31937",
+      "aliases": [
+        "gamestop",
+        "game stop"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.gamestop.com"
+    },
+    {
+      "name": "Menards",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#00693C",
+      "aliases": [
+        "menards",
+        "menard's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.menards.com"
+    },
+    {
+      "name": "Ace Hardware",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#B01E2E",
+      "aliases": [
+        "ace hardware",
+        "ace"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.acehardware.com"
+    },
+    {
+      "name": "Harbor Freight",
+      "kind": "Baumarkt",
+      "rank": null,
+      "color": "#D13A1F",
+      "aliases": [
+        "harbor freight",
+        "harbour freight"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.harborfreight.com"
+    },
+    {
+      "name": "IKEA",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#E8B900",
+      "aliases": [
+        "ikea",
+        "ikeya"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ikea.com/us/en/"
+    },
+    {
+      "name": "Ashley",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#1D1D1B",
+      "aliases": [
+        "ashley",
+        "ashley furniture",
+        "ashley homestore"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.ashleyfurniture.com"
+    },
+    {
+      "name": "Rooms To Go",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#003A70",
+      "aliases": [
+        "rooms to go"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.roomstogo.com"
+    },
+    {
+      "name": "La-Z-Boy",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#8A6D3B",
+      "aliases": [
+        "la-z-boy",
+        "lazy boy",
+        "la z boy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.la-z-boy.com"
+    },
+    {
+      "name": "Mattress Firm",
+      "kind": "Möbel",
+      "rank": null,
+      "color": "#005DAA",
+      "aliases": [
+        "mattress firm"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.mattressfirm.com"
+    },
+    {
+      "name": "HomeGoods",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#00859B",
+      "aliases": [
+        "homegoods",
+        "home goods"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.homegoods.com"
+    },
+    {
+      "name": "At Home",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#2E7D32",
+      "aliases": [
+        "at home"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.athome.com"
+    },
+    {
+      "name": "Crate & Barrel",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#333333",
+      "aliases": [
+        "crate and barrel",
+        "crate & barrel"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.crateandbarrel.com"
+    },
+    {
+      "name": "Pottery Barn",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#7A5C3E",
+      "aliases": [
+        "pottery barn"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.potterybarn.com"
+    },
+    {
+      "name": "The Container Store",
+      "kind": "Wohnen",
+      "rank": null,
+      "color": "#00A3A1",
+      "aliases": [
+        "container store",
+        "the container store"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.containerstore.com"
+    },
+    {
+      "name": "Petco",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#0072CE",
+      "aliases": [
+        "petco",
+        "pet co"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petco.com"
+    },
+    {
+      "name": "PetSmart",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#C41E3A",
+      "aliases": [
+        "petsmart",
+        "pet smart"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petsmart.com"
+    },
+    {
+      "name": "Chewy",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#1C49C2",
+      "aliases": [
+        "chewy",
+        "chewie"
+      ],
+      "regions": null,
+      "online_only": true,
+      "source": "https://www.chewy.com"
+    },
+    {
+      "name": "Pet Supplies Plus",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#F7941D",
+      "aliases": [
+        "pet supplies plus"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.petsuppliesplus.com"
+    },
+    {
+      "name": "Tractor Supply",
+      "kind": "Tierbedarf",
+      "rank": null,
+      "color": "#9E1B1B",
+      "aliases": [
+        "tractor supply",
+        "tractor supply co"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.tractorsupply.com"
+    },
+    {
+      "name": "Dick's Sporting Goods",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#1B5E3B",
+      "aliases": [
+        "dicks sporting goods",
+        "dick's",
+        "dicks"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.dickssportinggoods.com"
+    },
+    {
+      "name": "Academy Sports + Outdoors",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#003B71",
+      "aliases": [
+        "academy sports",
+        "academy"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.academy.com"
+    },
+    {
+      "name": "REI",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#4B7F3A",
+      "aliases": [
+        "rei",
+        "r e i"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.rei.com"
+    },
+    {
+      "name": "Foot Locker",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#222222",
+      "aliases": [
+        "foot locker",
+        "footlocker"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.footlocker.com"
+    },
+    {
+      "name": "Bass Pro Shops",
+      "kind": "Sport",
+      "rank": null,
+      "color": "#007A33",
+      "aliases": [
+        "bass pro",
+        "bass pro shops"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.basspro.com"
+    },
+    {
+      "name": "Five Below",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#00AEEF",
+      "aliases": [
+        "five below",
+        "5 below"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.fivebelow.com"
+    },
+    {
+      "name": "Michaels",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#B3243B",
+      "aliases": [
+        "michaels",
+        "michael's"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.michaels.com"
+    },
+    {
+      "name": "Barnes & Noble",
+      "kind": "Sonstige",
+      "rank": null,
+      "color": "#00563F",
+      "aliases": [
+        "barnes and noble",
+        "barnes & noble"
+      ],
+      "regions": null,
+      "online_only": false,
+      "source": "https://www.barnesandnoble.com"
+    }
+  ]
+}

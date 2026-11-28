@@ -253,8 +253,6 @@
  "voice.example": "p. ex. « Lait, 2 bananes et du pain chez Migros »",
  "account.logout": "Se déconnecter",
  "lang.language": "Langue",
- "lang.country": "Pays",
- "lang.country_soon": "bientôt disponible",
  "auth.tagline": "Liste de courses partagée",
  "auth.email": "E-mail",
  "auth.password": "Mot de passe",
@@ -405,5 +403,42 @@
   "many": "Regrouper en un seul ticket ({count})",
   "other": "Regrouper en un seul ticket ({count})"
  },
- "shell.view_switch": "Changer de vue"
+ "shell.view_switch": "Changer de vue",
+ "kind.discounter": "Hard-discount",
+ "kind.clothing": "Vêtements",
+ "kind.online": "En ligne",
+ "kind.electronics": "Électronique",
+ "kind.furniture": "Meubles",
+ "kind.pets": "Animalerie",
+ "kind.sport": "Sport",
+ "region.countries": "Pays",
+ "region.primary": "Pays principal",
+ "region.make_primary": "Définir comme pays principal",
+ "region.region": "Région",
+ "region.ch.de": "Suisse alémanique",
+ "region.ch.fr": "Romandie",
+ "region.ch.it": "Tessin",
+ "region.be.nl": "Flandre",
+ "region.be.fr": "Wallonie-Bruxelles",
+ "region.hint": "S’applique à tout le foyer.",
+ "region.suggest": "Proposer des magasins pour cette sélection",
+ "catalog.title": "Magasins du catalogue",
+ "catalog.add_btn": "Ajouter des magasins du catalogue",
+ "catalog.top20": "Sélectionner le top 20",
+ "catalog.all": "Tous",
+ "catalog.none": "Aucun",
+ "catalog.top": "Top",
+ "catalog.exists": "déjà ajouté",
+ "catalog.empty_country": "Pas encore de magasins pour ce pays",
+ "catalog.loading": "Chargement du catalogue…",
+ "catalog.error": "Impossible de charger le catalogue",
+ "catalog.change": "Modifier le pays et la région",
+ "catalog.add_n": {
+  "one": "Ajouter {count} magasin",
+  "other": "Ajouter {count} magasins"
+ },
+ "catalog.added": {
+  "one": "{count} magasin ajouté",
+  "other": "{count} magasins ajoutés"
+ }
 }

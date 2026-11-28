@@ -248,8 +248,6 @@
  "voice.example": "bijv. «Melk, 2 bananen en brood bij Albert Heijn»",
  "account.logout": "Uitloggen",
  "lang.language": "Taal",
- "lang.country": "Land",
- "lang.country_soon": "binnenkort beschikbaar",
  "auth.tagline": "Gedeelde boodschappenlijst",
  "auth.email": "E-mail",
  "auth.password": "Wachtwoord",
@@ -393,5 +391,42 @@
   "one": "Samen als één bon ({count})",
   "other": "Samen als één bon ({count})"
  },
- "shell.view_switch": "Weergave wisselen"
+ "shell.view_switch": "Weergave wisselen",
+ "kind.discounter": "Discounters",
+ "kind.clothing": "Kleding",
+ "kind.online": "Online",
+ "kind.electronics": "Elektronica",
+ "kind.furniture": "Meubels",
+ "kind.pets": "Dierenbenodigdheden",
+ "kind.sport": "Sport",
+ "region.countries": "Landen",
+ "region.primary": "Hoofdland",
+ "region.make_primary": "Als hoofdland instellen",
+ "region.region": "Regio",
+ "region.ch.de": "Duitstalig Zwitserland",
+ "region.ch.fr": "Franstalig Zwitserland",
+ "region.ch.it": "Ticino",
+ "region.be.nl": "Vlaanderen",
+ "region.be.fr": "Wallonië-Brussel",
+ "region.hint": "Geldt voor het hele huishouden.",
+ "region.suggest": "Winkels voorstellen voor deze selectie",
+ "catalog.title": "Winkels uit catalogus",
+ "catalog.add_btn": "Winkels uit catalogus toevoegen",
+ "catalog.top20": "Top 20 selecteren",
+ "catalog.all": "Alles",
+ "catalog.none": "Geen",
+ "catalog.top": "Top",
+ "catalog.exists": "al toegevoegd",
+ "catalog.empty_country": "Nog geen winkels voor dit land",
+ "catalog.loading": "Catalogus laden…",
+ "catalog.error": "Catalogus kon niet worden geladen",
+ "catalog.change": "Land en regio wijzigen",
+ "catalog.add_n": {
+  "one": "{count} winkel toevoegen",
+  "other": "{count} winkels toevoegen"
+ },
+ "catalog.added": {
+  "one": "{count} winkel toegevoegd",
+  "other": "{count} winkels toegevoegd"
+ }
 }
