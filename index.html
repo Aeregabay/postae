@@ -265,11 +265,13 @@ body.fin-on .sfab{bottom:calc(84px + env(safe-area-inset-bottom))}body.fin-tab .
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { parseUtterance } from './parser.js';
-import { CATEGORIES, resolveIcon, guessCategory, categoryColor, categoryIcon, suggestionKeywords } from './icons.js';
+import { setIconLang, CATEGORIES, resolveIcon, guessCategory, categoryColor, categoryIcon, suggestionKeywords } from './icons.js';
 import { ICON_SVGS } from './icon-svgs.js';
 import { createFinance } from './finance.js';
+import { registerAll as registerLangPacks } from './lang/index.js';
+registerLangPacks();
 import { t as T, tp as TP, th as TH, init as i18nInit, setLang, onLangChange, lang as getLang, locale, LANGS, fmtDate, catName, kindName, unitName } from './i18n.js';
-await i18nInit();
+await i18nInit();setIconLang(getLang());onLangChange(()=>setIconLang(getLang()));
 const SB_URL='https://dzuhqugacawaqfcvayoa.supabase.co',SB_KEY='sb_publishable_1xtQRorof2bprnu3zU93pw_D-Z7qojE';
 const sb=createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,storage:window.localStorage}});
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];

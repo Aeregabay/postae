@@ -12,7 +12,7 @@ assert.ok(suggestionKeywords("xe").length >= 8);
 registerIcons("xf", { HEAD: "first", SPLIT: /^(de|du|des|pour|avec|d)$/i, DATA: [[K, ":lid couvercle :pan casserole"], [F, ":apple pomme"]] });
 assert.equal(resolveIcon("couvercle de casserole", null, "xf").icon, "lid");
 assert.equal(resolveIcon("pomme", null, "xf").icon, "apple");
-assert.equal(resolveIcon("Pfannendeckel", null, "xf").matched, false); // own pack, no fallback to de when pack exists
+assert.equal(resolveIcon("Pfannendeckel", null, "xf").matched, true); // falls back to other packs (mixed-language households)
 assert.equal(resolveIcon("Pfannendeckel", null, "zz").icon, "lid");   // no pack -> de
 assert.throws(() => registerIcons("xg", { HEAD: "last", SPLIT: /x/, DATA: [[K, ":nope foo"]] }), /unknown icon key "nope"/);
 assert.throws(() => registerIcons("xg", { HEAD: "last", SPLIT: /x/, DATA: [["Nope", ":lid foo"]] }), /unknown category "Nope"/);

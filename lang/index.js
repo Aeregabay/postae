@@ -3,7 +3,16 @@
 import { registerParser } from '../parser.js';
 import { registerIcons } from '../icons.js';
 
-const PACKS = {};
+import en from './en.js';
+import fr from './fr.js';
+import es from './es.js';
+import it from './it.js';
+import nl from './nl.js';
+import pt from './pt.js';
+import pl from './pl.js';
+
+// nl-BE (Vlaams) uses the Dutch pack, which already contains Flemish vocabulary.
+const PACKS = { en, fr, es, it, nl, 'nl-BE': nl, pt, pl };
 
 export const availableLanguages = () => Object.keys(PACKS);
 export function registerAll() {

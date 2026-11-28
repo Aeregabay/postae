@@ -113,7 +113,10 @@ TABLES.de=buildTable('de',{DATA:[...SPEC,...DATA],HEAD:'suffix',SPLIT:/^(für|fu
 export const KEYWORDS=TABLES.de.KEYWORDS;
 const tbl=lang=>TABLES[lang]||TABLES[String(lang).split('-')[0]]||TABLES.de;
 
-export function matchKeyword(name,lang='de'){const T=tbl(lang),{IDX,MODS,SPLIT,cache,HEAD,norms}=T,nrm=norms[0],raw=String(name||'').trim();if(!raw)return null;const ck=raw.toLowerCase();if(cache.has(ck))return cache.get(ck);
+let DEF_LANG='de';export const setIconLang=l=>{DEF_LANG=l||'de'};
+const langOrder=l=>{const p=String(l).split('-')[0];return [...new Set([l,p,'de',...Object.keys(TABLES)])].filter(x=>TABLES[x])};
+export function matchKeyword(name,lang=DEF_LANG){for(const l of langOrder(lang)){const h=matchKeyword1(name,l);if(h)return h}return null}
+function matchKeyword1(name,lang){const T=tbl(lang),{IDX,MODS,SPLIT,cache,HEAD,norms}=T,nrm=norms[0],raw=String(name||'').trim();if(!raw)return null;const ck=raw.toLowerCase();if(cache.has(ck))return cache.get(ck);
  let words=raw.match(/[\p{L}][\p{L}-]*/gu)||[];if(HEAD!=='suffix')words=(raw.replace(/['’]/g,' ').match(/[\p{L}\p{M}][\p{L}\p{M}-]*/gu)||[]);
  const cut=words.findIndex((w,i)=>i>0&&SPLIT.test(w));let rest=[];if(cut>0){rest=words.slice(cut+1);words=words.slice(0,cut)}
  const parts=words.flatMap(w=>w.includes('-')&&!IDX.has(nrm(w))?[w,...w.split('-')]:[w]);
@@ -129,10 +132,10 @@ export function matchKeyword(name,lang='de'){const T=tbl(lang),{IDX,MODS,SPLIT,c
   else{const others=order.filter(w=>nrm(w)!==hw).map(nrm);
    for(const[re,c]of MODS){if(others.some(o=>re.test(o))||(stg===2&&(m=>m&&hw.length>=m[0].length+4)(hw.match(re)))){if(c!==hit.category)hit={...hit,category:c};break}}}}
  cache.set(ck,hit);return hit}
-export function resolveIcon(name,category,lang='de'){const h=matchKeyword(name,lang);if(h)return{icon:h.icon,emoji:h.emoji,category:h.category,matched:true};
+export function resolveIcon(name,category,lang=DEF_LANG){const h=matchKeyword(name,lang);if(h)return{icon:h.icon,emoji:h.emoji,category:h.category,matched:true};
  const c=CMAP[category]&&category!=='Sonstiges'?category:null;const cc=CMAP[c||'Sonstiges'];return{icon:cc.icon,emoji:cc.emoji,category:cc.name,matched:false}}
-export function guessCategory(name,storeKind,lang='de'){const h=matchKeyword(name,lang);if(h)return h.category;const STORE=tbl(lang).STORE;
+export function guessCategory(name,storeKind,lang=DEF_LANG){const h=matchKeyword(name,lang);if(h)return h.category;const STORE=tbl(lang).STORE;
  const k=String(storeKind||'').toLowerCase().trim();if(k){if(STORE[k])return STORE[k];for(const[s,c]of Object.entries(STORE))if(k.includes(s))return c}
  return'Sonstiges'}
 // Suggestion source: one entry per keyword (display form capitalized)
-export const suggestionKeywords=(lang='de')=>tbl(lang).KEYWORDS.map(v=>({name:v.kw.charAt(0).toUpperCase()+v.kw.slice(1),icon:v.icon,emoji:v.emoji,category:v.category,key:v.kw}));
+export const suggestionKeywords=(lang=DEF_LANG)=>tbl(lang).KEYWORDS.map(v=>({name:v.kw.charAt(0).toUpperCase()+v.kw.slice(1),icon:v.icon,emoji:v.emoji,category:v.category,key:v.kw}));
