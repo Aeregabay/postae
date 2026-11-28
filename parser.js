@@ -65,6 +65,7 @@ export function registerParser(lang, rules) {
   need("PURPOSE", strOrRe, "a regex source string or RegExp");
   need("FOR", isStr, "a string (purpose prefix, e.g. 'for ')");
   need("PRE", isStr, "a regex source string (may be empty)");
+  if (rules.CAP != null && typeof rules.CAP !== "boolean") throw new Error(`registerParser("${lang}"): rules.CAP must be a boolean`);
   for (const k of ["HALF", "ONE_UNIT", "TRAIL", "TRAIL2", "NUMW", "U", "DEC"]) if (rules[k] != null && !isStr(rules[k])) throw new Error(`registerParser("${lang}"): rules.${k} must be a string`);
   const UNIT_MAP = Object.fromEntries(Object.entries(rules.UNIT_MAP).map(([k, v]) => [k.toLowerCase(), v]));
   const NW = Object.fromEntries(Object.entries(rules.NW).map(([k, v]) => [k.toLowerCase(), v]));
@@ -83,12 +84,12 @@ export function registerParser(lang, rules) {
     HALF: rules.HALF || null, ONE_UNIT: rules.ONE_UNIT || null,
     TRAIL: rules.TRAIL ? re(`\\s+(?:${rules.TRAIL})$`, "iu") : null,
     TRAIL2: rules.TRAIL2 ? re(`\\s+(?:${rules.TRAIL2})$`, "iu") : null,
-    DEC: rules.DEC ?? ",",
+    DEC: rules.DEC ?? ",", CAP: rules.CAP ?? true,
   };
 }
 registerParser("de", { UNIT_MAP, U, NW, NUMW, PHRASES, TOKENS, STOP, LEAD, CONJ, PURPOSE, FOR: "für ",
   PRE: "(?:(?:beim|bei\\s+der|bei\\s+dem|bei|im|in\\s+der|in\\s+dem|in|vom|von\\s+der|von\\s+dem|von|aus\\s+dem|aus\\s+der|aus|für\\s+den|für\\s+die|für)\\s+)?",
-  HALF: "(?:ein\\s+)?halb(?:e|es|en)?", ONE_UNIT: "ein|eine|einen|einem", TRAIL: "auf|ein|mit|an", TRAIL2: "mehr|dazu", DEC: "," });
+  HALF: "(?:ein\\s+)?halb(?:e|es|en)?", ONE_UNIT: "ein|eine|einen|einem", TRAIL: "auf|ein|mit|an", TRAIL2: "mehr|dazu", DEC: ",", CAP: true });
 const rulesFor = lang => RULES[lang] || RULES[String(lang).split("-")[0]] || RULES.de;
 
 const cap = s => (s ? s[0].toUpperCase() + s.slice(1) : s);
@@ -135,7 +136,36 @@ function parseClause(c, R) {
   if (!s) return null;
   if (s.toLowerCase().split(/\s+/).every(w => STOP.has(w))) return null;
   const parts = [spec, purpose].filter(Boolean);
-  return { name: cap(s), spec: parts.length ? parts.join(" · ").replace(new RegExp(D, "g"), R.DEC) : null };
+  return { name: R.CAP ? cap(s) : s, spec: parts.length ? parts.join(" · ").replace(new RegExp(D, "g"), R.DEC) : null };
+}
+
+// Damerau-Levenshtein (optimal string alignment) distance, early-exit above max.
+function dl(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let p2 = null, p1 = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const c = [i]; let min = i;
+    for (let j = 1; j <= b.length; j++) {
+      let v = Math.min(p1[j] + 1, c[j - 1] + 1, p1[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (p2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) v = Math.min(v, p2[j - 2] + 1);
+      c[j] = v; if (v < min) min = v;
+    }
+    if (min > max) return max + 1;
+    p2 = p1; p1 = c;
+  }
+  return p1[b.length];
+}
+const fuzzMax = n => (n.length >= 9 ? 2 : n.length >= 5 ? 1 : 0);
+// Find a span of consecutive words in t that is within edit distance of name n (speech-recognition tolerance); returns {index, length} or null.
+function fuzzyFind(t, n) {
+  const max = fuzzMax(n); if (!max) return null;
+  const key = n.toLowerCase(), k = key.split(/\s+/).length;
+  const toks = [...t.matchAll(/[\p{L}\p{N}][\p{L}\p{N}'’.-]*/gu)];
+  for (let i = 0; i + k <= toks.length; i++) {
+    const a = toks[i], z = toks[i + k - 1], w = t.slice(a.index, z.index + z[0].length);
+    if (dl(w.toLowerCase(), key, max) <= max) return { index: a.index, length: w.length };
+  }
+  return null;
 }
 
 export function parseUtterance(text, stores = [], lang = "de") {
@@ -146,6 +176,15 @@ export function parseUtterance(text, stores = [], lang = "de") {
   for (const { n, s } of names.sort((a, b) => b.n.length - a.n.length)) {
     const r = re(`${B}${PRE}${esc(n)}${E}`);
     if (r.test(t)) { store ??= s; t = t.replace(r, " "); }
+    else {
+      const f = fuzzyFind(t, n);
+      if (f) {
+        let from = f.index;
+        const pm = new RegExp(`${B}${PRE}$`, "iu").exec(t.slice(0, from));
+        if (PRE && pm && pm[0]) from = pm.index;
+        store ??= s; t = t.slice(0, from) + " " + t.slice(f.index + f.length);
+      }
+    }
   }
   const items = [], seen = new Map();
   for (const c of t.split(CONJ)) {

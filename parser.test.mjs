@@ -31,4 +31,17 @@ eq("noch bitte", []);
 eq("Ich brauche zwei Rollen Geschenkpapier zum Einpacken", ["Geschenkpapier|2 Rollen · für Einpacken"]);
 assert.equal(p("Milch", stores).store, null);
 assert.equal(p("x bei migros", stores).store.id, 1);
+// store aliases + speech-recognition tolerance
+const st2 = [{ id: 1, name: "Migros", aliases: ["migi"] }, { id: 2, name: "Coop", aliases: ["konsum"] }, { id: 5, name: "Landi Genossenschaft" }];
+assert.equal(p("Milch bei Migro", st2).store.id, 1);
+assert.deepEqual(p("Milch bei Migro", st2).items.map(x => x.name), ["Milch"]);
+assert.equal(p("Butter im Migros", st2).store.id, 1);
+assert.equal(p("Brot bei Migi", st2).store.id, 1);
+assert.deepEqual(p("Brot beim Konsum", st2).items.map(x => x.name), ["Brot"]);
+assert.equal(p("Brot beim Konsum", st2).store.id, 2);
+assert.equal(p("Eier Migors", st2).store.id, 1);
+assert.equal(p("Eier Migors", st2).items[0].name, "Eier");
+assert.equal(p("Eier bei Landi Genosenschaft", st2).store.id, 5);
+assert.equal(p("Milch", st2).store, null);
+assert.equal(p("Milch Cop", st2).store, null); // <5 chars: exact only
 console.log("all passed");
